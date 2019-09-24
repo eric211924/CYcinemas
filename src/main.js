@@ -27,11 +27,11 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     switch (to.path) {
       case '/user':
-        if (localStorage.getItem('token')) next();
+        if (localStorage.getItem('logAccount')) next();
         else next(from.path);
         break;
       case '/backEnd':
-        if (localStorage.getItem('token') == 'admin') next();
+        if (localStorage.getItem('logAccount') == 'admin') next();
         else next(from.path);
         break;
       default:

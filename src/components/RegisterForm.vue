@@ -18,8 +18,8 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for>暱稱 :</label>
-              <input type="text" class="form-control" />
+              <label for>姓名 :</label>
+              <input type="text" class="form-control" v-model="userName"/>
             </div>
             <div class="form-group">
               <label for>帳號 :</label>
@@ -27,11 +27,15 @@
             </div>
             <div class="form-group">
               <label for>密碼 :</label>
-              <input type="text" class="form-control" />
+              <input type="text" class="form-control" v-model="password"/>
             </div>
             <div class="form-group">
               <label for>信箱 :</label>
-              <input type="text" class="form-control" />
+              <input type="text" class="form-control" v-model="email"/>
+            </div>
+            <div class="form-group">
+              <label for>電話 :</label>
+              <input type="text" class="form-control" v-model="phone"/>
             </div>
           </div>
           <div class="modal-footer">
@@ -40,8 +44,9 @@
               type="button"
               class="btn btn-primary"
               data-dismiss="modal"
-              @click="registered"
+              @click="registered" 
             >送出</button>
+            
           </div>
         </div>
       </div>
@@ -53,7 +58,11 @@
 export default {
   data() {
     return {
-      account: ''
+      userName: '',
+      account: '',
+      password: '',
+      email: '',
+      phone: ''
     }
   },
   methods: {
@@ -63,9 +72,13 @@ export default {
           theme: 'bubble',
           duration: 3000
         });
-      } else {
-        this.account = '';
-        this.$toasted.success('註冊成功!!', {
+      } else { // 註冊成功 把各欄位資料寫到localStorage
+        localStorage.setItem('userName', this.userName);
+        localStorage.setItem('account', this.account);
+        localStorage.setItem('password', this.password);
+        localStorage.setItem('email', this.email);
+        localStorage.setItem('phone', this.phone);
+        this.$toasted.success(this.userName + " | " + this.account + " | 註冊成功", {
           theme: 'bubble',
           duration: 3000
         });

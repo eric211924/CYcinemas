@@ -47,7 +47,9 @@ export default {
   },
   methods: {
     setCookie() {
-      localStorage.setItem('token', this.account);
+      // 取得登入的帳密 做登入比對
+      localStorage.setItem('logAccount', this.account);
+      localStorage.setItem('logPassword', this.password);
       this.$emit('setcookie');
       this.account = '';
       this.password = '';
