@@ -54,7 +54,7 @@
             <router-link class="nav-link" to="/user">{{ name }} 您好</router-link>
           </li>
           <li class="nav-item" :class="{'active': this.$route.path == '/backEnd'}" v-if="isManager">
-            <router-link class="nav-link" to="/backEnd">後臺管理</router-link>
+            <router-link class="nav-link" to="/backEnd"><i class="fas fa-tachometer-alt"></i> 後臺管理</router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link" href @click="logout()">登出</a>

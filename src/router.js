@@ -57,16 +57,25 @@ export default new Router({
         {
           path: 'movieManage',
           name: 'movieManage',
+          meta: { requiresAuth: true },
           component: () => import('./views/MovieManage.vue')
+        },
+        {
+          path: 'foodManage',
+          name: 'foodManage',
+          meta: { requiresAuth: true },
+          component: () => import('./views/FoodManage.vue')
         },
         {
           path: 'memberManage',
           name: 'memberManage',
+          meta: { requiresAuth: true },
           component: () => import('./views/MemberManage.vue')
         },
         {
           path: 'report',
           name: 'report',
+          meta: { requiresAuth: true },
           component: () => import('./views/Report.vue')
         }
       ]

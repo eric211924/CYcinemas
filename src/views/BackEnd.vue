@@ -14,10 +14,15 @@
             :class="{'active': this.$route.path == '/backEnd/movieManage'}"
           >電影</router-link>
           <router-link
+            to="/backEnd/foodManage"
+            class="list-group-item list-group-item-action"
+            :class="{'active': this.$route.path == '/backEnd/foodManage'}"
+          ><i class="fa fa-cutlery" aria-hidden="true"></i> 餐點</router-link>
+          <router-link
             to="/backEnd/memberManage"
             class="list-group-item list-group-item-action"
             :class="{'active': this.$route.path == '/backEnd/memberManage'}"
-          >會員</router-link>
+          ><i class="fa fa-user"></i> 會員</router-link>
           <router-link
             to="/backEnd/report"
             class="list-group-item list-group-item-action"
@@ -38,9 +43,6 @@ export default {
     return {
 
     }
-  },
-  mounted() {
-    // console.log(this.$router.path);
   }
 }
 </script>

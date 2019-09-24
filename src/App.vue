@@ -18,6 +18,9 @@ export default {
   components: {
     Navbar,
     GoTop
+  },
+  mounted() {
+    localStorage.setItem('logAccount', 'admin')
   }
 }
 </script>

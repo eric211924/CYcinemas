@@ -14,6 +14,9 @@ import Axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, Axios);
 
+// font-awesome
+import 'font-awesome/css/font-awesome.css'
+
 Vue.config.productionTip = false
 
 new Vue({
@@ -25,12 +28,13 @@ new Vue({
 router.beforeEach((to, from, next) => {
   // console.log(to);
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    switch (to.path) {
-      case '/user':
+    let url = to.path.split('/');
+    switch (url[1]) {
+      case 'user':
         if (localStorage.getItem('logAccount')) next();
         else next(from.path);
         break;
-      case '/backEnd':
+      case 'backEnd':
         if (localStorage.getItem('logAccount') == 'admin') next();
         else next(from.path);
         break;
