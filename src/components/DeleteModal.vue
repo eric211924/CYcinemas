@@ -26,8 +26,8 @@
               <button
                 type="button"
                 class="btn btn-outline-danger ml-3"
-                @click.prevent="checkDel"
                 data-dismiss="modal"
+                @click.prevent="checkDel"
               >刪除</button>
             </div>
           </div>
