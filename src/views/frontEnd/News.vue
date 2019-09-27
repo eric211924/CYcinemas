@@ -267,8 +267,8 @@ figure {
   margin: 0 auto;
   padding-top: 40px;
 }
-figure a {
-}
+// figure a {
+// }
 figure a img {
   height: 100%;
   width: auto;
