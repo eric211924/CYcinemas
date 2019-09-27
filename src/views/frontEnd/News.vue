@@ -2,7 +2,7 @@
   <div id="app">
     <h1 class="text-center my-4">最新消息</h1>
 
-    <ul class="eventList">
+    <ul class="eventList" v-for="info in infos">
       <li>
         <figure style="height:250px;">
           <a href="#" style="height:250px;">
@@ -278,12 +278,6 @@ figure {
   margin: 0 auto;
   padding-top: 40px;
 }
-<<<<<<< HEAD
-
-=======
-// figure a {
-// }
->>>>>>> ef89c1b15909979de8d81e63ab2bbb3d9647ef61
 figure a img {
   height: 100%;
   width: auto;
@@ -305,11 +299,25 @@ time {
 <script>
 export default {
   data() {
-    return {};
+    return { infos: null };
   },
-  mounted() {},
-  methods: {
-      axi
-      }
-    };
+  mounted() {
+    const _this=this;
+    this.axios.get("https://cy-cinemas.ml/news/get").then(response => {
+      _this.infos = response.data;
+      console.log(_this.infos);
+    }).catch(function (error) { 
+        console.log(error);
+      });
+  },
+  methods: {}
+};
 </script>
+
+
+
+
+
+
+
+
