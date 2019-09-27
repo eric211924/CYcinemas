@@ -41,7 +41,26 @@ const router = new Router({
       path: '/user',
       name: 'user',
       meta: { requiresAuth: true },
-      component: () => import('./views/frontEnd/User.vue')
+      component: () => import('./views/frontEnd/User.vue'),
+      children: [
+        {
+          path: '',
+          name: 'userInfo',
+          component: () => import('./views/frontEnd/UserInfo.vue')
+        },
+        {
+          path: 'userWallet',
+          name: 'userWallet',
+          meta: { requiresAuth: true },
+          component: () => import('./views/frontEnd/UserWallet.vue')
+        },
+        {
+          path: 'userPoint',
+          name: 'userPoint',
+          meta: { requiresAuth: true },
+          component: () => import('./views/frontEnd/UserPoint.vue')
+        }
+      ]
     },
     {
       path: '/backEnd',
