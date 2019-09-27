@@ -1,7 +1,9 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <router-link class="navbar-brand" to="/"><img src="../assets/cy-cinemas-ok.png" height="56px" alt=""></router-link>
+      <router-link class="navbar-brand" to="/">
+        <img src="../assets/cy-cinemas-ok.png" height="56px" alt />
+      </router-link>
 
       <!-- 窄頁面時 navbar右邊的摺疊按鈕 -->
       <button
@@ -134,8 +136,8 @@ export default {
       } else {
         // 帳號錯誤 -> 直接報錯
         this.$toasted.error('登入失敗, 請檢查帳號或密碼是否有誤', {
-            theme: 'bubble',
-            duration: 3000
+          theme: 'bubble',
+          duration: 3000
         });
         this.isLogin = false;
         this.isManager = false;
