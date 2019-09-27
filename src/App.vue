@@ -20,7 +20,7 @@ export default {
     GoTop
   },
   mounted() {
-    localStorage.setItem('logAccount', 'admin')
+    // localStorage.setItem('logAccount', 'admin')
   }
 }
 </script>

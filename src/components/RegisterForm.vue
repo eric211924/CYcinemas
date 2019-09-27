@@ -19,11 +19,12 @@
           <div class="modal-body">
             <div class="form-group">
               <label for>姓名 :</label>
-              <input type="text" class="form-control" v-model="userName"/>
+              <input type="text" class="form-control" v-model="name"/>
             </div>
             <div class="form-group">
               <label for>帳號 :</label>
-              <input type="text" class="form-control" v-model="account" />
+              <input type="text" class="form-control" v-model="account" @change="checkAcc"/>
+              {{ check }}
             </div>
             <div class="form-group">
               <label for>密碼 :</label>
@@ -55,33 +56,81 @@
 </template>
 
 <script>
+var userList = []; // 暫存各使用者所填寫的資料
 export default {
   data() {
     return {
-      userName: '',
+      name: '',
       account: '',
       password: '',
       email: '',
-      phone: ''
+      phone: '',
+      check: ''
     }
   },
   methods: {
     registered() {
-      if (this.account == '123') {
-        this.$toasted.error('註冊失敗', {
+      // 註冊時 檢查帳號是否存在
+      // 會員註冊資料暫存 若帳號無重複 將此筆資料存進local
+      var userData = {
+        name: this.name,
+        account: this.account,
+        password: this.password,
+        email: this.email,
+        phone: this.phone
+      };
+      // 檢查local內有無資料 無: 直接新增會員 有: 取出local內已存的帳號比對
+      if (localStorage.getItem("allUser") === null) {
+        this.$toasted.success("註冊成功", {
           theme: 'bubble',
           duration: 3000
         });
-      } else { // 註冊成功 把各欄位資料寫到localStorage
-        localStorage.setItem('userName', this.userName);
-        localStorage.setItem('account', this.account);
-        localStorage.setItem('password', this.password);
-        localStorage.setItem('email', this.email);
-        localStorage.setItem('phone', this.phone);
-        this.$toasted.success(this.userName + " | " + this.account + " | 註冊成功", {
-          theme: 'bubble',
-          duration: 3000
-        });
+        userList.push(userData);
+        localStorage.setItem("allUser", JSON.stringify(userList));
+      } else {
+        // 取出local內已存的帳號比對 
+        // 有: 告知此帳號已存在 不存此會員註冊資料進local 
+        // 無: 將此會員註冊資料存進local
+        console.log("yes");
+        var getAccount = JSON.parse(localStorage.getItem("allUser"));
+        // console.log(getAccount);
+        var accIsExist = getAccount.find(getAccount => getAccount.account == this.account);
+        if (accIsExist) {
+          this.$toasted.error("此帳號有人使用了 換一個吧", {
+            theme: 'bubble',
+            duration: 3000
+          });
+        } else {
+          this.$toasted.success("會員建立成功", {
+            theme: 'bubble',
+            duration: 3000
+          });
+          getAccount.push(userData);
+          localStorage.setItem("allUser", JSON.stringify(getAccount));
+        }
+      }
+      this.name = "";
+      this.account = "";
+      this.password = "";
+      this.email = "";
+      this.phone = "";
+      this.check = "";
+    },
+    checkAcc() {
+      // 帳號輸入後 檢查帳號是否存在
+      // 先檢查local內有無資料 無: 表示帳號可使用  有: 取出local內已存的帳戶名稱比對
+      if (localStorage.getItem("allUser") === null) {
+        this.check = "此帳號可以使用";
+      } else {
+        // 取出local內已存的帳戶名稱比對 
+        // 有: 告知此帳戶已存在  無: 表示帳號可使用
+        var getAccount = JSON.parse(localStorage.getItem("allUser"));
+        var accIsExist = getAccount.find(getAccount => getAccount.account == this.account);
+        if (accIsExist) {
+          this.check = "此帳號已有人使用";
+        } else {
+          this.check = "此帳號可以使用";
+        }
       }
     }
   }
