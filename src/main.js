@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'bootstrap'
+import 'font-awesome/css/font-awesome.css'
 
 // vue toast
 import Toasted from 'vue-toasted'
