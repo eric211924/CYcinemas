@@ -303,8 +303,6 @@ export default {
     return {};
   },
   mounted() {},
-  methods: {
-      axi
-      }
-    };
+  methods: {}
+}
 </script>
