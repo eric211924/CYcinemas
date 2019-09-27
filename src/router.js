@@ -85,5 +85,25 @@ export default new Router({
         }
       ]
     }
-  ]
+  ],
+  beforeEach(to, from, next) {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      let url = to.path.split('/');
+      switch (url[1]) {
+        case 'user':
+          if (localStorage.getItem('logAccount')) next();
+          else next(from.path);
+          break;
+        case 'backEnd':
+          if (localStorage.getItem('logAccount') == 'admin') next();
+          else next(from.path);
+          break;
+        default:
+          next();
+          break;
+      }
+    } else {
+      next();
+    }
+  }
 })

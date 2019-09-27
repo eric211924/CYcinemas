@@ -95,35 +95,52 @@ export default {
     checkLogin() {
       if (localStorage.getItem('status')) { // 檢查是否在登入狀態
         this.isLogin = true;
-        this.name = localStorage.getItem('userName');
-        if (localStorage.getItem('account') == 'admin') {
+        console.log(typeof localStorage.getItem('logName'));
+        this.name = localStorage.getItem('logName');
+        if (localStorage.getItem('logAccount') == 'admin') {
           this.isManager = true;
         }
       }
     },
     getCookie() { // 登入帳密 與 註冊帳密比對 
-      // 登入成功
-      if ((localStorage.getItem('logAccount') == localStorage.getItem('account')) && (localStorage.getItem('logPassword') == localStorage.getItem('password'))) {
-        // 設置登入狀態
-        this.isLogin = true;
-        localStorage.setItem('status', 'login');
-        this.name = localStorage.getItem('userName');
-        // 是否為管理帳戶
-        if (localStorage.getItem('account') == 'admin') {
-          this.isManager = true;
+      var getAccount = JSON.parse(localStorage.getItem("allUser")); // 取得會員清單
+      var logAccount = localStorage.getItem('logAccount'); // 取得登入帳號
+      var logPassword = localStorage.getItem('logPassword'); // 取得登入密碼
+      var accIsExist = getAccount.find(getAccount => getAccount.account == logAccount);
+      // 檢查帳號/密碼是否正確
+      console.log(accIsExist);
+      if (accIsExist) {
+        // 帳號正確 -> 檢查密碼是否正確
+        if (accIsExist.password == logPassword) {
+          this.isLogin = true;
+          localStorage.setItem("status", "login");
+          localStorage.setItem("logName", accIsExist.name);
+          this.name = localStorage.getItem('logName');
+          // 帳密正確 -> 是否為管理員帳號
+          if (logAccount == 'admin') {
+            this.isManager = true;
+          }
+        } else {
+          // 帳號正確 密碼錯誤 -> 直接報錯
+          this.$toasted.error('登入失敗, 請檢查帳號或密碼是否有誤', {
+            theme: 'bubble',
+            duration: 3000
+          });
+          this.isLogin = false;
+          this.isManager = false;
+          localStorage.removeItem("logAccount");
+          localStorage.removeItem("logPassword");
         }
-        this.$toasted.success('登入成功', {
-          theme: 'bubble',
-          duration: 3000
-        });
       } else {
-        // 登入失敗 清除登入帳密 告知使用者
+        // 帳號錯誤 -> 直接報錯
+        this.$toasted.error('登入失敗, 請檢查帳號或密碼是否有誤', {
+            theme: 'bubble',
+            duration: 3000
+        });
+        this.isLogin = false;
+        this.isManager = false;
         localStorage.removeItem("logAccount");
         localStorage.removeItem("logPassword");
-        this.$toasted.success('登入失敗, 請檢查帳號或密碼是否有誤', {
-          theme: 'bubble',
-          duration: 3000
-        });
       }
     },
     // 登出功能
@@ -132,13 +149,14 @@ export default {
         theme: 'bubble',
         duration: 3000
       });
-      // 移除登入的帳密
+      // 移除登入的帳密 顯示的name
       localStorage.removeItem("logAccount");
       localStorage.removeItem("logPassword");
-      // localStorage.clear();
+      localStorage.removeItem("logName");
       // 狀態改成登出
       localStorage.removeItem('status');
       this.isLogin = false;
+      this.isManager = false;
     }
   }
 }

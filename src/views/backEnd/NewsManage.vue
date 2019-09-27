@@ -108,14 +108,9 @@ export default {
   methods: {
     getNewsData() {
       const _this = this;
-      $.ajax({
-        type: "GET",
-        url: `${_this.api}/get`,
-        dataType: "JSON",
-        success: function (response) {
-          console.log(response);
-          _this.newsData = response;
-        }
+      this.axios.get(`${_this.api}/get`).then((response) => {
+        _this.newsData = response.data;
+        console.log(response.data);
       });
     },
     addNews() {
@@ -125,6 +120,7 @@ export default {
       formData.append('file', this.file);
       formData.append('title', this.title);
       formData.append('content', this.content);
+
       this.axios.post(`${this.api}/add`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -135,6 +131,7 @@ export default {
           theme: 'bubble',
           duration: 3000
         });
+
         _this.getNewsData();
         _this.title = '';
         _this.content = '';
@@ -144,18 +141,13 @@ export default {
     deleteNews() {
       console.log(this.setId);
       const _this = this;
-      $.ajax({
-        type: "DELETE",
-        url: `${_this.api}/del/${_this.setId}`,
-        dataType: "JSON",
-        success: function (response) {
-          console.log(response);
-          _this.$toasted.success(response.msg, {
-            theme: 'bubble',
-            duration: 3000
-          });
-          _this.getNewsData();
-        }
+      this.axios.delete(`${_this.api}/del/${_this.setId}`).then(response => {
+        console.log(response.data);
+        _this.$toasted.success(response.data.msg, {
+          theme: 'bubble',
+          duration: 3000
+        });
+        _this.getNewsData();
       });
     }
   }

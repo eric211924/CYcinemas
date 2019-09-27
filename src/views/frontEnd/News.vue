@@ -16,7 +16,9 @@
         </figure>
         <section class="infoArea">
           <h5>
-            <a href="#" style="height:250px;">《台南FOCUS限定》打卡同樂趣 一起FUN電影！</a>
+            <a href="#">
+              <div style>《台南FOCUS限定》打卡同樂趣 一起FUN電影！</div>
+            </a>
           </h5>
           <time>2019/10/03 ~ 2019/10/31</time>
         </section>
@@ -205,12 +207,20 @@
           aria-hidden="true"
         >
           <div class="modal-dialog modal-lg">
-            <div class="modal-content" style="text-align:left;">
-              <p>《林口限定》Mappa獨家加碼。 iShow卡友享好禮</p>
-              <p>開始日期 : 2019/09/20</p>
-              <p>截止日期 : 2019/10/06</p>
-              <p>活動地點 : 林口MITSUI OUTLET PARK威秀影城</p>
-              <p>活動辦法 : 於影城臨櫃使用iShow卡單筆儲值1,000元以上，並購買Mappa影廳任一場次電影票，即可立即獲得加碼好禮。</p>
+            <div class="modal-content" style="text-align:left; padding:40px">
+              <h3>《林口限定》Mappa獨家加碼。 iShow卡友享好禮</h3>
+              <p>
+                <i class="fa fa-calendar" aria-hidden="true"></i> 開始日期 : 2019/09/20
+              </p>
+              <p>
+                <i class="fa fa-calendar" aria-hidden="true"></i> 截止日期 : 2019/10/06
+              </p>
+              <p>
+                <i class="fa fa-map-marker" aria-hidden="true"></i> 活動地點 : 林口MITSUI OUTLET PARK威秀影城
+              </p>
+              <p>
+                <i class="fa fa-file-text-o" aria-hidden="true"></i> 活動辦法 : 於影城臨櫃使用iShow卡單筆儲值1,000元以上，並購買Mappa影廳任一場次電影票，即可立即獲得加碼好禮。
+              </p>
 
               <p>09/20-09/29「2019世界音樂節單日票」乙張</p>
               <p>09/30-10/06 「歐舒丹護手霜」乙條</p>
@@ -240,7 +250,8 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+
+<style>
 .eventList ul {
   list-style-type: none;
   margin: 0;
@@ -251,7 +262,7 @@
   border: 1px solid red;
   text-decoration: none;
 }
-.eventList ul li {
+.eventList li {
   float: left;
 
   display: block;
@@ -267,8 +278,7 @@ figure {
   margin: 0 auto;
   padding-top: 40px;
 }
-figure a {
-}
+
 figure a img {
   height: 100%;
   width: auto;
@@ -283,10 +293,16 @@ figure a img {
   padding-top: 30px;
 }
 time {
-  padding-top: 50px;
+  margin-top: 50px;
 }
 </style>
 
-
-
-  
+<script>
+export default {
+  data() {
+    return {};
+  },
+  mounted() {},
+  methods: {}
+}
+</script>
