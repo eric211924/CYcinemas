@@ -1,8 +1,8 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <router-link class="navbar-brand" to="/">阿正大戲院</router-link>
-      
+      <router-link class="navbar-brand" to="/"><img src="../assets/cy-cinemas-ok.png" height="56px" alt=""></router-link>
+
       <!-- 窄頁面時 navbar右邊的摺疊按鈕 -->
       <button
         class="navbar-toggler"
@@ -54,7 +54,9 @@
             <router-link class="nav-link" to="/user">{{ name }} 您好</router-link>
           </li>
           <li class="nav-item" :class="{'active': this.$route.path == '/backEnd'}" v-if="isManager">
-            <router-link class="nav-link" to="/backEnd">後臺管理</router-link>
+            <router-link class="nav-link" to="/backEnd">
+              <i class="fa fa-tachometer" aria-hidden="true"></i> 後臺管理
+            </router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link" href @click="logout()">登出</a>
@@ -103,7 +105,7 @@ export default {
       // 登入成功
       if ((localStorage.getItem('logAccount') == localStorage.getItem('account')) && (localStorage.getItem('logPassword') == localStorage.getItem('password'))) {
         // 設置登入狀態
-        this.isLogin = true; 
+        this.isLogin = true;
         localStorage.setItem('status', 'login');
         this.name = localStorage.getItem('userName');
         // 是否為管理帳戶
@@ -135,7 +137,7 @@ export default {
       localStorage.removeItem("logPassword");
       // localStorage.clear();
       // 狀態改成登出
-      localStorage.removeItem('status'); 
+      localStorage.removeItem('status');
       this.isLogin = false;
     }
   }
@@ -143,5 +145,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.active {
+  background-color: #aaa !important;
+}
 </style>

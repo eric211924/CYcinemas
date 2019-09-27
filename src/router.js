@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Home from './views/frontEnd/Home.vue'
 
 Vue.use(Router)
 
@@ -20,59 +20,68 @@ export default new Router({
     {
       path: '/news',
       name: 'news',
-      component: () => import('./views/News.vue')
+      component: () => import('./views/frontEnd/News.vue')
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('./views/About.vue')
+      component: () => import('./views/frontEnd/About.vue')
     },
     {
       path: '/movie',
       name: 'movie',
-      component: () => import('./views/Movie.vue')
+      component: () => import('./views/frontEnd/Movie.vue')
     },
     {
       path: '/order',
       name: 'order',
-      component: () => import('./views/Order.vue')
+      component: () => import('./views/frontEnd/Order.vue')
     },
     {
       path: '/bonus',
       name: 'bonus',
-      component: () => import('./views/Bonus.vue')
+      component: () => import('./views/frontEnd/Bonus.vue')
     },
     {
       path: '/user',
       name: 'user',
       meta: { requiresAuth: true },
-      component: () => import('./views/User.vue')
+      component: () => import('./views/frontEnd/User.vue')
     },
     {
       path: '/backEnd',
       name: 'backEnd',
       meta: { requiresAuth: true },
-      component: () => import('./views/BackEnd.vue'),
+      component: () => import('./views/backEnd/BackEnd.vue'),
       children: [
         {
           path: '',
           name: 'newsManage',
-          component: () => import('./views/NewsManage.vue')
+          component: () => import('./views/backEnd/NewsManage.vue')
         },
         {
           path: 'movieManage',
           name: 'movieManage',
-          component: () => import('./views/MovieManage.vue')
+          meta: { requiresAuth: true },
+          component: () => import('./views/backEnd/MovieManage.vue')
+        },
+        {
+          path: 'foodManage',
+          name: 'foodManage',
+          meta: { requiresAuth: true },
+          component: () => import('./views/backEnd/FoodManage.vue')
         },
         {
           path: 'memberManage',
           name: 'memberManage',
-          component: () => import('./views/MemberManage.vue')
+          meta: { requiresAuth: true },
+          component: () => import('./views/backEnd/MemberManage.vue')
         },
         {
           path: 'report',
           name: 'report',
-          component: () => import('./views/Report.vue')
+          meta: { requiresAuth: true },
+          component: () => import('./views/backEnd/Report.vue')
         }
       ]
     }
