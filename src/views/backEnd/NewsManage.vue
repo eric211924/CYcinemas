@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import DeleteModal from '../components/DeleteModal.vue';
+import DeleteModal from '@/components/DeleteModal.vue';
 import $ from 'jquery';
 
 export default {
