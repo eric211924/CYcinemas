@@ -278,7 +278,12 @@ figure {
   margin: 0 auto;
   padding-top: 40px;
 }
+<<<<<<< HEAD
 
+=======
+// figure a {
+// }
+>>>>>>> ef89c1b15909979de8d81e63ab2bbb3d9647ef61
 figure a img {
   height: 100%;
   width: auto;

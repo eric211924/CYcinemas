@@ -34,14 +34,15 @@ export default {
     methods: {
         checkMember() {
             console.log("OK");
-            var outerThis = this;
-            if (localStorage.getItem('logAccount')) {
-                outerThis.userName = localStorage.getItem('userName');
-                outerThis.account = localStorage.getItem('account');
-                outerThis.password = localStorage.getItem('password');
-                outerThis.email = localStorage.getItem('email');
-                outerThis.phone = localStorage.getItem('phone');
-            }
+            var getAccount = JSON.parse(localStorage.getItem("allUser")); // 取得會員清單
+            var logAccount = localStorage.getItem('logAccount'); // 取得登入帳號
+            var accIsExist = getAccount.find(getAccount => getAccount.account == logAccount); // 取得目前登入會員資料
+
+            this.userName = accIsExist.name;
+            this.account = accIsExist.account;
+            this.password = accIsExist.password;
+            this.email = accIsExist.email;
+            this.phone = accIsExist.phone;
         }
     }
 }
