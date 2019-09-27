@@ -2,7 +2,7 @@
   <div id="app">
     <h1 class="text-center my-4">最新消息</h1>
 
-    <ul class="eventList" v-for="info in infos">
+    <ul class="eventList">
       <li>
         <figure style="height:250px;">
           <a href="#" style="height:250px;">
