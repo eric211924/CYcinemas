@@ -4,13 +4,12 @@
 
     <ul class="eventList">
       <li>
-        <figure style="height:250px;">
-          <a href="#" style="height:250px;">
+        <figure>
+          <a href="#">
             <img
               src="..\..\assets\event_2019_1.jpg"
               alt="《台南FOCUS限定》打卡同樂趣 一起FUN電影！"
               title="《台南FOCUS限定》打卡同樂趣 一起FUN電影！"
-              style="height:100%; width:auto; margin-left:0px;"
             />
           </a>
         </figure>
@@ -23,6 +22,8 @@
           <time>2019/10/03 ~ 2019/10/31</time>
         </section>
       </li>
+
+
 
       <li>
         <figure style="height:250px;">
@@ -158,7 +159,7 @@
       </li>
 
       <li>
-        <figure style="height:250px;">
+        <figure>
           <a href="#" style="height:250px;">
             <img
               src="..\..\assets\event_2019_3.jpg"
@@ -174,16 +175,16 @@
           </h5>
           <time>2019/09/20 ~ 2019/10/06</time>
         </section>
+        
       </li>
-
-      <li>
-        <figure style="height:260px;">
-          <a href="#" style="height:260px;" data-toggle="modal" data-target=".bd-example-modal-lg">
+-------------------------------------------------------------------------------------------------------------
+      <li v-for="info in infos">
+        <figure>
+          <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">
             <img
-              src="..\..\assets\event_2019_3.jpg"
-              alt="《林口限定》Mappa獨家加碼。 iShow卡友享好禮"
-              title="《林口限定》Mappa獨家加碼。 iShow卡友享好禮"
-              style="height:100%; width:auto; margin-left:0px;"
+              :src="info.news_img_normal_url"
+              :alt="info.news_title"
+              :title="info.news_title"
             />
           </a>
         </figure>
@@ -191,13 +192,13 @@
           <h5>
             <a
               href="#"
-              style="height:260px;"
               data-toggle="modal"
               data-target=".bd-example-modal-lg"
-            >《林口限定》Mappa獨家加碼。 iShow卡友享好禮</a>
+            >{{news_time}}</a>
           </h5>
-          <time>2019/09/20 ~ 2019/10/06</time>
+          <time>{{info.news_time}}</time>
         </section>
+
 
         <div
           class="modal fade bd-example-modal-lg"
@@ -208,12 +209,12 @@
         >
           <div class="modal-dialog modal-lg">
             <div class="modal-content" style="text-align:left; padding:40px">
-              <h3>《林口限定》Mappa獨家加碼。 iShow卡友享好禮</h3>
+              <h3>{{info.title}}</h3>
               <p>
-                <i class="fa fa-calendar" aria-hidden="true"></i> 開始日期 : 2019/09/20
+                <i class="fa fa-calendar" aria-hidden="true"></i> 開始日期 : {{info.news_time}}
               </p>
               <p>
-                <i class="fa fa-calendar" aria-hidden="true"></i> 截止日期 : 2019/10/06
+                <i class="fa fa-calendar" aria-hidden="true"></i> 截止日期 : {{info.news_time}}
               </p>
               <p>
                 <i class="fa fa-map-marker" aria-hidden="true"></i> 活動地點 : 林口MITSUI OUTLET PARK威秀影城
@@ -233,6 +234,7 @@
             </div>
           </div>
         </div>
+
       </li>
     </ul>
 
@@ -247,6 +249,7 @@
         <div class="modal-content">...</div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -274,9 +277,12 @@
 }
 figure {
   display: block;
-  height: 400px;
+  height: 250px;
   margin: 0 auto;
   padding-top: 40px;
+}
+figure a{
+  height:250px;
 }
 figure a img {
   height: 100%;
@@ -284,12 +290,15 @@ figure a img {
   margin-left: 0px;
   margin: 0 auto;
 }
+h5 a{
+  height:250px;
+}
 .eventList li:hover {
   background-color: #d9d9d9;
   text-decoration: none;
 }
 .infoArea {
-  padding-top: 30px;
+  margin-top: 30px;
 }
 time {
   margin-top: 50px;
@@ -306,6 +315,7 @@ export default {
     this.axios.get("https://cy-cinemas.ml/news/get").then(response => {
       _this.infos = response.data;
       console.log(_this.infos);
+
     }).catch(function (error) { 
         console.log(error);
       });
