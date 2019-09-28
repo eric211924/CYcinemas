@@ -278,7 +278,6 @@ figure {
   margin: 0 auto;
   padding-top: 40px;
 }
-
 figure a img {
   height: 100%;
   width: auto;
@@ -300,9 +299,25 @@ time {
 <script>
 export default {
   data() {
-    return {};
+    return { infos: null };
   },
-  mounted() {},
+  mounted() {
+    const _this=this;
+    this.axios.get("https://cy-cinemas.ml/news/get").then(response => {
+      _this.infos = response.data;
+      console.log(_this.infos);
+    }).catch(function (error) { 
+        console.log(error);
+      });
+  },
   methods: {}
-}
+};
 </script>
+
+
+
+
+
+
+
+
