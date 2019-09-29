@@ -208,7 +208,7 @@
           </div>
         </div>
       </li>
-      <li v-for="info in infos">
+      <li v-for="info in infos" :key="info.id">
         <figure>
           <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">
             <img :src="info.news_img_normal_url" :alt="info.news_title" :title="info.news_title" />
@@ -216,7 +216,7 @@
         </figure>
         <section class="infoArea">
           <h5>
-            <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">{{news_time}}</a>
+            <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">{{info.news_title}}</a>
           </h5>
           <time>{{info.news_time}}</time>
         </section>
