@@ -54,7 +54,17 @@ export default {
   data() {
     return {
       imgAr: Array(4)
+      imgAr:[{
+        title:"abc"
+        imgUrl:"abc"
+        content:"abc"
+      },{},{},{}]
     }
   }
 }
 </script>
+<style>
+
+
+
+</style>

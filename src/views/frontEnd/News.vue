@@ -211,14 +211,14 @@
       <li v-for="info in infos" :key="info.id">
         <figure>
           <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">
-            <img :src="info.news_img_normal_url" :alt="info.news_title" :title="info.news_title" />
+            <img :src="info.img_normal_url" :alt="info.title" :title="info.title" />
           </a>
         </figure>
         <section class="infoArea">
           <h5>
-            <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">{{info.news_title}}</a>
+            <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg">{{info.title}}</a>
           </h5>
-          <time>{{info.news_time}}</time>
+          <time>{{info.time}}</time>
         </section>
 
         <div
@@ -233,17 +233,17 @@
               <h3>{{info.title}}</h3>
               <p>
                 <i class="fa fa-calendar" aria-hidden="true"></i>
-                開始日期 : {{info.news_time}}
+                開始日期 : {{info.time}}
               </p>
               <p>
                 <i class="fa fa-calendar" aria-hidden="true"></i>
-                截止日期 : {{info.news_time}}
+                截止日期 : {{info.time}}
               </p>
               <p>
                 <i class="fa fa-map-marker" aria-hidden="true"></i> 活動地點 : 林口MITSUI OUTLET PARK威秀影城
               </p>
               <p>
-                <i class="fa fa-file-text-o" aria-hidden="true"></i> 活動辦法 : 於影城臨櫃使用iShow卡單筆儲值1,000元以上，並購買Mappa影廳任一場次電影票，即可立即獲得加碼好禮。
+                <i class="fa fa-file-text-o" aria-hidden="true"></i> 活動辦法 : {{info.content}}於影城臨櫃使用iShow卡單筆儲值1,000元以上，並購買Mappa影廳任一場次電影票，即可立即獲得加碼好禮。
               </p>
 
               <p>09/20-09/29「2019世界音樂節單日票」乙張</p>
