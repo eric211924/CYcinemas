@@ -54,7 +54,13 @@ export default {
   data() {
     return {
       imgAr: Array(4)
+     
     }
   }
 }
 </script>
+<style>
+
+
+
+</style>

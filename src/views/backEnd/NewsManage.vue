@@ -14,13 +14,13 @@
       </thead>
       <tbody>
         <tr v-for="(item, index) in newsData" :key="index">
-          <td>{{ item.news_id }}</td>
+          <td>{{ item.id }}</td>
           <td>
-            <img :src="item.news_img_thumbs_url" width="130px" height="100px" />
+            <img :src="item.img_thumbs_url" width="130px" height="100px" />
           </td>
-          <td>{{ item.news_title }}</td>
-          <td class="overflow-hidden">{{ item.news_content }}</td>
-          <td>{{ item.news_time }}</td>
+          <td>{{ item.title }}</td>
+          <td class="overflow-hidden">{{ item.content }}</td>
+          <td>{{ item.time }}</td>
           <td>
             <div class="btn-group">
               <button class="btn btn-warning btn-sm">修改</button>
@@ -28,7 +28,7 @@
                 class="btn btn-danger btn-sm"
                 data-toggle="modal"
                 data-target="#deleteModal"
-                @click.prevent="setId = item.news_id"
+                @click.prevent="setId = item.id"
               >刪除</button>
             </div>
           </td>
@@ -86,7 +86,6 @@
 
 <script>
 import DeleteModal from '@/components/DeleteModal.vue';
-import $ from 'jquery';
 
 export default {
   components: {
