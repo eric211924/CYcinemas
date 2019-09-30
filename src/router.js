@@ -45,7 +45,7 @@ const router = new Router({
     {
       path: '/detail',
       name: 'detail',
-      component: () => import('./views/frontEnd/detail.vue')
+      component: () => import('./views/frontEnd/Detail.vue')
     },
     {
       path: '/bonus',
