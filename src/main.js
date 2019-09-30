@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'bootstrap'
+import 'font-awesome/css/font-awesome.css'
 
 // vue toast
 import Toasted from 'vue-toasted'
@@ -17,7 +18,11 @@ Vue.use(VueAxios, Axios);
 // font-awesome
 import 'font-awesome/css/font-awesome.css'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
+Vue.prototype.$api = 'https://cy-cinemas.ml'
+
+Vue.prototype.$url = "http://localhost:80/api"
 
 new Vue({
   router,

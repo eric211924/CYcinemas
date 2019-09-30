@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="btn btn-primary mt-4" data-toggle="modal" data-target="#addNews">新增 +</button>
+    <button class="btn btn-primary mt-4" data-toggle="modal" data-target="#NewsForm" @click.prevent="action = '新增'">新增 +</button>
     <table class="w-100 mt-2 table">
       <thead class="thead-dark">
         <tr>
@@ -20,10 +20,10 @@
           </td>
           <td>{{ item.title }}</td>
           <td class="overflow-hidden">{{ item.content }}</td>
-          <td>{{ item.time }}</td>
+          <td>{{ item.release_time }}</td>
           <td>
             <div class="btn-group">
-              <button class="btn btn-warning btn-sm">修改</button>
+              <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#NewsForm" @click.prevent="action = '修改'; getNewsData(item.id)">修改</button>
               <button
                 class="btn btn-danger btn-sm"
                 data-toggle="modal"
@@ -37,13 +37,13 @@
     </table>
     <DeleteModal @delete="deleteNews"></DeleteModal>
 
-    <!-- add news -->
+    <!-- News Form -->
     <div
       class="modal fade"
-      id="addNews"
+      id="NewsForm"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="addNews"
+      aria-labelledby="NewsForm"
       aria-hidden="true"
       data-backdrop="static"
       data-keyboard="false"
@@ -51,26 +51,47 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">新增消息</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="exampleModalCenterTitle">{{ action }}消息</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              @click.prevent="cleanData"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <div class="form-group">
-              <label>標題 :</label>
-              <input type="text" class="form-control" v-model="title" required />
-            </div>
-            <div class="form-group">
-              <label>內容 :</label>
-              <textarea class="form-control" rows="10" v-model="content" required></textarea>
-            </div>
-            <div class="form-group">
-              <input type="file" id="file" accept="image/*" class="form-control" ref="file" />
-            </div>
+            <form>
+              <div class="form-group">
+                <label>標題 :</label>
+                <input type="text" class="form-control" v-model="title" required="required" />
+              </div>
+              <div class="form-group">
+                <label>內容 :</label>
+                <textarea class="form-control" rows="10" v-model="content" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>開始時間 :</label>
+                <input type="date" class="form-control" v-model="startTime" required />
+              </div>
+              <div class="form-group">
+                <label>結束時間 :</label>
+                <input type="date" class="form-control" v-model="endTime" required />
+              </div>
+              <div class="form-group">
+                <input type="file" id="file" accept="image/*" class="form-control" ref="file" />
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              @click.prevent="cleanData"
+            >取消</button>
             <button
               type="button"
               class="btn btn-primary"
@@ -93,24 +114,37 @@ export default {
   },
   data() {
     return {
-      api: 'https://cy-cinemas.ml/news',
       newsData: [],
       setId: Number,
       title: '',
       content: '',
-      file: ''
+      startTime: '',
+      endTime: '',
+      file: '',
+      action: '',
     }
   },
   mounted() {
     this.getNewsData();
   },
   methods: {
-    getNewsData() {
+    getNewsData(newsId = '') {
       const _this = this;
-      this.axios.get(`${_this.api}/get`).then((response) => {
-        _this.newsData = response.data;
-        console.log(response.data);
-      });
+      if (newsId == '') {
+        this.axios.get(`${_this.$api}/news/`).then((response) => {
+          _this.newsData = response.data;
+          console.log(response.data);
+        });
+      } else {
+        this.axios.get(`${_this.$api}/news/${newsId}`).then((response) => {
+          console.log(response.data[0].start_time);
+          let data = response.data[0];
+          _this.title = data.title;
+          _this.content = data.content;
+          _this.startTime = data.start_time;
+          _this.endTime = data.end_time;
+        });
+      }
     },
     addNews() {
       const _this = this;
@@ -119,8 +153,9 @@ export default {
       formData.append('file', this.file);
       formData.append('title', this.title);
       formData.append('content', this.content);
-
-      this.axios.post(`${this.api}/add`, formData, {
+      formData.append('startTime', this.startTime);
+      formData.append('endTime', this.endTime);
+      this.axios.post(`${this.$api}/news/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -130,17 +165,14 @@ export default {
           theme: 'bubble',
           duration: 3000
         });
-
         _this.getNewsData();
-        _this.title = '';
-        _this.content = '';
-        _this.file = '';
+        _this.cleanData();
       });
     },
     deleteNews() {
       console.log(this.setId);
       const _this = this;
-      this.axios.delete(`${_this.api}/del/${_this.setId}`).then(response => {
+      this.axios.delete(`${_this.$api}/news/${_this.setId}`).then(response => {
         console.log(response.data);
         _this.$toasted.success(response.data.msg, {
           theme: 'bubble',
@@ -148,6 +180,13 @@ export default {
         });
         _this.getNewsData();
       });
+    },
+    cleanData() {
+      this.title = '';
+      this.content = '';
+      this.file = '';
+      this.startTime = '';
+      this.endTime = '';
     }
   }
 }
