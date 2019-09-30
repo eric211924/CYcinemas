@@ -20,6 +20,8 @@ import 'font-awesome/css/font-awesome.css'
 
 Vue.config.productionTip = false
 
+Vue.prototype.$url = "http://localhost:80/api"
+
 new Vue({
   router,
   store,

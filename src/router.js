@@ -43,6 +43,11 @@ export default new Router({
       component: () => import('./views/frontEnd/Bonus.vue')
     },
     {
+      path: '/test',
+      name: 'test',
+      component: () => import('./views/test.vue')
+    },
+    {
       path: '/user',
       name: 'user',
       meta: { requiresAuth: true },

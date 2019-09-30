@@ -19,52 +19,70 @@
         <div class="tab-pane fade active show" id="ticketTime">
           <form action method="GET">
             <div class="form-group row">
-              <label for="theater" class="col-md-2 text-center p-1">選擇戲院</label>
+              <label for="theater" class="col-md-2 text-center">
+                <i class="fa fa-video-camera" style="font-size:1.5em" aria-hidden="true"></i>&emsp;選擇戲院
+              </label>
               <select
                 name="theater"
                 id="theater"
                 disabled
                 class="form-control col-md-10 text-center"
               >
-                <option value="0">阿正大戲院</option>
+                <option value="0">中佑大戲院</option>
               </select>
               <input type="hidden" name="theater" value="0" />
             </div>
 
             <div class="form-group row">
-              <label for="movies" class="col-md-2 text-center p-1">選擇電影</label>
-              <select name="movies" id="movies" class="form-control col-md-10 text-center">
+              <label for="movies" class="col-md-2 text-center p-1">
+                <i class="fa fa-film" style="font-size:1.5em" aria-hidden="true"></i>&emsp;選擇電影
+              </label>
+              <select
+                name="movies"
+                id="movies"
+                v-on:change="loadMovieDay"
+                class="form-control col-md-10 text-center"
+              >
                 <option
                   id="index"
-                  v-bind:selected="checkMovieId==movies.movie_id"
-                  v-bind:value="movies.movie_id"
+                  v-bind:selected="index==movie_index"
+                  v-bind:value="index"
                   v-for="(movies,index) in movies"
                   :key="index"
-                >{{movies.movieName}}</option>
+                >{{movies.name}}</option>
               </select>
             </div>
 
             <div class="form-group row">
-              <label for="days" class="col-md-2 text-center p-1">選擇日期</label>
-              <select name="days" id="days" class="form-control col-md-10 text-center">
+              <label for="days" class="col-md-2 text-center p-1">
+                <i class="fa fa-clock-o" style="font-size:1.5em" aria-hidden="true"></i>&emsp;選擇日期
+              </label>
+              <select
+                name="days"
+                id="days"
+                v-on:change="loadMovieTime"
+                class="form-control col-md-10 text-center"
+              >
                 <option
                   v-bind:value="index"
-                  v-bind:selected="checkDays==index"
-                  v-for="(days,index) in days"
+                  v-bind:selected="index==day_index"
+                  v-for="(day,index) in days"
                   :key="index"
-                >{{days.day}}</option>
+                >{{day.date}} ({{day.weekday}})</option>
               </select>
             </div>
 
             <div class="form-group row">
-              <label for="screenings" class="col-md-2 text-center p-1">選擇場次</label>
-              <select name="screenings" id="screenings" class="form-control col-md-10 text-center">
+              <label for="times" class="col-md-2 text-center p-1">
+                <i class="fa fa-location-arrow" style="font-size:1.5em" aria-hidden="true"></i>&emsp;選擇場次
+              </label>
+              <select name="times" id="times" class="form-control col-md-10 text-center">
                 <option
                   v-bind:value="index"
-                  v-bind:selected="checkScreenings==index"
-                  v-for="(screenings,index) in screenings"
+                  v-bind:selected="index==time_index"
+                  v-for="(time,index) in times"
                   :key="index"
-                >{{screenings.screening}}</option>
+                >{{time.time}}</option>
               </select>
             </div>
 
@@ -72,33 +90,31 @@
               <hr />
 
               <h3>票張數量</h3>
-              <div class="form-group row">
-                <label for="tickets" class="col-md-2 text-center p-1">全票</label>
-                <div class="col-md-1 offset-md-6">
+              <div class="row" v-for="(ticket,index) in tickets" :key="index">
+                <label class="col-md-2 text-center p-1">{{ticket.name}}</label>
+                <span class="col-md-2 offset-md-1">{{ticket.price}}</span>
+                <div class="col-md-1 offset-md-3">
                   <span class="pull-right">
                     <i
                       class="fa fa-minus-square-o fa-2x p-1"
-                      v-on:click="ticketNum>0?ticketNum-=1:ticketNum=0"
+                      v-on:click="ticketsTotal>0&&ticketsNum[index]>0?ticketsNum[index]--:ticketsNum[index]=0"
                       style="cursor:pointer;"
                       aria-hidden="true"
                     ></i>
                   </span>
                 </div>
-
                 <input
                   type="text"
                   pattern="[0-5]"
-                  name
-                  id
                   class="form-control col-md-2 text-right"
                   readonly
-                  v-model="ticketNum"
+                  v-model="ticketsNum[index]"
                 />
                 <div class="col-md-1">
                   <span>
                     <i
                       class="fa fa-plus-square-o fa-2x p-1"
-                      v-on:click="ticketNum<5?ticketNum+=1:ticketNum=5"
+                      v-on:click="ticketsTotal<5?ticketsNum[index]++:ticketsNum[index]=0"
                       style="cursor:pointer;"
                       aria-hidden="true"
                     ></i>
@@ -111,7 +127,7 @@
 
         <div class="tab-pane fade" id="foodDrinks">
           <div class="row" v-for="(item,index) in foodDrinks" :key="index">
-            <label for="tickets" class="col-md-2 text-center p-1">{{index}}</label>
+            <label class="col-md-2 text-center p-1">{{index}}</label>
             <div class="col-md-1 offset-md-6">
               <span class="pull-right">
                 <i
@@ -125,8 +141,7 @@
             <input
               type="text"
               pattern="[0-5]"
-              name
-              id
+
               class="form-control col-md-2 text-right"
               readonly
               v-model="foodDrink[index]"
@@ -144,21 +159,21 @@
           </div>
         </div>
 
-        <div class="tab-pane fade" id="others">Thinking...</div>
+        <div class="tab-pane fade" id="others">thinking...
+        </div>
 
         <div>
-          <router-link
-            to="/"
-            tag="button"
+          <button
+            v-on:click="setProp"
             class="btn btn-success btn-md btn-block"
-            v-on:click.native="setProp"
             v-show="showNext"
-          >選好了準備去挑位子</router-link>
+          >點我去哪裡</button>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -174,70 +189,137 @@ export default {
         { day: "2019/10/2 (三)" },
         { day: "2019/10/3 (四)" }
       ],
-      screenings: [
-        { screening: "10:00" },
-        { screening: "13:00" },
-        { screening: "15:00" },
-        { screening: "19:00" }
+      times: [
+        { time: "10:00" },
+        { time: "13:00" },
+        { time: "15:00" },
+        { time: "19:00" }
       ],
-      ticketNum: 0,
+      tickets: [],
+      ticketsNum:{},
       showNext: false,
       foodDrinks: { 爆米花: 0, 可樂: 0 },
-      checkMovieId: "",
       checkDays: "",
-      checkScreenings: "",
-      movie_id: "default",
-      day: "",
-      screening: "",
+      movie_index: "0",
+      day_index: "0",
+      time_index: "0",
       foodDrink: { 爆米花: 0, 可樂: 0 }
     };
   },
   mounted() {
-    // 這裡讀PHP
+    this.loadMovies();
+    this.loadTickets();
 
-    if (!sessionStorage.getItem("movie_id"))
-      sessionStorage.setItem("movie_id", "");
-    else this.checkMovieId = sessionStorage.getItem("movie_id");
-    if (!sessionStorage.getItem("days")) sessionStorage.setItem("days", "");
-    else this.checkDays = sessionStorage.getItem("days");
-    if (!sessionStorage.getItem("screenings"))
-      sessionStorage.setItem("screenings", "");
-    else this.checkScreenings = sessionStorage.getItem("screenings");
+    if (sessionStorage.movie_index)
+      this.movie_index = sessionStorage.movie_index;
+    if (sessionStorage.day_index) this.day_index = sessionStorage.day_index;
+    if (sessionStorage.time_index) this.time_index = sessionStorage.time_index;
 
-    if (sessionStorage.getItem("ticketNum"))
-      this.ticketNum = sessionStorage.getItem("ticketNum");
+    if (sessionStorage.ticketNum)
+      this.ticketNum = Number(sessionStorage.ticketNum);
 
     if (sessionStorage.getItem("foodDrink"))
       this.foodDrink = JSON.parse(sessionStorage.getItem("foodDrink"));
   },
   methods: {
+    loadMovies() {
+      this.axios
+        .get(`${this.$url}/getData.php`, {
+          params: {
+            fields: "getMovies"
+          }
+        })
+        .then(response => {
+          this.movies = response.data;
+          this.loadMovieDay();
+        });
+    },
+
+    loadMovieDay() {
+      this.axios
+        .get(`${this.$url}/getData.php`, {
+          params: {
+            fields: "getMovieDay",
+            encoded_id: this.movies[
+              sessionStorage.movie_index
+                ? sessionStorage.movie_index
+                : document.getElementById("movies").value
+            ]["encoded_id"]
+          }
+        })
+        .then(response => {
+          // console.log(response.data);
+          this.days = response.data;
+          this.loadMovieTime();
+        });
+    },
+    loadMovieTime() {
+      this.axios
+        .get(`${this.$url}/getData.php`, {
+          params: {
+            fields: "getMovieTime",
+            encoded_id: this.movies[document.getElementById("movies").value][
+              "encoded_id"
+            ]
+          }
+        })
+        .then(response => {
+          this.times = response.data;
+        });
+    },
+    loadTickets() {
+      this.axios
+        .get(`${this.$url}/getData.php`, {
+          params: {
+            fields: "getTickets"
+          }
+        })
+        .then(response => {
+          this.tickets = response.data;
+          for(var i =0;i<this.tickets.length;i++)
+          this.$set(this.ticketsNum,i,i);
+        });
+    },
     add(index) {
       if (this.foodDrink[index] < 5) this.foodDrink[index] += 1;
       else this.foodDrink[index] = 5;
+      console.log(this.ticketsTotal);
     },
     minus(index) {
       if (this.foodDrink[index] > 0) this.foodDrink[index] -= 1;
       else this.foodDrink[index] = 0;
     },
+    addTicket(index){
+      this.tickets[index]["num"]++;
+      console.log(this.tickets);
+    },
     setProp() {
-      sessionStorage.setItem("movie_id", this.movie_id);
-      sessionStorage.setItem("days", this.day);
-      sessionStorage.setItem("screenings", this.screening);
+      sessionStorage.setItem(
+        "movie_index",
+        document.getElementById("movies").value
+      );
+      sessionStorage.setItem(
+        "day_index",
+        document.getElementById("days").value
+      );
+      sessionStorage.setItem(
+        "time_index",
+        document.getElementById("times").value
+      );
       sessionStorage.setItem("ticketNum", this.ticketNum);
       sessionStorage.setItem("foodDrink", JSON.stringify(this.foodDrink));
+      this.$router.push("/");
     }
   },
-  watch: {
-    ticketNum: function() {
-      if (this.ticketNum > 0) this.showNext = true;
-      else this.showNext = false;
-      if (this.ticketNum < 0) this.ticketNum = 0;
-      else if (this.ticketNum > 5) this.ticketNum = 5;
-
-      this.movie_id = document.getElementById("movies").value;
-      this.day = document.getElementById("days").value;
-      this.screening = document.getElementById("screenings").value;
+  computed: {
+    ticketsTotal: function() {
+      let total = 0;
+      for(var i=0;i<Object.keys(this.ticketsNum).length;i++)
+      total += this.ticketsNum[i];
+      return total;
     }
-  }
-};
+  },
+  
+  
+}
 </script>
