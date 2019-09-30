@@ -13,11 +13,6 @@ const router = new Router({
       component: Home
     },
     {
-      path:"/test",
-      name: "test",
-      component: () => import('./views/test.vue')
-    },
-    {
       path: '/news',
       name: 'news',
       component: () => import('./views/frontEnd/News.vue')
@@ -35,22 +30,17 @@ const router = new Router({
     {
       path: '/order',
       name: 'order',
-      component: () => import('./views/frontEnd/Order.vue')
+      component: () => import('./views/frontEnd/Order.vue'),
     },
     {
-      path: '/chooseSeat',
+      path: '/order/chooseSeat',
       name: 'chooseSeat',
-      component: () => import('./views/frontEnd/chooseSeat.vue')
+      component: () => import('./views/frontEnd/chooseSeat.vue'),
     },
     {
       path: '/bonus',
       name: 'bonus',
       component: () => import('./views/frontEnd/Bonus.vue')
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: () => import('./views/test.vue')
     },
     {
       path: '/user',

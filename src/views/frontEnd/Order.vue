@@ -26,7 +26,7 @@
                 name="theater"
                 id="theater"
                 disabled
-                class="form-control col-md-10 text-center"
+                class="form-control col-md-10"
               >
                 <option value="0">中佑大戲院</option>
               </select>
@@ -41,7 +41,7 @@
                 name="movies"
                 id="movies"
                 v-on:change="loadMovieDay"
-                class="form-control col-md-10 text-center"
+                class="form-control col-md-10"
               >
                 <option
                   id="index"
@@ -61,7 +61,7 @@
                 name="days"
                 id="days"
                 v-on:change="loadMovieTime"
-                class="form-control col-md-10 text-center"
+                class="form-control col-md-10"
               >
                 <option
                   v-bind:value="index"
@@ -76,7 +76,7 @@
               <label for="times" class="col-md-2 text-center p-1">
                 <i class="fa fa-location-arrow" style="font-size:1.5em" aria-hidden="true"></i>&emsp;選擇場次
               </label>
-              <select name="times" id="times" class="form-control col-md-10 text-center">
+              <select name="times" id="times" class="form-control col-md-10">
                 <option
                   v-bind:value="index"
                   v-bind:selected="index==time_index"
@@ -89,36 +89,37 @@
             <div>
               <hr />
 
-              <h3>票張數量</h3>
+              <div class="row">
+                <span class="col-md-2 text-center p-1">票種</span>
+                <span class="col-md-6 text-center">價格</span>
+                <span class="col-md-2 text-center offset-md-1">數量</span>
+              </div>
+              <hr />
               <div class="row" v-for="(ticket,index) in tickets" :key="index">
                 <label class="col-md-2 text-center p-1">{{ticket.name}}</label>
-                <span class="col-md-2 offset-md-1">{{ticket.price}}</span>
-                <div class="col-md-1 offset-md-3">
-                  <span class="pull-right">
-                    <i
-                      class="fa fa-minus-square-o fa-2x p-1"
-                      v-on:click="ticketsTotal>0&&ticketsNum[index]>0?ticketsNum[index]--:ticketsNum[index]=0"
-                      style="cursor:pointer;"
-                      aria-hidden="true"
-                    ></i>
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  pattern="[0-5]"
-                  class="form-control col-md-2 text-right"
-                  readonly
-                  v-model="ticketsNum[index]"
-                />
-                <div class="col-md-1">
-                  <span>
-                    <i
-                      class="fa fa-plus-square-o fa-2x p-1"
-                      v-on:click="ticketsTotal<5?ticketsNum[index]++:ticketsNum[index]=0"
-                      style="cursor:pointer;"
-                      aria-hidden="true"
-                    ></i>
-                  </span>
+                <span class="col-md-6 text-center">{{ticket.price}}</span>
+                <div class="col-md-4 row justify-content-center">
+                  <i
+                    class="fa fa-minus-square-o fa-2x p-1"
+                    v-on:click="ticketsTotal>0&&ticketsNum[index]>0?ticketsNum[index]--:ticketsNum[index]=0"
+                    style="cursor:pointer;"
+                    aria-hidden="true"
+                  ></i>
+
+                  <input
+                    type="text"
+                    pattern="[0-5]"
+                    class="form-control col-md-4 text-right"
+                    readonly
+                    v-model="ticketsNum[index]"
+                  />
+
+                  <i
+                    class="fa fa-plus-square-o fa-2x p-1"
+                    v-on:click="ticketsTotal<5?ticketsNum[index]++:ticketsNum[index]=ticketsNum[index]"
+                    style="cursor:pointer;"
+                    aria-hidden="true"
+                  ></i>
                 </div>
               </div>
             </div>
@@ -126,48 +127,50 @@
         </div>
 
         <div class="tab-pane fade" id="foodDrinks">
-          <div class="row" v-for="(item,index) in foodDrinks" :key="index">
-            <label class="col-md-2 text-center p-1">{{index}}</label>
-            <div class="col-md-1 offset-md-6">
-              <span class="pull-right">
-                <i
-                  class="fa fa-minus-square-o fa-2x p-1"
-                  v-on:click="minus(index)"
-                  style="cursor:pointer;"
-                  aria-hidden="true"
-                ></i>
-              </span>
-            </div>
-            <input
-              type="text"
-              pattern="[0-5]"
+          <div class="row">
+            <span class="col-md-2 text-center p-1">餐飲名稱</span>
+            <span class="col-md-2 text-center offset-md-1">尺寸</span>
+            <span class="col-md-2 text-center offset-md-1">價格</span>
+            <span class="col-md-2 text-center offset-md-1">數量</span>
+          </div>
+          <hr />
 
-              class="form-control col-md-2 text-right"
-              readonly
-              v-model="foodDrink[index]"
-            />
-            <div class="col-md-1">
-              <span>
-                <i
-                  class="fa fa-plus-square-o fa-2x p-1"
-                  v-on:click="add(index)"
-                  style="cursor:pointer;"
-                  aria-hidden="true"
-                ></i>
-              </span>
+          <div class="row" v-for="(foodDrink,index) in foodDrinks" :key="index">
+            <label class="col-md-2 text-center p-1">{{foodDrink.name}}</label>
+            <span class="col-md-2 text-center offset-md-1">{{foodDrink.size}}</span>
+            <span class="col-md-2 text-center offset-md-1">{{foodDrink.price}}</span>
+            <div class="col-md-4 row justify-content-center">
+              <i
+                class="fa fa-minus-square-o fa-2x p-1"
+                v-on:click="foodDrinksNum[index]<1?foodDrinksNum[index]=foodDrinksNum[index]:foodDrinksNum[index]--"
+                style="cursor:pointer;"
+                aria-hidden="true"
+              ></i>
+              <input
+                type="text"
+                pattern="[0-5]"
+                class="form-control col-md-4 text-right"
+                readonly
+                v-model="foodDrinksNum[index]"
+              />
+              <i
+                class="fa fa-plus-square-o fa-2x p-1"
+                v-on:click="foodDrinksNum[index]++"
+                style="cursor:pointer;"
+                aria-hidden="true"
+              ></i>
             </div>
           </div>
         </div>
 
-        <div class="tab-pane fade" id="others">thinking...
-        </div>
+        <div class="tab-pane fade" id="others">thinking...</div>
 
         <div>
           <button
             v-on:click="setProp"
             class="btn btn-success btn-md btn-block"
             v-show="showNext"
-          >點我去哪裡</button>
+          >去選座位</button>
         </div>
       </div>
     </div>
@@ -196,35 +199,34 @@ export default {
         { time: "19:00" }
       ],
       tickets: [],
-      ticketsNum:{},
-      showNext: false,
+      ticketsNum: {},
       foodDrinks: { 爆米花: 0, 可樂: 0 },
-      checkDays: "",
+      foodDrinksNum: {},
+      showNext: false,
       movie_index: "0",
       day_index: "0",
       time_index: "0",
-      foodDrink: { 爆米花: 0, 可樂: 0 }
+      tickets_index: {},
+      foodDrinks_index: {}
     };
   },
   mounted() {
     this.loadMovies();
     this.loadTickets();
-
+    this.loadFoodDrinks();
     if (sessionStorage.movie_index)
       this.movie_index = sessionStorage.movie_index;
     if (sessionStorage.day_index) this.day_index = sessionStorage.day_index;
     if (sessionStorage.time_index) this.time_index = sessionStorage.time_index;
-
-    if (sessionStorage.ticketNum)
-      this.ticketNum = Number(sessionStorage.ticketNum);
-
-    if (sessionStorage.getItem("foodDrink"))
-      this.foodDrink = JSON.parse(sessionStorage.getItem("foodDrink"));
+    if (sessionStorage.ticketsNum)
+      this.tickets_index = JSON.parse(sessionStorage.ticketsNum);
+    if (sessionStorage.foodDrinksNum)
+      this.foodDrinks_index = JSON.parse(sessionStorage.foodDrinksNum);
   },
   methods: {
     loadMovies() {
       this.axios
-        .get(`${this.$url}/getData.php`, {
+        .get(`${this.$url}/`, {
           params: {
             fields: "getMovies"
           }
@@ -237,7 +239,7 @@ export default {
 
     loadMovieDay() {
       this.axios
-        .get(`${this.$url}/getData.php`, {
+        .get(`${this.$url}/`, {
           params: {
             fields: "getMovieDay",
             encoded_id: this.movies[
@@ -255,7 +257,7 @@ export default {
     },
     loadMovieTime() {
       this.axios
-        .get(`${this.$url}/getData.php`, {
+        .get(`${this.$url}/`, {
           params: {
             fields: "getMovieTime",
             encoded_id: this.movies[document.getElementById("movies").value][
@@ -269,15 +271,33 @@ export default {
     },
     loadTickets() {
       this.axios
-        .get(`${this.$url}/getData.php`, {
+        .get(`${this.$url}/`, {
           params: {
             fields: "getTickets"
           }
         })
         .then(response => {
           this.tickets = response.data;
-          for(var i =0;i<this.tickets.length;i++)
-          this.$set(this.ticketsNum,i,i);
+          for (var i = 0; i < this.tickets.length; i++)
+            sessionStorage.ticketsNum
+              ? this.$set(this.ticketsNum, i, this.tickets_index[i])
+              : this.$set(this.ticketsNum, i, 0);
+        });
+    },
+    loadFoodDrinks() {
+      this.axios
+        .get(`${this.$url}/`, {
+          params: {
+            fields: "getFoodDrinks"
+          }
+        })
+        .then(response => {
+          this.foodDrinks = response.data;
+          for (var i = 0; i < this.foodDrinks.length; i++) {
+            sessionStorage.foodDrinksNum
+              ? this.$set(this.foodDrinksNum, i, this.foodDrinks_index[i])
+              : this.$set(this.foodDrinksNum, i, 0);
+          }
         });
     },
     add(index) {
@@ -289,7 +309,7 @@ export default {
       if (this.foodDrink[index] > 0) this.foodDrink[index] -= 1;
       else this.foodDrink[index] = 0;
     },
-    addTicket(index){
+    addTicket(index) {
       this.tickets[index]["num"]++;
       console.log(this.tickets);
     },
@@ -306,20 +326,33 @@ export default {
         "time_index",
         document.getElementById("times").value
       );
-      sessionStorage.setItem("ticketNum", this.ticketNum);
-      sessionStorage.setItem("foodDrink", JSON.stringify(this.foodDrink));
-      this.$router.push("/");
+      sessionStorage.setItem("ticketsNum", JSON.stringify(this.ticketsNum));
+      sessionStorage.setItem(
+        "foodDrinksNum",
+        JSON.stringify(this.foodDrinksNum)
+      );
+      this.$router.push("/order/chooseSeat");
     }
   },
   computed: {
     ticketsTotal: function() {
       let total = 0;
-      for(var i=0;i<Object.keys(this.ticketsNum).length;i++)
-      total += this.ticketsNum[i];
+      for (var i = 0; i < Object.keys(this.ticketsNum).length; i++)
+        total += this.ticketsNum[i];
       return total;
     }
   },
-  
-  
-}
+  watch: {
+    ticketsTotal: function() {
+      if (this.ticketsTotal > 0) this.showNext = true;
+      else if (this.ticketsTotal == 0) this.showNext = false;
+    }
+  }
+};
 </script>
+
+<style scoped>
+    select {
+      text-align-last: center;
+    }
+</style>
