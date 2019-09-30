@@ -13,6 +13,11 @@ const router = new Router({
       component: Home
     },
     {
+      path:"/test",
+      name: "test",
+      component: () => import('./views/test.vue')
+    },
+    {
       path: '/news',
       name: 'news',
       component: () => import('./views/frontEnd/News.vue')
@@ -36,6 +41,11 @@ const router = new Router({
       path: '/bonus',
       name: 'bonus',
       component: () => import('./views/frontEnd/Bonus.vue')
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('./views/test.vue')
     },
     {
       path: '/user',
