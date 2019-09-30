@@ -17,7 +17,9 @@ Vue.use(VueAxios, Axios);
 // font-awesome
 import 'font-awesome/css/font-awesome.css'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
+Vue.prototype.$api = 'https://cy-cinemas.ml'
 
 new Vue({
   router,
