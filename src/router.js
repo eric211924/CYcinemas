@@ -33,6 +33,11 @@ const router = new Router({
       component: () => import('./views/frontEnd/Order.vue')
     },
     {
+      path: '/chooseSeat',
+      name: 'chooseSeat',
+      component: () => import('./views/frontEnd/chooseSeat.vue')
+    },
+    {
       path: '/bonus',
       name: 'bonus',
       component: () => import('./views/frontEnd/Bonus.vue')
