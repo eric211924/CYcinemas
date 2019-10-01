@@ -122,11 +122,11 @@ router.beforeEach((to, from, next) => {
     let url = to.path.split('/');
     switch (url[1]) {
       case 'user':
-        if (localStorage.getItem('logAccount')) next();
+        if (localStorage.getItem('nowAcc')) next();
         else next(from.path);
         break;
       case 'backEnd':
-        if (localStorage.getItem('logAccount') == 'admin') next();
+        if (localStorage.getItem('nowAcc') == 'admin') next();
         else next(from.path);
         break;
       default:

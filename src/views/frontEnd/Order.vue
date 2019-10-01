@@ -81,48 +81,38 @@
               </select>
             </div>
 
+            <hr />
             <div>
-              <hr />
-
-
               <div class="row">
-                <div class="col-12">
-
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-2 text-center p-1">票種</div>
-                <span class="col-md-6 text-center">價格</span>
-                <span class="col-md-2 text-center offset-md-1">數量</span>
-              </div>
-              <hr />
-              <div class="row">
-              <!-- <div class="row" v-for="(ticket,index) in tickets" :key="index"> -->
-                <label class="col-md-2 text-center p-1">一般票</label>
-                <span class="col-md-6 text-center">1</span>
-                <div class="col-md-4 row justify-content-center">
-                  <i
-                    class="fa fa-minus-square-o fa-2x p-1"
-                    v-on:click="ticketsTotal>0&&ticketsNum[index]>0?ticketsNum[index]--:ticketsNum[index]=0"
-                    style="cursor:pointer;"
-                    aria-hidden="true"
-                  ></i>
-
-                  <input
-                    type="text"
-                    pattern="[0-5]"
-                    class="form-control col-md-4 text-right"
-                    readonly
-                    v-model="ticketsNum[index]"
-                  />
-
-                  <i
-                    class="fa fa-plus-square-o fa-2x p-1"
-                    v-on:click="ticketsTotal<5?ticketsNum[index]++:ticketsNum[index]=ticketsNum[index]"
-                    style="cursor:pointer;"
-                    aria-hidden="true"
-                  ></i>
+                <div class="col-md-3" v-for="(ticket,index) in tickets" :key="index">
+                  <div class="card border-secondary my-2">
+                    <div class="card-body text-secondary">
+                      <h5 class="card-title">票種：{{ticket.name}}</h5>
+                      <h5>單價：{{ticket.price}}</h5>
+                      <h5>總計：{{ticket.price *ticketsNum[index]}}</h5>
+                      <div class="d-flex">
+                        <i
+                          class="fa fa-minus-square-o fa-2x p-1"
+                          v-on:click="minusTickets(index)"
+                          style="cursor:pointer;"
+                          aria-hidden="true"
+                        ></i>
+                        <input
+                          type="text"
+                          pattern="[0-5]"
+                          class="form-control text-center"
+                          readonly
+                          v-model="ticketsNum[index]"
+                        />
+                        <i
+                          class="fa fa-plus-square-o fa-2x p-1"
+                          v-on:click="plusTickets(index)"
+                          style="cursor:pointer;"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -131,37 +121,36 @@
 
         <div class="tab-pane fade" id="foodDrinks">
           <div class="row">
-            <span class="col-md-2 text-center p-1">餐飲名稱</span>
-            <span class="col-md-2 text-center offset-md-1">尺寸</span>
-            <span class="col-md-2 text-center offset-md-1">價格</span>
-            <span class="col-md-2 text-center offset-md-1">數量</span>
-          </div>
-          <hr />
-
-          <div class="row" v-for="(foodDrink,index) in foodDrinks" :key="index">
-            <label class="col-md-2 text-center p-1">{{foodDrink.name}}</label>
-            <span class="col-md-2 text-center offset-md-1">{{foodDrink.size}}</span>
-            <span class="col-md-2 text-center offset-md-1">{{foodDrink.price}}</span>
-            <div class="col-md-4 row justify-content-center">
-              <i
-                class="fa fa-minus-square-o fa-2x p-1"
-                v-on:click="foodDrinksNum[index]<1?foodDrinksNum[index]=foodDrinksNum[index]:foodDrinksNum[index]--"
-                style="cursor:pointer;"
-                aria-hidden="true"
-              ></i>
-              <input
-                type="text"
-                pattern="[0-5]"
-                class="form-control col-md-4 text-right"
-                readonly
-                v-model="foodDrinksNum[index]"
-              />
-              <i
-                class="fa fa-plus-square-o fa-2x p-1"
-                v-on:click="foodDrinksNum[index]>9?foodDrinksNum[index]=foodDrinksNum[index]:foodDrinksNum[index]++"
-                style="cursor:pointer;"
-                aria-hidden="true"
-              ></i>
+            <div class="col-md-3" v-for="(foodDrink,index) in foodDrinks" :key="index">
+              <div class="card border-secondary my-2">
+                <div class="card-body text-secondary">
+                  <h5 class="card-title">餐點名稱(尺寸)：</h5>
+                  <h5>{{foodDrink.name}}({{foodDrink.size}})</h5>
+                  <h5>單價：{{foodDrink.price}}</h5>
+                  <h5>總計：{{foodDrink.price *foodDrinksNum[index]}}</h5>
+                  <div class="input-group">
+                    <i
+                      class="fa fa-minus-square-o fa-2x p-1"
+                      v-on:click="minusFoodDrinks(index)"
+                      style="cursor:pointer;"
+                      aria-hidden="true"
+                    ></i>
+                    <input
+                      type="text"
+                      pattern="[0-5]"
+                      class="form-control text-center"
+                      readonly
+                      v-model="foodDrinksNum[index]"
+                    />
+                    <i
+                      class="fa fa-plus-square-o fa-2x p-1"
+                      v-on:click="plusFoodDrinks(index)"
+                      style="cursor:pointer;"
+                      aria-hidden="true"
+                    ></i>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -171,8 +160,8 @@
         <div>
           <button
             v-on:click="setProp"
-            class="btn btn-success btn-md btn-block"
-            v-show="showNext"
+            class="btn btn-success btn-lg btn-block"
+            v-bind:class="{'v-hidden':!showNext}"
           >去選座位</button>
         </div>
       </div>
@@ -186,24 +175,44 @@ export default {
   name: "order",
   data() {
     return {
-      movies: [
-        { movie_id: "0", movieName: "返校" },
-        { movie_id: "1", movieName: "天氣之子" }
+      movies: [{
+        movie_id: "0",
+        movieName: "返校"
+      },
+      {
+        movie_id: "1",
+        movieName: "天氣之子"
+      }
       ],
-      days: [
-        { day: "2019/10/1 (二)" },
-        { day: "2019/10/2 (三)" },
-        { day: "2019/10/3 (四)" }
+      days: [{
+        day: "2019/10/1 (二)"
+      },
+      {
+        day: "2019/10/2 (三)"
+      },
+      {
+        day: "2019/10/3 (四)"
+      }
       ],
-      times: [
-        { time: "10:00" },
-        { time: "13:00" },
-        { time: "15:00" },
-        { time: "19:00" }
+      times: [{
+        time: "10:00"
+      },
+      {
+        time: "13:00"
+      },
+      {
+        time: "15:00"
+      },
+      {
+        time: "19:00"
+      }
       ],
       tickets: [],
       ticketsNum: {},
-      foodDrinks: { 爆米花: 0, 可樂: 0 },
+      foodDrinks: {
+        爆米花: 0,
+        可樂: 0
+      },
       foodDrinksNum: {},
       showNext: false,
       movie_index: "0",
@@ -265,9 +274,9 @@ export default {
         .then(response => {
           this.tickets = response.data;
           for (var i = 0; i < this.tickets.length; i++)
-            sessionStorage.ticketsNum
-              ? this.$set(this.ticketsNum, i, this.tickets_index[i])
-              : this.$set(this.ticketsNum, i, 0);
+            sessionStorage.ticketsNum ?
+              this.$set(this.ticketsNum, i, this.tickets_index[i]) :
+              this.$set(this.ticketsNum, i, 0);
         });
     },
     loadFoodDrinks() {
@@ -276,25 +285,29 @@ export default {
         .then(response => {
           this.foodDrinks = response.data;
           for (var i = 0; i < this.foodDrinks.length; i++) {
-            sessionStorage.foodDrinksNum
-              ? this.$set(this.foodDrinksNum, i, this.foodDrinks_index[i])
-              : this.$set(this.foodDrinksNum, i, 0);
+            sessionStorage.foodDrinksNum ?
+              this.$set(this.foodDrinksNum, i, this.foodDrinks_index[i]) :
+              this.$set(this.foodDrinksNum, i, 0);
           }
         });
     },
-    add(index) {
-      if (this.foodDrink[index] < 5) this.foodDrink[index] += 1;
-      else this.foodDrink[index] = 5;
-      console.log(this.ticketsTotal);
+    minusTickets(index) {
+      if (this.ticketsNum[index] > 0) this.ticketsNum[index] -= 1;
+      else this.ticketsNum[index] = 0;
     },
-    minus(index) {
-      if (this.foodDrink[index] > 0) this.foodDrink[index] -= 1;
-      else this.foodDrink[index] = 0;
+    plusTickets(index) {
+      if (this.ticketsNum[index] < 5) this.ticketsNum[index] += 1;
+      else this.ticketsNum[index] = 5;
     },
-    addTicket(index) {
-      this.tickets[index]["num"]++;
-      console.log(this.tickets);
+    minusFoodDrinks(index) {
+      if (this.foodDrinksNum[index] > 0) this.foodDrinksNum[index] -= 1;
+      else this.foodDrinksNum[index] = 0;
     },
+    plusFoodDrinks(index) {
+      if (this.foodDrinksNum[index] < 10) this.foodDrinksNum[index] += 1;
+      else this.foodDrinksNum[index] = 10;
+    },
+
     setProp() {
       sessionStorage.setItem(
         "movie_index",
@@ -333,20 +346,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 select {
   text-align-last: center;
 }
 
-@media (min-width: 768px) {
-
+.v-hidden {
+  visibility: hidden;
 }
 
-@media (min-width: 456px) and (max-width: 767px) {
-  
-}
-
-@media (min-width: 768) {
-  
+input {
+  font-size: 1.1rem;
 }
 </style>

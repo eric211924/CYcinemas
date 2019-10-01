@@ -24,7 +24,7 @@
             <div class="form-group">
               <label for>帳號 :</label>
               <input type="text" class="form-control" v-model="account" @change="checkAcc"/>
-              {{ check }}
+              {{ checkResult }}
             </div>
             <div class="form-group">
               <label for>密碼 :</label>
@@ -45,7 +45,8 @@
               type="button"
               class="btn btn-primary"
               data-dismiss="modal"
-              @click="registered" 
+              v-bind:disabled="isDisabled"
+              @click="registered"
             >送出</button>
             
           </div>
@@ -56,7 +57,7 @@
 </template>
 
 <script>
-var userList = []; // 暫存各使用者所填寫的資料
+// import func from '../../vue-temp/vue-editor-bridge';
 export default {
   data() {
     return {
@@ -65,73 +66,57 @@ export default {
       password: '',
       email: '',
       phone: '',
-      check: ''
+      checkResult: "",
+      result: "",
+      isDisabled: false,
     }
   },
   methods: {
     registered() {
-      // 註冊時 檢查帳號是否存在
-      // 會員註冊資料暫存 若帳號無重複 將此筆資料存進local
-      var userData = {
-        name: this.name,
-        account: this.account,
-        password: this.password,
-        email: this.email,
-        phone: this.phone
-      };
-      // 檢查local內有無資料 無: 直接新增會員 有: 取出local內已存的帳號比對
-      if (localStorage.getItem("allUser") === null) {
-        this.$toasted.success("註冊成功", {
-          theme: 'bubble',
-          duration: 3000
+      var _this = this;
+      var formData = new FormData();
+      formData.append('name', this.name);
+      formData.append('account', this.account);
+      formData.append('password', this.password);
+      formData.append('email', this.email);
+      formData.append('phone', this.phone);
+
+      this.axios.post('https://localhost/CYcinemasBackEnd/member/members', formData)
+        .then(function (response) {
+          _this.result = response.data;
+          _this.$toasted.success(_this.result, {
+            theme: 'bubble',
+            duration: 3000
+          });
+        }).catch(function (error) {
+          _this.result = error;
         });
-        userList.push(userData);
-        localStorage.setItem("allUser", JSON.stringify(userList));
-      } else {
-        // 取出local內已存的帳號比對 
-        // 有: 告知此帳號已存在 不存此會員註冊資料進local 
-        // 無: 將此會員註冊資料存進local
-        console.log("yes");
-        var getAccount = JSON.parse(localStorage.getItem("allUser"));
-        // console.log(getAccount);
-        var accIsExist = getAccount.find(getAccount => getAccount.account == this.account);
-        if (accIsExist) {
-          this.$toasted.error("此帳號有人使用了 換一個吧", {
-            theme: 'bubble',
-            duration: 3000
-          });
-        } else {
-          this.$toasted.success("會員建立成功", {
-            theme: 'bubble',
-            duration: 3000
-          });
-          getAccount.push(userData);
-          localStorage.setItem("allUser", JSON.stringify(getAccount));
-        }
-      }
-      this.name = "";
-      this.account = "";
-      this.password = "";
-      this.email = "";
-      this.phone = "";
-      this.check = "";
+
+      this.name = '';
+      this.account = '';
+      this.password = '';
+      this.email = '';
+      this.phone = '';
+      this.checkResult = '';
     },
     checkAcc() {
-      // 帳號輸入後 檢查帳號是否存在
-      // 先檢查local內有無資料 無: 表示帳號可使用  有: 取出local內已存的帳戶名稱比對
-      if (localStorage.getItem("allUser") === null) {
-        this.check = "此帳號可以使用";
-      } else {
-        // 取出local內已存的帳戶名稱比對 
-        // 有: 告知此帳戶已存在  無: 表示帳號可使用
-        var getAccount = JSON.parse(localStorage.getItem("allUser"));
-        var accIsExist = getAccount.find(getAccount => getAccount.account == this.account);
-        if (accIsExist) {
-          this.check = "此帳號已有人使用";
-        } else {
-          this.check = "此帳號可以使用";
-        }
-      }
+      console.log('checked');
+      var _this = this;
+      var account = this.account;
+      var num_rows = 0;
+      this.axios.get('https://localhost/CYcinemasBackEnd/member/' + account)
+        .then(function (response) {
+          num_rows = response.data;
+          if(num_rows > 0) {
+            _this.checkResult = "此帳號已有人使用";
+            _this.isDisabled = true;
+          } else {
+            _this.checkResult = "此帳號可以使用";
+            _this.isDisabled = false;
+          }
+        }).catch(function (error) {
+          _this.checkResult = error;
+        });
     }
   }
 }
