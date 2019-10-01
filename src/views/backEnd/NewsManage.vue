@@ -41,40 +41,6 @@
         </div>
       </div>
     </div>
-    <!-- <table class="w-100 mt-2 table">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">編號</th>
-          <th scope="col">圖片</th>
-          <th scope="col">標題</th>
-          <th scope="col">內容</th>
-          <th scope="col">日期</th>
-          <th scope="col">管理</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in newsData" :key="index">
-          <td>{{ item.id }}</td>
-          <td>
-            <img :src="item.img_thumbs_url" width="130px" height="100px" />
-          </td>
-          <td>{{ item.title }}</td>
-          <td class="overflow-hidden">{{ item.content }}</td>
-          <td>{{ item.release_time }}</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#NewsForm" @click.prevent="action = '修改'; getNewsData(item.id)">修改</button>
-              <button
-                class="btn btn-danger btn-sm"
-                data-toggle="modal"
-                data-target="#deleteModal"
-                @click.prevent="setId = item.id"
-              >刪除</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>-->
     <DeleteModal @delete="deleteNews"></DeleteModal>
 
     <!-- News Form -->
@@ -176,6 +142,7 @@ export default {
     this.getNewsData();
   },
   methods: {
+    // 取的News資料
     getNewsData(newsId = '') {
       const _this = this;
       if (newsId == '') {
@@ -185,7 +152,6 @@ export default {
         });
       } else {
         this.axios.get(`${_this.$api}/news/${newsId}`).then((response) => {
-          console.log(response.data[0].start_time);
           let data = response.data[0];
           _this.title = data.title;
           _this.content = data.content;
@@ -194,21 +160,21 @@ export default {
         });
       }
     },
+    // 新增News
     addNews() {
       const _this = this;
       this.file = this.$refs.file.files[0];
       let formData = new FormData();
-      formData.append('file', this.file);
       formData.append('title', this.title);
       formData.append('content', this.content);
       formData.append('startTime', this.startTime);
       formData.append('endTime', this.endTime);
+      formData.append('file', this.file);
       this.axios.post(`${this.$api}/news/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then(response => {
-        console.log(response);
         if (response.data.status == 201) {
           _this.$toasted.success(response.data.msg, {
             theme: 'bubble',
@@ -224,21 +190,30 @@ export default {
         }
       });
     },
+    // 更新News
     updateNews() {
       const _this = this;
       this.file = this.$refs.file.files[0];
       let formData = new FormData();
-      formData.append('file', this.file);
       formData.append('title', this.title);
       formData.append('content', this.content);
       formData.append('startTime', this.startTime);
       formData.append('endTime', this.endTime);
+      formData.append('file', this.file);
+      this.axios.put(`${this.$api}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then((response) => {
+        console.log(response);
+        _this.getNewsData();
+      });
     },
+    // 刪除News
     deleteNews() {
       console.log(this.setId);
       const _this = this;
       this.axios.delete(`${_this.$api}/news/${_this.setId}`).then(response => {
-        console.log(response.data);
         _this.$toasted.success(response.data.msg, {
           theme: 'bubble',
           duration: 5000

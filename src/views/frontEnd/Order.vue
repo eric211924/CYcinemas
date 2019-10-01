@@ -22,12 +22,7 @@
               <label for="theater" class="col-md-2 text-center">
                 <i class="fa fa-video-camera" style="font-size:1.5em" aria-hidden="true"></i>&emsp;選擇戲院
               </label>
-              <select
-                name="theater"
-                id="theater"
-                disabled
-                class="form-control col-md-10"
-              >
+              <select name="theater" id="theater" disabled class="form-control col-md-10">
                 <option value="0">中佑大戲院</option>
               </select>
               <input type="hidden" name="theater" value="0" />
@@ -89,15 +84,23 @@
             <div>
               <hr />
 
+
               <div class="row">
-                <span class="col-md-2 text-center p-1">票種</span>
+                <div class="col-12">
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2 text-center p-1">票種</div>
                 <span class="col-md-6 text-center">價格</span>
                 <span class="col-md-2 text-center offset-md-1">數量</span>
               </div>
               <hr />
-              <div class="row" v-for="(ticket,index) in tickets" :key="index">
-                <label class="col-md-2 text-center p-1">{{ticket.name}}</label>
-                <span class="col-md-6 text-center">{{ticket.price}}</span>
+              <div class="row">
+              <!-- <div class="row" v-for="(ticket,index) in tickets" :key="index"> -->
+                <label class="col-md-2 text-center p-1">一般票</label>
+                <span class="col-md-6 text-center">1</span>
                 <div class="col-md-4 row justify-content-center">
                   <i
                     class="fa fa-minus-square-o fa-2x p-1"
@@ -237,10 +240,10 @@ export default {
     loadMovieDay() {
       this.axios
         .get(`${this.$url}/getMovieDay/${this.movies[
-              sessionStorage.movie_index
-                ? sessionStorage.movie_index
-                : document.getElementById("movies").value
-            ]["encoded_id"]}`)
+          sessionStorage.movie_index
+            ? sessionStorage.movie_index
+            : document.getElementById("movies").value
+        ]["encoded_id"]}`)
         .then(response => {
           console.log(response.data);
           this.days = response.data;
@@ -250,8 +253,8 @@ export default {
     loadMovieTime() {
       this.axios
         .get(`${this.$url}/getMovieTime/${this.movies[document.getElementById("movies").value][
-              "encoded_id"
-            ]}`)
+          "encoded_id"
+        ]}`)
         .then(response => {
           this.times = response.data;
         });
@@ -314,7 +317,7 @@ export default {
     }
   },
   computed: {
-    ticketsTotal: function() {
+    ticketsTotal: function () {
       let total = 0;
       for (var i = 0; i < Object.keys(this.ticketsNum).length; i++)
         total += this.ticketsNum[i];
@@ -322,7 +325,7 @@ export default {
     }
   },
   watch: {
-    ticketsTotal: function() {
+    ticketsTotal: function () {
       if (this.ticketsTotal > 0) this.showNext = true;
       else if (this.ticketsTotal == 0) this.showNext = false;
     }
@@ -330,8 +333,20 @@ export default {
 };
 </script>
 
-<style scoped>
-    select {
-      text-align-last: center;
-    }
+<style lang="scss" scoped>
+select {
+  text-align-last: center;
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 456px) and (max-width: 767px) {
+  
+}
+
+@media (min-width: 768) {
+  
+}
 </style>
