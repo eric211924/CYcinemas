@@ -155,7 +155,7 @@
               />
               <i
                 class="fa fa-plus-square-o fa-2x p-1"
-                v-on:click="foodDrinksNum[index]++"
+                v-on:click="foodDrinksNum[index]>9?foodDrinksNum[index]=foodDrinksNum[index]:foodDrinksNum[index]++"
                 style="cursor:pointer;"
                 aria-hidden="true"
               ></i>
@@ -226,12 +226,9 @@ export default {
   methods: {
     loadMovies() {
       this.axios
-        .get(`${this.$url}/`, {
-          params: {
-            fields: "getMovies"
-          }
-        })
+        .get(`${this.$url}/getMovies`)
         .then(response => {
+          // console.log(response.data);
           this.movies = response.data;
           this.loadMovieDay();
         });
@@ -239,43 +236,29 @@ export default {
 
     loadMovieDay() {
       this.axios
-        .get(`${this.$url}/`, {
-          params: {
-            fields: "getMovieDay",
-            encoded_id: this.movies[
+        .get(`${this.$url}/getMovieDay/${this.movies[
               sessionStorage.movie_index
                 ? sessionStorage.movie_index
                 : document.getElementById("movies").value
-            ]["encoded_id"]
-          }
-        })
+            ]["encoded_id"]}`)
         .then(response => {
-          // console.log(response.data);
+          console.log(response.data);
           this.days = response.data;
           this.loadMovieTime();
         });
     },
     loadMovieTime() {
       this.axios
-        .get(`${this.$url}/`, {
-          params: {
-            fields: "getMovieTime",
-            encoded_id: this.movies[document.getElementById("movies").value][
+        .get(`${this.$url}/getMovieTime/${this.movies[document.getElementById("movies").value][
               "encoded_id"
-            ]
-          }
-        })
+            ]}`)
         .then(response => {
           this.times = response.data;
         });
     },
     loadTickets() {
       this.axios
-        .get(`${this.$url}/`, {
-          params: {
-            fields: "getTickets"
-          }
-        })
+        .get(`${this.$url}/getTickets`)
         .then(response => {
           this.tickets = response.data;
           for (var i = 0; i < this.tickets.length; i++)
@@ -286,11 +269,7 @@ export default {
     },
     loadFoodDrinks() {
       this.axios
-        .get(`${this.$url}/`, {
-          params: {
-            fields: "getFoodDrinks"
-          }
-        })
+        .get(`${this.$url}/getFoodDrinks`)
         .then(response => {
           this.foodDrinks = response.data;
           for (var i = 0; i < this.foodDrinks.length; i++) {

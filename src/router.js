@@ -38,6 +38,11 @@ const router = new Router({
       component: () => import('./views/frontEnd/chooseSeat.vue'),
     },
     {
+      path: '/order/detail',
+      name: 'Detail',
+      component: () => import('./views/frontEnd/Detail.vue'),
+    },
+    {
       path: '/detail',
       name: 'detail',
       component: () => import('./views/frontEnd/Detail.vue')
