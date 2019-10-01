@@ -1,7 +1,47 @@
 <template>
   <div>
-    <button class="btn btn-primary mt-4" data-toggle="modal" data-target="#NewsForm" @click.prevent="action = '新增'">新增 +</button>
-    <table class="w-100 mt-2 table">
+    <button
+      class="btn btn-primary mt-4"
+      data-toggle="modal"
+      data-target="#NewsForm"
+      @click.prevent="action = '新增'"
+    >新增 +</button>
+    <div class="row">
+      <div class="col-12 my-2" v-for="(item, index) in newsData" :key="index">
+        <div class="row">
+          <div class="col-2">
+            <img
+              class="rounded img-thumbnail"
+              :src="item.img_thumbs_url"
+              height="100%"
+              width="100%"
+            />
+            <span class="d-flex justify-content-center">{{ item.release_time }}</span>
+            <div class="btn-group my-1 d-flex justify-cotent-center">
+              <button
+                class="btn btn-warning btn-sm"
+                data-toggle="modal"
+                data-target="#NewsForm"
+                @click.prevent="action = '修改'; getNewsData(item.id)"
+              >修改</button>
+              <button
+                class="btn btn-danger btn-sm"
+                data-toggle="modal"
+                data-target="#deleteModal"
+                @click.prevent="setId = item.id"
+              >刪除</button>
+            </div>
+          </div>
+          <div class="col-10">
+            <span>
+              <h4>&lt;{{ item.title }}&gt; {{ item.start_time }} ~ {{ item.end_time }}</h4>
+            </span>
+            <div class="overflow-auto">{{ item.content }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <table class="w-100 mt-2 table">
       <thead class="thead-dark">
         <tr>
           <th scope="col">編號</th>
@@ -34,7 +74,7 @@
           </td>
         </tr>
       </tbody>
-    </table>
+    </table>-->
     <DeleteModal @delete="deleteNews"></DeleteModal>
 
     <!-- News Form -->
@@ -70,7 +110,7 @@
               </div>
               <div class="form-group">
                 <label>內容 :</label>
-                <textarea class="form-control" rows="10" v-model="content" required></textarea>
+                <textarea class="form-control" rows="5" v-model="content" required></textarea>
               </div>
               <div class="form-group">
                 <label>開始時間 :</label>
@@ -97,6 +137,14 @@
               class="btn btn-primary"
               data-dismiss="modal"
               @click.prevent="addNews"
+              v-if="action == '新增'"
+            >送出</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              @click.prevent="updateNews"
+              v-if="action == '修改'"
             >送出</button>
           </div>
         </div>
@@ -161,13 +209,30 @@ export default {
         }
       }).then(response => {
         console.log(response);
-        _this.$toasted.success(response.data.msg, {
-          theme: 'bubble',
-          duration: 3000
-        });
-        _this.getNewsData();
-        _this.cleanData();
+        if (response.data.status == 201) {
+          _this.$toasted.success(response.data.msg, {
+            theme: 'bubble',
+            duration: 5000
+          });
+          _this.getNewsData();
+          _this.cleanData();
+        } else {
+          _this.$toasted.error(response.data.msg, {
+            theme: 'bubble',
+            duration: 5000
+          });
+        }
       });
+    },
+    updateNews() {
+      const _this = this;
+      this.file = this.$refs.file.files[0];
+      let formData = new FormData();
+      formData.append('file', this.file);
+      formData.append('title', this.title);
+      formData.append('content', this.content);
+      formData.append('startTime', this.startTime);
+      formData.append('endTime', this.endTime);
     },
     deleteNews() {
       console.log(this.setId);
@@ -176,7 +241,7 @@ export default {
         console.log(response.data);
         _this.$toasted.success(response.data.msg, {
           theme: 'bubble',
-          duration: 3000
+          duration: 5000
         });
         _this.getNewsData();
       });

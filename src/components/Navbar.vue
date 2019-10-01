@@ -25,7 +25,7 @@
             <router-link class="nav-link" to="/">首頁</router-link>
           </li>
           <li class="nav-item" :class="{'active': this.$route.path == '/news'}">
-            <router-link class="nav-link" to="/news">最新消息</router-link>
+            <router-link class="nav-link" to="/news">活動&amp;消息</router-link>
           </li>
           <li class="nav-item" :class="{'active': this.$route.path == '/about'}">
             <router-link class="nav-link" to="/about">關於戲院</router-link>
