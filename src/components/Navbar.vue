@@ -87,7 +87,7 @@ export default {
     return {
       isLogin: false,
       name: '',
-      isManager: false
+      isManager: false,
     }
   },
   mounted() { // 頁面載入後所做動作 -> 檢查是否在登入狀態
@@ -97,53 +97,65 @@ export default {
     checkLogin() {
       if (localStorage.getItem('status')) { // 檢查是否在登入狀態
         this.isLogin = true;
-        console.log(typeof localStorage.getItem('logName'));
-        this.name = localStorage.getItem('logName');
-        if (localStorage.getItem('logAccount') == 'admin') {
+        // console.log(typeof localStorage.getItem('logName'));
+        this.name = localStorage.getItem('nowName');
+        if (localStorage.getItem('nowAcc') == 'admin') {
           this.isManager = true;
+          this.name = localStorage.getItem('nowName');
         }
       }
     },
-    getCookie() { // 登入帳密 與 註冊帳密比對 
-      var getAccount = JSON.parse(localStorage.getItem("allUser")); // 取得會員清單
+    getCookie() { // 登入驗證
       var logAccount = localStorage.getItem('logAccount'); // 取得登入帳號
       var logPassword = localStorage.getItem('logPassword'); // 取得登入密碼
-      var accIsExist = getAccount.find(getAccount => getAccount.account == logAccount);
-      // 檢查帳號/密碼是否正確
-      console.log(accIsExist);
-      if (accIsExist) {
-        // 帳號正確 -> 檢查密碼是否正確
-        if (accIsExist.password == logPassword) {
-          this.isLogin = true;
-          localStorage.setItem("status", "login");
-          localStorage.setItem("logName", accIsExist.name);
-          this.name = localStorage.getItem('logName');
-          // 帳密正確 -> 是否為管理員帳號
-          if (logAccount == 'admin') {
-            this.isManager = true;
+      var loginData = new FormData();
+      var _this = this;
+      loginData.append('account', logAccount);
+      loginData.append('password', logPassword);
+      //   http://localhost/multi_user/backend/login
+      this.axios.post('https://localhost/CYcinemasBackEnd/member/login', loginData)
+        .then(function (response) {
+          var result = response.data; // 記錄回傳的值 有此會員: 回傳name 和 account, 無此會員: 回傳Failed
+          var temp = JSON.stringify(response.data); 
+          temp = JSON.parse(temp); // 若有此會員 temp 儲存name 和 account
+          // 登入失敗 直接報錯
+          if (result == 'Failed') {
+            _this.$toasted.error("登入失敗，請確認帳號密碼是否有誤", {
+              theme: 'bubble',
+              duration: 3000
+            });
+          } else {
+            // 登入成功 判斷是否為管理員
+            if (temp.account == 'admin') {
+              _this.$toasted.success("管理員登入成功", {
+                theme: 'bubble',
+                duration: 3000
+              });
+              // 在登入狀態 且為管理員 紀錄登入狀態 與帳號 姓名
+              _this.isLogin = true; 
+              _this.isManager = true;
+              _this.name = temp.name;
+              localStorage.setItem("status", "login");
+              localStorage.setItem("nowAcc", temp.account);
+              localStorage.setItem("nowName", temp.name);
+            } else {
+              _this.$toasted.success("會員登入成功", {
+                theme: 'bubble',
+                duration: 3000
+              });
+              // 在登入狀態 紀錄登入狀態 與帳號 姓名
+              _this.isLogin = true;
+              _this.name = temp.name;
+              localStorage.setItem("status", "login");
+              localStorage.setItem("nowAcc", temp.account);
+              localStorage.setItem("nowName", temp.name);
+            }
           }
-        } else {
-          // 帳號正確 密碼錯誤 -> 直接報錯
-          this.$toasted.error('登入失敗, 請檢查帳號或密碼是否有誤', {
-            theme: 'bubble',
-            duration: 3000
-          });
-          this.isLogin = false;
-          this.isManager = false;
-          localStorage.removeItem("logAccount");
-          localStorage.removeItem("logPassword");
-        }
-      } else {
-        // 帳號錯誤 -> 直接報錯
-        this.$toasted.error('登入失敗, 請檢查帳號或密碼是否有誤', {
-          theme: 'bubble',
-          duration: 3000
+          localStorage.removeItem('logAccount');
+          localStorage.removeItem('logPassword');
+        }).catch(function (error) {
+          _this.result = error;
         });
-        this.isLogin = false;
-        this.isManager = false;
-        localStorage.removeItem("logAccount");
-        localStorage.removeItem("logPassword");
-      }
     },
     // 登出功能
     logout() {
@@ -151,10 +163,10 @@ export default {
         theme: 'bubble',
         duration: 3000
       });
-      // 移除登入的帳密 顯示的name
-      localStorage.removeItem("logAccount");
-      localStorage.removeItem("logPassword");
-      localStorage.removeItem("logName");
+      // 移除目前登入的帳號 姓名
+      localStorage.removeItem("nowAcc");
+      localStorage.removeItem("nowName");
+      this.name = '';
       // 狀態改成登出
       localStorage.removeItem('status');
       this.isLogin = false;
