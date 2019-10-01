@@ -26,8 +26,17 @@
         </table>
         every seat status: {{ checkedNames }}
         <br>
+<<<<<<< HEAD
         checked seats: {{ finalSeat  }}
 
+=======
+        checked seats: {{ finalSeat | json }}
+        <br><br><br>
+        <router-link
+            to="/order/Detail"
+            class="btn btn-success btn-block"
+          >點我去看訂單詳細</router-link>
+>>>>>>> 64ecdc0d22da26fdf71d34ff2628768a45efc5f2
 
     </div>
   </div>
