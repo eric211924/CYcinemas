@@ -8,13 +8,13 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="http://fakeimg.pl/960x360/" class="d-block w-100" alt="..." />
+          <img src="../../assets/home_1.jpg" class="d-block w-100" alt="..." />
         </div>
         <div class="carousel-item">
-          <img src="http://fakeimg.pl/960x360/" class="d-block w-100" alt="..." />
+          <img src="../../assets/home_2.jpg" class="d-block w-100" alt="..." />
         </div>
         <div class="carousel-item">
-          <img src="http://fakeimg.pl/960x360/" class="d-block w-100" alt="..." />
+          <img src="../../assets/home_3.jpg" class="d-block w-100" alt="..." />
         </div>
       </div>
       <a
@@ -53,8 +53,7 @@ export default {
   },
   data() {
     return {
-      imgAr: Array(4)
-     
+      imgAr: Array(4),  
     }
   }
 }
