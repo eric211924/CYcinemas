@@ -24,9 +24,9 @@
                
             </tr>
         </table>
-        every seat status: {{ checkedNames | json }}
+        every seat status: {{ checkedNames }}
         <br>
-        checked seats: {{ finalSeat | json }}
+        checked seats: {{ finalSeat  }}
 
 
     </div>
@@ -35,45 +35,43 @@
 
 <script>
 export default {
-     
-            el: '#vm',
-            data: {
-                name: 'Vue.js',
-                
-                a: false,
-                a1: false,
-                a2: false,
-                a3: false,
-                a4: false,
-                a5: false,
-                a6: false,
-                a7: false,
-                a8: false,
-                a9: false,
-                checkedNames: [0,0,0,0,0,0,0,0,0,0],
-                finalSeat:[]
-
-            },
-            methods: {
-                putSeatIn(x,seat){
-                    let i=0,j=0;
-                    this.checkedNames[seat]=x ;
-
-                    for(i=0;i<this.finalSeat.length;i++)
-                    this.finalSeat[i]=0;
-
-                    for(i=0;i<10;i++){
-                        if(this.checkedNames[i]==true){
-                            this.finalSeat[j]=i;
-                            j++;
-                        }
-                    }
-                    
-
-                }
-
-            }
-        
+  // name: "chooseSeat",
+  data(){
+    return{
+      a: false,
+      a1: false,
+      a2: false,
+      a3: false,
+      a4: false,
+      a5: false,
+      a6: false,
+      a7: false,   
+                           
+      a8: false,
+      a9: false,
+      checkedNames: [0,0,0,0,0,0,0,0,0,0],
+      finalSeat:[],
+      x:'',
+      seat:''
+    }
+  },
+  mounted(){
+    this.putSeatIn(this.x,this.seat);
+  },
+  methods:{
+    putSeatIn(x,seat){
+      let i=0,j=0;
+      this.checkedNames[seat]=x ;
+      for(i=0;i<this.finalSeat.length;i++)
+      this.finalSeat[i]=0;
+      for(i=0;i<10;i++){
+        if(this.checkedNames[i]==true){
+            this.finalSeat[j]=i;
+            j++;
+        }
+      }
+    }
+  }
 }
 </script>
 
