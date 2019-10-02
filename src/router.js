@@ -13,11 +13,6 @@ const router = new Router({
       component: Home
     },
     {
-      path:"/test",
-      name: "test",
-      component: () => import('./views/test.vue')
-    },
-    {
       path: '/news',
       name: 'news',
       component: () => import('./views/frontEnd/News.vue')
@@ -35,12 +30,17 @@ const router = new Router({
     {
       path: '/order',
       name: 'order',
-      component: () => import('./views/frontEnd/Order.vue')
+      component: () => import('./views/frontEnd/Order.vue'),
     },
     {
-      path: '/chooseSeat',
+      path: '/order/chooseSeat',
       name: 'chooseSeat',
-      component: () => import('./views/frontEnd/chooseSeat.vue')
+      component: () => import('./views/frontEnd/chooseSeat.vue'),
+    },
+    {
+      path: '/order/detail',
+      name: 'Detail',
+      component: () => import('./views/frontEnd/Detail.vue'),
     },
     {
       path: '/detail',
@@ -51,11 +51,6 @@ const router = new Router({
       path: '/bonus',
       name: 'bonus',
       component: () => import('./views/frontEnd/Bonus.vue')
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: () => import('./views/test.vue')
     },
     {
       path: '/user',
@@ -127,11 +122,11 @@ router.beforeEach((to, from, next) => {
     let url = to.path.split('/');
     switch (url[1]) {
       case 'user':
-        if (localStorage.getItem('logAccount')) next();
+        if (localStorage.getItem('nowAcc')) next();
         else next(from.path);
         break;
       case 'backEnd':
-        if (localStorage.getItem('logAccount') == 'admin') next();
+        if (localStorage.getItem('nowAcc') == 'admin') next();
         else next(from.path);
         break;
       default:

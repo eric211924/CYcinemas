@@ -17,6 +17,12 @@
                 <td>&emsp;座&emsp;&emsp;位&emsp;&emsp;&emsp;{{seat}}</td>
             </tr>
             <tr>
+                <td>&emsp;票&emsp;&emsp;種&emsp;&emsp;&emsp;{{ticket}}</td>
+            </tr>
+            <tr>
+                <td>&emsp;餐&emsp;&emsp;點&emsp;&emsp;&emsp;{{food}}</td>
+            </tr>
+            <tr>
                 <td>&emsp;總金額&emsp;&emsp;&emsp;&emsp;{{total}}</td>
             </tr>
         </table>
@@ -89,9 +95,69 @@
      </div>
     </div>
      <!--input end--> 
+
+     <!--member only-->  
+        <!--input-->
+            <div  v-if="!guest" class="editInputGrounp input-group input-group-sm mb-1">  
+                <span>
+                &emsp;真實姓名&ensp;: &emsp;
+                </span>
+            <!-- <input v-model="memberName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+               <div class="input-group-append">
+               <span class="input-group-text" id="basic-addon2">
+               <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+               </span> 
+             </div>--> 
+             
+             <span>
+                XXX &emsp;
+                </span>
+            </div>
+     <!--input end-->  
+     <!--member only--> 
+     <!--member only-->  
+        <!--input-->
+            <div  v-if="!guest" class="editInputGrounp input-group input-group-sm mb-1">  
+                <span>
+                &emsp;電子信箱&ensp;: &emsp;
+                </span>
+            <!-- <input v-model="memberName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+               <div class="input-group-append">
+               <span class="input-group-text" id="basic-addon2">
+               <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+               </span> 
+             </div>--> 
+             
+             <span>
+                yaa@gmail &emsp;
+                </span>
+            </div>
+     <!--input end-->  
+     <!--member only--> 
+     <!--member only-->  
+        <!--input-->
+            <div  v-if="!guest" class="editInputGrounp input-group input-group-sm mb-3">  
+                <span>
+                &emsp;手機號碼&ensp;: &emsp;
+                </span>
+            <!-- <input v-model="memberName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+               <div class="input-group-append">
+               <span class="input-group-text" id="basic-addon2">
+               <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+               </span> 
+             </div>--> 
+             
+             <span>
+                091034568 &emsp;
+                </span>
+            </div>
+     <!--input end-->  
+     <!--member only--> 
+      
+
    
 </div><!--div"tab2"-->
-<div class="tab3">
+<div class="tab3" v-bind:class="{memberTab3:isAct}">
     <h6>信用卡資料</h6> 
     <!--input-->
     <div class="editInputGrounp input-group input-group-sm mb-3"> 
@@ -118,6 +184,8 @@
     <button @click="cancel()" type='submit' name='btn' value='取消訂購' class="btn btn-sm btn-danger">
         <i class="fa fa-times" aria-hidden="true"></i>
         取消訂購</button>&ensp;
+         
+    
     <a href="javascript:void()" class="btn btn-sm btn-warning">
         <i class="fa fa-reply" aria-hidden="true"></i>
         回上一頁
@@ -127,6 +195,7 @@
     <input type="hidden" name='sqlList' v-bind:value='sqlList'> 
     <!--hidden-->
 </form>
+<a href="javascript:void()" @click="isGuest()">ch</a>
 </div><!--div"app"-->
 </template>
 
@@ -137,6 +206,7 @@ var orderData = {
             day: '2019-9-30',
             time: '14:00',
             ticket: '全票',
+            food:'薯條',
             price: 280,
             num: 2,
             discount: 0.8,
@@ -156,8 +226,11 @@ var orderSqlData={
             tickets_num      :'9',
             food_drinks_num  :'4'
 };
-localStorage.setItem('dataList', JSON.stringify(orderData));
-localStorage.setItem('sqlList', JSON.stringify(orderSqlData));
+sessionStorage.setItem('dataList', JSON.stringify(orderData));
+sessionStorage.setItem('sqlList', JSON.stringify(orderSqlData));
+sessionStorage.setItem('dataListObj','orderData');
+var obj = sessionStorage.getItem('dataListObj') ;
+console.log(obj);
 export default {
     data(){
         return {
@@ -166,6 +239,7 @@ export default {
             day: '',
             time: '',
             ticket: '' ,
+            food:'',
             price: 0 ,
             num:  0,
             discount: 0,
@@ -178,8 +252,8 @@ export default {
             phone:'321',
             total:'',
             real:'',
-            guest:true,
-            member:false,
+            guest:false,
+            isAct:true,
             sqlList:''
         }
     },
@@ -188,6 +262,10 @@ export default {
         this.countMoney();
     },
     methods:{
+        isGuest:function(){
+            this.guest = !(this.guest);
+            this.isAct = !(this.isAct);
+        },
         checkPersonalInfo:function(){
             if( this.memberName.trim()==""|
                 this.account.trim()==""|
@@ -213,22 +291,25 @@ export default {
             this.real =this.total*this.discount;
         },
         getData: function(){
-            this.sqlList= localStorage.getItem('sqlList');
-            this.movieName=JSON.parse(localStorage.getItem('dataList')).movieName; 
-            this.theater=JSON.parse(localStorage.getItem('dataList')).theater; 
-            this.day=JSON.parse(localStorage.getItem('dataList')).day; 
-            this.time=JSON.parse(localStorage.getItem('dataList')).time; 
-            this.ticket=JSON.parse(localStorage.getItem('dataList')).ticket; 
-            this.price=JSON.parse(localStorage.getItem('dataList')).price;
-            this.num=JSON.parse(localStorage.getItem('dataList')).num;
-            this.discount=JSON.parse(localStorage.getItem('dataList')).discount;
-            this.seat=JSON.parse(localStorage.getItem('dataList')).seat; 
-            this.hall=JSON.parse(localStorage.getItem('dataList')).hall; 
+            this.sqlList= sessionStorage.getItem('sqlList');
+            this.movieName=JSON.parse(sessionStorage.getItem('dataList')).movieName;
+            // dataListObj 
+            // this.movieName= sessionStorage.getItem('dataListObj').movieName; 
+            this.theater=JSON.parse(sessionStorage.getItem('dataList')).theater; 
+            this.day=JSON.parse(sessionStorage.getItem('dataList')).day; 
+            this.time=JSON.parse(sessionStorage.getItem('dataList')).time; 
+            this.ticket=JSON.parse(sessionStorage.getItem('dataList')).ticket; 
+            this.food=JSON.parse(sessionStorage.getItem('dataList')).food; 
+            this.price=JSON.parse(sessionStorage.getItem('dataList')).price;
+            this.num=JSON.parse(sessionStorage.getItem('dataList')).num;
+            this.discount=JSON.parse(sessionStorage.getItem('dataList')).discount;
+            this.seat=JSON.parse(sessionStorage.getItem('dataList')).seat; 
+            this.hall=JSON.parse(sessionStorage.getItem('dataList')).hall; 
         },
         memberData: function(){
-            this.memberName=JSON.parse(localStorage.getItem('dataList')).memberName; 
-            this.email=JSON.parse(localStorage.getItem('dataList')).email; 
-            this.phone=JSON.parse(localStorage.getItem('dataList')).phone; 
+            this.memberName=JSON.parse(sessionStorage.getItem('dataList')).memberName; 
+            this.email=JSON.parse(sessionStorage.getItem('dataList')).email; 
+            this.phone=JSON.parse(sessionStorage.getItem('dataList')).phone; 
         },
         clrMemberData: function(){
             this.memberName=""; 
@@ -304,6 +385,9 @@ export default {
         }
     }
     .tab2,.tab3{
+        .member{
+
+        }
         margin-right:85px; 
         float:right ;
         width:45%;
@@ -343,5 +427,9 @@ export default {
             }
         }
         
-    }  
+    } 
+    .memberTab3{
+        float:right;
+        margin:-70px 144px 20px 0px; 
+    } 
 </style>
