@@ -128,20 +128,8 @@
                     <time>{{info.start_time}}~{{info.end_time}}</time>
                 </div>
                 <div v-else>
-                <time></time>
-                </div>
-
-
-
-
-
-                <div v-if="(info.start_time && info.end_time) !==''">
-                    
-                </div>
-                <div v-else>
                     <time></time>
-                </div>   
-                
+                </div>
               </section>
             </li>
           </ul>
