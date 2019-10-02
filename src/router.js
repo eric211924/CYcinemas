@@ -39,13 +39,13 @@ const router = new Router({
     },
     {
       path: '/order/detail',
-      name: 'Detail',
+      name: 'detail',
       component: () => import('./views/frontEnd/Detail.vue'),
     },
     {
-      path: '/detail',
-      name: 'detail',
-      component: () => import('./views/frontEnd/Detail.vue')
+      path: '/order/finishDetail',
+      name: 'finishDetail',
+      component: () => import('./views/frontEnd/FinishDetail.vue')
     },
     {
       path: '/bonus',
