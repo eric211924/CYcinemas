@@ -33,8 +33,11 @@
             </div>
           </div>
           <div class="col-10">
-            <span>
-              <h4>&lt;{{ item.title }}&gt; {{ item.start_time }} ~ {{ item.end_time }}</h4>
+            <span class="d-inline">
+              <h5>
+                <b>&lt;{{ item.title }}&gt;</b>
+              </h5>
+              <h6>{{ item.start_time }} ~ {{ item.end_time }}</h6>
             </span>
             <div class="overflow-auto">{{ item.content }}</div>
           </div>
