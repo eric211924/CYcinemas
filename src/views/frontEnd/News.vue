@@ -110,7 +110,12 @@
 
             <li v-for="(info, index) in infos" :key="index">
               <figure>
-                <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" @click.prevent="getInfo(index)">
+                <a
+                  href="#"
+                  data-toggle="modal"
+                  data-target=".bd-example-modal-lg"
+                  @click.prevent="getInfo(index)"
+                >
                   <img :src="info.img_normal_url" :alt="info.title" :title="info.title" />
                 </a>
               </figure>
@@ -118,8 +123,13 @@
                 <h5>
                   <a href="#" @click.prevent="getInfo(index)" data-toggle="modal" data-target=".bd-example-modal-lg">{{info.title}}</a>
                 </h5>
-                <time>{{start_time}}~{{end_time}}</time>
-             
+                
+                <div v-if="(info.start_time && info.end_time) !==''">
+                    <time>{{info.start_time}}~{{info.end_time}}</time>
+                </div>
+                <div v-else>
+                    <time></time>
+                </div>
               </section>
             </li>
           </ul>
@@ -141,24 +151,23 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content" style="text-align:left; padding:40px">
             <h3>{{title}}</h3>
-            <p>
+            <h6>
               <i class="fa fa-calendar" aria-hidden="true"></i>
               開始日期 : {{start_time}}
-            </p>
-            <p>
+            </h6>
+            <h6>
               <i class="fa fa-calendar" aria-hidden="true"></i>
               截止日期 : {{end_time}}
-            </p>
-            <p>
+            </h6>
+            <h6>
               <i class="fa fa-map-marker" aria-hidden="true"></i>
               活動地點 : 中佑影城
-            </p>
-            <p>
+            </h6>
+            <h6>
               <i class="fa fa-file-text-o" aria-hidden="true"></i>
-              活動辦法 : <p>{{content}}</p>
-            </p>
-
-            
+              活動辦法 :
+              <p style="line-height: 35px;">{{content}}</p>
+            </h6>
           </div>
         </div>
       </div>
@@ -259,10 +268,4 @@ time {
   margin-top: 50px;
 }
 </style>
-
-
-
-
-
-
 
