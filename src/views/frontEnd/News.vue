@@ -1,7 +1,6 @@
 <template >
   <div>
     <h1 class="text-center my-4">最新消息</h1>
-
     <div class="container">
       <div class="row">
         <div class="col-sm-1">
@@ -113,7 +112,7 @@
                 <a
                   href="#"
                   data-toggle="modal"
-                  data-target=".bd-example-modal-lg"
+                  data-target="#myModal"
                   @click.prevent="getInfo(index)"
                 >
                   <img :src="info.img_normal_url" :alt="info.title" :title="info.title" />
@@ -121,14 +120,16 @@
               </figure>
               <section class="infoArea">
                 <h5>
-                  <a href="#" @click.prevent="getInfo(index)" data-toggle="modal" data-target=".bd-example-modal-lg">{{info.title}}</a>
+                  <a
+                    href="#"
+                    @click.prevent="getInfo(index)"
+                    data-toggle="modal"
+                    data-target="#myModal"
+                  >{{info.title}}</a>
                 </h5>
-                
-                <div v-if="(info.start_time && info.end_time) !==''">
-                    <time>{{info.start_time}}~{{info.end_time}}</time>
-                </div>
-                <div v-else>
-                    <time></time>
+
+                <div v-if="(info.start_time !='0000-00-00') && (info.end_time!='0000-00-00') ">
+                  <time>{{info.start_time}}~{{info.end_time}}</time>
                 </div>
               </section>
             </li>
@@ -140,34 +141,36 @@
       </div>
     </div>
 
-    <div>
-      <div
-        class="modal fade bd-example-modal-lg"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myLargeModalLabel"
-        aria-hidden="true"
-      >
+    <div class="container">
+      <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg">
-          <div class="modal-content" style="text-align:left; padding:40px">
-            <h3>{{title}}</h3>
-            <h6>
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-              開始日期 : {{start_time}}
-            </h6>
-            <h6>
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-              截止日期 : {{end_time}}
-            </h6>
-            <h6>
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              活動地點 : 中佑影城
-            </h6>
-            <h6>
-              <i class="fa fa-file-text-o" aria-hidden="true"></i>
-              活動辦法 :
-              <p style="line-height: 35px;">{{content}}</p>
-            </h6>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" style="text-align:left; padding:10px">{{title}}}</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align:left; padding:40px">
+              <h6>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                開始日期 : {{start_time}}
+              </h6>
+              <h6>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                截止日期 : {{end_time}}
+              </h6>
+              <h6>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                活動地點 : 中佑影城
+              </h6>
+              <h6>
+                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                活動辦法 :
+                <p style="line-height: 30px;">{{content}}</p>
+              </h6>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
           </div>
         </div>
       </div>
