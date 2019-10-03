@@ -144,7 +144,6 @@
     <div class="container">
       <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg">
-<<<<<<< HEAD
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title" style="text-align:left; padding:10px">{{title}}}</h4>
@@ -172,34 +171,6 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
-=======
-          <div class="modal-content" style="text-align:left; padding:40px">
-            <h3>{{title}}</h3>
-            <h6>
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-              開始日期 : {{start_time}}
-            </h6>
-            <h6>
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-              截止日期 : {{end_time}}
-            </h6>
-            <h6>
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              活動地點 : 中佑影城
-            </h6>
-            <h6>
-              <i class="fa fa-file-text-o" aria-hidden="true"></i>
-<<<<<<< HEAD
-              <!-- 活動辦法 : <p>{{content}}</p> -->
-            </p>
-
-            
-=======
-              活動辦法 :
-              <p style="line-height: 35px;">{{content}}</p>
-            </h6>
->>>>>>> cba8d7e3b3bc192a620fc5e0ccc0a0c1391ca776
->>>>>>> 56eab4e3fba162bdfcfe9ab802fc2c841b5dca02
           </div>
         </div>
       </div>
