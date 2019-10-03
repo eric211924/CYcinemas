@@ -54,7 +54,7 @@
 
 </template>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
     .col-md-1,.col-md-2,.col-md-3,.col-md-4,.col-md-5,
     .col-md-8{
         padding:0; 
