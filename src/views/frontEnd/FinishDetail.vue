@@ -54,12 +54,39 @@
 
 </template>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
     .col-md-1,.col-md-2,.col-md-3,.col-md-4,.col-md-5,
     .col-md-8{
         padding:0; 
         button{
             height:50px; 
+        }
+    }
+    .tab{
+        border-radius:5px; 
+        border: 1px solid gray; 
+        h6{ 
+            text-align:left;
+            padding:10px 0px 10px 20px;
+            background-color:gray;
+            color:white;
+        }
+        div{ 
+            margin:20px 20px; 
+            font-size:16px; 
+            table{  
+                text-align:left;
+                width:100%;
+                tr{ 
+                    border-bottom: 2px solid gray;
+                    td{
+                        padding:5px 0px ; 
+                    }
+                }
+                tr:last-child{ 
+                    border-bottom: 0;
+                }
+            } 
         }
     }
     .detail{
