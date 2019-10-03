@@ -119,15 +119,18 @@
         </div>
       </div>
     </div>
+    <Loading v-if="isLoading"></Loading>
   </div>
 </template>
 
 <script>
 import DeleteModal from '@/components/DeleteModal.vue';
+import Loading from '@/components/Loading.vue';
 
 export default {
   components: {
-    DeleteModal
+    DeleteModal,
+    Loading
   },
   data() {
     return {
@@ -139,10 +142,18 @@ export default {
       endTime: '',
       file: '',
       action: '',
+      isLoading: true
     }
   },
   mounted() {
     this.getNewsData();
+  },
+  watch: {
+    newsData(val) {
+      if (val) {
+        this.isLoading = false;
+      }
+    }
   },
   methods: {
     // 取的News資料
