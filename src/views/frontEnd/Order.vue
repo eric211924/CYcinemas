@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Loading v-show="isLoading"></Loading>
     <h1 class="text-center my-5">訂票</h1>
 
     <div class="container" id="order">
@@ -191,7 +192,10 @@
 
 
 <script>
+import Loading from '@/components/Loading.vue'
+
 export default {
+  components: {Loading},
   name: "order",
   data() {
     return {
@@ -238,6 +242,7 @@ export default {
       },
       foodDrinksNum: {},
       showNext: false,
+      isLoading: true,
       movie_index: "0",
       day_index: "0",
       time_index: "0",
@@ -293,6 +298,7 @@ export default {
         )
         .then(response => {
           this.times = response.data;
+          this.isLoading = false;
         });
     },
     loadTickets() {

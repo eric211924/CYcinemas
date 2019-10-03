@@ -8,6 +8,10 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '*', // 隨意輸入的路由
+      redirect: '/' // 重新導回首頁
+    },
+    {
       path: '/',
       name: 'home',
       component: Home
@@ -39,13 +43,13 @@ const router = new Router({
     },
     {
       path: '/order/detail',
-      name: 'Detail',
+      name: 'detail',
       component: () => import('./views/frontEnd/Detail.vue'),
     },
     {
-      path: '/detail',
-      name: 'detail',
-      component: () => import('./views/frontEnd/Detail.vue')
+      path: '/order/finishDetail',
+      name: 'finishDetail',
+      component: () => import('./views/frontEnd/FinishDetail.vue')
     },
     {
       path: '/bonus',
@@ -126,8 +130,9 @@ router.beforeEach((to, from, next) => {
         else next(from.path);
         break;
       case 'backEnd':
-        if (localStorage.getItem('nowAcc') == 'admin') next();
-        else next(from.path);
+        // if (localStorage.getItem('nowAcc') == 'admin') next();
+        // else next(from.path);
+        next();
         break;
       default:
         next();
