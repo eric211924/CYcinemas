@@ -95,30 +95,27 @@ export default {
   },
   methods: {
     checkLogin() {
-      if (localStorage.getItem('status')) { // 檢查是否在登入狀態
+      if (sessionStorage.getItem('status')) { // 檢查是否在登入狀態
         this.isLogin = true;
-        // console.log(typeof localStorage.getItem('logName'));
-        this.name = localStorage.getItem('nowName');
-        if (localStorage.getItem('nowAcc') == 'admin') {
+        this.name = sessionStorage.getItem('nowName');
+        if (sessionStorage.getItem('nowAcc') == 'admin') {
           this.isManager = true;
-          this.name = localStorage.getItem('nowName');
+          this.name = sessionStorage.getItem('nowName');
         }
       }
     },
     getCookie() { // 登入驗證
-      var logAccount = localStorage.getItem('logAccount'); // 取得登入帳號
-      var logPassword = localStorage.getItem('logPassword'); // 取得登入密碼
+      var logAccount = sessionStorage.getItem('logAccount'); // 取得登入帳號
+      var logPassword = sessionStorage.getItem('logPassword'); // 取得登入密碼
       var loginData = new FormData();
       var _this = this;
       loginData.append('account', logAccount);
       loginData.append('password', logPassword);
-      //   http://localhost/multi_user/backend/login
-      this.axios.post('https://localhost/CYcinemasBackEnd/member/login', loginData)
+      // http://localhost/CYcinemasBackEnd/members/login
+      // https://cy-cinemas.ml/members/login
+      this.axios.post('https://cy-cinemas.ml/members/login', loginData)
         .then(function (response) {
-          var result = response.data; // 記錄回傳的值 有此會員: 回傳name 和 account, 無此會員: 回傳Failed
-          var temp = JSON.stringify(response.data); 
-          temp = JSON.parse(temp); // 若有此會員 temp 儲存name 和 account
-          // 登入失敗 直接報錯
+          var result = response.data; // 有此會員: 回傳姓名 帳號 信箱 電話, 無此會員: 回傳'Failed'
           if (result == 'Failed') {
             _this.$toasted.error("登入失敗，請確認帳號密碼是否有誤", {
               theme: 'bubble',
@@ -126,35 +123,42 @@ export default {
             });
           } else {
             // 登入成功 判斷是否為管理員
-            if (temp.account == 'admin') {
+            if (result[0].account == 'admin') {
               _this.$toasted.success("管理員登入成功", {
                 theme: 'bubble',
                 duration: 3000
               });
-              // 在登入狀態 且為管理員 紀錄登入狀態 與帳號 姓名
+              // 在登入狀態 且為管理員 紀錄登入狀態 與帳號 姓名 信箱 手機
               _this.isLogin = true; 
               _this.isManager = true;
-              _this.name = temp.name;
-              localStorage.setItem("status", "login");
-              localStorage.setItem("nowAcc", temp.account);
-              localStorage.setItem("nowName", temp.name);
+              _this.name = result[0].name;
+              sessionStorage.setItem("status", "login");
+              sessionStorage.setItem("nowAcc", result[0].account);
+              sessionStorage.setItem("nowName", result[0].name);
+              sessionStorage.setItem("nowEmail", result[0].email);
+              sessionStorage.setItem("nowPhone", result[0].phone);
             } else {
               _this.$toasted.success("會員登入成功", {
                 theme: 'bubble',
                 duration: 3000
               });
-              // 在登入狀態 紀錄登入狀態 與帳號 姓名
+              // 在登入狀態 紀錄登入狀態 與帳號 姓名 信箱 手機
               _this.isLogin = true;
-              _this.name = temp.name;
-              localStorage.setItem("status", "login");
-              localStorage.setItem("nowAcc", temp.account);
-              localStorage.setItem("nowName", temp.name);
+              _this.name = result[0].name;
+              sessionStorage.setItem("status", "login");
+              sessionStorage.setItem("nowAcc", result[0].account);
+              sessionStorage.setItem("nowName", result[0].name);
+              sessionStorage.setItem("nowEmail", result[0].email);
+              sessionStorage.setItem("nowPhone", result[0].phone);
             }
           }
-          localStorage.removeItem('logAccount');
-          localStorage.removeItem('logPassword');
+          sessionStorage.removeItem('logAccount');
+          sessionStorage.removeItem('logPassword');
         }).catch(function (error) {
-          _this.result = error;
+          _this.$toasted.error("無法連線，請確認網路連線狀態", {
+              theme: 'bubble',
+              duration: 3000
+            });
         });
     },
     // 登出功能
@@ -163,12 +167,14 @@ export default {
         theme: 'bubble',
         duration: 3000
       });
-      // 移除目前登入的帳號 姓名
-      localStorage.removeItem("nowAcc");
-      localStorage.removeItem("nowName");
+      // 移除目前登入的帳號 姓名 信箱 手機
+      sessionStorage.removeItem("nowAcc");
+      sessionStorage.removeItem("nowName");
+      sessionStorage.removeItem("nowEmail");
+      sessionStorage.removeItem("nowPhone");
       this.name = '';
       // 狀態改成登出
-      localStorage.removeItem('status');
+      sessionStorage.removeItem('status');
       this.isLogin = false;
       this.isManager = false;
     }

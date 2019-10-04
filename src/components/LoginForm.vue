@@ -48,8 +48,8 @@ export default {
   methods: {
     setCookie() {
       // 取得登入的帳密 做登入比對
-      localStorage.setItem('logAccount', this.account);
-      localStorage.setItem('logPassword', this.password);
+      sessionStorage.setItem('logAccount', this.account);
+      sessionStorage.setItem('logPassword', this.password);
       this.$emit('setcookie');
       this.account = '';
       this.password = '';

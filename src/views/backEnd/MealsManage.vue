@@ -17,18 +17,39 @@
         </div>
       </div>
     </div>
+    <Loading v-if="isLoading"></Loading>
   </div>
 </template>
 
 <script>
+import Loading from '@/components/Loading.vue';
+
 export default {
+  components: {
+    Loading
+  },
   data() {
     return {
-      foodsData: Array(4)
+      foodsData: Array(4),
+      isLoading: false
     }
   },
+  watch: {
+    foodsData(val) {
+      // if (!val) {
+      //   this.isLoading = false;
+      // }
+    }
+  },
+  mounted() {
+    this.getMealsData();
+  },
   methods: {
-
+    getMealsData() {
+      this.axios.get(`${this.$api}/meals`).then((response) => {
+        console.log(response.data);
+      });
+    }
   }
 }
 </script>
