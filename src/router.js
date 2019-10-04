@@ -99,10 +99,10 @@ const router = new Router({
           component: () => import('./views/backEnd/MovieManage.vue')
         },
         {
-          path: 'foodManage',
-          name: 'foodManage',
+          path: 'mealsManage',
+          name: 'mealsManage',
           meta: { requiresAuth: true },
-          component: () => import('./views/backEnd/FoodManage.vue')
+          component: () => import('./views/backEnd/MealsManage.vue')
         },
         {
           path: 'memberManage',

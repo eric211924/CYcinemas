@@ -14,9 +14,9 @@
             :class="{'active': this.$route.path == '/backEnd/movieManage'}"
           ><i class="fa fa-video-camera" aria-hidden="true"></i> 電影</router-link>
           <router-link
-            to="/backEnd/foodManage"
+            to="/backEnd/mealsManage"
             class="list-group-item list-group-item-action"
-            :class="{'active': this.$route.path == '/backEnd/foodManage'}"
+            :class="{'active': this.$route.path == '/backEnd/mealsManage'}"
           ><i class="fa fa-cutlery" aria-hidden="true"></i> 餐點</router-link>
           <router-link
             to="/backEnd/memberManage"
