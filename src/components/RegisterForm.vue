@@ -16,27 +16,37 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <div class="form-group">
+          <!-- 表單主體 -->
+          <div class="modal-body" novalidate>
+            <div class="form-group needs-validation" v-bind:class="{'was-validated': invalid}">
               <label for>姓名 :</label>
-              <input type="text" class="form-control" v-model="name"/>
+              <input type="text" class="form-control" v-model="name" required/>
+              <div class="valid-feedback">
+                OK!
+              </div>
+              <div class="invalid-feedback">
+                請輸入姓名
+              </div>
             </div>
             <div class="form-group">
               <label for>帳號 :</label>
-              <input type="text" class="form-control" v-model="account" @change="checkAcc"/>
+              <input type="text" class="form-control" v-model="account" @change="checkAcc" required/>
+              <!-- <div class="invalid-feedback">
+                請輸入帳號
+              </div> -->
               {{ checkResult }}
             </div>
             <div class="form-group">
               <label for>密碼 :</label>
-              <input type="text" class="form-control" v-model="password"/>
+              <input type="text" class="form-control" v-model="password" required/>
             </div>
             <div class="form-group">
               <label for>信箱 :</label>
-              <input type="text" class="form-control" v-model="email"/>
+              <input type="text" class="form-control" v-model="email" required/>
             </div>
             <div class="form-group">
               <label for>電話 :</label>
-              <input type="text" class="form-control" v-model="phone"/>
+              <input type="text" class="form-control" v-model="phone" required/>
             </div>
           </div>
           <div class="modal-footer">
@@ -69,9 +79,38 @@ export default {
       checkResult: "",
       result: "",
       isDisabled: false,
+      invalid: false,
+    }
+  },
+  mounted() {
+    this.checkInput();
+  },
+  // 監看各輸入欄位資料正確性 (是否空值 密碼長度 規則等是否正確)
+  watch: {
+    // 姓名: 不為空值即可
+    name: function () {
+      if(this.name == "") {
+        this.invalid = true;
+        this.isDisabled = true;
+      } else {
+        this.invalid = false;
+        this.isDisabled = false;
+      }
+    },
+    // 帳號: 至少五碼 且為任意英數字組合 (不含特殊符號) 
+    // 並同時比對資料庫是否有相同帳號
+    account: function () {
+      var regTest = /[A-Za-z0-9]{5,}/.test(this.account);
+      console.log(regTest);
+      
     }
   },
   methods: {
+    checkInput() {
+      if (this.name == "" || this.account == "" || this.password == "" || this.email == "" || this.phone == "") {
+        this.isDisabled = true;
+      }
+    },
     registered() {
       var _this = this;
       var formData = new FormData();
