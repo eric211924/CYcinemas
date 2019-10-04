@@ -38,7 +38,12 @@
     </div>
 
     <h1 class="text-center my-5">強檔電影</h1>
-    <MovieCard :img-ar="imgAr"></MovieCard>
+    <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
+    
+
+
+
+
   </div>
 </template>
 
@@ -53,34 +58,8 @@ export default {
   },
   data() {
     return {
-      // imgAr: Array(4),
-      imgAr: [
-        {
-          id: '1',
-          name: '123',
-          imgURL:'',
-          content:''
-        },
-        {
-          id: '2',
-          name: '123',
-          imgURL:'',
-          content:''
-        },
-        {
-          id: '3',
-          name: '123',
-          imgURL:'',
-          content:''
-        },
-        {
-          id: '4',
-          name: '123',
-          imgURL:'',
-          content:''
-        }
-        
-      ]
+      //  imgAr: Array(4),
+      
     }
   }
 }
