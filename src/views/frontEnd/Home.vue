@@ -56,29 +56,30 @@ export default {
       // imgAr: Array(4),
       imgAr: [
         {
-          id: '',
-          name: '',
-          content:'',
-          timeTable:''
+          id: '1',
+          name: '123',
+          imgURL:'',
+          content:''
         },
         {
-          id: '',
-          name: '',
-          content:'',
-          timeTable:''
+          id: '2',
+          name: '123',
+          imgURL:'',
+          content:''
         },
         {
-          id: '',
-          name: '',
-          content:'',
-          timeTable:''
+          id: '3',
+          name: '123',
+          imgURL:'',
+          content:''
         },
         {
-          id: '',
-          name: '',
-          content:'',
-          timeTable:''
+          id: '4',
+          name: '123',
+          imgURL:'',
+          content:''
         }
+        
       ]
     }
   }

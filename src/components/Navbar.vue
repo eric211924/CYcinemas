@@ -113,7 +113,7 @@ export default {
       loginData.append('account', logAccount);
       loginData.append('password', logPassword);
       //   http://localhost/multi_user/backend/login
-      this.axios.post('https://localhost/CYcinemasBackEnd/member/login', loginData)
+      this.axios.post('http://localhost/CYcinemasBackEnd/member/login', loginData)
         .then(function (response) {
           var result = response.data; // 記錄回傳的值 有此會員: 回傳name 和 account, 無此會員: 回傳Failed
           var temp = JSON.stringify(response.data); 
