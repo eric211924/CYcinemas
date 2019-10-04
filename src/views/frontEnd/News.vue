@@ -124,11 +124,8 @@
                   <a href="#" @click.prevent="getInfo(index)" data-toggle="modal" data-target=".bd-example-modal-lg">{{info.title}}</a>
                 </h5>
                 
-                <div v-if="(info.start_time && info.end_time) !==''">
+                <div v-if="(info.start_time && info.end_time) != '0000-00-00'">
                     <time>{{info.start_time}}~{{info.end_time}}</time>
-                </div>
-                <div v-else>
-                    <time></time>
                 </div>
               </section>
             </li>
