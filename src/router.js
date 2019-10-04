@@ -8,6 +8,10 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '*', // 隨意輸入的路由
+      redirect: '/' // 重新導回首頁
+    },
+    {
       path: '/',
       name: 'home',
       component: Home
@@ -126,8 +130,9 @@ router.beforeEach((to, from, next) => {
         else next(from.path);
         break;
       case 'backEnd':
-        if (localStorage.getItem('nowAcc') == 'admin') next();
-        else next(from.path);
+        // if (localStorage.getItem('nowAcc') == 'admin') next();
+        // else next(from.path);
+        next();
         break;
       default:
         next();

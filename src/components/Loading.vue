@@ -3,22 +3,17 @@
     <!-- 模態框部分 -->
     <div class="loading hide">
       <div class="frame">
+        <h1 class="text-center my-font">Loading</h1>
         <div class="gif"></div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-    };
-  }
-};
-</script>
-
 <style >
+.my-font {
+  z-index: 99999;
+}
 .loading {
   position: fixed;
   top: 0;
@@ -26,7 +21,6 @@ export default {
   right: 0;
   left: 0;
   background-color: rgba(255, 255, 255, 1.0);
-
   z-index: 1000;
 }
 .frame {

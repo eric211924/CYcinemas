@@ -1,41 +1,41 @@
 <template>
 
-<div class="container"> 
+<div style=" width:20000px;" class="container"> 
   <div class="row">
-    <div class="col-md-8 offset-md-2">
-        <div class="tab detail">
+    <div class="col-md-12">
+        <div class="tab finishDetail">
         <h6>訂購明細</h6> 
             <div> 
                 <table>
                     <tr>
-                        <td>&emsp;名&emsp;&emsp;稱&emsp;&emsp;&emsp;{{movieName}}</td>
+                        <td>&emsp;名&emsp;&emsp;稱&emsp;&emsp;&emsp;{{list.movieName}}</td>
                     </tr>
                     <tr>
-                        <td>&emsp;上映地點&emsp;&emsp;&emsp;中佑戲院{{theater}}影城</td>
+                        <td>&emsp;上映地點&emsp;&emsp;&emsp;中佑戲院{{list.theater}}影城</td>
                     </tr>
                     <tr>
-                        <td>&emsp;放映場次&emsp;&emsp;&emsp;{{day}} {{time}}</td>
+                        <td>&emsp;放映場次&emsp;&emsp;&emsp;{{list.day}} {{list.time}}</td>
                     </tr>
                     <tr>
-                        <td>&emsp;座&emsp;&emsp;位&emsp;&emsp;&emsp;{{seat}}</td>
+                        <td>&emsp;座&emsp;&emsp;位&emsp;&emsp;&emsp;{{list.seat}}</td>
                     </tr>
                     <tr>
-                        <td>&emsp;票&emsp;&emsp;種&emsp;&emsp;&emsp;{{ticket}}</td>
+                        <td>&emsp;票&emsp;&emsp;種&emsp;&emsp;&emsp;{{list.ticket}}</td>
                     </tr>
                     <tr>
-                        <td>&emsp;餐&emsp;&emsp;點&emsp;&emsp;&emsp;{{food}}</td>
+                        <td>&emsp;餐&emsp;&emsp;點&emsp;&emsp;&emsp;{{list.food}}</td>
                     </tr>
                     <tr>
-                        <td>&emsp;姓&emsp;&emsp;名&emsp;&emsp;&emsp;新增</td>
+                        <td>&emsp;姓&emsp;&emsp;名&emsp;&emsp;&emsp;{{list.memberName}}</td>
                     </tr>
                     <tr>
-                        <td>&emsp;信&emsp;&emsp;箱&emsp;&emsp;&emsp;新增</td>
+                        <td>&emsp;信&emsp;&emsp;箱&emsp;&emsp;&emsp;{{list.email}}</td>
                     </tr>
                     <tr>
-                        <td>&emsp;電&emsp;&emsp;話&emsp;&emsp;&emsp;新增</td>
+                        <td>&emsp;電&emsp;&emsp;話&emsp;&emsp;&emsp;{{list.phone}}</td>
                     </tr>
                     <tr>
-                        <td>&emsp;總金額&emsp;&emsp;&emsp;&emsp;{{total}}</td>
+                        <td>&emsp;總金額&emsp;&emsp;&emsp;&emsp;{{list.total}}</td>
                     </tr>
                 </table>
              </div>
@@ -43,8 +43,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-8 offset-md-2">
-    <button type="button" class="loginBtn btn btn-outline-warning">
+    <div class="col-md-12">
+    <button type="button" class="loginBtn btn btn-outline-success">
                 完成訂購
             </button>
      </div>
@@ -54,15 +54,76 @@
 
 </template>
 
-<style lang="scss" scope>
-    .col-md-1,.col-md-2,.col-md-3,.col-md-4,.col-md-5,
-    .col-md-8{
-        padding:0; 
-        button{
-            height:50px; 
+<script>
+import detail from '@/views/frontEnd/Detail.vue'
+export default {
+    data(){
+        return {
+            list: 0
+        }
+    },
+    mounted() { 
+        this.log();
+        this.getData();
+    },
+    methods:{
+        log:function(){
+            var FinishPageData = JSON.parse(sessionStorage.getItem('FinishPageData')); 
+            // console.log(FinishPageData);
+        },
+        getData:function(){
+            var FinishPageData = JSON.parse(sessionStorage.getItem('FinishPageData'));
+            this.list = FinishPageData;
+            // console.log(this.list);
         }
     }
-    .detail{
+}
+</script>
+
+<style lang="scss" scoped>
+    .container{
+        // margin:0;
+        // width:100;
+        // border:2px solid blue;
+    }
+    .col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,
+    .col-md-8{
+        // border:2px solid red;
+        padding:0; 
+        button{
+            margin:2% 0 0 0;
+            height:50px; 
+            width:100%;
+        }
+    }
+    .tab{
+        border-radius:5px; 
+        border: 1px solid gray; 
+        h6{ 
+            text-align:left;
+            padding:10px 0px 10px 20px;
+            background-color:gray;
+            color:white;
+        }
+        div{ 
+            margin:20px 20px; 
+            font-size:16px; 
+            table{  
+                text-align:left;
+                width:100%;
+                tr{ 
+                    border-bottom: 2px solid gray;
+                    td{
+                        padding:5px 0px ; 
+                    }
+                }
+                tr:last-child{ 
+                    border-bottom: 0;
+                }
+            } 
+        }
+    }
+    .finishDetail{
         margin:3% 0 0 0;
         border: 1px solid orange; 
         h6{

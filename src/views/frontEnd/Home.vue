@@ -53,7 +53,33 @@ export default {
   },
   data() {
     return {
-      imgAr: Array(4),  
+      // imgAr: Array(4),
+      imgAr: [
+        {
+          id: '',
+          name: '',
+          content:'',
+          timeTable:''
+        },
+        {
+          id: '',
+          name: '',
+          content:'',
+          timeTable:''
+        },
+        {
+          id: '',
+          name: '',
+          content:'',
+          timeTable:''
+        },
+        {
+          id: '',
+          name: '',
+          content:'',
+          timeTable:''
+        }
+      ]
     }
   }
 }
