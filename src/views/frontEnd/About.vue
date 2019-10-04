@@ -65,8 +65,10 @@
         <h3>
           <i class="fa fa-phone" aria-hidden="true"></i>聯絡資訊:
         </h3>
-        <p>電話+886-4-2251-1893</p>
-        <p>傳真+886-4-2251-2820</p>
+        <ul>
+        <li><p>電話+886-4-2251-1893</p></li>
+        <li><p class="finalP">傳真+886-4-2251-2820</p></li>
+        </ul>
       </div>
     </div>
   </div>
@@ -83,5 +85,9 @@
 }
 .col-md-9 p {
   line-height: 30px;
+  
+}
+.final p{
+  margin-bottom: 500px;
 }
 </style>
