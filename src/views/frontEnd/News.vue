@@ -236,7 +236,7 @@ export default {
   mounted() {
     const _this = this;
     this.axios
-      .get("https://cy-cinemas.ml/news/get")
+      .get("https://cy-cinemas.ml/news/")
       .then(response => {
         _this.infos = response.data;
         console.log(_this.infos);
