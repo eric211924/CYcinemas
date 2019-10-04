@@ -178,10 +178,10 @@
             </div>  
         </div> 
     </div>   
-    <a href="javascrpt:void()" @click ="gue">gue</a>
+    <!--<a href="javascrpt:void()" @click ="gue">gue</a>
         &emsp;
         &emsp;
-    <a href="javascrpt:void()" @click ="mem">mem</a>
+    <a href="javascrpt:void()" @click ="mem">mem</a>-->
 </div>
 </template>
 
