@@ -126,7 +126,7 @@ router.beforeEach((to, from, next) => {
     let url = to.path.split('/');
     switch (url[1]) {
       case 'user':
-        if (localStorage.getItem('nowAcc')) next();
+        if (sessionStorage.getItem('nowAcc')) next();
         else next(from.path);
         break;
       case 'backEnd':
