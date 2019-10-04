@@ -9,7 +9,7 @@
           <a class="nav-link active" data-toggle="tab" href="#ticketTime">票種/時刻選擇</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#foodDrinks">飲食選擇</a>
+          <a class="nav-link" data-toggle="tab" href="#meals">飲食選擇</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#others">otherOption</a>
@@ -130,18 +130,18 @@
             </div>
         </div>
 
-        <div class="tab-pane fade" id="foodDrinks">
+        <div class="tab-pane fade" id="meals">
           <div class="row">
-            <div class="col-md-3" v-for="(foodDrink,index) in foodDrinks" :key="index">
+            <div class="col-md-3" v-for="(meal,index) in meals" :key="index">
               <div class="card border-secondary my-2">
                 <div class="card-body text-secondary">
                   <h5 class="card-title">餐點名稱(尺寸)：</h5>
-                  <h5>{{foodDrink.name}}({{foodDrink.size}})</h5>
-                  <h5>單價：{{foodDrink.price}}</h5>
-                  <h5>總計：{{foodDrink.price *foodDrinksNum[index]}}</h5>
+                  <h5>{{meal.name}}({{meal.size}})</h5>
+                  <h5>單價：{{meal.price}}</h5>
+                  <h5>總計：{{meal.price *mealsNum[index]}}</h5>
                   <div class="input-group">
                     <div class="input-group-btn">
-                    <button class="btn btn-danger btn-number" v-on:click="minusFoodDrinks(index)">
+                    <button class="btn btn-danger btn-number" v-on:click="minusMeals(index)">
                             <i
                               class="fa fa-minus p-1"
                               style="cursor:pointer;"
@@ -155,10 +155,10 @@
                       pattern="[0-5]"
                       class="form-control text-center"
                       readonly
-                      v-model="foodDrinksNum[index]"
+                      v-model="mealsNum[index]"
                     />
                     <div class="input-group-btn">
-                    <button class="btn btn-success" v-on:click="plusFoodDrinks(index)">
+                    <button class="btn btn-success" v-on:click="plusMeals(index)">
                             <i
                               class="fa fa-plus p-1"
                               style="cursor:pointer;"
@@ -236,73 +236,80 @@ export default {
       ],
       tickets: [],
       ticketsNum: {},
-      foodDrinks: {
+      meals: {
         爆米花: 0,
         可樂: 0
       },
-      foodDrinksNum: {},
+      mealsNum: {},
       showNext: false,
       isLoading: true,
-      movie_index: "0",
+      movie_index: "",
+      init_movie_index:"",
       day_index: "0",
       time_index: "0",
       tickets_index: {},
-      foodDrinks_index: {}
+      meals_index: {}
     };
   },
   mounted() {
+    if (sessionStorage.movie_index) {
+      this.init_movie_index = sessionStorage.movie_index;
+      this.movie_index=sessionStorage.movie_index;
+    }
     this.loadMovies();
     this.loadTickets();
-    this.loadFoodDrinks();
-    if (sessionStorage.movie_index)
-      this.movie_index = sessionStorage.movie_index;
+    this.loadMeals();
+     
     if (sessionStorage.day_index) this.day_index = sessionStorage.day_index;
     if (sessionStorage.time_index) this.time_index = sessionStorage.time_index;
     if (sessionStorage.ticketsNum)
       this.tickets_index = JSON.parse(sessionStorage.ticketsNum);
-    if (sessionStorage.foodDrinksNum)
-      this.foodDrinks_index = JSON.parse(sessionStorage.foodDrinksNum);
+    if (sessionStorage.mealsNum)
+      this.meals_index = JSON.parse(sessionStorage.mealsNum);
   },
   methods: {
     loadMovies() {
-      this.axios.get(`${this.$url}/getMovies`).then(response => {
+      
+      this.axios.get(`${this.$api}/order/getMovies`).then(response => {
         // console.log(response.data);
         this.movies = response.data;
         this.loadMovieDay();
       });
     },
-
-    loadMovieDay() {
+    loadMovieDay() { 
       this.axios
         .get(
-          `${this.$url}/getMovieDay/${
+          `${this.$api}/order/getMovieDay/${
             this.movies[
-              sessionStorage.movie_index
-                ? sessionStorage.movie_index
-                : document.getElementById("movies").value
+              this.init_movie_index?this.init_movie_index:
+              document.getElementById("movies").value
             ]["encoded_id"]
           }`
         )
         .then(response => {
-          console.log(response.data);
+          if(this.init_movie_index)
+          this.init_movie_index='';
+          // console.log(response.data);
           this.days = response.data;
           this.loadMovieTime();
         });
     },
     loadMovieTime() {
+      
       this.axios
         .get(
-          `${this.$url}/getMovieTime/${
+          `${this.$api}/order/getMovieTime/${
             this.movies[document.getElementById("movies").value]["encoded_id"]
           }`
         )
         .then(response => {
+          // console.log(this.movies);
           this.times = response.data;
           this.isLoading = false;
         });
     },
     loadTickets() {
-      this.axios.get(`${this.$url}/getTickets`).then(response => {
+      this.axios.get(`${this.$api}/order/getTickets`).then(response => {
         this.tickets = response.data;
         for (var i = 0; i < this.tickets.length; i++)
           sessionStorage.ticketsNum
@@ -310,14 +317,28 @@ export default {
             : this.$set(this.ticketsNum, i, 0);
       });
     },
-    loadFoodDrinks() {
-      this.axios.get(`${this.$url}/getFoodDrinks`).then(response => {
-        this.foodDrinks = response.data;
-        for (var i = 0; i < this.foodDrinks.length; i++) {
-          sessionStorage.foodDrinksNum
-            ? this.$set(this.foodDrinksNum, i, this.foodDrinks_index[i])
-            : this.$set(this.foodDrinksNum, i, 0);
+    loadMeals() {
+      this.axios.get(`${this.$api}/order/getMeals`).then(response => {
+        this.meals = response.data;
+        console.log(this.meals);
+        for (var i = 0; i < this.meals.length; i++) {
+          sessionStorage.mealsNum
+            ? this.$set(this.mealsNum, i, this.meals_index[i])
+            : this.$set(this.mealsNum, i, 0);
         }
+      });
+    },
+    loadScreeningID(){
+      this.axios.get(`${this.$api}/order/getScreeingID/
+      ${this.movies[document.getElementById("movies").value]["encoded_id"]}/
+      ${this.times[document.getElementById("times").value]["time"]}/
+      ${this.days[document.getElementById("days").value]["date"]}
+      `)
+      .then(response =>{
+        if(response.data)
+        sessionStorage.setItem("screeningID",response.data[0].id);
+        
+        // console.log(response.data);
       });
     },
     minusTickets(index) {
@@ -327,14 +348,15 @@ export default {
     plusTickets(index) {
       if (this.ticketsTotal < 5) this.ticketsNum[index] += 1;
       else this.ticketsNum[index] = this.ticketsNum[index];
+
     },
-    minusFoodDrinks(index) {
-      if (this.foodDrinksNum[index] > 0) this.foodDrinksNum[index] -= 1;
-      else this.foodDrinksNum[index] = 0;
+    minusMeals(index) {
+      if (this.mealsNum[index] > 0) this.mealsNum[index] -= 1;
+      else this.mealsNum[index] = 0;
     },
-    plusFoodDrinks(index) {
-      if (this.foodDrinksNum[index] < 10) this.foodDrinksNum[index] += 1;
-      else this.foodDrinksNum[index] = 10;
+    plusMeals(index) {
+      if (this.mealsNum[index] < 10) this.mealsNum[index] += 1;
+      else this.mealsNum[index] = 10;
     },
 
     setProp() {
@@ -351,10 +373,16 @@ export default {
         document.getElementById("times").value
       );
       sessionStorage.setItem("ticketsNum", JSON.stringify(this.ticketsNum));
-      sessionStorage.setItem(
-        "foodDrinksNum",
-        JSON.stringify(this.foodDrinksNum)
-      );
+      sessionStorage.setItem("mealsNum",JSON.stringify(this.mealsNum));
+
+      var e = document.getElementById("movies"); 
+      sessionStorage.setItem("moviesName",e.options[e.selectedIndex].text);
+      e = document.getElementById("days"); 
+      sessionStorage.setItem("moviesDay",e.options[e.selectedIndex].text);
+      e = document.getElementById("times"); 
+      sessionStorage.setItem("moviesTime",e.options[e.selectedIndex].text);
+      this.loadScreeningID();
+
       this.$router.push("/order/chooseSeat");
     }
   },
