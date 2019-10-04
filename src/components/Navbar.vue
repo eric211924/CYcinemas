@@ -111,9 +111,9 @@ export default {
       var _this = this;
       loginData.append('account', logAccount);
       loginData.append('password', logPassword);
-      // https://localhost/CYcinemasBackEnd/members/login
+      // http://localhost/CYcinemasBackEnd/members/login
       // https://cy-cinemas.ml/members/login
-      this.axios.post('http://localhost/CYcinemasBackEnd/members/login', loginData)
+      this.axios.post('https://cy-cinemas.ml/members/login', loginData)
         .then(function (response) {
           var result = response.data; // 有此會員: 回傳姓名 帳號 信箱 電話, 無此會員: 回傳'Failed'
           if (result == 'Failed') {

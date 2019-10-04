@@ -81,8 +81,8 @@ export default {
       formData.append('email', this.email);
       formData.append('phone', this.phone);
       // https://cy-cinemas.ml/members/members
-      // https://localhost/CYcinemasBackEnd/members/members
-      this.axios.post('http://localhost/CYcinemasBackEnd/members/members', formData)
+      // http://localhost/CYcinemasBackEnd/members/members
+      this.axios.post('https://cy-cinemas.ml/members/members', formData)
         .then(function (response) {
           _this.result = response.data;
           _this.$toasted.success(_this.result, {
@@ -109,8 +109,8 @@ export default {
       var account = this.account;
       var num_rows = 0;
       // https://cy-cinemas.ml/members/
-      // https://localhost/CYcinemasBackEnd/members/
-      this.axios.get('http://localhost/CYcinemasBackEnd/members/' + account)
+      // http://localhost/CYcinemasBackEnd/members/
+      this.axios.get('https://cy-cinemas.ml/members/' + account)
         .then(function (response) {
           num_rows = response.data;
           if(num_rows > 0) {
