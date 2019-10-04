@@ -269,7 +269,6 @@ export default {
   },
   methods: {
     loadMovies() {
-      
       this.axios.get(`${this.$api}/order/getMovies`).then(response => {
         // console.log(response.data);
         this.movies = response.data;
@@ -320,7 +319,7 @@ export default {
     loadMeals() {
       this.axios.get(`${this.$api}/order/getMeals`).then(response => {
         this.meals = response.data;
-        console.log(this.meals);
+        // console.log(this.meals);
         for (var i = 0; i < this.meals.length; i++) {
           sessionStorage.mealsNum
             ? this.$set(this.mealsNum, i, this.meals_index[i])
@@ -348,7 +347,7 @@ export default {
     plusTickets(index) {
       if (this.ticketsTotal < 5) this.ticketsNum[index] += 1;
       else this.ticketsNum[index] = this.ticketsNum[index];
-
+      
     },
     minusMeals(index) {
       if (this.mealsNum[index] > 0) this.mealsNum[index] -= 1;
@@ -372,8 +371,6 @@ export default {
         "time_index",
         document.getElementById("times").value
       );
-      sessionStorage.setItem("ticketsNum", JSON.stringify(this.ticketsNum));
-      sessionStorage.setItem("mealsNum",JSON.stringify(this.mealsNum));
 
       var e = document.getElementById("movies"); 
       sessionStorage.setItem("moviesName",e.options[e.selectedIndex].text);
@@ -382,6 +379,22 @@ export default {
       e = document.getElementById("times"); 
       sessionStorage.setItem("moviesTime",e.options[e.selectedIndex].text);
       this.loadScreeningID();
+
+      sessionStorage.setItem("ticketsNum", JSON.stringify(this.ticketsNum));
+      sessionStorage.setItem("mealsNum",JSON.stringify(this.mealsNum));
+
+      var ticketsNameNum = {};
+      for(var i = 0;i<Object.keys(this.tickets).length;i++){
+        this.$set(ticketsNameNum, this.tickets[i]["name"], this.ticketsNum[i]);
+      }
+      sessionStorage.setItem("ticketsNameNum",JSON.stringify(ticketsNameNum));
+
+      var mealsNameNum = {};
+      for(var i = 0;i<Object.keys(this.meals).length;i++){
+        this.$set(mealsNameNum, `${this.meals[i]['name']} ` + `${this.meals[i]['size']}`, this.mealsNum[i]);
+      }
+      sessionStorage.setItem("mealsNameNum",JSON.stringify(mealsNameNum));
+      sessionStorage.setItem("totalTicketsNum",this.ticketsTotal);
 
       this.$router.push("/order/chooseSeat");
     }
