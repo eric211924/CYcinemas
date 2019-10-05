@@ -22,7 +22,7 @@
               <img src="../assets/exclamation-mark.png" height="15%" width="15%" />
             </div>
             <div class="d-flex justify-content-center">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" @click.prevent="clear">取消</button>
               <button
                 type="button"
                 class="btn btn-outline-danger ml-3"
@@ -42,6 +42,9 @@ export default {
   methods: {
     checkDel() {
       this.$emit('delete');
+    },
+    clear() {
+      this.$emit('clear');
     }
   }
 }

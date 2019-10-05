@@ -193,7 +193,10 @@
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title" style="text-align:left; padding:10px">《台南FOCUS限定》打卡同樂趣 一起FUN電影！</h4>
+                      <h4
+                        class="modal-title"
+                        style="text-align:left; padding:10px"
+                      >《台南FOCUS限定》打卡同樂趣 一起FUN電影！</h4>
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body" style="text-align:left; padding:40px">
@@ -213,11 +216,12 @@
                         <i class="fa fa-file-text-o" aria-hidden="true"></i>
                         活動辦法 :
                         <p style="line-height: 30px;">
-                        憑台南FOCUS威秀影城手機打卡畫面+當日電影票或消費發票，即可兌換「威秀寶寶萬用桶」乙個！數量有限，送完為止！◎FB/ IG打卡地標請搜尋：台南focus威秀影城
-                        注意事項:
-                        1. 每人FB / IG帳號僅限兌換贈品乙次。
-                        2. 贈品圖片僅供參考，不得要求折現或轉換其他商品。
-                        3. 詳情請洽威秀影城官方網站或現場告示，威秀影城擁有保留修改活動內容之權利以及最終解釋權。</p>
+                          憑台南FOCUS威秀影城手機打卡畫面+當日電影票或消費發票，即可兌換「威秀寶寶萬用桶」乙個！數量有限，送完為止！◎FB/ IG打卡地標請搜尋：台南focus威秀影城
+                          注意事項:
+                          1. 每人FB / IG帳號僅限兌換贈品乙次。
+                          2. 贈品圖片僅供參考，不得要求折現或轉換其他商品。
+                          3. 詳情請洽威秀影城官方網站或現場告示，威秀影城擁有保留修改活動內容之權利以及最終解釋權。
+                        </p>
                       </h6>
                     </div>
                     <div class="modal-footer">
@@ -233,7 +237,7 @@
                 <a
                   href="#"
                   data-toggle="modal"
-                  data-target="#myModal"
+                  data-target="#myModala"
                   @click.prevent="getInfo(index)"
                 >
                   <img :src="info.img_normal_url" :alt="info.title" :title="info.title" />
@@ -292,6 +296,28 @@
             
             
           </div>
+          <div class="modal-body" style="text-align:left; padding:40px">
+            <h6>
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              開始日期 : {{start_time}}
+            </h6>
+            <h6>
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              截止日期 : {{end_time}}
+            </h6>
+            <h6>
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              活動地點 : 中佑影城
+            </h6>
+            <h6>
+              <i class="fa fa-file-text-o" aria-hidden="true"></i>
+              活動辦法 :
+              <p style="line-height: 30px;">{{content}}</p>
+            </h6>
+          </div>
+          <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>-->
         </div>
       </div>
     </div>
@@ -323,7 +349,7 @@ export default {
         _this.infos = response.data;
         console.log(_this.infos);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   },
