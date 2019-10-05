@@ -130,9 +130,8 @@ router.beforeEach((to, from, next) => {
         else next(from.path);
         break;
       case 'backEnd':
-        // if (localStorage.getItem('nowAcc') == 'admin') next();
-        // else next(from.path);
-        next();
+        if (sessionStorage.getItem('nowAcc') == 'admin') next();
+        else next(from.path);
         break;
       default:
         next();

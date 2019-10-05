@@ -17,7 +17,7 @@
             to="/backEnd/mealsManage"
             class="list-group-item list-group-item-action"
             :class="{'active': this.$route.path == '/backEnd/mealsManage'}"
-          ><i class="fa fa-cutlery" aria-hidden="true"></i> 餐點</router-link>
+          ><i class="fa fa-cutlery" aria-hidden="true"></i> &nbsp;餐點</router-link>
           <router-link
             to="/backEnd/memberManage"
             class="list-group-item list-group-item-action"

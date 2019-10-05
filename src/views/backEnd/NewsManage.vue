@@ -1,12 +1,80 @@
 <template>
   <div>
+    <!-- 新增消息按鈕 -->
     <button
       class="btn btn-primary mt-4"
       data-toggle="modal"
       data-target="#NewsForm"
       @click.prevent="action = '新增'"
     >新增 +</button>
-    <div class="row">
+
+    <!-- 最新消息的清單 -->
+    <div class="row mt-3">
+      <div class="col-12 col-md-6 col-lg-3 mb-3" v-for="(item, index) in newsData" :key="index">
+        <a href data-toggle="modal" data-target="#showNewsData" @click.prevent="showNews = item">
+          <div class="card">
+            <img :src="item.img_thumbs_url" alt class="card-img-top" />
+            <div class="card-body">
+              <h5 class="card-title overflow-hidden w-100">{{ item.title }}</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="showNewsData"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="showNewsData"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="showNewsData">{{ showNews.title }}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row w-100">
+              <div class="col-4">
+                <img :src="showNews.img_thumbs_url" class="img-thumbnail w-100" alt />
+              </div>
+              <div class="col-8">
+                <p v-if="showNews.start_time != '0000-00-00'">起始時間 : {{ showNews.start_time }}</p>
+                <p v-if="showNews.end_time != '0000-00-00'">結束時間 : {{ showNews.end_time }}</p>
+                <p>{{ showNews.content }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="btn-group my-1 d-flex justify-cotent-center">
+              <button
+                class="btn btn-warning btn-sm"
+                data-toggle="modal"
+                data-target="#NewsForm"
+                data-dismiss="modal"
+                @click.prevent="action = '修改'; getNewsData(showNews.id)"
+              >修改</button>
+              <button
+                class="btn btn-danger btn-sm"
+                data-toggle="modal"
+                data-target="#deleteModal"
+                @click.prevent="setId = showNews.id"
+                data-dismiss="modal"
+              >刪除</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <DeleteModal @delete="deleteNews" @clear="cleanData"></DeleteModal>
+
+    <!-- <div class="row">
       <div class="col-12 my-2" v-for="(item, index) in newsData" :key="index">
         <div class="row">
           <div class="col-2">
@@ -37,16 +105,16 @@
               <h5>
                 <b>&lt;{{ item.title }}&gt;</b>
               </h5>
-              <h6>{{ item.start_time }} ~ {{ item.end_time }}</h6>
+              <h6 v-if="!(item.start_time == '0000-00-00' && item.end_time == '0000-00-00')">{{ item.start_time }} ~ {{ item.end_time }}</h6>
             </span>
             <div class="overflow-auto">{{ item.content }}</div>
           </div>
         </div>
       </div>
     </div>
-    <DeleteModal @delete="deleteNews"></DeleteModal>
+    <DeleteModal @delete="deleteNews" @clear="cleanData"></DeleteModal>-->
 
-    <!-- News Form -->
+    <!-- 消息表單 -->
     <div
       class="modal fade"
       id="NewsForm"
@@ -134,21 +202,24 @@ export default {
   },
   data() {
     return {
-      newsData: [],
-      setId: Number,
+      newsData: [], // 所有最新消息的資料,
+      showNews: '',
+      setId: Number, // 刪除或是修改消息的 ID
       title: '',
       content: '',
       startTime: '',
       endTime: '',
       file: '',
-      action: '',
-      isLoading: true
+      fileName: '', // 修改消息的圖片檔案
+      action: '', // 用來判斷是新增還是修改
+      isLoading: true // 顯示 Loading 圖示直到資料準備好
     }
   },
   mounted() {
-    this.getNewsData();
+    this.getNewsData(); // 當網頁載入時發出請求取得資料
   },
   watch: {
+    // 判斷是否取得所有消息的資料，還沒的話顯示 Loading 圖示
     newsData(val) {
       if (val) {
         this.isLoading = false;
@@ -159,18 +230,21 @@ export default {
     // 取的News資料
     getNewsData(newsId = '') {
       const _this = this;
+      // 判斷是否有ID，有的話為取得單筆資料，無則是取得所有資料
       if (newsId == '') {
         this.axios.get(`${_this.$api}/news/`).then((response) => {
           _this.newsData = response.data;
-          console.log(response.data);
+          // console.log(response.data);
         });
       } else {
         this.axios.get(`${_this.$api}/news/${newsId}`).then((response) => {
           let data = response.data[0];
           _this.title = data.title;
           _this.content = data.content;
-          _this.startTime = data.start_time;
-          _this.endTime = data.end_time;
+          _this.startTime = data.start_time == '0000-00-00' ? '' : data.start_time;
+          _this.endTime = data.end_time == '0000-00-00' ? '' : data.end_time;
+          _this.fileName = data.img_normal_url.substr(-18, 18);
+          _this.setId = data.id;
         });
       }
     },
@@ -188,14 +262,14 @@ export default {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-      }).then(response => {
+      }).then((response) => {
         if (response.data.status == 201) {
           _this.$toasted.success(response.data.msg, {
             theme: 'bubble',
             duration: 5000
           });
-          _this.getNewsData();
-          _this.cleanData();
+          _this.getNewsData(); // 新增後將畫面刷新
+          _this.cleanData(); // 新增後將表單資料清空
         } else {
           _this.$toasted.error(response.data.msg, {
             theme: 'bubble',
@@ -213,38 +287,60 @@ export default {
       formData.append('content', this.content);
       formData.append('startTime', this.startTime);
       formData.append('endTime', this.endTime);
+      formData.append('fileName', this.fileName);
       formData.append('file', this.file);
-      this.axios.put(`${this.$api}`, formData, {
+      this.axios.post(`${this.$api}/news/${this.setId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then((response) => {
-        console.log(response);
-        _this.getNewsData();
+        // console.log(response.data);
+        if (response.data.status == 200) {
+          _this.$toasted.success(response.data.msg, {
+            theme: 'bubble',
+            duration: 3000
+          });
+          _this.getNewsData(); // 更新後刷新畫面
+          _this.cleanData(); // 更新後將表單資料清空
+        } else {
+          _this.$toasted.error(response.data.msg, {
+            theme: 'bubble',
+            duration: 3000
+          });
+        }
       });
     },
     // 刪除News
     deleteNews() {
-      console.log(this.setId);
+      // console.log(this.setId);
       const _this = this;
-      this.axios.delete(`${_this.$api}/news/${_this.setId}`).then(response => {
+      this.axios.delete(`${_this.$api}/news/${_this.setId}`).then((response) => {
         _this.$toasted.success(response.data.msg, {
           theme: 'bubble',
           duration: 5000
         });
-        _this.getNewsData();
+        _this.getNewsData(); // 刪除後刷新畫面
       });
     },
+    // 新增及修改資料送出、取消、關閉最新消息的表單時將資料清除
     cleanData() {
       this.title = '';
       this.content = '';
       this.file = '';
       this.startTime = '';
       this.endTime = '';
+      this.fileName = '';
+      this.setId = '';
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.card-title {
+  height: 30px;
+  line-height: 30px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 </style>

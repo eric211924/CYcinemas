@@ -2,7 +2,7 @@
   <div>
     <button class="btn btn-primary my-3">新增 +</button>
     <div class="row">
-      <div class="col-12 col-sm-4 col-md-3 mb-2" v-for="(item, index) in foodsData" :key="index">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2" v-for="(item, index) in foodsData" :key="index">
         <div class="card">
           <img src="https://fakeimg.pl/250x200" class="card-img-top" alt />
           <div class="card-body">
@@ -46,9 +46,9 @@ export default {
   },
   methods: {
     getMealsData() {
-      this.axios.get(`${this.$api}/meals`).then((response) => {
-        console.log(response.data);
-      });
+      // this.axios.get(`${this.$api}/meals`).then((response) => {
+      //   console.log(response.data);
+      // });
     }
   }
 }
