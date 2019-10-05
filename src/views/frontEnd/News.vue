@@ -47,47 +47,10 @@
               </section>
             </li>
 
-            <li>
-              <figure style="height:250px;">
-                <a href="#" style="height:250px;">
-                  <img
-                    src="..\..\assets\event_2019_3.jpg"
-                    alt="《林口限定》Mappa獨家加碼。 iShow卡友享好禮"
-                    title="《林口限定》Mappa獨家加碼。 iShow卡友享好禮"
-                    style="height:100%; width:auto; margin-left:0px;"
-                  />
-                </a>
-              </figure>
-              <section class="infoArea">
-                <h5>
-                  <a href="#" style="height:250px;">《林口限定》Mappa獨家加碼。 iShow卡友享好禮</a>
-                </h5>
-                <time>2019/09/20 ~ 2019/10/06</time>
-              </section>
-            </li>
-
-            <li>
-              <figure style="height:250px;">
-                <a href="#" style="height:250px;">
-                  <img
-                    src="..\..\assets\about_2016_3.jpg"
-                    alt="《林口限定》Mappa獨家加碼。 iShow卡友享好禮"
-                    title="《林口限定》Mappa獨家加碼。 iShow卡友享好禮"
-                    style="height:100%; width:auto; margin-left:0px;"
-                  />
-                </a>
-              </figure>
-              <section class="infoArea">
-                <h5>
-                  <a href="#" style="height:250px;">《林口限定》Mappa獨家加碼。 iShow卡友享好禮</a>
-                </h5>
-                <time>2019/09/20 ~ 2019/10/06</time>
-              </section>
-            </li>
-
+            
             <li>
               <figure>
-                <a href="#" data-toggle="modal" data-target="#myModal">
+                <a href="#" data-toggle="modal" data-target="#myModal_3">
                   <img
                     src="..\..\assets\event_2019_3.jpg"
                     alt="《林口限定》Mappa獨家加碼。 iShow卡友享好禮"
@@ -97,13 +60,136 @@
               </figure>
               <section class="infoArea">
                 <h5>
-                  <a href="#" data-toggle="modal" data-target="#myModal">《林口限定》Mappa獨家加碼。 iShow卡友享好禮</a>
+                  <a
+                    href="#"
+                    data-toggle="modal" data-target="#myModal_3"
+                  >《林口限定》Mappa獨家加碼。 iShow卡友享好禮</a>
                 </h5>
                 <time>2019/10/01~2019/10/31</time>
               </section>
             </li>
             <div class="container">
-              <div class="modal fade" id="myModal" role="dialog">
+              <div class="modal fade" id="myModal_1" role="dialog">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title" style="text-align:left; padding:10px">《台南FOCUS限定》打卡同樂趣 一起FUN電影！</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" style="text-align:left; padding:40px">
+                      <h6>
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        開始日期 : 2019-10-03
+                      </h6>
+                      <h6>
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        截止日期 : 2019-10-30
+                      </h6>
+                      <h6>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        活動地點 : 中佑影城
+                      </h6>
+                      <h6>
+                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                        活動辦法 :
+                        <p style="line-height: 30px;">
+                        憑台南FOCUS威秀影城手機打卡畫面+當日電影票或消費發票，即可兌換「威秀寶寶萬用桶」乙個！數量有限，送完為止！◎FB/ IG打卡地標請搜尋：台南focus威秀影城
+                        注意事項:
+                        1. 每人FB / IG帳號僅限兌換贈品乙次。
+                        2. 贈品圖片僅供參考，不得要求折現或轉換其他商品。
+                        3. 詳情請洽威秀影城官方網站或現場告示，威秀影城擁有保留修改活動內容之權利以及最終解釋權。</p>
+                      </h6>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <li>
+              <figure>
+                <a href="#" data-toggle="modal" data-target="#myModal_3">
+                  <img
+                    src="..\..\assets\event_2019_3.jpg"
+                    alt="《林口限定》Mappa獨家加碼。 iShow卡友享好禮"
+                    title="《林口限定》Mappa獨家加碼。 iShow卡友享好禮"
+                  />
+                </a>
+              </figure>
+              <section class="infoArea">
+                <h5>
+                  <a
+                    href="#"
+                    data-toggle="modal_2" data-target="#myModal_2"
+                  >《林口限定》Mappa獨家加碼。 iShow卡友享好禮</a>
+                </h5>
+                <time>2019/10/01~2019/10/31</time>
+              </section>
+            </li>
+            <div class="container">
+              <div class="modal fade" id="myModal_2" role="dialog">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title" style="text-align:left; padding:10px">《台南FOCUS限定》打卡同樂趣 一起FUN電影！</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" style="text-align:left; padding:40px">
+                      <h6>
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        開始日期 : 2019-10-03
+                      </h6>
+                      <h6>
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        截止日期 : 2019-10-30
+                      </h6>
+                      <h6>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        活動地點 : 中佑影城
+                      </h6>
+                      <h6>
+                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                        活動辦法 :
+                        <p style="line-height: 30px;">
+                        憑台南FOCUS威秀影城手機打卡畫面+當日電影票或消費發票，即可兌換「威秀寶寶萬用桶」乙個！數量有限，送完為止！◎FB/ IG打卡地標請搜尋：台南focus威秀影城
+                        注意事項:
+                        1. 每人FB / IG帳號僅限兌換贈品乙次。
+                        2. 贈品圖片僅供參考，不得要求折現或轉換其他商品。
+                        3. 詳情請洽威秀影城官方網站或現場告示，威秀影城擁有保留修改活動內容之權利以及最終解釋權。</p>
+                      </h6>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <li>
+              <figure>
+                <a href="#" data-toggle="modal" data-target="#myModal_1">
+                  <img
+                    src="..\..\assets\event_2019_3.jpg"
+                    alt="《林口限定》Mappa獨家加碼。 iShow卡友享好禮"
+                    title="《林口限定》Mappa獨家加碼。 iShow卡友享好禮"
+                  />
+                </a>
+              </figure>
+              <section class="infoArea">
+                <h5>
+                  <a
+                    href="#"
+                    data-toggle="modal" data-target="#myModal_1"
+                  >《林口限定》Mappa獨家加碼。 iShow卡友享好禮</a>
+                </h5>
+                <time>2019/10/01~2019/10/31</time>
+              </section>
+            </li>
+            <div class="container">
+              <div class="modal fade" id="myModal_2" role="dialog">
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -180,12 +266,35 @@
       </div>
     </div>
 
-    <div class="modal fade" id="myModala" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" style="text-align:left; padding:10px">{{title}}}</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="container">
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" style="text-align:left; padding:10px">{{title}}}</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align:left; padding:40px">
+              <h6>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                開始日期 : {{start_time}}
+              </h6>
+              <h6>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                截止日期 : {{end_time}}
+              </h6>
+              <h6>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                活動地點 : 中佑影城
+              </h6>
+              <h6>
+                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                活動辦法 :
+                <p style="line-height: 30px;">{{content}}</p>
+              </h6>
+            </div>
+            
+            
           </div>
           <div class="modal-body" style="text-align:left; padding:40px">
             <h6>

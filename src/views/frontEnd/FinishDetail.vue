@@ -1,6 +1,6 @@
 <template>
 
-<div style=" width:20000px;" class="container"> 
+<div class="container"> 
   <div class="row">
     <div class="col-md-12">
         <div class="tab finishDetail">
@@ -39,19 +39,17 @@
                     </tr>
                 </table>
              </div>
-            </div>
+        </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
-    <button type="button" class="loginBtn btn btn-outline-success">
-                完成訂購
-            </button>
+    <div class="col-md-12"> 
+        <router-link to="/" class="finishBtn btn btn-outline-success"> 
+            回到首頁
+        </router-link> 
      </div>
   </div>
-</div>
-
-
+</div> 
 </template>
 
 <script>
@@ -89,13 +87,13 @@ export default {
     .col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,
     .col-md-8{
         // border:2px solid red;
-        padding:0; 
-        button{
+        padding:0;  
+    }
+    .finishBtn{
             margin:2% 0 0 0;
             height:50px; 
             width:100%;
         }
-    }
     .tab{
         border-radius:5px; 
         border: 1px solid gray; 

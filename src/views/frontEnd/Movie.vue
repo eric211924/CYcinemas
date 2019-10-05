@@ -6,7 +6,35 @@
     </div>
     <h1 class="text-center my-5">即將上映</h1>
     <div class="row">
-      <MovieCard :img-ar="imgAr"></MovieCard>
+      <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
+      
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
   </div>
 </template>
@@ -19,7 +47,7 @@ export default {
   },
   data() {
     return {
-      imgAr: Array(8)
+      // imgAr: Array(8)
     }
   }
 }

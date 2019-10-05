@@ -150,6 +150,9 @@ export default {
               sessionStorage.setItem("nowName", result[0].name);
               sessionStorage.setItem("nowEmail", result[0].email);
               sessionStorage.setItem("nowPhone", result[0].phone);
+              //刷新Detail.vue頁面 
+              if(window.location.hash == "#/order/detail") 
+                history.go(0);
             }
           }
           sessionStorage.removeItem('logAccount');
