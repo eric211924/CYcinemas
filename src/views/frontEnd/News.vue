@@ -8,7 +8,7 @@
         </div>
         <div class="col-sm-10">
           <ul class="eventList">
-            <li>
+            <!-- <li>
               <figure>
                 <a href="#">
                   <img
@@ -166,9 +166,9 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
-            <li>
+            <!-- <li>
               <figure>
                 <a href="#" data-toggle="modal" data-target="#myModal_1">
                   <img
@@ -226,7 +226,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <li v-for="(info, index) in infos" :key="index">
               <figure>
