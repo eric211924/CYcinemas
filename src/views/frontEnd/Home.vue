@@ -106,14 +106,21 @@ export default {
 </script>
 <style>
 .imgSmall img {
-  width: auto;
-  height: auto;
+  width:340px;
+  height:500px;
+  /* width: auto;
+  height: auto; 
   width: 100%;
-  height:100%;
+  height:100%; */
 }
 .card-deck{
   margin-bottom: 100px;
 }
+.card{
+  /* border: 1px solid; */
+  padding: 10px;
+  box-shadow: 5px 10px 18px #888888;
 
+}
 
 </style>

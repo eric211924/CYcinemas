@@ -237,7 +237,7 @@
                 <a
                   href="#"
                   data-toggle="modal"
-                  data-target="#myModala"
+                  data-target="#myModal"
                   @click.prevent="getInfo(index)"
                 >
                   <img :src="info.img_normal_url" :alt="info.title" :title="info.title" />
@@ -295,7 +295,7 @@
             </div>
             
             
-          </div>
+          <!-- </div>
           <div class="modal-body" style="text-align:left; padding:40px">
             <h6>
               <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -314,12 +314,13 @@
               活動辦法 :
               <p style="line-height: 30px;">{{content}}</p>
             </h6>
-          </div>
+          </div> -->
           <!-- <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>-->
         </div>
       </div>
+    </div>
     </div>
   </div>
 </template>
