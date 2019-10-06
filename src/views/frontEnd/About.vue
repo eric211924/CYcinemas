@@ -78,7 +78,7 @@
 
 
 
-<style>
+<style scoped>
 .img-thumbnail {
   width: auto;
   height: auto;

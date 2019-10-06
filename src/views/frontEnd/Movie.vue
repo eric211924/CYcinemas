@@ -6,7 +6,7 @@
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="123" class="card-img" alt="..." />
+          <img src="..\..\assets\home_s_1.jpeg" class="card-img" alt="..." />
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -24,7 +24,7 @@
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="123" class="card-img" alt="..." />
+          <img src="..\..\assets\home_s_1.jpeg" class="card-img" alt="..." />
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -42,7 +42,7 @@
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="123" class="card-img" alt="..." />
+          <img src="..\..\assets\home_s_1.jpeg" class="card-img" alt="..." />
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -60,7 +60,7 @@
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="123" class="card-img" alt="..." />
+          <img src="..\..\assets\home_s_1.jpeg" class="card-img" alt="..." />
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -78,7 +78,7 @@
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="123" class="card-img" alt="..." />
+          <img src="..\..\assets\home_s_1.jpeg" class="card-img" alt="..." />
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -96,7 +96,7 @@
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="123" class="card-img" alt="..." />
+          <img src="..\..\assets\home_s_1.jpeg" class="card-img" alt="..." />
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -123,7 +123,7 @@
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src="123" class="card-img" alt="..." />
+            <img src="..\..\assets\home_s_2.jpeg" class="card-img" alt="..." />
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -141,7 +141,7 @@
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src="123" class="card-img" alt="..." />
+            <img src="..\..\assets\home_s_2.jpeg" class="card-img" alt="..." />
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -159,7 +159,7 @@
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src="123" class="card-img" alt="..." />
+            <img src="..\..\assets\home_s_2.jpeg" class="card-img" alt="..." />
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -177,7 +177,7 @@
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src="123" class="card-img" alt="..." />
+            <img src="..\..\assets\home_s_2.jpeg" class="card-img" alt="..." />
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -195,7 +195,7 @@
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src="123" class="card-img" alt="..." />
+            <img src="..\..\assets\home_s_2.jpeg" class="card-img" alt="..." />
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -213,7 +213,7 @@
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img src="123" class="card-img" alt="..." />
+            <img src="..\..\assets\home_s_2.jpeg" class="card-img" alt="..." />
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -232,7 +232,7 @@
   </div>
 </template>
 
-<script>
+<script >
 // import MovieCard from '@/components/MovieCard.vue'
 // export default {
 //   components: {
@@ -245,3 +245,20 @@
 //   }
 // }
 </script>
+<style scoped>
+.card-img{
+  width:auto;
+  height: auto;
+  width:100%;
+  height:100%;
+  padding:10px;
+}
+.card{
+  padding: 10px;
+  box-shadow: 5px 10px 18px #888888;
+}
+
+
+
+
+</style>
