@@ -15,7 +15,7 @@
           <div class="card">
             <img :src="item.img_thumbs_url" alt class="card-img-top" />
             <div class="card-body">
-              <h5 class="card-title overflow-hidden w-100">{{ item.title }}</h5>
+              <h6 class="card-title overflow-hidden w-100">{{ item.title }}</h6>
             </div>
           </div>
         </a>
@@ -73,46 +73,6 @@
       </div>
     </div>
     <DeleteModal @delete="deleteNews" @clear="cleanData"></DeleteModal>
-
-    <!-- <div class="row">
-      <div class="col-12 my-2" v-for="(item, index) in newsData" :key="index">
-        <div class="row">
-          <div class="col-2">
-            <img
-              class="rounded img-thumbnail"
-              :src="item.img_thumbs_url"
-              height="100%"
-              width="100%"
-            />
-            <span class="d-flex justify-content-center">{{ item.release_time }}</span>
-            <div class="btn-group my-1 d-flex justify-cotent-center">
-              <button
-                class="btn btn-warning btn-sm"
-                data-toggle="modal"
-                data-target="#NewsForm"
-                @click.prevent="action = '修改'; getNewsData(item.id)"
-              >修改</button>
-              <button
-                class="btn btn-danger btn-sm"
-                data-toggle="modal"
-                data-target="#deleteModal"
-                @click.prevent="setId = item.id"
-              >刪除</button>
-            </div>
-          </div>
-          <div class="col-10">
-            <span class="d-inline">
-              <h5>
-                <b>&lt;{{ item.title }}&gt;</b>
-              </h5>
-              <h6 v-if="!(item.start_time == '0000-00-00' && item.end_time == '0000-00-00')">{{ item.start_time }} ~ {{ item.end_time }}</h6>
-            </span>
-            <div class="overflow-auto">{{ item.content }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <DeleteModal @delete="deleteNews" @clear="cleanData"></DeleteModal>-->
 
     <!-- 消息表單 -->
     <div
@@ -210,7 +170,7 @@ export default {
       startTime: '',
       endTime: '',
       file: '',
-      fileName: '', // 修改消息的圖片檔案
+      fileName: '', // 修改消息的圖片名
       action: '', // 用來判斷是新增還是修改
       isLoading: true // 顯示 Loading 圖示直到資料準備好
     }
