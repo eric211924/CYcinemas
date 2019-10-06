@@ -2,8 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
+// Bootstrap
 import 'bootstrap'
-import 'font-awesome/css/font-awesome.css'
 
 // vue toast
 import Toasted from 'vue-toasted'
@@ -17,6 +18,14 @@ Vue.use(VueAxios, Axios);
 
 // font-awesome
 import 'font-awesome/css/font-awesome.css'
+
+// UIkit
+import UIkit from 'uikit';
+import Icon from 'uikit/dist/js/uikit-icons';
+UIkit.use(Icon);
+
+// chart.js
+import Chart from 'chart.js';
 
 Vue.config.productionTip = false;
 
