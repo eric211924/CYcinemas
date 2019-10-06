@@ -151,7 +151,7 @@ export default {
               sessionStorage.setItem("nowEmail", result[0].email);
               sessionStorage.setItem("nowPhone", result[0].phone);
               //刷新Detail.vue頁面 
-              if(window.location.hash == "#/order/detail") 
+              if(window.location.hash == "#/order/detail"||window.location.hash == "#/order/Detail")
                 history.go(0);
             }
           }
