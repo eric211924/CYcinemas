@@ -33,12 +33,12 @@ export default {
   data() {
     return {
       mealsData: [],
-      isLoading: false
+      isLoading: true
     }
   },
   watch: {
-    MealsData(val) {
-      if (!val) {
+    mealsData(val) {
+      if (val) {
         this.isLoading = false;
       }
     }

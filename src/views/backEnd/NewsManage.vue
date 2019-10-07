@@ -10,7 +10,7 @@
 
     <!-- 最新消息的清單 -->
     <div class="row mt-3">
-      <div class="col-12 col-md-6 col-lg-3 mb-3" v-for="(item, index) in newsData" :key="index">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3" v-for="(item, index) in newsData" :key="index">
         <a href data-toggle="modal" data-target="#showNewsData" @click.prevent="showNews = item">
           <div class="card">
             <img :src="item.img_thumbs_url" alt class="card-img-top" />
