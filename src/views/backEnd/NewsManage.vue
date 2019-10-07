@@ -152,8 +152,8 @@
 </template>
 
 <script>
-import DeleteModal from '@/components/DeleteModal.vue';
-import Loading from '@/components/Loading.vue';
+import DeleteModal from "@/components/DeleteModal.vue";
+import Loading from "@/components/Loading.vue";
 
 export default {
   components: {
@@ -163,17 +163,17 @@ export default {
   data() {
     return {
       newsData: [], // 所有最新消息的資料,
-      showNews: '',
+      showNews: "",
       setId: Number, // 刪除或是修改消息的 ID
-      title: '',
-      content: '',
-      startTime: '',
-      endTime: '',
-      file: '',
-      fileName: '', // 修改消息的圖片名
-      action: '', // 用來判斷是新增還是修改
+      title: "",
+      content: "",
+      startTime: "",
+      endTime: "",
+      file: "",
+      fileName: "", // 修改消息的圖片名
+      action: "", // 用來判斷是新增還是修改
       isLoading: true // 顯示 Loading 圖示直到資料準備好
-    }
+    };
   },
   mounted() {
     this.getNewsData(); // 當網頁載入時發出請求取得資料
@@ -188,21 +188,22 @@ export default {
   },
   methods: {
     // 取的News資料
-    getNewsData(newsId = '') {
+    getNewsData(newsId = "") {
       const _this = this;
       // 判斷是否有ID，有的話為取得單筆資料，無則是取得所有資料
-      if (newsId == '') {
-        this.axios.get(`${_this.$api}/news/`).then((response) => {
+      if (newsId == "") {
+        this.axios.get(`${_this.$api}/news/`).then(response => {
           _this.newsData = response.data;
           // console.log(response.data);
         });
       } else {
-        this.axios.get(`${_this.$api}/news/${newsId}`).then((response) => {
+        this.axios.get(`${_this.$api}/news/${newsId}`).then(response => {
           let data = response.data[0];
           _this.title = data.title;
           _this.content = data.content;
-          _this.startTime = data.start_time == '0000-00-00' ? '' : data.start_time;
-          _this.endTime = data.end_time == '0000-00-00' ? '' : data.end_time;
+          _this.startTime =
+            data.start_time == "0000-00-00" ? "" : data.start_time;
+          _this.endTime = data.end_time == "0000-00-00" ? "" : data.end_time;
           _this.fileName = data.img_normal_url.substr(-18, 18);
           _this.setId = data.id;
         });
@@ -213,70 +214,74 @@ export default {
       const _this = this;
       this.file = this.$refs.file.files[0];
       let formData = new FormData();
-      formData.append('title', this.title);
-      formData.append('content', this.content);
-      formData.append('startTime', this.startTime);
-      formData.append('endTime', this.endTime);
-      formData.append('file', this.file);
-      this.axios.post(`${this.$api}/news/`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then((response) => {
-        if (response.data.status == 201) {
-          _this.$toasted.success(response.data.msg, {
-            theme: 'bubble',
-            duration: 5000
-          });
-          _this.getNewsData(); // 新增後將畫面刷新
-          _this.cleanData(); // 新增後將表單資料清空
-        } else {
-          _this.$toasted.error(response.data.msg, {
-            theme: 'bubble',
-            duration: 5000
-          });
-        }
-      });
+      formData.append("title", this.title);
+      formData.append("content", this.content);
+      formData.append("startTime", this.startTime);
+      formData.append("endTime", this.endTime);
+      formData.append("file", this.file);
+      this.axios
+        .post(`${this.$api}/news/`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(response => {
+          if (response.data.status == 201) {
+            _this.$toasted.success(response.data.msg, {
+              theme: "bubble",
+              duration: 5000
+            });
+            _this.getNewsData(); // 新增後將畫面刷新
+            _this.cleanData(); // 新增後將表單資料清空
+          } else {
+            _this.$toasted.error(response.data.msg, {
+              theme: "bubble",
+              duration: 5000
+            });
+          }
+        });
     },
     // 更新News
     updateNews() {
       const _this = this;
       this.file = this.$refs.file.files[0];
       let formData = new FormData();
-      formData.append('title', this.title);
-      formData.append('content', this.content);
-      formData.append('startTime', this.startTime);
-      formData.append('endTime', this.endTime);
-      formData.append('fileName', this.fileName);
-      formData.append('file', this.file);
-      this.axios.post(`${this.$api}/news/${this.setId}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then((response) => {
-        // console.log(response.data);
-        if (response.data.status == 200) {
-          _this.$toasted.success(response.data.msg, {
-            theme: 'bubble',
-            duration: 3000
-          });
-          _this.getNewsData(); // 更新後刷新畫面
-          _this.cleanData(); // 更新後將表單資料清空
-        } else {
-          _this.$toasted.error(response.data.msg, {
-            theme: 'bubble',
-            duration: 3000
-          });
-        }
-      });
+      formData.append("title", this.title);
+      formData.append("content", this.content);
+      formData.append("startTime", this.startTime);
+      formData.append("endTime", this.endTime);
+      formData.append("fileName", this.fileName);
+      formData.append("file", this.file);
+      this.axios
+        .post(`${this.$api}/news/${this.setId}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(response => {
+          // console.log(response.data);
+          if (response.data.status == 200) {
+            _this.$toasted.success(response.data.msg, {
+              theme: "bubble",
+              duration: 3000
+            });
+            _this.getNewsData(); // 更新後刷新畫面
+            _this.cleanData(); // 更新後將表單資料清空
+          } else {
+            _this.$toasted.error(response.data.msg, {
+              theme: "bubble",
+              duration: 3000
+            });
+          }
+        });
     },
     // 刪除News
     deleteNews() {
       // console.log(this.setId);
       const _this = this;
-      this.axios.delete(`${_this.$api}/news/${_this.setId}`).then((response) => {
+      this.axios.delete(`${_this.$api}/news/${_this.setId}`).then(response => {
         _this.$toasted.success(response.data.msg, {
-          theme: 'bubble',
+          theme: "bubble",
           duration: 5000
         });
         _this.getNewsData(); // 刪除後刷新畫面
@@ -284,16 +289,16 @@ export default {
     },
     // 新增及修改資料送出、取消、關閉最新消息的表單時將資料清除
     cleanData() {
-      this.title = '';
-      this.content = '';
-      this.file = '';
-      this.startTime = '';
-      this.endTime = '';
-      this.fileName = '';
-      this.setId = '';
+      this.title = "";
+      this.content = "";
+      this.file = "";
+      this.startTime = "";
+      this.endTime = "";
+      this.fileName = "";
+      this.setId = "";
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
