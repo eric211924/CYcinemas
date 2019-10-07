@@ -133,8 +133,7 @@
             歡迎光臨 {{list.accout}}</button> 
         <button v-if="list.loginBar"  href data-toggle="modal" data-target="#login" type="button" 
             class="loginBtn btn btn-outline-secondary">
-                會員登入
-            </button>
+            會員登入</button>
         <div class="tab3">
             <h6>信用卡資料</h6> 
             <!--input-->
@@ -168,22 +167,22 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">  
-               
-                    按下確定即送出訂單,確定此筆訂購內容無誤嗎?
-                
+              <div class="modal-body"> 
+                按下確定即送出訂單,確定此筆訂購內容無誤嗎? 
               </div> 
               <div class="modal-body">
               <div class="container"> 
                      <div class="row">
-                         <div class="col-md-6">
+                         <div class="col-md-6"> 
 
-                <button @click="ok()" type="button" class="btn btn-primary" data-dismiss="modal">
-                    確定</button>
+                         <button @click="ok()" type="button" class="btn btn-primary" data-dismiss="modal">
+                             確定</button>
+
                          </div>
                          <div class="col-md-6">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    取消</button>
+
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                             取消</button>
 
                          </div>
                      </div>
@@ -193,16 +192,16 @@
           </div>
         </div>  
         <div class="btnGroup">  
-                <button  href data-toggle="modal" data-target="#confirm" type='submit' name='btn' value='確認送出' class="btn btn-outline-primary">
-                    <i class="fa fa-check" aria-hidden="true"></i> 確認訂購
-                </button> 
-                <button @click="clrSession"  href data-toggle="modal" data-target="#confirm" type='submit' name='btn' value='確認送出' class="router-link1 btn btn-outline-danger">
-                    <i class="fa fa-check" aria-hidden="true"></i> 取消訂購
-                </button> 
-            </div>  
-        </div> 
-    </div>  
-</div>
+            <button  href data-toggle="modal" data-target="#confirm" type='submit' name='btn' value='確認送出' class="btn btn-outline-primary">
+                <i class="fa fa-check" aria-hidden="true"></i> 確認訂購
+            </button> 
+            <button @click="clrSession"  href data-toggle="modal" data-target="#confirm" type='submit' name='btn' value='確認送出' class="router-link1 btn btn-outline-danger">
+                <i class="fa fa-check" aria-hidden="true"></i> 取消訂購
+            </button> 
+        </div>  
+    </div> <!-- col-md-6  padding2 -->
+  </div>  <!-- row -->
+</div> <!-- container -->
 </template>
 
 
@@ -219,7 +218,9 @@ export default {
                 foodNum:{"0":"","1":"","2":"","3":""},
                 ticketName:{"0":"","1":""},
                 ticketNum:{"0":"","1":""},
-                price:{"0":190,"1":150},
+                price:{"0":190,"1":150,"2":50,"3":50,"4":40,"5":40},
+                //Price {"0":一般票,"1":愛心票
+                //"2":可樂 大,"3":爆米花 大,"4":可樂 中,"5":爆米花 中}
                 discount: 0.7,
                 total:101,
                 real:1, 
@@ -275,8 +276,7 @@ export default {
         checkInput2:function(){
             if(
                /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com$/.test(this.list.email) ||
-               /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com\.[a-zA-Z0-9_]+$/.test(this.list.email)
-            // .test(this.list.email)
+               /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com\.[a-zA-Z0-9_]+$/.test(this.list.email) 
             ){
                 this.chkInputEmpty2=0;
                 this.chkInputRight2=1;
@@ -297,17 +297,7 @@ export default {
                 this.chkInputRight3=0;
                 this.chkInputWrong3=1; 
             }
-        },
-        gue:function(){ 
-            this.list.buyerBar = 0;
-            this.list.loginBar = 1; //show登入鈕
-            this.list.editBar = 0; 
-        },
-        mem:function(){
-            this.list.buyerBar = 1;
-            this.list.loginBar = 0; //hide登入鈕
-            this.list.editBar = 1;
-        },
+        }, 
         saveDataToFinishPage:function() { 
             sessionStorage.setItem('FinishPageData',JSON.stringify(this.list))  
         },
@@ -355,7 +345,7 @@ export default {
             this.saveDataToFinishPage(); 
             //沒有輸入框時
             if(this.list.buyerBar)
-            return window.location.href="./#/order/FinishDetail";
+                return window.location.href="./#/order/FinishDetail";
             if(this.checkPersonalInfo()){ 
                 // 資料無空白 
                 if(0
@@ -375,8 +365,13 @@ export default {
         countMoney:function(){
             // var ticketNum ={"0":0,"1":1} ; 
             var ticketNum =JSON.parse(sessionStorage.getItem('ticketsNum')); 
+            var mealsNum =JSON.parse(sessionStorage.getItem('mealsNum')); 
             this.list.total=this.list.price["0"]*(ticketNum["0"] >=1?ticketNum["0"]:0) +
-                            this.list.price["1"]*(ticketNum["1"] >=1?ticketNum["1"]:0);
+                            this.list.price["1"]*(ticketNum["1"] >=1?ticketNum["1"]:0) +
+                            this.list.price["2"]*(mealsNum["0"] >=1?mealsNum["0"]:0) +
+                            this.list.price["3"]*(mealsNum["1"] >=1?mealsNum["1"]:0) +
+                            this.list.price["4"]*(mealsNum["2"] >=1?mealsNum["2"]:0) +
+                            this.list.price["5"]*(mealsNum["3"] >=1?mealsNum["3"]:0) ;
             this.list.real =Math.ceil(this.list.total*this.list.discount);
         },
         memberGetData: function(){ 
@@ -387,6 +382,8 @@ export default {
         },
         getData: function(){
             // var ticketNum ={"0":2,"1":1} ; 
+            var choosedSeat = sessionStorage.getItem('choosedSeat');
+            this.list.seat = choosedSeat;
             var ticketNum =JSON.parse(sessionStorage.getItem('ticketsNum')); 
             if(ticketNum["0"] >=1 ){
                 this.list.ticketName["0"] = "一般票 "; 
