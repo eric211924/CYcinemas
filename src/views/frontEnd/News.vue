@@ -293,7 +293,11 @@
                 <p style="line-height: 30px;">{{content}}</p>
               </h6>
             </div>
-            
+            </div>
+      </div>
+    </div>
+    </div>
+  </div>
             
           <!-- </div>
           <div class="modal-body" style="text-align:left; padding:40px">
