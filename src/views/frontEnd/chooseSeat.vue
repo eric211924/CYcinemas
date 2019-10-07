@@ -7,14 +7,14 @@
       <div>
         您選到的場次為：
         <br />已售出的座位為：
-        <br />您可選的座位為：
+        <br />您可選的座位為： {{this.canChooseSeat}}
         <br />預設幫您排的座位為：
         <table class="table table-borderless">
           <tr>
             <td>
               <p
-                @click="checkedNames[0]=!(checkedNames[0]); putSeatIn(a1,1)"
-                v-bind:class="{changeColor:checkedNames[0]}"
+                @click="a1=!a1; putSeatIn(a1,1)"
+                v-bind:class="{changeColor:a1}"
               >1</p>
               <p @click="a10=!a10; putSeatIn(a10,10)" v-bind:class="{changeColor:a10}">10</p>
               <p @click="a19=!a19; putSeatIn(a19,19)" v-bind:class="{changeColor:a19}">19</p>
@@ -25,10 +25,7 @@
               <p @click="a64=!a64; putSeatIn(a64,64)" v-bind:class="{changeColor:a64}">64</p>
             </td>
             <td>
-              <p
-                @click="a2=!a2; putSeatIn(a2,2)"
-                v-bind:class="{changeColor:this.checkedNames[1]}"
-              >2</p>
+              <p @click="a2=!a2; putSeatIn(a2,2)" v-bind:class="{changeColor:a2}">2</p>
               <p @click="a11=!a11; putSeatIn(a11,11)" v-bind:class="{changeColor:a11}">11</p>
               <p @click="a20=!a20; putSeatIn(a20,20)" v-bind:class="{changeColor:a20}">20</p>
               <p @click="a29=!a29; putSeatIn(a29,29)" v-bind:class="{changeColor:a29}">29</p>
@@ -120,8 +117,11 @@
       <br />
       <br />
       <br />
+      {{canChooseSeat}}
       <router-link to="/order/Detail" class="btn btn-success btn-block">點我去看訂單詳細</router-link>
     </div>
+
+
   </div>
 </template>
 
@@ -210,15 +210,18 @@ export default {
       a77: false, 
       a78: false,
       a79: false,
-      checkedNames: [true,true,true,true],
+      checkedNames: [],
       finalSeat:[],
       x:'',
-      seat:''
+      seat:'',
+      canChooseSeat:5
     }
   },
   mounted(){
-    this.initSeat(0);
+    // this.initSeat(0);
     this.putSeatIn(this.x,this.seat);
+    this.getSession();
+    this.setSession();
     
   },
   methods:{
@@ -232,16 +235,27 @@ export default {
             this.finalSeat[j]=i;
             j++;
         }
-      }     
+      } 
+      this.setSession();    
     }
     ,
-    initSeat(x){
-      let i=0;
-      for(i=x;i<x+4;i++){
-        this.checkedNames[x]=true ;
-      console.log(this.checkedNames);
-      }
+    // initSeat(x){
+    //   let i=0;
+    //   for(i=x;i<x+4;i++){
+    //     this.checkedNames[x]=true ;
+    //   console.log(this.checkedNames);
+    //   }
+    // },
+    getSession(){
+      this.canChooseSeat=sessionStorage.totalTicketsNum;
+    },
+    setSession(){
+      sessionStorage.setItem(
+        "choosedSeat",
+        this.finalSeat
+      );
     }
+
   }
 }
 </script>
