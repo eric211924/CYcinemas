@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="4000">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
-        <div class="carousel-item active data-interval='3000' ">
+        <div class="carousel-item active data-interval='4000' ">
           <img src="../../assets/home_1.jpg" class="d-block w-100" alt="壞壞萌雪怪" />
         </div>
         <div class="carousel-item">
@@ -117,4 +117,5 @@ export default {
   padding: 10px;
   box-shadow: 5px 10px 18px #888888;
 }
+
 </style>

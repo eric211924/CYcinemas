@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">黑魔女2</h5>
             <p
               class="card-text"
             >This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -28,7 +28,7 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">黑魔女2</h5>
             <p
               class="card-text"
             >This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -233,6 +233,7 @@
 </template>
 
 <script >
+
 // import MovieCard from '@/components/MovieCard.vue'
 // export default {
 //   components: {
@@ -247,13 +248,14 @@
 </script>
 <style scoped>
 .card-img{
-  width:auto;
-  height: auto;
+  /* width:auto;
+  height: auto; */
   width:100%;
   height:100%;
-  padding:10px;
+  margin-right:10px;
 }
 .card{
+  margin-right:10px;
   padding: 10px;
   box-shadow: 5px 10px 18px #888888;
 }
