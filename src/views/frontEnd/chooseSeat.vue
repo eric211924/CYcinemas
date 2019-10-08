@@ -223,7 +223,10 @@ export default {
     putSeatIn(x, seat) {
       //x 是  true false 值 辨別該座位是否選取
       //seat 為 key   紀錄哪個座位
+
+      
       if (this.finalSeat.length < this.canChooseSeat) {
+        // if (this.finalSeat.length < this.canChooseSeat) {
         let i = 0,
           j = 0;
         this.checkedNames[seat] = x;
@@ -238,7 +241,8 @@ export default {
         this.setSession();
       } else {
         this.finalSeat = [];
-        alert("選太多位ㄗ惹");
+        // alert("選太多位ㄗ惹");
+        console.log("選太多位ㄗ惹");
         this.x=false;
       }
     },
@@ -270,7 +274,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 p {
   border: 1px solid black;
   height: 30px;
