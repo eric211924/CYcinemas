@@ -297,7 +297,7 @@
       </div>
     </div>
     </div>
-  </div>
+  
             
           <!-- </div>
           <div class="modal-body" style="text-align:left; padding:40px">
@@ -322,11 +322,7 @@
           <!-- <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>-->
-        </div>
-      </div>
-    </div>
-    </div>
-  </div>
+  </div>  
 </template>
 
 
