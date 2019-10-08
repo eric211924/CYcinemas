@@ -248,7 +248,8 @@ export default {
       day_index: "0",
       time_index: "0",
       tickets_index: {},
-      meals_index: {}
+      meals_index: {},
+      movieSession:{},
     };
   },
   mounted() {
@@ -374,11 +375,18 @@ export default {
 
       var e = document.getElementById("movies"); 
       sessionStorage.setItem("moviesName",e.options[e.selectedIndex].text);
+      this.movieSession["moviesName"]=e.options[e.selectedIndex].text;
+
       e = document.getElementById("days"); 
       sessionStorage.setItem("moviesDay",e.options[e.selectedIndex].text);
+      this.movieSession["moviesDay"]=e.options[e.selectedIndex].text;
+
       e = document.getElementById("times"); 
       sessionStorage.setItem("moviesTime",e.options[e.selectedIndex].text);
+      this.movieSession["moviesTime"]=e.options[e.selectedIndex].text;
+
       this.loadScreeningID();
+      
 
       sessionStorage.setItem("ticketsNum", JSON.stringify(this.ticketsNum));
       sessionStorage.setItem("mealsNum",JSON.stringify(this.mealsNum));
@@ -396,6 +404,14 @@ export default {
       sessionStorage.setItem("mealsNameNum",JSON.stringify(mealsNameNum));
       sessionStorage.setItem("totalTicketsNum",this.ticketsTotal);
 
+      this.movieSession["ticketsNum"]=JSON.stringify(this.ticketsNum);
+      
+      this.movieSession["ticketsNameNum"]=JSON.stringify(ticketsNameNum);
+      this.movieSession["mealsNameNum"]=JSON.stringify(mealsNameNum);
+      this.movieSession["totalTicketsNum"]=this.ticketsTotal;
+
+      sessionStorage.setItem("movie",JSON.stringify(this.movieSession));
+      
       this.$router.push("/order/chooseSeat");
     }
   },
