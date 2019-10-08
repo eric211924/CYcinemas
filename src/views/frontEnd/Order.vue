@@ -248,24 +248,41 @@ export default {
       day_index: "0",
       time_index: "0",
       tickets_index: {},
-      meals_index: {}
+      meals_index: {},
+      movieSession:{},
+      movieIndexSession:{}
     };
   },
   mounted() {
-    if (sessionStorage.movie_index) {
-      this.init_movie_index = sessionStorage.movie_index;
-      this.movie_index=sessionStorage.movie_index;
+    if(sessionStorage.movieIndex){
+      this.movieIndexSession = JSON.parse(sessionStorage.movieIndex);
+      this.init_movie_index = this.movieIndexSession.movie_index;
+      this.movie_index=this.movieIndexSession.movie_index;
+      this.day_index = this.movieIndexSession.day_index;
+      this.time_index = this.movieIndexSession.time_index;
     }
+    // if (sessionStorage.movie_index) {
+    //   this.init_movie_index = sessionStorage.movie_index;
+    //   this.movie_index=sessionStorage.movie_index;
+    // }
     this.loadMovies();
     this.loadTickets();
     this.loadMeals();
      
-    if (sessionStorage.day_index) this.day_index = sessionStorage.day_index;
-    if (sessionStorage.time_index) this.time_index = sessionStorage.time_index;
-    if (sessionStorage.ticketsNum)
-      this.tickets_index = JSON.parse(sessionStorage.ticketsNum);
-    if (sessionStorage.mealsNum)
-      this.meals_index = JSON.parse(sessionStorage.mealsNum);
+    // if (sessionStorage.day_index) this.day_index = sessionStorage.day_index;
+    // if (sessionStorage.time_index) this.time_index = sessionStorage.time_index;
+    if(sessionStorage.movie){
+      this.movieSession = JSON.parse(sessionStorage.movie);
+      this.tickets_index = JSON.parse(this.movieSession.ticketsNum);
+      this.meals_index = JSON.parse(this.movieSession.mealsNum);
+
+      // console.log(this.tickets_index);
+    }
+    // if (sessionStorage.ticketsNum)
+    //   this.tickets_index = JSON.parse(sessionStorage.ticketsNum);
+    // if (sessionStorage.mealsNum)
+    //   this.meals_index = JSON.parse(sessionStorage.mealsNum);
+    
   },
   methods: {
     loadMovies() {
@@ -311,7 +328,7 @@ export default {
       this.axios.get(`${this.$api}/order/getTickets`).then(response => {
         this.tickets = response.data;
         for (var i = 0; i < this.tickets.length; i++)
-          sessionStorage.ticketsNum
+          sessionStorage.movie
             ? this.$set(this.ticketsNum, i, this.tickets_index[i])
             : this.$set(this.ticketsNum, i, 0);
       });
@@ -321,7 +338,7 @@ export default {
         this.meals = response.data;
         // console.log(this.meals);
         for (var i = 0; i < this.meals.length; i++) {
-          sessionStorage.mealsNum
+          sessionStorage.movie
             ? this.$set(this.mealsNum, i, this.meals_index[i])
             : this.$set(this.mealsNum, i, 0);
         }
@@ -335,8 +352,8 @@ export default {
       `)
       .then(response =>{
         if(response.data)
-        sessionStorage.setItem("screeningID",response.data[0].id);
-        
+        // sessionStorage.setItem("screeningID",response.data[0].id);
+        this.movieSession["screeningID"]=response.data[0].id;
         // console.log(response.data);
       });
     },
@@ -347,7 +364,6 @@ export default {
     plusTickets(index) {
       if (this.ticketsTotal < 5) this.ticketsNum[index] += 1;
       else this.ticketsNum[index] = this.ticketsNum[index];
-      
     },
     minusMeals(index) {
       if (this.mealsNum[index] > 0) this.mealsNum[index] -= 1;
@@ -359,43 +375,63 @@ export default {
     },
 
     setProp() {
-      sessionStorage.setItem(
-        "movie_index",
-        document.getElementById("movies").value
-      );
-      sessionStorage.setItem(
-        "day_index",
-        document.getElementById("days").value
-      );
-      sessionStorage.setItem(
-        "time_index",
-        document.getElementById("times").value
-      );
+      // sessionStorage.setItem(
+      //   "movie_index",
+      //   document.getElementById("movies").value
+      // );
+      // sessionStorage.setItem(
+      //   "day_index",
+      //   document.getElementById("days").value
+      // );
+      // sessionStorage.setItem(
+      //   "time_index",
+      //   document.getElementById("times").value
+      // );
+      this.movieIndexSession["movie_index"]=document.getElementById("movies").value;
+      this.movieIndexSession["day_index"]=document.getElementById("days").value;
+      this.movieIndexSession["time_index"]=document.getElementById("times").value;
+      sessionStorage.setItem("movieIndex",JSON.stringify(this.movieIndexSession));
 
       var e = document.getElementById("movies"); 
-      sessionStorage.setItem("moviesName",e.options[e.selectedIndex].text);
-      e = document.getElementById("days"); 
-      sessionStorage.setItem("moviesDay",e.options[e.selectedIndex].text);
-      e = document.getElementById("times"); 
-      sessionStorage.setItem("moviesTime",e.options[e.selectedIndex].text);
-      this.loadScreeningID();
+      // sessionStorage.setItem("moviesName",e.options[e.selectedIndex].text);
+      this.movieSession["moviesName"]=e.options[e.selectedIndex].text;
 
-      sessionStorage.setItem("ticketsNum", JSON.stringify(this.ticketsNum));
-      sessionStorage.setItem("mealsNum",JSON.stringify(this.mealsNum));
+      e = document.getElementById("days"); 
+      // sessionStorage.setItem("moviesDay",e.options[e.selectedIndex].text);
+      this.movieSession["moviesDay"]=e.options[e.selectedIndex].text;
+
+      e = document.getElementById("times"); 
+      // sessionStorage.setItem("moviesTime",e.options[e.selectedIndex].text);
+      this.movieSession["moviesTime"]=e.options[e.selectedIndex].text;
+
+      this.loadScreeningID();
+      
+
+      // sessionStorage.setItem("ticketsNum", JSON.stringify(this.ticketsNum));
+      // sessionStorage.setItem("mealsNum",JSON.stringify(this.mealsNum));
 
       var ticketsNameNum = {};
       for(var i = 0;i<Object.keys(this.tickets).length;i++){
         this.$set(ticketsNameNum, this.tickets[i]["name"], this.ticketsNum[i]);
       }
-      sessionStorage.setItem("ticketsNameNum",JSON.stringify(ticketsNameNum));
+      // sessionStorage.setItem("ticketsNameNum",JSON.stringify(ticketsNameNum));
 
       var mealsNameNum = {};
       for(var i = 0;i<Object.keys(this.meals).length;i++){
         this.$set(mealsNameNum, `${this.meals[i]['name']} ` + `${this.meals[i]['size']}`, this.mealsNum[i]);
       }
-      sessionStorage.setItem("mealsNameNum",JSON.stringify(mealsNameNum));
-      sessionStorage.setItem("totalTicketsNum",this.ticketsTotal);
+      // sessionStorage.setItem("mealsNameNum",JSON.stringify(mealsNameNum));
+      // sessionStorage.setItem("totalTicketsNum",this.ticketsTotal);
 
+      this.movieSession["ticketsNum"]=JSON.stringify(this.ticketsNum);
+      this.movieSession["mealsNum"]=JSON.stringify(this.mealsNum);
+      
+      this.movieSession["ticketsNameNum"]=JSON.stringify(ticketsNameNum);
+      this.movieSession["mealsNameNum"]=JSON.stringify(mealsNameNum);
+      this.movieSession["totalTicketsNum"]=this.ticketsTotal;
+
+      sessionStorage.setItem("movie",JSON.stringify(this.movieSession));
+      
       this.$router.push("/order/chooseSeat");
     }
   },
