@@ -7,15 +7,13 @@
       <div>
         您選到的場次為：
         <br />已售出的座位為：
-        <br />您可選的座位為： {{this.canChooseSeat}}
+        <br />
+        您可選的座位為： {{this.canChooseSeat}}
         <br />預設幫您排的座位為：
         <table class="table table-borderless">
           <tr>
             <td>
-              <p
-                @click="a1=!a1; putSeatIn(a1,1)"
-                v-bind:class="{changeColor:a1}"
-              >1</p>
+              <p @click="a1=!a1; putSeatIn(a1,1)" v-bind:class="{changeColor:a1}">1</p>
               <p @click="a10=!a10; putSeatIn(a10,10)" v-bind:class="{changeColor:a10}">10</p>
               <p @click="a19=!a19; putSeatIn(a19,19)" v-bind:class="{changeColor:a19}">19</p>
               <p @click="a28=!a28; putSeatIn(a28,28)" v-bind:class="{changeColor:a28}">28</p>
@@ -120,16 +118,14 @@
       {{canChooseSeat}}
       <router-link to="/order/Detail" class="btn btn-success btn-block">點我去看訂單詳細</router-link>
     </div>
-
-
   </div>
 </template>
 
 <script>
 export default {
   // name: "chooseSeat",
-  data(){
-    return{
+  data() {
+    return {
       a: false,
       a1: false,
       a2: false,
@@ -137,7 +133,7 @@ export default {
       a4: false,
       a5: false,
       a6: false,
-      a7: false,                             
+      a7: false,
       a8: false,
       a9: false,
       a10: false,
@@ -147,7 +143,7 @@ export default {
       a14: false,
       a15: false,
       a16: false,
-      a17: false, 
+      a17: false,
       a18: false,
       a19: false,
       a20: false,
@@ -157,7 +153,7 @@ export default {
       a24: false,
       a25: false,
       a26: false,
-      a27: false, 
+      a27: false,
       a28: false,
       a29: false,
       a30: false,
@@ -167,7 +163,7 @@ export default {
       a34: false,
       a35: false,
       a36: false,
-      a37: false, 
+      a37: false,
       a38: false,
       a39: false,
       a40: false,
@@ -177,7 +173,7 @@ export default {
       a44: false,
       a45: false,
       a46: false,
-      a47: false, 
+      a47: false,
       a48: false,
       a49: false,
       a50: false,
@@ -187,7 +183,7 @@ export default {
       a54: false,
       a55: false,
       a56: false,
-      a57: false, 
+      a57: false,
       a58: false,
       a59: false,
       a60: false,
@@ -197,7 +193,7 @@ export default {
       a64: false,
       a65: false,
       a66: false,
-      a67: false, 
+      a67: false,
       a68: false,
       a69: false,
       a70: false,
@@ -207,38 +203,45 @@ export default {
       a74: false,
       a75: false,
       a76: false,
-      a77: false, 
+      a77: false,
       a78: false,
       a79: false,
       checkedNames: [],
-      finalSeat:[],
-      x:'',
-      seat:'',
-      canChooseSeat:5
-    }
+      finalSeat: [],
+      x: "",
+      seat: "",
+      canChooseSeat: 0
+    };
   },
-  mounted(){
+  mounted() {
     // this.initSeat(0);
-    this.putSeatIn(this.x,this.seat);
+    this.putSeatIn(this.x, this.seat);
     this.getSession();
     this.setSession();
-    
   },
-  methods:{
-    putSeatIn(x,seat){
-      let i=0,j=0;
-      this.checkedNames[seat]=x ;
-      for(i=0;i<this.finalSeat.length;i++)
-      this.finalSeat[i]=0;
-      for(i=0;i<80;i++){
-        if(this.checkedNames[i]==true){
-            this.finalSeat[j]=i;
+  methods: {
+    putSeatIn(x, seat) {
+      //x 是  true false 值 辨別該座位是否選取
+      //seat 為 key   紀錄哪個座位
+      if (this.finalSeat.length < this.canChooseSeat) {
+        let i = 0,
+          j = 0;
+        this.checkedNames[seat] = x;
+
+        this.finalSeat = [];
+        for (i = 0; i < 80; i++) {
+          if (this.checkedNames[i] == true) {
+            this.finalSeat[j] = i;
             j++;
+          }
         }
-      } 
-      this.setSession();    
-    }
-    ,
+        this.setSession();
+      } else {
+        this.finalSeat = [];
+        alert("選太多位ㄗ惹");
+        this.x=false;
+      }
+    },
     // initSeat(x){
     //   let i=0;
     //   for(i=x;i<x+4;i++){
@@ -246,18 +249,22 @@ export default {
     //   console.log(this.checkedNames);
     //   }
     // },
-    getSession(){
-      this.canChooseSeat=sessionStorage.totalTicketsNum;
-    },
-    setSession(){
-      sessionStorage.setItem(
-        "choosedSeat",
-        this.finalSeat
-      );
-    }
 
+    getSession() {
+      this.canChooseSeat = sessionStorage.totalTicketsNum;
+      //取得可選座位數
+    },
+    setSession() {
+      sessionStorage.setItem(
+        "choosedSeat",this.finalSeat
+        //傳出已選座位
+      );
+    },
+    changeStatus(x){
+
+    }
   }
-}
+};
 </script>
 
 
