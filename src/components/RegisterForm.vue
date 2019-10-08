@@ -41,7 +41,7 @@
               {{ emailResult }}
             </div>
             <div class="form-group">
-              <label for>電話 :</label>
+              <label for>手機號碼 :</label>
               <input type="text" class="form-control" v-model="phone"/>
               {{ phoneResult }}
             </div>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-// 表單送出後無法關閉...
+import $ from 'jquery';
 export default {
   data() {
     return {
@@ -74,7 +74,7 @@ export default {
       email: '',
       phone: '',
       result: "",
-      isDisabled: false,
+      isDisabled: true,
       nameResult: "",
       accResult: "",
       pwdResult: "",
@@ -88,13 +88,12 @@ export default {
     }
   },
   mounted() {
-    this.checkInput();
   },
   // 監看各輸入欄位資料正確性 (是否空值 密碼長度 規則等是否正確)
   watch: {
     // 姓名: 長度不限 任意中英文組合 (不含特殊符號與數字)
     // ^[\u4e00-\u9fa5a-zA-Z0-9]+$
-    name: function () {
+    name: function (val) {
       var nameTest = /^[\u4e00-\u9fa5a-zA-Z0-9]+$/.test(this.name);
       if(nameTest == false) {
         this.nameResult = "姓名需為任意中英文組合 不能有特殊符號 數字 空白";
@@ -186,40 +185,29 @@ export default {
       }
     },
     registered() {
-      var _this = this;
-      var formData = new FormData();
-      formData.append('name', this.name);
-      formData.append('account', this.account);
-      formData.append('password', this.password);
-      formData.append('email', this.email);
-      formData.append('phone', this.phone);
-      // https://cy-cinemas.ml/members/members
-      // http://localhost/CYcinemasBackEnd/members/members
-      this.axios.post('https://cy-cinemas.ml/members/members', formData)
-        .then(function (response) {
-          _this.result = response.data;
-          _this.$toasted.success(_this.result, {
-            theme: 'bubble',
-            duration: 3000
-          });
-        }).catch(function (error) {
-          _this.$toasted.error("會員註冊失敗，請確認網路連線狀態", {
-              theme: 'bubble',
-              duration: 3000
-            });
-        });
-      // console.log("before clear");
-      this.name = '';
-      this.account = '';
-      this.password = '';
-      this.email = '';
-      this.phone = '';
-
-      this.nameResult = "";
-      this.accResult = "";
-      this.pwdResult = "";
-      this.emailResult = "";
-      this.phoneResult = "";
+      // var _this = this;
+      // var formData = new FormData();
+      // formData.append('name', this.name);
+      // formData.append('account', this.account);
+      // formData.append('password', this.password);
+      // formData.append('email', this.email);
+      // formData.append('phone', this.phone);
+      // // https://cy-cinemas.ml/members/members
+      // // http://localhost/CYcinemasBackEnd/members/members
+      // this.axios.post('https://cy-cinemas.ml/members/members', formData)
+      //   .then(function (response) {
+      //     _this.result = response.data;
+      //     _this.$toasted.success(_this.result, {
+      //       theme: 'bubble',
+      //       duration: 3000
+      //     });
+      //   }).catch(function (error) {
+      //     _this.$toasted.error("會員註冊失敗，請確認網路連線狀態", {
+      //         theme: 'bubble',
+      //         duration: 3000
+      //       });
+      //   });
+      console.log("before clear");
 
       this.isDisabled = false;
       this.nameReady = false;
@@ -227,7 +215,21 @@ export default {
       this.pwdReady = false;
       this.emailReady = false;
       this.phoneReady = false;
-      // console.log("after clear");
+
+      this.nameResult = "";
+      this.accResult = "";
+      this.pwdResult = "";
+      this.emailResult = "";
+      this.phoneResult = "";
+
+      this.name = '';
+      this.account = '';
+      this.password = '';
+      this.email = '';
+      this.phone = '';
+
+      console.log("after clear");
+      $('#register').modal('hide');
     },
   }
 }
