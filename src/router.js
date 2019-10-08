@@ -17,6 +17,11 @@ const router = new Router({
       component: Home
     },
     {
+      path: '/hanlinBar',
+      name: 'hanlinBar',
+      component: () => import('./views/frontEnd/hanlinBar')
+    },
+    {
       path: '/news',
       name: 'news',
       component: () => import('./views/frontEnd/News.vue')
