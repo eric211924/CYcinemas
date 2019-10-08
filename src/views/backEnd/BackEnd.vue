@@ -29,6 +29,7 @@
             :class="{'active': this.$route.path == '/backEnd/report'}"
           ><i class="fa fa-bar-chart" aria-hidden="true"></i> 報表</router-link>
         </div>
+        <button class="btn btn-secondary mt-3" @click="crawl">借鑑電影資料<i class="fa fa-hand-rock-o" aria-hidden="true"></i></button>
       </div>
       <div class="col-md-9 col-12">
         <router-view></router-view>
@@ -41,7 +42,21 @@
 export default {
   data() {
     return {
-
+      text:""
+    }
+  },
+  methods:{
+    crawl(){
+      this.$toasted.info("借鑑電影資料中",{
+        theme: "bubble"
+      });
+      this.axios.get(`${this.$api}/crawl.php`).then(response =>{
+        this.$toasted.clear();
+        this.$toasted.success("借鑑完畢",{
+          theme: "bubble",
+          duration: 2000
+        });
+      })
     }
   }
 }
