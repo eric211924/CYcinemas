@@ -107,7 +107,7 @@ export default {
           this.isValidMsg[0] = "invalid-feedback";
           this.checkInput();
         } else {
-          this.nameResult = "OK";
+          this.nameResult = "";
           this.nameReady = true;
           this.isValid[0] = "is-valid";
           this.isValidMsg[0] = "valid-feedback";
@@ -120,12 +120,12 @@ export default {
     account: function (val) {
       var accTest = /^[A-Za-z0-9]{5,}/gm.test(val);
       // if (val != '') {
-        if (accTest == true) {
+        if (accTest) {
           // 通過正規表示式 => 檢查帳號是否存在
           var _this = this;
           var account = val;
           var num_rows = 0;
-          this.axios.get('https://cy-cinemas.ml/members/' + account)
+          this.axios.get('http://localhost/CYcinemasBackEnd/members/' + account)
             .then(function (response) {
               num_rows = response.data;
               if(num_rows > 0) {
@@ -135,7 +135,7 @@ export default {
                 _this.isValidMsg[1] = "invalid-feedback";
                 _this.checkInput();
               } else {
-                _this.accResult = "OK";
+                _this.accResult = "";
                 _this.accReady = true;
                 _this.isValid[1] = "is-valid";
                 _this.isValidMsg[1] = "valid-feedback";
@@ -158,8 +158,8 @@ export default {
     password: function (val) {
       var pwdTest = /^[A-Za-z0-9]{5,}/gm.test(val);
       // if (val != '') {
-        if (pwdTest == true) {
-          this.pwdResult = "OK";
+        if (pwdTest) {
+          this.pwdResult = "";
           this.pwdReady = true;
           this.isValid[2] = "is-valid";
           this.isValidMsg[2] = "valid-feedback";
@@ -175,10 +175,10 @@ export default {
     },
     // Email
     email: function (val) {
-      var emailTest = /[a-zA-Z0-9]+@[a-zA-Z0-9.]+/.test(val);
+      var emailTest = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/.test(val);
       // if (val != '') {
-        if (emailTest == true) {
-          this.emailResult = "OK";
+        if (emailTest) {
+          this.emailResult = "";
           this.emailReady = true;
           this.isValid[3] = "is-valid";
           this.isValidMsg[3] = "valid-feedback";
@@ -196,8 +196,8 @@ export default {
     phone: function (val) {
       var phoneTest = /^09\d{2}-?\d{3}-?\d{3}$/.test(val);
       // if (val != '') {
-        if (phoneTest == true) {
-          this.phoneResult = "OK";
+        if (phoneTest) {
+          this.phoneResult = "";
           this.phoneReady = true;
           this.isValid[4] = "is-valid";
           this.isValidMsg[4] = "valid-feedback";
@@ -230,7 +230,7 @@ export default {
       formData.append('phone', this.phone);
       // https://cy-cinemas.ml/members/members
       // http://localhost/CYcinemasBackEnd/members/members
-      this.axios.post('https://cy-cinemas.ml/members/members', formData)
+      this.axios.post('http://localhost/CYcinemasBackEnd/members/members', formData)
         .then(function (response) {
           _this.result = response.data;
           _this.$toasted.success(_this.result, {
