@@ -19,11 +19,6 @@ Vue.use(VueAxios, Axios);
 // font-awesome
 import 'font-awesome/css/font-awesome.css'
 
-// UIkit
-// import UIkit from 'uikit';
-// import Icon from 'uikit/dist/js/uikit-icons';
-// UIkit.use(Icon);
-
 // chart.js
 import Chart from 'chart.js';
 
