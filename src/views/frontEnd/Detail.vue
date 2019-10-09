@@ -6,57 +6,53 @@
     <div class="col-md-6 padding1"> 
     <div class="tab">
         <h6>確認內容</h6> 
-            <div> 
-                <table>
-                    <tr>
-                        <td>&emsp;名&emsp;&emsp;稱&ensp;:</td>
-                        <td>{{list.movieName}}</td>
-                    </tr>
-                    <tr>
-                        <td>&emsp;上映地點&ensp;:</td>
-                        <td>中佑戲院{{list.theater}}影城</td>
-                    </tr>
-                    <tr>
-                        <td>&emsp;放映場次&ensp;:</td>
-                        <td>{{list.day}}&ensp;{{list.time}}</td>
-                    </tr>
-                    <tr>
-                        <td>&emsp;座&emsp;&emsp;位&ensp;:</td>
-                        <td>{{list.seat}}</td>
-                    </tr>
-                    <tr>
-                        <td>&emsp;票&emsp;&emsp;種&ensp;:</td>
-                        <td>
-                            {{list.ticketName["0"] + list.ticketNum["0"]}}
-                            {{list.ticketName["1"] + list.ticketNum["1"]}}
-                        </td> 
-                    </tr>
-                    <tr>
-                        <td>&emsp;餐&emsp;&emsp;點&ensp;:</td>
-                        <td>
-                            {{list.food["0"]+list.foodNum["0"]}}
-                            {{list.food["1"]+list.foodNum["1"]}}
-                            <br v-if="list.br">
-                            {{list.food["2"]+list.foodNum["2"]}}
-                            {{list.food["3"]+list.foodNum["3"]}} 
-                        </td>
-                    </tr>  
-                    <tr>
-                        <td>&emsp;折&emsp;&emsp;扣&ensp;:</td>
-                        <td>{{list.discount}}</td>
-                    </tr> 
-                    <tr>
-                        <td>&emsp;總金額&emsp;&ensp;:</td>
-                        <td>{{list.total}} x {{list.discount}} = {{list.real}}</td>
-                    </tr> 
-                </table>
-             </div>
-            </div>
-            
-
-            
-    </div>
-    
+        <div> 
+            <table>
+                <tr>
+                    <td>&emsp;名&emsp;&emsp;稱&ensp;:</td>
+                    <td>{{list.movieName}}</td>
+                </tr>
+                <tr>
+                    <td>&emsp;上映地點&ensp;:</td>
+                    <td>中佑戲院{{list.theater}}影城</td>
+                </tr>
+                <tr>
+                    <td>&emsp;放映場次&ensp;:</td>
+                    <td>{{list.day}}&ensp;{{list.time}}</td>
+                </tr>
+                <tr>
+                    <td>&emsp;座&emsp;&emsp;位&ensp;:</td>
+                    <td>{{list.seat}}</td>
+                </tr>
+                <tr>
+                    <td>&emsp;票&emsp;&emsp;種&ensp;:</td>
+                    <td>
+                        {{list.ticketName["0"] + list.ticketNum["0"]}}
+                        {{list.ticketName["1"] + list.ticketNum["1"]}}
+                    </td> 
+                </tr>
+                <tr>
+                    <td>&emsp;餐&emsp;&emsp;點&ensp;:</td>
+                    <td>
+                        {{list.food["0"]+list.foodNum["0"]}}
+                        {{list.food["1"]+list.foodNum["1"]}}
+                        <br v-if="list.br">
+                        {{list.food["2"]+list.foodNum["2"]}}
+                        {{list.food["3"]+list.foodNum["3"]}} 
+                    </td>
+                </tr>  
+                <tr>
+                    <td>&emsp;折&emsp;&emsp;扣&ensp;:</td>
+                    <td>{{list.discount}}</td>
+                </tr> 
+                <tr>
+                    <td>&emsp;總金額&emsp;&ensp;:</td>
+                    <td>{{list.total}} x {{list.discount}} = {{list.real}}</td>
+                </tr> 
+            </table>
+         </div>
+        </div>     
+    </div> 
     <div class="col-md-6  padding2">
         <div class="tab2">
             <h6>購買者資訊</h6>   
@@ -87,9 +83,9 @@
                         <i class="fa fa-envelope-o" aria-hidden="true"></i>
                     </span>
                 </div>
-                    <i v-if="chkInputEmpty2" class="empty fa fa-check fa-lg" aria-hidden="true"></i> 
-                    <i v-if="chkInputRight2" class="tick fa fa-check fa-lg" aria-hidden="true"></i>
-                    <i v-if="chkInputWrong2" class="cross fa fa-times fa-lg" aria-hidden="true"></i>
+                <i v-if="chkInputEmpty2" class="empty fa fa-check fa-lg" aria-hidden="true"></i> 
+                <i v-if="chkInputRight2" class="tick fa fa-check fa-lg" aria-hidden="true"></i>
+                <i v-if="chkInputWrong2" class="cross fa fa-times fa-lg" aria-hidden="true"></i>
             </div> 
             <!--<span v-if="!list.buyerBar" :class="{'greenColor':green2,'redColor':red2}">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                     {{chkInput2}}
@@ -128,8 +124,10 @@
                     &emsp;手機號碼&ensp;:&ensp;{{list.phone}} 
                 </span>
             </div>   -->
+
         </div><!--div"tab2"-->
-        <button @click="editData" v-if="list.editBar"  type="button" class="cancelHover loginBtn btn btn-outline-info">
+        <button @click="editData" v-if="list.editBar"  type="button" 
+            class="cancelHover loginBtn btn btn-outline-info">
             歡迎光臨 {{list.accout}}</button> 
         <button v-if="list.loginBar"  href data-toggle="modal" data-target="#login" type="button" 
             class="loginBtn btn btn-outline-secondary">
@@ -150,7 +148,7 @@
                 <input v-model="list.cadrd4" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
             </div> 
         </div><!--div"tab3"-->
-        <!-- login -->
+ 
         <!-- confirm modal-->
         <div
           class="modal fade"
@@ -174,14 +172,11 @@
               <div class="modal-body">
               <div class="container"> 
                      <div class="row">
-                         <div class="col-md-6"> 
-
+                         <div class="col-md-6">  
                          <button @click="ok()" type="button" class="btn btn-primary" data-dismiss="modal">
-                             確定</button>
-
+                             確定</button> 
                          </div>
-                         <div class="col-md-6">
-
+                         <div class="col-md-6"> 
                          <button type="button" class="btn btn-secondary" data-dismiss="modal">
                              取消</button> 
                          </div>
@@ -191,7 +186,7 @@
             </div>
           </div>
         </div>  
-        <!-- confirm modal-->
+        <!-- confirm modal end-->
         <!-- error modal-->
         <div
           class="modal fade"
@@ -215,11 +210,9 @@
               <div class="modal-body">
               <div class="container"> 
                      <div class="row">
-                         <div class="col-md-12"> 
-
+                         <div class="col-md-12">  
                          <button type="button" class="btn btn-primary" data-dismiss="modal">
-                             確定</button>
-
+                             確定</button> 
                          </div> 
                      </div>
                  </div>
@@ -227,13 +220,15 @@
             </div>
           </div>
         </div>  
-        <!-- error modal-->
+        <!-- error modal end-->
         <div class="btnGroup">  
             <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-outline-primary">
-                <i class="fa fa-check" aria-hidden="true"></i> 確認訂購
+                <i class="fa fa-check" aria-hidden="true"></i> 
+                確認訂購
             </button> 
-            <button @click="clrSession" type='submit' name='btn' value='確認送出' class="router-link1 btn btn-outline-danger">
-                <i class="fa fa-times" aria-hidden="true"></i> 取消訂購
+            <button @click="cancel" type='submit' name='btn' value='確認送出' class="router-link1 btn btn-outline-danger">
+                <i class="fa fa-times" aria-hidden="true"></i> 
+                取消訂購
             </button> 
         </div>  
     </div> <!-- col-md-6  padding2 -->
@@ -259,8 +254,8 @@ export default {
                 //Price {"0":一般票,"1":愛心票
                 //"2":可樂 大,"3":爆米花 大,"4":可樂 中,"5":爆米花 中}
                 discount: 0.7,
-                total:101,
-                real:1, 
+                total:0,
+                real:0, 
                 seat: '',
                 hall: '',
                 accout: '',
@@ -274,7 +269,8 @@ export default {
                 cadrd2:"1234",
                 cadrd3:"1234",
                 cadrd4:"1234",
-                br:1
+                br:1,
+                orderNumber:""
             },  
         target:"",
         chkInputEmpty:1,
@@ -289,18 +285,15 @@ export default {
         FinishPageData:"" 
         }
     },
-    mounted() {
-        if(!(sessionStorage.getItem('ticketsNum'))){
-            window.location.replace('./#/order');
-            history.go(0);
-        }  
+    mounted() {  
+        if(!(sessionStorage.getItem('movie')))
+            window.location.href="./#/order";  
         this.getData(); 
         this.detailCheckLogin();
         this.countMoney();  
     },
     methods:{ 
-        checkInput:function(){
-            console.log(/^[\u4e00-\u9fa5]{2,4}$/.test(this.list.memberName));
+        checkInput:function(){ 
             if(/^[\u4e00-\u9fa5]{2,4}$/.test(this.list.memberName)){
                 this.chkInputEmpty=0;
                 this.chkInputRight=1;
@@ -310,7 +303,7 @@ export default {
                 this.chkInputRight=0; 
                 this.chkInputWrong=1; 
             }  
-            this.checkPersonalInfo();
+            this.checkAllForOkButton();
         },
         checkInput2:function(){
             if(
@@ -325,10 +318,10 @@ export default {
                 this.chkInputRight2=0; 
                 this.chkInputWrong2=1; 
             }  
-            this.checkPersonalInfo();
+            this.checkAllForOkButton();
         },
         checkInput3:function(){
-            if(/^09\d{8}$/.test(this.list.phone)){
+            if(/^09[0-9]{8}$/.test(this.list.phone)){
                 this.chkInputEmpty3=0;
                 this.chkInputRight3=1;
                 this.chkInputWrong3=0; 
@@ -337,7 +330,7 @@ export default {
                 this.chkInputRight3=0;
                 this.chkInputWrong3=1; 
             } 
-            this.checkPersonalInfo();
+            this.checkAllForOkButton();
         }, 
         saveDataToFinishPage:function() { 
             sessionStorage.setItem('FinishPageData',JSON.stringify(this.list))  
@@ -372,41 +365,56 @@ export default {
                 this.target = "#error";
             }
         }, 
-        checkPersonalInfo:function(){
-            if(
-                !(this.list.memberName.trim()==""| 
+        checkAllForOkButton:function(){
+            if( 
+                (!(this.list.memberName.trim()==""| //資料無空白
                 this.list.email.trim()==""|
                 this.list.phone.trim()==""|
                 this.list.cadrd1.trim()==""|
                 this.list.cadrd2.trim()==""|
                 this.list.cadrd3.trim()==""|
-                this.list.cadrd4.trim()=="") 
-            ){//資料無空白
-                if(
-                    this.chkInputRight &&
-                    this.chkInputRight2 &&
-                    this.chkInputRight3 
-                ){//三欄都打勾 
-                    return this.target = "#confirm";
-                }
-            }
+                this.list.cadrd4.trim()=="")) && 
+                this.chkInputRight &&               //三欄都打勾
+                this.chkInputRight2 &&
+                this.chkInputRight3 
+            )  
+                return this.target = "#confirm";
+             
             this.target = "#error";
         },
-        ok:function(){ 
+        post:function(){ 
+            var objData = JSON.stringify({"0":1,"1":2});
+            var postData = new FormData();
+            postData.append('objDataKey', objData); 
+            this.axios.post('http://localhost/php/testPDO.php', postData) 
+            .then(function (response) { 
+                console.log(response.data);
+            }).catch(function (error) { 
+                console.log(error); 
+            }); 
+        },
+        ok:function(){   
+            this.getOrderNumber();
             this.saveDataToFinishPage(); 
+            // this.post();
+            this.clrSession(); 
             window.location.href="./#/order/FinishDetail";
+        },
+        cancel:function(){ 
+            this.clrSession(); 
+            window.location.href="./#/order";
         },
         countMoney:function(){
             // var ticketNum ={"0":0,"1":1} ; 
-            var ticketNum =JSON.parse(sessionStorage.getItem('ticketsNum')); 
-            var mealsNum =JSON.parse(sessionStorage.getItem('mealsNum')); 
+            var ticketNum =JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum); 
+            var mealsNum =JSON.parse(JSON.parse(sessionStorage.getItem('movie')).mealsNum); 
             this.list.total=this.list.price["0"]*(ticketNum["0"] >=1?ticketNum["0"]:0) +
                             this.list.price["1"]*(ticketNum["1"] >=1?ticketNum["1"]:0) +
                             this.list.price["2"]*(mealsNum["0"] >=1?mealsNum["0"]:0) +
                             this.list.price["3"]*(mealsNum["1"] >=1?mealsNum["1"]:0) +
                             this.list.price["4"]*(mealsNum["2"] >=1?mealsNum["2"]:0) +
-                            this.list.price["5"]*(mealsNum["3"] >=1?mealsNum["3"]:0) ;
-            this.list.real =Math.ceil(this.list.total*this.list.discount);
+                            this.list.price["5"]*(mealsNum["3"] >=1?mealsNum["3"]:0) ;  
+            this.list.real =Math.ceil(this.list.total*this.list.discount); 
         },
         memberGetData: function(){ 
             this.list.accout = sessionStorage.getItem('nowAcc'); 
@@ -418,7 +426,8 @@ export default {
             // var ticketNum ={"0":2,"1":1} ; 
             var choosedSeat = sessionStorage.getItem('choosedSeat');
             this.list.seat = choosedSeat;
-            var ticketNum =JSON.parse(sessionStorage.getItem('ticketsNum')); 
+            var movie = JSON.parse(sessionStorage.getItem('movie'));
+            var ticketNum =JSON.parse(movie.ticketsNum); 
             if(ticketNum["0"] >=1 ){
                 this.list.ticketName["0"] = "一般票 "; 
                 this.list.ticketNum["0"] = "x"+ ticketNum["0"] + "  ";
@@ -426,11 +435,11 @@ export default {
             if(ticketNum["1"] >=1 ){
                 this.list.ticketName["1"] = "愛心票 "; 
                 this.list.ticketNum["1"] = "x"+ ticketNum["1"];
-            }
+            } 
 
-            if(sessionStorage.getItem('mealsNum')){  
+            // if(sessionStorage.getItem('mealsNum')){  
             // var mealsNum ={"0":2,"1":1,"2":1,"3":1} ; 
-            var mealsNum =JSON.parse(sessionStorage.getItem('mealsNum')) ; 
+            var mealsNum = JSON.parse(JSON.parse(sessionStorage.getItem('movie')).mealsNum);
                 if(mealsNum["0"] >=1 ){
                     this.list.food["2"] = "可樂 (大) "; 
                     this.list.foodNum["2"] = "x"+ mealsNum["0"] + "  ";
@@ -449,33 +458,37 @@ export default {
                 } 
                 if(mealsNum["0"]+mealsNum["1"]+mealsNum["2"]+mealsNum["3"] == 0)
                     this.list.food["0"] = "無";
-            } 
+            // } 
             //若上排無食物
             if(!(this.list.foodNum["0"] || this.list.foodNum["1"])){
                 this.list.br=0;
             }else{
                 this.list.br=1;
             } 
-            this.list.movieName = sessionStorage.getItem('moviesName');
-            this.list.day = sessionStorage.getItem('moviesDay');
-            this.list.time = sessionStorage.getItem('moviesTime');
-            this.list.ticket = sessionStorage.getItem('totalTicketsNum'); 
+            this.list.movieName = JSON.parse(sessionStorage.getItem('movie')).moviesName;
+            this.list.day = JSON.parse(sessionStorage.getItem('movie')).moviesDay;
+            this.list.time = JSON.parse(sessionStorage.getItem('movie')).moviesTime;
+            this.list.ticket = JSON.parse(sessionStorage.getItem('movie')).totalTicketsNum; 
         },
-        clrSession:function(){  
-            sessionStorage.removeItem('ticketsNameNum');
-            sessionStorage.removeItem('ticketsNum');
-            sessionStorage.removeItem('totalTicketsNum');
-            sessionStorage.removeItem('mealsNameNum');
-            sessionStorage.removeItem('mealsNum'); 
-            sessionStorage.removeItem('movie_index');
-            sessionStorage.removeItem('moviesName');
-            sessionStorage.removeItem('day_index');
-            sessionStorage.removeItem('moviesDay');
-            sessionStorage.removeItem('time_index'); 
-            sessionStorage.removeItem('moviesTime'); 
-            window.location.replace('./#/order');
-            history.go(0);  
+        getOrderNumber:function(){ 
+            if(!(JSON.parse(sessionStorage.getItem('movie')).ticketsNum || JSON.parse(sessionStorage.getItem('movie')).mealsNum)) 
+                return this.orderNumber = "no session";
+            var d = new Date();
+            var month = d.getMonth()< 9?"0"+String(d.getMonth()+1):String(d.getMonth()+1);
+            var dNum = d.getDate()< 10?"0"+String(d.getDate()):String(d.getDate());
+            var hour = d.getHours()< 10?"0"+String(d.getHours()):String(d.getHours());
+            var minute = d.getMinutes()< 10?"0"+String(d.getMinutes()):String(d.getMinutes());
+            this.ticketsNum = JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum);
+            this.mealsNum = JSON.parse(JSON.parse(sessionStorage.getItem('movie')).mealsNum);
+            this.list.orderNumber =
+                String(this.ticketsNum["0"])+String(this.ticketsNum["1"])+String(this.mealsNum["0"])+
+                String(this.mealsNum["1"])+String(this.mealsNum["2"])+String(this.mealsNum["3"])+
+                String(d.getFullYear()-2000)+ month + dNum + hour + minute; 
         },
+        clrSession:function(){    
+            sessionStorage.removeItem('movie');  
+            sessionStorage.removeItem('movieIndex');  
+        } 
     } 
 } 
 </script>
@@ -488,11 +501,11 @@ export default {
         // } 
         border-bottom:1px solid rgb(222,226,230); 
     }
-    .container{
+    // .container{
         // margin:0;
         // width:100;
         // border:2px solid blue;
-    }
+    // }
     .col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-12{ 
         padding:0; 
         // border:2px solid red;

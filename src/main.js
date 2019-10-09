@@ -31,7 +31,7 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$api = 'https://cy-cinemas.ml'
 
-Vue.prototype.$url = "http://localhost:80/api"
+Vue.prototype.$url = "http://localhost:80/"
 
 new Vue({
   router,
