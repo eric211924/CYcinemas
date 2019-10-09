@@ -253,7 +253,7 @@ export default {
             saveData.append('newName', this.changeName);
             saveData.append('newEmail', this.changeEmail);
             saveData.append('newPhone', this.changePhone);
-            this.axios.post('http://localhost/CYcinemasBackEnd/members/saveEditData', saveData)
+            this.axios.post('https://cy-cinemas.ml/members/saveEditData', saveData)
                 .then(function (response) {
                     var result = response.data;
                     if (result == 'success') {
@@ -284,7 +284,7 @@ export default {
             pwdData.append('nowAcc', nowAcc);
             pwdData.append('oldPwd', this.oldPwd);
             pwdData.append('newPwd', this.newPwd);
-            this.axios.post('http://localhost/CYcinemasBackEnd/members/saveNewPwd', pwdData)
+            this.axios.post('https://cy-cinemas.ml/members/saveNewPwd', pwdData)
                 .then(function (response) {
                     var result = response.data;
                     if (result == 'success') {
@@ -317,7 +317,7 @@ export default {
                 var _this = this;
                 var formData = new FormData();
                 formData.append('account', nowAcc);
-                this.axios.post('http://localhost/CYcinemasBackEnd/members/showUserData', formData)
+                this.axios.post('https://cy-cinemas.ml/members/showUserData', formData)
                     .then(function (response) {
                         // 傳目前登入的帳號過去找 找回所有資料 顯示於頁面上
                         var result = response.data;
