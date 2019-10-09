@@ -81,7 +81,7 @@
     </div>
     <div class="col-md-3">
       <div>押注</div>
-      <div><button class="btn btn-lg btn-success" @click="setProbability(popcornx2,drinkx3,mealSetx4,barx5,popcornx6,barx7,barx10)">調整賠率</button></div>
+      <div><button class="btn btn-lg btn-success" @click="setProbability(bettingOddsArray)">調整賠率</button></div>
     </div>
   </div>
 </template>
@@ -92,23 +92,9 @@
       return {
         isStarted: false,
         initRotateIndex: 0,
-        popcornx2: 0,
-        drinkx3: 0,
-        mealSetx4: 0,
-        barx5: 0.8,
-        popcornx6: 0,
-        barx7: 0,
-        barx10: 0,
-        winOdds: 0.6
-      }
-    },
-    computed:{
-      // winOdds:function(){
-
-       
-      // },
-      loseOdds:function(){
-        return 1-this.winOdds
+        bettingOddsArray: [0.12, 0.3331, 0.13212, 0.5211, 0.441, 0.4211, 0.3211],
+        endPrizeArray: [],
+        endPrizeIndex: 0
       }
     },
     methods: {
@@ -213,17 +199,37 @@
 
         running();
       },
-      setProbability(x2 = 0, x3 = 0, x4 = 0, x5 = 0, x6 = 0, x7 = 0, x10 = 0) {
-        // var totalOdds = x2 + x3 + x4 + x5 + x6 + x7 + x10
-        console.log("totalOdds: " + this.totalOdds)
-        console.log(`x2: ${x2}, x3: ${x3}, x4: ${x4}, x5: ${x5}, x6: ${x6}, x7: ${x7}, x10: ${x10}`)
-        // if (!totalOdds){
-        //   if(totalOdds==1){
+      setProbability(BOA) {
+        this.endPrizeIndex = 0;
+        var totalOdds = 0;
+        this.endPrizeArray = [];
+        for (let k = 0; k < 7; k++)
+          totalOdds += this.bettingOddsArray[k];
+        // console.log(totalOdds);
+        for (let k = 0; k < 7; k++) {
+          this.bettingOddsArray[k] = Math.floor((this.bettingOddsArray[k] / totalOdds).toFixed(2) * 100);
+          switch (k) {
+            case 0:
+              var prizeArray = [5, 9, 12]
+              for (let j = 0; j < this.bettingOddsArray[k]; j++) {
+                var prize = prizeArray[Math.floor(Math.random() * prizeArray.length)]
+                this.$set(this.endPrizeArray, this.endPrizeIndex, prize);
+                this.endPrizeIndex += 1;
+              }
+              break;
+            case 1:
+              prizeArray = [0, 6, 8,10]
+              for (let j = 0; j < this.bettingOddsArray[k]; j++) {
+                prize = prizeArray[Math.floor(Math.random() * prizeArray.length)]
+                this.$set(this.endPrizeArray, this.endPrizeIndex, prize);
+                this.endPrizeIndex += 1;
+              }
+              break;
 
-        //   }else{
 
-        //   }
-        // }
+          }
+        }
+          console.log(this.endPrizeArray);
 
       }
     }
