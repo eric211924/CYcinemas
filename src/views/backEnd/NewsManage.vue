@@ -4,7 +4,7 @@
     <button
       class="btn btn-primary mt-4"
       data-toggle="modal"
-      data-target="#NewsForm"
+      data-target="#newsForm"
       @click.prevent="action = '新增'"
     >新增 +</button>
 
