@@ -285,6 +285,7 @@ export default {
   },
   methods: {
     loadMovies() {
+
       this.axios.get(`${this.$api}/order/getMovies`).then(response => {
         // console.log(response.data);
         this.movies = response.data;
@@ -344,6 +345,7 @@ export default {
       });
     },
     loadScreeningID(){
+      // console.log(this.days[document.getElementById("days").value]["date"]);
       this.axios.get(`${this.$api}/order/getScreeningID/
       ${this.movies[document.getElementById("movies").value]["encoded_id"]}/
       ${this.times[document.getElementById("times").value]["time"]}/
@@ -353,9 +355,10 @@ export default {
         if(response.data){
           sessionStorage.setItem("screeningID",response.data[0].id);
           sessionStorage.setItem("courtsID",response.data[0].courts_id);
-
         }
-        // console.log(response.data);
+        console.log(response.data);
+      }).catch(error=>{
+        console.log(error);
       });
     },
     minusTickets(index) {
@@ -430,7 +433,7 @@ export default {
       this.movieSession["ticketsNameNum"]=JSON.stringify(ticketsNameNum);
       this.movieSession["mealsNameNum"]=JSON.stringify(mealsNameNum);
       this.movieSession["totalTicketsNum"]=this.ticketsTotal;
-      console.log(this.movieSession);
+      // console.log(this.movieSession);
       sessionStorage.setItem("movie",JSON.stringify(this.movieSession));
       
       this.$router.push("/order/chooseSeat");
