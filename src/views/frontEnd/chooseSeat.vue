@@ -270,7 +270,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 p {
   border: 1px solid black;
   height: 30px;

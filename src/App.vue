@@ -23,4 +23,7 @@ export default {
 
 <style lang="scss">
 @import '~bootstrap/scss/bootstrap';
+.shadow {
+  box-shadow: 5px 5px 12px #888 !important;
+}
 </style>

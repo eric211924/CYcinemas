@@ -105,6 +105,12 @@ const router = new Router({
           component: () => import('./views/backEnd/MealsManage.vue')
         },
         {
+          path: 'discountManage',
+          name: 'discountManage',
+          meta: { requiresAuth: true },
+          component: () => import('./views/backEnd/DiscountManage.vue')
+        },
+        {
           path: 'memberManage',
           name: 'memberManage',
           meta: { requiresAuth: true },
