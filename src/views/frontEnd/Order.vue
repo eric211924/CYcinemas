@@ -285,7 +285,7 @@ export default {
   },
   methods: {
     loadMovies() {
-      this.axios.get(`${this.$url}/order/getMovies`).then(response => {
+      this.axios.get(`${this.$api}/order/getMovies`).then(response => {
         // console.log(response.data);
         this.movies = response.data;
         this.loadMovieDay();
@@ -294,7 +294,7 @@ export default {
     loadMovieDay() { 
       this.axios
         .get(
-          `${this.$url}/order/getMovieDay/${
+          `${this.$api}/order/getMovieDay/${
             this.movies[
               this.init_movie_index?this.init_movie_index:
               document.getElementById("movies").value
@@ -313,7 +313,7 @@ export default {
       
       this.axios
         .get(
-          `${this.$url}/order/getMovieTime/${
+          `${this.$api}/order/getMovieTime/${
             this.movies[document.getElementById("movies").value]["encoded_id"]
           }`
         )
@@ -324,7 +324,7 @@ export default {
         });
     },
     loadTickets() {
-      this.axios.get(`${this.$url}/order/getTickets`).then(response => {
+      this.axios.get(`${this.$api}/order/getTickets`).then(response => {
         this.tickets = response.data;
         for (var i = 0; i < this.tickets.length; i++)
           sessionStorage.movie
@@ -333,7 +333,7 @@ export default {
       });
     },
     loadMeals() {
-      this.axios.get(`${this.$url}/order/getMeals`).then(response => {
+      this.axios.get(`${this.$api}/order/getMeals`).then(response => {
         this.meals = response.data;
         // console.log(this.meals);
         for (var i = 0; i < this.meals.length; i++) {
@@ -344,7 +344,7 @@ export default {
       });
     },
     loadScreeningID(){
-      this.axios.get(`${this.$url}/order/getScreeningID/
+      this.axios.get(`${this.$api}/order/getScreeningID/
       ${this.movies[document.getElementById("movies").value]["encoded_id"]}/
       ${this.times[document.getElementById("times").value]["time"]}/
       ${this.days[document.getElementById("days").value]["date"]}
