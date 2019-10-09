@@ -16,11 +16,11 @@ const router = new Router({
       name: 'home',
       component: Home
     },
-    {
-      path: '/hanlinBar',
-      name: 'hanlinBar',
-      component: () => import('./views/frontEnd/hanlinBar')
-    },
+    // {
+    //   path: '/hanlinBar',
+    //   name: 'hanlinBar',
+    //   component: () => import('./views/frontEnd/HanlinBar')
+    // },
     {
       path: '/news',
       name: 'news',
@@ -44,7 +44,7 @@ const router = new Router({
     {
       path: '/order/chooseSeat',
       name: 'chooseSeat',
-      component: () => import('./views/frontEnd/chooseSeat.vue'),
+      component: () => import('./views/frontEnd/ChooseSeat.vue'),
     },
     {
       path: '/order/detail',
@@ -59,7 +59,8 @@ const router = new Router({
     {
       path: '/bonus',
       name: 'bonus',
-      component: () => import('./views/frontEnd/Bonus.vue')
+      meta: { requiresAuth: true },
+      component: () => import('./views/frontEnd/HanlinBar.vue')
     },
     {
       path: '/user',
@@ -142,6 +143,10 @@ router.beforeEach((to, from, next) => {
     let url = to.path.split('/');
     switch (url[1]) {
       case 'user':
+        if (sessionStorage.getItem('nowAcc')) next();
+        else next(from.path);
+        break;
+      case 'bonus':
         if (sessionStorage.getItem('nowAcc')) next();
         else next(from.path);
         break;
