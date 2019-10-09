@@ -53,66 +53,36 @@
           allowfullscreen
         ></iframe>
       </div>
-
       <div class="col-md-6 col-12">
         <h3>
           <i class="fa fa-map-marker" aria-hidden="true"></i> 地址:台中市西屯區市政北二路238號
         </h3>
-
         <h3>
           <i class="fa fa-location-arrow" aria-hidden="true"></i>交通資訊:
         </h3>
-
-        
-          
-            <h5>自行開車</h5>
-          
-          <p>高速公路(國道1號)：南下/北上由中港交流道下往台中市市區，左轉河南路三段與市政北二路交叉口即抵達。</p>
-          
-            <h5>高鐵轉乘</h5>
-          
-          <p>高鐵台中站→僑光科技大學於【和欣朝馬轉運站】下車。</p>
-          <p>高鐵台中站→東海大學→中科管理局於【朝馬站】下車。</p>
-          
-            <h5>市區公車</h5>
-          
-          <p>台中客運27路，於【河南市政北二路口】下車。</p>
-          <p>台中客運49、60路，統聯客運18路，於【老虎城】下車。</p>
-        
+        <h5 class="pl-5">自行開車</h5>
+        <p>高速公路(國道1號)：南下/北上由中港交流道下往台中市市區，左轉河南路三段與市政北二路交叉口即抵達。</p>
+        <h5 class="pl-5">高鐵轉乘</h5>
+        <p>高鐵台中站→僑光科技大學於【和欣朝馬轉運站】下車。</p>
+        <p>高鐵台中站→東海大學→中科管理局於【朝馬站】下車。</p>
+        <h5 class="pl-5">市區公車</h5>
+        <p>台中客運27路，於【河南市政北二路口】下車。</p>
+        <p>台中客運49、60路，統聯客運18路，於【老虎城】下車。</p>
         <h3>
           <i class="fa fa-phone" aria-hidden="true"></i>聯絡資訊:
         </h3>
-        <div id="end">
-        <p>電話+886-4-2251-1893</p>
-        <p>傳真+886-4-2251-2820</p>
+        <div id="end" class="mb-5">
+          <p>電話+886-4-2251-1893</p>
+          <p>傳真+886-4-2251-2820</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-
-
 <style scoped>
-.img-thumbnail {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-}
-.col-md-9 ul {
-  line-height: 30px;
-  padding-left: 70px;
+.col-md-9>ul {
+  line-height: 160%;
   text-decoration: none;
 }
- p{
-  padding-left:50px;
-}
-h5{
-  padding-left:25px;
-}
-#end{
-  margin-bottom: 90px;
-}
-
 </style>

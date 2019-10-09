@@ -18,7 +18,8 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="form-group">
+            <form @keydown.enter="setCookie()">
+              <div class="form-group">
               <label for>帳號 :</label>
               <input type="text" class="form-control" v-model="account" />
             </div>
@@ -26,10 +27,11 @@
               <label for>密碼 :</label>
               <input type="password" class="form-control" v-model="password" />
             </div>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="setCookie()" data-dismiss="modal">登入</button>
+            <button type="button" class="btn btn-primary" @click="setCookie()">登入</button>
           </div>
         </div>
       </div>
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+import $ from 'jquery';
 export default {
   data() {
     return {
@@ -53,6 +56,7 @@ export default {
       this.$emit('setcookie');
       this.account = '';
       this.password = '';
+      $('#login').modal('hide');
     }
   }
 }
