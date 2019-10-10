@@ -31,7 +31,7 @@ export default {
     // 取得所有上映中的電影
     getMovies() {
       const _this = this;
-      this.axios.get(`${this.$api}/movies/released`).then((response) => {
+      this.axios.get(`${this.$api}/movies/showMovies/released/0`).then((response) => {
         // console.log(response.data);
         _this.moviesData = response.data;
       });
@@ -39,7 +39,7 @@ export default {
     // 取得要顯示於前台的上映電影
     getShowMovies() {
       const _this = this;
-      this.axios.get(`${this.$api}/movies/released/showMovies`).then((response) => {
+      this.axios.get(`${this.$api}/movies/showMovies/released/1`).then((response) => {
         // console.log(response.data);
         _this.showMoviesData = response.data;
       });
@@ -47,7 +47,7 @@ export default {
     // 加入顯示
     addShowMovies(movieId) {
       const _this = this;
-      this.axios.get(`${this.$api}/movies/released/addShowMovies/${movieId}`).then((response) => {
+      this.axios.get(`${this.$api}/movies/addShowMovies/${movieId}`).then((response) => {
         // console.log(response.data);
         this.getMovies();
         this.getShowMovies();
@@ -56,7 +56,7 @@ export default {
     // 移除顯示
     removeShowMovies(movieId) {
       const _this = this;
-      this.axios.get(`${this.$api}/movies/released/removeShowMovies/${movieId}`).then((response) => {
+      this.axios.get(`${this.$api}/movies/removeShowMovies/${movieId}`).then((response) => {
         // console.log(response.data);
         this.getMovies();
         this.getShowMovies();

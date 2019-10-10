@@ -1,18 +1,6 @@
 <template>
   <div>
-    <MovieCard :movies-data="moviesData"></MovieCard>
-    <!-- <div class="row">
-      <div
-        class="col-6 col-sm-4 col-lg-3 col-xl-2 my-2"
-        v-for="(item, index) in movieData"
-        :key="index"
-      >
-        <div class="card shadow img-container">
-          <img :src="item.poster" class="card-img-top" alt />
-          <div class="overlay"></div>
-        </div>
-      </div>
-    </div> -->
+    <MovieCard :movies-data="moviesData" class="mt-5"></MovieCard>
     <Loading v-if="isLoading"></Loading>
   </div>
 </template>
@@ -48,7 +36,7 @@ export default {
     getMovies() {
       const _this = this;
       this.axios.get(`${this.$api}/movies/`).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         _this.moviesData = response.data;
       });
     }

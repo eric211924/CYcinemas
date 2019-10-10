@@ -1,7 +1,10 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 col-md-3 col-lg-2 my-5 pl-1">
+      <div class="col-12 col-md-3 col-lg-2 my-5 py-0">
+        <!-- 當前頁面 -->
+        
+        <!-- 側邊攔 -->
         <div class="list-group shadow">
           <div class="accordion" id="dashboard">
             <!-- 最新消息 -->
@@ -15,7 +18,13 @@
             >
               <i class="fa fa-newspaper-o" aria-hidden="true"></i> 最新消息
             </a>
-            <div class="collapse" id="news" aria-labelledby="news" data-parent="#dashboard">
+            <div
+              class="collapse"
+              :class="{'show': checkRouter('/backEnd')}"
+              id="news"
+              aria-labelledby="news"
+              data-parent="#dashboard"
+            >
               <ul class="list-group list-group-flush">
                 <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd')}">
                   <router-link
@@ -38,7 +47,13 @@
             >
               <i class="fa fa-video-camera" aria-hidden="true"></i> 電影
             </a>
-            <div class="collapse" id="movies" aria-labelledby="movies" data-parent="#dashboard">
+            <div
+              class="collapse"
+              :class="{'show': checkRouter('/backEnd/moviesManage', true)}"
+              id="movies"
+              aria-labelledby="movies"
+              data-parent="#dashboard"
+            >
               <ul class="list-group list-group-flush">
                 <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/moviesManage')}">
                   <router-link
@@ -85,7 +100,13 @@
             >
               <i class="fa fa-cutlery" aria-hidden="true"></i>&nbsp; 餐點
             </a>
-            <div class="collapse" id="meals" aria-labelledby="meals" data-parent="#dashboard">
+            <div
+              class="collapse"
+              :class="{'show': checkRouter('/backEnd/mealsManage', true)}"
+              id="meals"
+              aria-labelledby="meals"
+              data-parent="#dashboard"
+            >
               <ul class="list-group list-group-flush">
                 <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/mealsManage')}">
                   <router-link
@@ -114,7 +135,13 @@
             >
               <i class="fa fa-percent" aria-hidden="true"></i> &nbsp;折扣
             </a>
-            <div class="collapse" id="discount" aria-labelledby="discount" data-parent="#dashboard">
+            <div
+              class="collapse"
+              :class="{'show': checkRouter('/backEnd/discountManage', true)}"
+              id="discount"
+              aria-labelledby="discount"
+              data-parent="#dashboard"
+            >
               <ul class="list-group list-group-flush">
                 <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/discountManage')}">
                   <router-link
@@ -162,7 +189,8 @@ import $ from 'jquery';
 export default {
   data() {
     return {
-      text: ""
+      text: String,
+      pageName: String
     }
   },
   methods: {
@@ -178,7 +206,11 @@ export default {
         });
       })
     },
-    checkRouter(router) {
+    checkRouter(router, show = false) {
+      if (show) {
+        let result = this.$route.path.indexOf(`${router}`) >= 0 ? true : false;
+        return result;
+      }
       let result = this.$route.path == router ? true : false;
       return result;
     }
