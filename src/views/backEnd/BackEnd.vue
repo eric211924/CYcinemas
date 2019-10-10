@@ -1,13 +1,13 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 col-md-2 my-3">
+      <div class="col-12 col-md-3 col-lg-2 my-5 pl-1">
         <div class="list-group shadow">
           <div class="accordion" id="dashboard">
             <!-- 最新消息 -->
             <a
               href="#news"
-              class="list-group-item list-group-item-action dropdown-toggle"
+              class="list-group-item list-group-item-action dropdown-toggle bg-cy-deep text-white"
               data-toggle="collapse"
               role="button"
               aria-expanded="true"
@@ -17,14 +17,12 @@
             </a>
             <div class="collapse" id="news" aria-labelledby="news" data-parent="#dashboard">
               <ul class="list-group list-group-flush">
-                <li class="pl-5 my-1">
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd')}">
                   <router-link
                     to="/backEnd"
-                    :class="{'active': this.$route.path == '/backEnd'}"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd')}"
                   >所有消息</router-link>
-                </li>
-                <li class="pl-5 my-1">
-                  <a href>新增</a>
                 </li>
               </ul>
             </div>
@@ -32,7 +30,7 @@
             <!-- 電影 -->
             <a
               href="#movies"
-              class="list-group-item list-group-item-action dropdown-toggle"
+              class="list-group-item list-group-item-action dropdown-toggle bg-cy-deep text-white"
               data-toggle="collapse"
               role="button"
               aria-expanded="false"
@@ -42,23 +40,36 @@
             </a>
             <div class="collapse" id="movies" aria-labelledby="movies" data-parent="#dashboard">
               <ul class="list-group list-group-flush">
-                <li class="pl-5 my-1">
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/moviesManage')}">
                   <router-link
-                    to="/backEnd/movieManage"
-                    :class="{'active': this.$route.path == '/backEnd/movieManage'}"
+                    to="/backEnd/moviesManage"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/moviesManage')}"
                   >所有電影</router-link>
                 </li>
-                <li class="pl-5 my-1">
-                  <a href>上映中</a>
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/moviesManage/released')}">
+                  <router-link
+                    to="/backEnd/moviesManage/released"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/moviesManage/released')}"
+                  >現正上映</router-link>
                 </li>
-                <li class="pl-5 my-1">
-                  <a href>即將上映</a>
+                <li
+                  class="pl-5"
+                  :class="{'bg-cy': checkRouter('/backEnd/moviesManage/comingSoon')}"
+                >
+                  <router-link
+                    to="/backEnd/moviesManage/comingSoon"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/moviesManage/comingSoon')}"
+                  >即將上映</router-link>
                 </li>
-                <li class="pl-5 my-1">
-                  <a href>強檔電影</a>
-                </li>
-                <li class="pl-5 my-1">
-                  <a href>新增</a>
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/moviesManage/popular')}">
+                  <router-link
+                    to="/backEnd/moviesManage/popular"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/moviesManage/popular')}"
+                  >強檔電影</router-link>
                 </li>
               </ul>
             </div>
@@ -66,30 +77,28 @@
             <!-- 餐點 -->
             <a
               href="#meals"
-              class="list-group-item list-group-item-action dropdown-toggle"
+              class="list-group-item list-group-item-action dropdown-toggle bg-cy-deep text-white"
               data-toggle="collapse"
               role="button"
               aria-expanded="false"
               aria-controls="meals"
             >
-              <i class="fa fa-cutlery" aria-hidden="true"></i> &nbsp; 餐點
+              <i class="fa fa-cutlery" aria-hidden="true"></i>&nbsp; 餐點
             </a>
             <div class="collapse" id="meals" aria-labelledby="meals" data-parent="#dashboard">
               <ul class="list-group list-group-flush">
-                <li class="pl-5 my-1">
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/mealsManage')}">
                   <router-link
                     to="/backEnd/mealsManage"
-                    :class="{'active': this.$route.path == '/backEnd/mealsManage'}"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/mealsManage')}"
                   >所有餐點</router-link>
                 </li>
-                <li class="pl-5 my-1">
-                  <a href>食物</a>
+                <li class="pl-5">
+                  <a href class="py-2">食物</a>
                 </li>
-                <li class="pl-5 my-1">
-                  <a href>飲料</a>
-                </li>
-                <li class="pl-5 my-1">
-                  <a href>新增</a>
+                <li class="pl-5">
+                  <a href class="py-2">飲料</a>
                 </li>
               </ul>
             </div>
@@ -97,7 +106,7 @@
             <!-- 折扣 -->
             <a
               href="#discount"
-              class="list-group-item list-group-item-action dropdown-toggle"
+              class="list-group-item list-group-item-action dropdown-toggle bg-cy-deep text-white"
               data-toggle="collapse"
               role="button"
               aria-expanded="false"
@@ -107,14 +116,12 @@
             </a>
             <div class="collapse" id="discount" aria-labelledby="discount" data-parent="#dashboard">
               <ul class="list-group list-group-flush">
-                <li class="pl-5 my-1">
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/discountManage')}">
                   <router-link
                     to="/backEnd/discountManage"
-                    :class="{'active': this.$route.path == '/backEnd/discountManage'}"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/discountManage')}"
                   >所有折扣</router-link>
-                </li>
-                <li class="pl-5 my-1">
-                  <a href>新增</a>
                 </li>
               </ul>
             </div>
@@ -122,8 +129,7 @@
             <!-- 會員 -->
             <router-link
               to="/backEnd/memberManage"
-              class="list-group-item list-group-item-action"
-              :class="{'active': this.$route.path == '/backEnd/memberManage'}"
+              class="list-group-item list-group-item-action bg-cy-deep text-white"
             >
               <i class="fa fa-users" aria-hidden="true"></i> 會員
             </router-link>
@@ -131,20 +137,20 @@
             <!-- 報表 -->
             <router-link
               to="/backEnd/report"
-              class="list-group-item list-group-item-action"
-              :class="{'active': this.$route.path == '/backEnd/report'}"
+              class="list-group-item list-group-item-action bg-cy-deep text-white"
             >
               <i class="fa fa-bar-chart" aria-hidden="true"></i> 報表
             </router-link>
           </div>
+        </div>
 
-          <!-- <button class="btn btn-secondary mt-3" @click="crawl">
+        <!-- 一鍵爬蟲 -->
+        <button class="btn btn-secondary mt-3" @click="crawl">
           借鑑電影資料
           <i class="fa fa-hand-rock-o" aria-hidden="true"></i>
-          </button>-->
-        </div>
+        </button>
       </div>
-      <div class="col-12 col-md-10">
+      <div class="col-12 col-md-9 col-lg-10">
         <router-view></router-view>
       </div>
     </div>
@@ -171,6 +177,10 @@ export default {
           duration: 2000
         });
       })
+    },
+    checkRouter(router) {
+      let result = this.$route.path == router ? true : false;
+      return result;
     }
   }
 }
@@ -180,18 +190,35 @@ export default {
 ul {
   li {
     list-style: none;
-    a::before {
-      content: "- ";
-      color: #000;
+    a {
+      display: block;
     }
+    a:hover {
+      text-decoration: none;
+      color: #eee;
+    }
+    a:active {
+      color: #eee;
+    }
+  }
+  li:hover {
+    background-color: #becb01;
   }
 }
 
 .dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.bg-cy {
+  background-color: #becb01;
+}
+
+.bg-cy-deep {
+  background-color: #4f5228;
 }
 </style>
