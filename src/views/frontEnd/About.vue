@@ -67,7 +67,6 @@
         <h3>
           <i class="fa fa-location-arrow" aria-hidden="true"></i>交通資訊:
         </h3>
-<<<<<<< HEAD
         <h5 > <i class="fa fa-car" aria-hidden="true"></i> 自行開車</h5>
         <p>&emsp;&emsp;高速公路(國道1號)：南下/北上由中港交流道下往台中市市區，左轉河南路三段與市政北二路交叉口即抵達。</p>
         <h5 > <i class="fa fa-subway" aria-hidden="true"></i>高鐵轉乘</h5>
@@ -76,16 +75,6 @@
         <h5 ><i class="fa fa-truck" aria-hidden="true"></i>市區公車</h5>
         <p>&emsp;&emsp;台中客運27路，於【河南市政北二路口】下車。</p>
         <p>&emsp;&emsp;台中客運49、60路，統聯客運18路，於【老虎城】下車。</p>
-=======
-        <h5>自行開車</h5>
-        <p class="pl-5">高速公路(國道1號)：南下/北上由中港交流道下往台中市市區，左轉河南路三段與市政北二路交叉口即抵達。</p>
-        <h5>高鐵轉乘</h5>
-        <p class="pl-5">高鐵台中站→僑光科技大學於【和欣朝馬轉運站】下車。</p>
-        <p class="pl-5">高鐵台中站→東海大學→中科管理局於【朝馬站】下車。</p>
-        <h5>市區公車</h5>
-        <p class="pl-5">台中客運27路，於【河南市政北二路口】下車。</p>
-        <p class="pl-5">台中客運49、60路，統聯客運18路，於【老虎城】下車。</p>
->>>>>>> 57075abe7256990b09972adc80743a16b7893479
         <h3>
           <i class="fa fa-phone" aria-hidden="true"></i>聯絡資訊:
         </h3>
