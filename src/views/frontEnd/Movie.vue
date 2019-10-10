@@ -3,8 +3,8 @@
     <h1 class="text-center my-5">本周上映</h1>
     <div class="row">
       <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
+      
       <a href="#" data-toggle="modal" data-target="#myModal">
-        
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -33,6 +33,7 @@
         </div>
       </div>
       </a>
+      
         <!--Modeel-->
         <div class="modal fade" id="myModal" role="dialog">
           <div class="modal-dialog modal-lg">
@@ -42,21 +43,20 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
+                <iframe display="block"  width="100%" height="315" margin="0 auto" src="https://www.youtube.com/embed/cLJ-VKf7Too" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <img
                   src="..\..\assets\movie\ADAstra_180x270_Poster_now_3.jpg"
                   class="card-img"
                   alt="..."
                   style="float:left;"
                 />
-                
-                
-                <div id="text">
+                <div class="text">
                 揉合《星際效應》的時空科幻 《絕地救援》太空冒險布萊德彼特備受影壇期待的最新太空鉅製
                 由布萊德彼特飾演一名航太工程師，為了尋找多年前啟程外太空尋找外星智慧生物，失蹤在茫茫宇宙的父親，他不惜跨越宇宙星系間，只為了尋找父親可能 仍生還的下落。
                 這是一部帶著《星際效應》的時空科幻，以及《絕地救援》太空冒險色彩的科幻電影。而近年來擔任電影製片頗有成績的布萊德彼特，將繼《末日之戰》、《自由之心》、《大賣空》等片之後，擔任本片監製！
                 </div>
                 
-                <iframe display="block"  width="100%" height="315" margin="0 auto" src="https://www.youtube.com/embed/cLJ-VKf7Too" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                
                 
                 <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">保護級</button>
                 <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">2小時3分</button>
@@ -70,21 +70,17 @@
                           <li><button type="button" class="btn btn-outline-info">15:20</button></li>
                           <li><button type="button" class="btn btn-outline-info">21:20</button></li>
                         </ul>
-                </p>        
-                
-                
-                
-                
+                </p>          
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
-              
             </div>
           </div>
         </div>
       
-
+      
+      
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -107,7 +103,7 @@
           </div>
         </div>
       </div>
-
+      
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
