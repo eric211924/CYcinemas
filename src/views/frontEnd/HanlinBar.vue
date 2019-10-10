@@ -1,6 +1,6 @@
 <template>
   <div class="row container m-auto">
-
+    <!-- 說明區 -->
     <div class="accordion col-md-3" id="gameIntroduce">
       <div class="card">
         <div class="card-header text-center" id="headingOne">
@@ -13,7 +13,10 @@
             aria-controls="introduce"
           >
             <h4 class="mb-0 font-weight-bold">中佑小瑪莉</h4>
-            <h4>遊戲說明<span class="small btn-link">點我</span></h4>
+            <h4>
+              遊戲說明
+              <span class="small btn-link">點我</span>
+            </h4>
           </button>
         </div>
 
@@ -36,6 +39,7 @@
       </div>
     </div>
 
+    <!-- 遊戲區 -->
     <div class="col-md-6">
       <table align="center" class="mt-3">
         <tr>
@@ -115,8 +119,37 @@
         </tr>
       </table>
     </div>
-    <div class="col-md-3">
-      <div>押注</div>
+
+    <!-- 押注區 -->
+    <div class="col-md-3 badge badge-light text-left">
+      <h2>押注</h2>
+      <div>
+        <span>點數：</span>
+        <input type="text" class="text-right" disabled v-model="gamePoint" />
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-6 col-3 text-center">
+          <img src="../../assets/hanlinBar/popcorn.png" alt />
+          <br />
+          <input type="text" class="text-center my-2" maxlength="4" v-model="betPopcorn" />
+        </div>
+        <div class="col-md-6 col-3 text-center">
+          <img src="../../assets/hanlinBar/drink.png" alt />
+          <br />
+          <input type="text" class="text-center my-2" maxlength="4" v-model="betDrink" />
+        </div>
+        <div class="col-md-6 col-3 text-center">
+          <img src="../../assets/hanlinBar/mealSet.png" alt />
+          <br />
+          <input type="text" class="text-center my-2" maxlength="4" v-model="betMealSet" />
+        </div>
+        <div class="col-md-6 col-3 text-center">
+          <img src="../../assets/hanlinBar/threeBar.png" alt />
+          <br />
+          <input type="text" class="text-center my-2" maxlength="4" v-model="betBar" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -130,13 +163,20 @@ export default {
       bettingOddsArray: [0.1, 0.1, 0.1, 0.5, 0.4, 0.4, 0.3],
       winOdds: 0.4,
       endPrizeArray: [],
-      endPrizeIndex: 0
+      endPrizeIndex: 0,
+      gamePoint: 100,
+      betPopcorn: 0,
+      betDrink: 0,
+      betMealSet: 0,
+      betBar: 0
     };
   },
   mounted() {
+    // 初始化機率
     this.setProbability();
   },
   methods: {
+    // 開轉邏輯
     rotation() {
       var i = 0;
       var moveTime = 150;
@@ -248,6 +288,7 @@ export default {
 
       running();
     },
+    // 設定機率
     setProbability() {
       this.endPrizeIndex = 0;
       var totalOdds = 0;
@@ -344,5 +385,10 @@ img {
 
 .cellChange {
   outline: 3px solid blue;
+}
+
+input {
+  width: 80%;
+  font-size: 2vh;
 }
 </style>
