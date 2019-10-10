@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 col-md-3 col-lg-2 my-3">
+      <div class="col-12 col-md-3 col-lg-2 my-5 pl-1">
         <div class="list-group shadow">
           <div class="accordion" id="dashboard">
             <!-- 最新消息 -->
@@ -17,11 +17,12 @@
             </a>
             <div class="collapse" id="news" aria-labelledby="news" data-parent="#dashboard">
               <ul class="list-group list-group-flush">
-                <li class="pl-5 py-2" :class="{'bg-cy': this.$route.path == '/backEnd'}">
-                  <router-link to="/backEnd">所有消息</router-link>
-                </li>
-                <li class="pl-5 py-2">
-                  <a href>新增</a>
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd')}">
+                  <router-link
+                    to="/backEnd"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd')}"
+                  >所有消息</router-link>
                 </li>
               </ul>
             </div>
@@ -39,26 +40,36 @@
             </a>
             <div class="collapse" id="movies" aria-labelledby="movies" data-parent="#dashboard">
               <ul class="list-group list-group-flush">
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/moviesManage')}">
+                  <router-link
+                    to="/backEnd/moviesManage"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/moviesManage')}"
+                  >所有電影</router-link>
+                </li>
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/moviesManage/released')}">
+                  <router-link
+                    to="/backEnd/moviesManage/released"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/moviesManage/released')}"
+                  >現正上映</router-link>
+                </li>
                 <li
-                  class="pl-5 py-2"
-                  :class="{'bg-cy': this.$route.path == '/backEnd/moviesManage'}"
+                  class="pl-5"
+                  :class="{'bg-cy': checkRouter('/backEnd/moviesManage/comingSoon')}"
                 >
-                  <router-link to="/backEnd/moviesManage">所有電影</router-link>
+                  <router-link
+                    to="/backEnd/moviesManage/comingSoon"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/moviesManage/comingSoon')}"
+                  >即將上映</router-link>
                 </li>
-                <li class="pl-5 py-2">
-                  <a href>上映中</a>
-                </li>
-                <li class="pl-5 py-2">
-                  <a href>即將上映</a>
-                </li>
-                <li class="pl-5 py-2">
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/moviesManage/popular')}">
                   <router-link
                     to="/backEnd/moviesManage/popular"
-                    :class="{'active': this.$route.path == '/backEnd/moviesManage/popular'}"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/moviesManage/popular')}"
                   >強檔電影</router-link>
-                </li>
-                <li class="pl-5 py-2">
-                  <a href>新增</a>
                 </li>
               </ul>
             </div>
@@ -76,20 +87,18 @@
             </a>
             <div class="collapse" id="meals" aria-labelledby="meals" data-parent="#dashboard">
               <ul class="list-group list-group-flush">
-                <li
-                  class="pl-5 py-2"
-                  :class="{'bg-cy': this.$route.path == '/backEnd/mealsManage'}"
-                >
-                  <router-link to="/backEnd/mealsManage">所有餐點</router-link>
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/mealsManage')}">
+                  <router-link
+                    to="/backEnd/mealsManage"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/mealsManage')}"
+                  >所有餐點</router-link>
                 </li>
-                <li class="pl-5 py-2">
-                  <a href>食物</a>
+                <li class="pl-5">
+                  <a href class="py-2">食物</a>
                 </li>
-                <li class="pl-5 py-2">
-                  <a href>飲料</a>
-                </li>
-                <li class="pl-5 py-2">
-                  <a href>新增</a>
+                <li class="pl-5">
+                  <a href class="py-2">飲料</a>
                 </li>
               </ul>
             </div>
@@ -107,14 +116,12 @@
             </a>
             <div class="collapse" id="discount" aria-labelledby="discount" data-parent="#dashboard">
               <ul class="list-group list-group-flush">
-                <li class="pl-5 py-2">
+                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/discountManage')}">
                   <router-link
                     to="/backEnd/discountManage"
-                    :class="{'active': this.$route.path == '/backEnd/discountManage'}"
+                    class="py-2"
+                    :class="{'text-white': checkRouter('/backEnd/discountManage')}"
                   >所有折扣</router-link>
-                </li>
-                <li class="pl-5 py-2">
-                  <a href>新增</a>
                 </li>
               </ul>
             </div>
@@ -123,7 +130,6 @@
             <router-link
               to="/backEnd/memberManage"
               class="list-group-item list-group-item-action bg-cy-deep text-white"
-              :class="{'active': this.$route.path == '/backEnd/memberManage'}"
             >
               <i class="fa fa-users" aria-hidden="true"></i> 會員
             </router-link>
@@ -132,17 +138,17 @@
             <router-link
               to="/backEnd/report"
               class="list-group-item list-group-item-action bg-cy-deep text-white"
-              :class="{'active': this.$route.path == '/backEnd/report'}"
             >
               <i class="fa fa-bar-chart" aria-hidden="true"></i> 報表
             </router-link>
           </div>
+        </div>
 
-          <!-- <button class="btn btn-secondary mt-3" @click="crawl">
+        <!-- 一鍵爬蟲 -->
+        <button class="btn btn-secondary mt-3" @click="crawl">
           借鑑電影資料
           <i class="fa fa-hand-rock-o" aria-hidden="true"></i>
-          </button>-->
-        </div>
+        </button>
       </div>
       <div class="col-12 col-md-9 col-lg-10">
         <router-view></router-view>
@@ -171,6 +177,10 @@ export default {
           duration: 2000
         });
       })
+    },
+    checkRouter(router) {
+      let result = this.$route.path == router ? true : false;
+      return result;
     }
   }
 }
@@ -185,6 +195,10 @@ ul {
     }
     a:hover {
       text-decoration: none;
+      color: #eee;
+    }
+    a:active {
+      color: #eee;
     }
   }
   li:hover {

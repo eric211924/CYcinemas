@@ -99,17 +99,27 @@ const router = new Router({
         {
           path: 'moviesManage',
           name: 'moviesManage',
-          component: () => import('./views/backEnd/movies/MoviesManage.vue'),
+          component: () => import('./views/backEnd/movies/pages/MoviesManage.vue'),
           children: [
             {
               path: '',
               name: 'all',
-              component: () => import('./views/backEnd/movies/All.vue')
+              component: () => import('./views/backEnd/movies/pages/All.vue')
+            },
+            {
+              path: 'released',
+              name: 'released',
+              component: () => import('./views/backEnd/movies/pages/Released.vue')
+            },
+            {
+              path: 'comingSoon',
+              name: 'comingSoon',
+              component: () => import('./views/backEnd/movies/pages/ComingSoon.vue')
             },
             {
               path: 'popular',
               name: 'popular',
-              component: () => import('./views/backEnd/movies/Popular.vue')
+              component: () => import('./views/backEnd/movies/pages/Popular.vue')
             }
           ]
         },
