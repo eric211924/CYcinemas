@@ -1,6 +1,41 @@
 <template>
   <div class="row container m-auto">
-    <div class="col-md-3">遊戲說明</div>
+
+    <div class="accordion col-md-3" id="gameIntroduce">
+      <div class="card">
+        <div class="card-header text-center" id="headingOne">
+          <button
+            class="btn btn-light text-left"
+            type="button"
+            data-toggle="collapse"
+            data-target="#introduce"
+            aria-expanded="true"
+            aria-controls="introduce"
+          >
+            <h4 class="mb-0 font-weight-bold">中佑小瑪莉</h4>
+            <h4>遊戲說明<span class="small btn-link">點我</span></h4>
+          </button>
+        </div>
+
+        <div
+          id="introduce"
+          class="collapse"
+          aria-labelledby="headingOne"
+          data-parent="#gameIntroduce"
+        >
+          <div class="card-body">
+            <h5>1. 押注：</h5>
+            <h6>投注認為會中獎的圖案</h6>
+            <h5>2. 開始轉盤：</h5>
+            <h6>點擊輪盤中的開始按鈕</h6>
+            <h5>3. 結果：</h5>
+            <h6>若押注的圖案跟轉到的圖案相符即有對應的點數獎勵</h6>
+            <h6>ps. 小賭怡情大賭傷身</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="col-md-6">
       <table align="center" class="mt-3">
         <tr>
@@ -82,9 +117,6 @@
     </div>
     <div class="col-md-3">
       <div>押注</div>
-      <div>
-        <button class="btn btn-lg btn-success" @click="setProbability">調整賠率</button>
-      </div>
     </div>
   </div>
 </template>
@@ -101,6 +133,9 @@ export default {
       endPrizeIndex: 0
     };
   },
+  mounted() {
+    this.setProbability();
+  },
   methods: {
     rotation() {
       var i = 0;
@@ -108,7 +143,8 @@ export default {
       var endPrize =
         this.endPrizeArray[
           Math.floor(Math.random() * this.endPrizeArray.length)
-        ] + (Math.round(Math.random() * 2) + 1) * 16;
+        ] +
+        (Math.round(Math.random() * 2) + 1) * 16;
       console.log(endPrize);
       // var endPrize = 8;
       // console.log(this.initRotateIndex);
@@ -290,7 +326,7 @@ export default {
         this.$set(this.endPrizeArray, this.endPrizeIndex, prize);
         this.endPrizeIndex += 1;
       }
-      console.log(this.endPrizeArray);
+      // console.log(this.endPrizeArray);
     }
   }
 };
