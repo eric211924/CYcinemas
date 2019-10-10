@@ -385,7 +385,7 @@ export default {
   height: 400px;
   text-align: center;
   margin: 0 auto;
-  margin: 30px;
+  margin:15px; 
 }
 figure {
   display: block;
