@@ -108,7 +108,8 @@ export default {
       var endPrize =
         this.endPrizeArray[
           Math.floor(Math.random() * this.endPrizeArray.length)
-        ] + (Math.round(Math.random() * 2) + 1) * 16;
+        ] +
+        (Math.round(Math.random() * 2) + 1) * 16;
       console.log(endPrize);
       // var endPrize = 8;
       // console.log(this.initRotateIndex);
