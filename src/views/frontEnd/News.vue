@@ -1,14 +1,22 @@
 <template >
   <div>
-    <h1 class="text-center my-4">最新消息</h1>
+    <h1 class="text-center my-3">最新消息</h1>
     <div class="container">
       <div class="row">
-        <div class="col-sm-1">
-          <h3></h3>
+        <div class="col-3 px-3 py-2" v-for="(item, index) in infos" :key="index">
+          <a href data-toggle="modal" data-target="#myModal" @click.prevent="getInfo(index)">
+            <div class="card text-left">
+              <img class="card-img-top" :src="item.img_normal_url" alt />
+            </div>
+          </a>
         </div>
-        <div class="col-sm-10">
-          <ul class="eventList">
-            <!-- <li>
+
+        <!-- <div class="col-sm-1">
+          <h3></h3>
+        </div>-->
+        <!-- <div class="col-sm-10"> -->
+        <!-- <ul class="eventList"> -->
+        <!-- <li>
               <figure>
                 <a href="#">
                   <img
@@ -166,9 +174,9 @@
                   </div>
                 </div>
               </div>
-            </div> -->
+        </div>-->
 
-            <!-- <li>
+        <!-- <li>
               <figure>
                 <a href="#" data-toggle="modal" data-target="#myModal_1">
                   <img
@@ -230,9 +238,10 @@
                   </div>
                 </div>
               </div>
-            </div> -->
+        </div>-->
 
-            <li v-for="(info, index) in infos" :key="index">
+        <!-- 睿霆 -->
+        <!-- <li v-for="(info, index) in infos" :key="index">
               <figure>
                 <a
                   href="#"
@@ -257,18 +266,18 @@
                   <time>{{info.start_time}}~{{info.end_time}}</time>
                 </div>
               </section>
-            </li>
-          </ul>
-        </div>
-        <div class="col-sm-1">
+        </li>-->
+        <!-- </ul> -->
+        <!-- </div> -->
+        <!-- <div class="col-sm-1">
           <h3></h3>
-        </div>
+        </div>-->
       </div>
     </div>
 
     <div class="container">
       <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title" style="text-align:left; padding:10px">{{title}}</h4>
@@ -293,13 +302,12 @@
                 <p style="line-height: 30px;">{{content}}</p>
               </h6>
             </div>
-            </div>
+          </div>
+        </div>
       </div>
     </div>
-    </div>
-  
-            
-          <!-- </div>
+
+    <!-- </div>
           <div class="modal-body" style="text-align:left; padding:40px">
             <h6>
               <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -318,11 +326,11 @@
               活動辦法 :
               <p style="line-height: 30px;">{{content}}</p>
             </h6>
-          </div> -->
-          <!-- <div class="modal-footer">
+    </div>-->
+    <!-- <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>-->
-  </div>  
+    </div>-->
+  </div>
 </template>
 
 
@@ -370,6 +378,12 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  box-shadow: 5px 5px 12px #bbb;
+}
+.card:hover {
+  box-shadow: 5px 5px 12px #888;
+}
 * {
   padding: 0;
 }
@@ -385,7 +399,7 @@ export default {
   height: 400px;
   text-align: center;
   margin: 0 auto;
-  margin:15px; 
+  margin: 15px;
 }
 figure {
   display: block;
