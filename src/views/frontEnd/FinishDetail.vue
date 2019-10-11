@@ -118,8 +118,7 @@ export default {
         }, 
         getData:function(){
             var FinishPageData = JSON.parse(sessionStorage.getItem('FinishPageData'));
-            this.list = FinishPageData;  
-            console.log(this.list);        } 
+            this.list = FinishPageData;        } 
     }
 }
 </script>
