@@ -2,10 +2,11 @@
   <div class="container">
     <h1 class="text-center my-5">本周上映</h1>
     <div class="row">
-      <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
       
       
-      <div class="card mb-3" style="max-width: 540px;">
+      
+      
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <a href="#" data-toggle="modal" data-target="#myModal">
@@ -13,7 +14,6 @@
                 src="..\..\assets\movie\ADAstra_180x270_Poster_now_3.jpg"
                 class="card-img"
                 alt="..."
-                
               />
             </a>
           </div>
@@ -39,7 +39,7 @@
                       <a class="dropdown-item" href="#">週四, 2019/10/10</a>
                       <a class="dropdown-item" href="#">週五, 2019/10/11</a>
                       <!-- <div class="dropdown-divider"></div> -->
-                      <a class="dropdown-item" href="#">週六,2019/10/12</a>
+                      <!-- <a class="dropdown-item" href="#">週六,2019/10/12</a>
                       <a class="dropdown-item" href="#">週日,2019/10/13</a>
                       <a class="dropdown-item" href="#">週一,2019/10/14</a>
                       <a class="dropdown-item" href="#">週二,2019/11/15</a>
@@ -56,9 +56,9 @@
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">14:15</a>
                     <a class="dropdown-item" href="#">18:20</a>
-                    <a class="dropdown-item" href="#">20:30</a>
+                    <a class="dropdown-item" href="#">20:30</a> --> 
                     <!-- <div class="dropdown-divider"></div> -->
-                    <a class="dropdown-item" href="#">22:40</a>
+                    <!-- <a class="dropdown-item" href="#">22:40</a>
                   </div>
                 </div>  
                 <button type="button" class="btn btn-outline-primary">訂票</button>
@@ -68,11 +68,11 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       
       
         <!--Modal-->
-        <div class="modal fade" id="myModal" role="dialog">
+        <!-- <div class="modal fade" id="myModal" role="dialog">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -114,7 +114,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
   <!-- modal     -->
       
       
@@ -231,10 +231,10 @@
         </div>
       </div>
     </div>
-
+        <!---------------------------------------------------------------------------------------------------->
     <h1 class="text-center my-5">即將上映</h1>
     <div class="row">
-      <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
+     
 
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
@@ -351,28 +351,93 @@
         </div>
       </div>
 
+          <!---------------------------------------------------------->
+    
+      <div  v-for="(movie, index) in movies" :key="index">
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img
-              src="..\..\assets\movie\StarWarsTheRiseofSkywalker_180x270_Poster_soon_1.jpg"
-              class="card-img"
-              alt="..."
-            />
+            <a href="#" data-toggle="modal" data-target="#myModal" @click.prevent="getMovie(index)">
+              <img
+                :src="movie.poster"
+                class="card-img"
+                alt="..."
+              />
+            </a>
           </div>
+          
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">STAR WARS 天行者的崛起</h5>
+              <a href="#" data-toggle="modal" data-target="#myModal" @click.prevent="getMovie(index)">
+                <h5 class="card-title">{{movie.name}}</h5>
+              </a>
               <p
                 class="card-text"
-              >上集中拯救了反抗軍的「天行者路克」這次將以絕地英靈之姿回歸。原力覺醒的「芮」終於以『絕地』的身分跟反抗軍老夥伴們重逢。另一方面，由「凱羅忍」帶領的第一軍團所造成的威脅似乎不曾變少</p>
+              >由布萊德彼特飾演一名航太工程師，為了尋找多年前啟程外太空尋找外星智慧生物，失蹤在茫茫宇宙的父親，他不惜跨越宇宙星系間，只為了尋找父親可能 仍生還的下落。</p>
               <p class="card-text">
-                <small class="text-muted"></small>
+                <small class="text-muted">
+         
+                </small>
               </p>
             </div>
           </div>
         </div>
       </div>
+    </div><!--v-for終點-->
+  </div><!--row-->
+
+    <!--Modal-->
+    <div class="container">
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">{{name}}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <iframe display="block"  width="100%" height="315" margin="0 auto" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <img
+                  :src= poster 
+                  class="card-img"
+                  alt="..."
+                  style="float:left;"
+                />
+                <div class="text">
+                {{info}}
+                </div>
+                
+                
+                
+                <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">{{rating}}</button>
+                <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">{{run_time}}</button>
+                
+                <p>主要演員：{{actor}}</p>
+                <p>影片類型：{{genre}}</p>
+                <p>上映日期：{{play_date}}</p>
+
+                <p>時間:<ul>
+                          <li><button type="button" class="btn btn-outline-info">11:10</button></li>
+                          <li><button type="button" class="btn btn-outline-info">15:20</button></li>
+                          <li><button type="button" class="btn btn-outline-info">21:20</button></li>
+                        </ul>
+                </p>          
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+              <!-- modal     -->
+
+
+
+
+
+
+     
+    
     </div>
   </div>
 </template>
@@ -392,6 +457,12 @@
 
 
 <script >
+
+
+
+
+
+
 // import MovieCard from '@/components/MovieCard.vue'
 // export default {
 //   components: {
@@ -403,6 +474,60 @@
 //     }
 //   }
 // }
+export default {
+  data() {
+    return {
+      movies:null,
+      actor:"",
+      encoded_id:"",
+      enname: "",
+      genre: "",//類型
+      id: "",
+      info: "",
+      name: "",
+      play_date: "",//上映日期
+      poster: "",
+      rating: "",//級別
+      run_time: "",
+      show_status:"",
+      trailer:""//預告片
+    };
+  },
+  mounted() {
+    const _this = this;
+    this.axios
+      .get("https://cy-cinemas.ml/movies/showMovies/comingSoon/1")
+      .then(response => {
+        _this.movies = response.data;
+        console.log(_this.movies);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
+  methods: {
+    getMovie(index) {
+      this.actor = this.movies[index].actor;
+      this.encoded_id = this.movies[index].encoded_id;
+      this.enname = this.movies[index].enname;
+      this.id = this.movies[index].id;
+      this.info = this.movies[index].info;
+      this.name = this.movies[index].name;
+      this.play_date = this.movies[index].play_date;
+      this.poster = this.movies[index].poster;
+      this.rating = this.movies[index].rating;
+      this.run_time = this.movies[index].run_time;
+      this.show_status = this.movies[index].show_status;
+      this.trailer = this.movies[index].trailer;
+    }
+  }
+};
+
+
+
+
+
+
 </script>
 <style scoped>
 .card-img {
