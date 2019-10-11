@@ -6,31 +6,47 @@
         v-for="(item, index) in moviesData"
         :key="index"
       >
-        <div class="card shadow img-container">
+        <div class="card shadow img-container w-100">
           <img :src="item.poster" class="card-img-top" alt />
-          <div class="overlay d-flex flex-column justify-content-center">
+          <div class="overlay d-flex flex-column justify-content-center align-items-center">
             <button
+              v-if="action == 'add'"
               class="btn btn-primary mx-5 mb-2"
               @click.prevent="addShowMovies(item.id)"
-              v-if="action == 'add'"
             >加入</button>
             <button
+              v-if="action == 'remove'"
               class="btn btn-danger mx-5 mb-2"
               @click.prevent="removeShowMovies(item.id)"
-              v-if="action == 'remove'"
             >移除</button>
             <button class="btn btn-warning mx-5 mb-2">修改</button>
-            <button class="btn btn-info mx-5 mb-2">檢視</button>
+            <button
+              class="btn btn-info mx-5 mb-2"
+              data-toggle="modal"
+              data-target="#viewMovies"
+              @click.prevent="movie = item"
+            >檢視</button>
           </div>
         </div>
       </div>
     </div>
+    <ViewMovies :movie-data="movie"></ViewMovies>
   </div>
 </template>
 
 <script>
+import ViewMovies from '@/views/backEnd/movies/components/ViewMovies.vue';
+
 export default {
   props: ['moviesData', 'action'],
+  components: {
+    ViewMovies
+  },
+  data() {
+    return {
+      movie: Array
+    }
+  },
   methods: {
     addShowMovies(id) {
       this.$emit('add', id);

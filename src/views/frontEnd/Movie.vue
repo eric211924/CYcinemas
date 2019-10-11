@@ -4,7 +4,7 @@
     <div class="row">
       <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
       
-      <a href="#" data-toggle="modal" data-target="#myModal">
+      
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -17,6 +17,7 @@
               />
             </a>
           </div>
+          
           <div class="col-md-8">
             <div class="card-body">
               <a href="#" data-toggle="modal" data-target="#myModal">
@@ -26,15 +27,51 @@
                 class="card-text"
               >由布萊德彼特飾演一名航太工程師，為了尋找多年前啟程外太空尋找外星智慧生物，失蹤在茫茫宇宙的父親，他不惜跨越宇宙星系間，只為了尋找父親可能 仍生還的下落。</p>
               <p class="card-text">
-                <small class="text-muted"></small>
+                <small class="text-muted">
+                  
+
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      日期
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">當日</a>
+                      <a class="dropdown-item" href="#">週四, 2019/10/10</a>
+                      <a class="dropdown-item" href="#">週五, 2019/10/11</a>
+                      <!-- <div class="dropdown-divider"></div> -->
+                      <a class="dropdown-item" href="#">週六,2019/10/12</a>
+                      <a class="dropdown-item" href="#">週日,2019/10/13</a>
+                      <a class="dropdown-item" href="#">週一,2019/10/14</a>
+                      <a class="dropdown-item" href="#">週二,2019/11/15</a>
+                      <a class="dropdown-item" href="#">週三,2019/10/16</a>
+                    </div>
+                  </div>
+                  <div>
+                  
+                  
+                  <div class="btn-group">
+                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    場次
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">14:15</a>
+                    <a class="dropdown-item" href="#">18:20</a>
+                    <a class="dropdown-item" href="#">20:30</a>
+                    <!-- <div class="dropdown-divider"></div> -->
+                    <a class="dropdown-item" href="#">22:40</a>
+                  </div>
+                </div>  
+                <button type="button" class="btn btn-outline-primary">訂票</button>
+                  </div>
+                </small>
               </p>
             </div>
           </div>
         </div>
       </div>
-      </a>
       
-        <!--Modeel-->
+      
+        <!--Modal-->
         <div class="modal fade" id="myModal" role="dialog">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -78,7 +115,7 @@
             </div>
           </div>
         </div>
-      
+  <!-- modal     -->
       
       
       <div class="card mb-3" style="max-width: 540px;">
@@ -124,7 +161,7 @@
           </div>
         </div>
       </div>
-
+     
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -377,7 +414,7 @@
 }
 #text{
   display:block;
-  float:right;
+  /* float:right; */
   height:280px;
   width:525px;
   line-height:40px;
@@ -386,6 +423,7 @@
 iframe{
   display:block;
   margin: 10px auto;
+  margin-bottom: 10px;
    
 }
 .card {
@@ -396,6 +434,9 @@ iframe{
 }
 .btn .btn-outline-success{
   display:block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid red;
 }
 a{
   text-decoration: none;
@@ -408,5 +449,19 @@ li{
   list-style:none;
   float:left;
   margin:2%;
+}
+.btn-group{
+  display:block;
+  float:left;
+  margin:0.5%;
+  /* padding-top:60px; */
+  
+}
+.btn-outline-primary{
+  padding-right:10px;
+  float:right;
+  margin-top:60px;
+  margin-right:5px;
+
 }
 </style>
