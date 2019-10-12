@@ -39,6 +39,71 @@
 
     <h1 class="text-center my-5">強檔電影</h1>
     <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
+
+    <!-- 阿正 UIkit 滑塊 start -->
+    <div uk-slider="center: true">
+        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+            <ul class="uk-slider-items uk-child-width-1-4@s uk-grid">
+                <li v-for="(item, index) in releasedMovies" :key="index">
+                  <a href data-toggle="modal" data-target="#movieModal" @click.prevent="setMovieModal(item)">
+                    <div class="card">
+                        <div class="card-img-top">
+                            <img :src="item.poster" class="w-100" alt="">
+                        </div>
+                    </div>
+                  </a>
+                </li>
+            </ul>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+        </div>
+        <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
+    </div>
+
+    <!-- Modal Start -->
+      <div class="modal fade" id="movieModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">{{ movieData.name }}</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <img
+                :src="movieData.poster"
+                class="card-img"
+                alt="..."
+                style="float:left;width:180px;height:270px;"
+              />
+              <div class="text">{{ movieData.info }}</div>
+              <iframe width="100%" height="315" :src="movieData.trailer" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              
+              <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">{{ movieData.rating }}</button>
+              <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">{{ movieData.run_time }}</button>
+              
+              <p>{{ movieData.actor }}</p>
+              <p>{{ movieData.genre }}</p>
+              <p>{{ movieData.play_date }}</p>
+
+              <p>時間:
+                <ul>
+                  <li><button type="button" class="btn btn-outline-info">11:10</button></li>
+                  <li><button type="button" class="btn btn-outline-info">15:20</button></li>
+                  <li><button type="button" class="btn btn-outline-info">21:20</button></li>
+                </ul>
+              </p>          
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Modal End -->
+
+    <!-- 阿正 UIkit 滑塊 End-->
+
+
     <div class="card-deck">
       
       
@@ -250,18 +315,46 @@
 // import MovieCard from '@/components/MovieCard.vue';
 
 export default {
-  name: "home",
+  // name: "home",
   components: {
     // MovieCard
   },
   data() {
     return {
       //  imgAr: Array(4),
+      releasedMovies: {},
+      movieData: {
+        name: ''
+      },
     };
-  }
+  },
+  mounted() {
+    this.getMovies();
+  },
+  methods: {
+    getMovies() {
+      const _this = this;
+      this.axios.get(`${this.$api}/movies/showMovies/released/1`).then((response) => {
+        console.log(response.data);
+        _this.releasedMovies = response.data;
+      });
+    },
+    setMovieModal(movie) {
+      this.movieData.poster = movie.poster;
+      this.movieData.actor = movie.actor;
+      this.movieData.info = movie.info;
+      this.movieData.genre = movie.genre;
+      this.movieData.play_date = movie.play_date;
+      this.movieData.rating = movie.rating;
+      this.movieData.run_time = movie.run_time;
+      this.movieData.trailer = movie.trailer;
+      this.movieData.name = movie.name;
+    }
+  },
 };
 </script>
-<style  scoped>
+
+<style lang="scss" scoped>
 .imgSmall img {
   width: 340px;
   height: 490px;

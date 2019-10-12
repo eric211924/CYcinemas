@@ -10,15 +10,35 @@
 
     <!-- 最新消息的清單 -->
     <div class="row mt-3">
-      <div class="col-6 col-md-4 col-lg-3 mb-3" v-for="(item, index) in newsData" :key="index">
-        <a href data-toggle="modal" data-target="#showNewsData" @click.prevent="showNews = item">
-          <div class="card">
-            <img :src="item.img_thumbs_url" alt class="card-img-top" />
-            <div class="card-body py-0 pl-1">
-              <div class="card-title overflow-hidden w-100 h6">{{ item.title }}</div>
-            </div>
+      <div
+        class="col-6 col-md-4 col-lg-3 col-xl-2 mb-3"
+        v-for="(item, index) in newsData"
+        :key="index"
+      >
+        <div class="card img-container">
+          <img :src="item.img_thumbs_url" alt class="card-img-top" />
+          <div class="overlay d-flex flex-column justify-content-center align-items-center">
+            <button
+              class="btn btn-info mb-2"
+              data-toggle="modal"
+              data-target="#showNewsData"
+              @click.prevent="showNews = item"
+            >檢視</button>
+            <button
+              class="btn btn-warning mb-2"
+              data-toggle="modal"
+              data-target="#newsForm"
+              @click.prevent="action = '修改'; getNewsData(item.id)"
+            >修改</button>
+            <button
+              class="btn btn-danger"
+              data-toggle="modal"
+              data-target="#deleteModal"
+              @click.prevent="setId = item.id"
+              data-dismiss="modal"
+            >刪除</button>
           </div>
-        </a>
+        </div>
       </div>
     </div>
 
@@ -31,7 +51,7 @@
       aria-labelledby="showNewsData"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered modal-xl modal-md" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-lg modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="showNewsData">{{ showNews.title }}</h4>
@@ -49,22 +69,6 @@
                 <p v-if="showNews.end_time != '0000-00-00'">結束時間 : {{ showNews.end_time }}</p>
                 <p>{{ showNews.content }}</p>
               </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="btn-group my-1 d-flex justify-cotent-center">
-              <button
-                class="btn btn-warning btn-sm"
-                data-dismiss="modal"
-                @click.prevent="action = '修改'; getNewsData(showNews.id);"
-              >修改</button>
-              <button
-                class="btn btn-danger btn-sm"
-                data-toggle="modal"
-                data-target="#deleteModal"
-                @click.prevent="setId = showNews.id"
-                data-dismiss="modal"
-              >刪除</button>
             </div>
           </div>
         </div>
@@ -150,7 +154,7 @@
 <script>
 import DeleteModal from "@/components/DeleteModal.vue";
 import Loading from "@/components/Loading.vue";
-import $ from 'jquery';
+import $ from "jquery";
 
 export default {
   components: {
@@ -195,12 +199,11 @@ export default {
         });
       } else {
         this.axios.get(`${_this.$api}/news/${newsId}`).then(response => {
-          $('#newsForm').modal('show');
+          // $('#newsForm').modal('show');
           let data = response.data[0];
           _this.title = data.title;
           _this.content = data.content;
-          _this.startTime =
-            data.start_time == "0000-00-00" ? "" : data.start_time;
+          _this.startTime = data.start_time == "0000-00-00" ? "" : data.start_time;
           _this.endTime = data.end_time == "0000-00-00" ? "" : data.end_time;
           _this.fileName = data.img_normal_url.substr(-18, 18);
           _this.setId = data.id;

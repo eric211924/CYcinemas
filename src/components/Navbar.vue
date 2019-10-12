@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <router-link class="navbar-brand" to="/">
-        <img src="../assets/cy-cinemas-ok.png" height="56px" alt />
+        <img src="../assets/cy-cinemas-ok.png" class="" alt />
       </router-link>
 
       <!-- 窄頁面時 navbar右邊的摺疊按鈕 -->
@@ -22,27 +22,57 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item" :class="{'active': this.$route.path == '/'}">
-            <router-link class="nav-link" to="/">首頁</router-link>
+            <router-link
+              class="nav-link"
+              to="/"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+            >首頁</router-link>
           </li>
           <li class="nav-item" :class="{'active': this.$route.path == '/news'}">
-            <router-link class="nav-link" to="/news">活動&amp;消息</router-link>
+            <router-link
+              class="nav-link"
+              to="/news"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+            >活動&amp;消息</router-link>
           </li>
           <li class="nav-item" :class="{'active': this.$route.path == '/about'}">
-            <router-link class="nav-link" to="/about">關於戲院</router-link>
+            <router-link
+              class="nav-link"
+              to="/about"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+            >關於戲院</router-link>
           </li>
           <li class="nav-item" :class="{'active': this.$route.path == '/movie'}">
-            <router-link class="nav-link" to="/movie">電影介紹</router-link>
+            <router-link
+              class="nav-link"
+              to="/movie"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+            >電影介紹</router-link>
           </li>
           <li class="nav-item" :class="{'active': this.$route.path == '/order'}">
-            <router-link class="nav-link" to="/order">訂票</router-link>
+            <router-link
+              class="nav-link"
+              to="/order"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+            >訂票</router-link>
           </li>
           <!-- 會員已登入的狀態下 顯示抽獎頁籤 -->
           <li class="nav-item" :class="{'active': this.$route.path == '/bonus'}" v-if="isLogin">
-            <router-link class="nav-link" to="/bonus">抽獎</router-link>
+            <router-link
+              class="nav-link"
+              to="/bonus"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+            >抽獎</router-link>
           </li>
         </ul>
         <!-- 會員未登入的狀態下 顯示 會員登入 及 註冊 -->
-        <ul class="navbar-nav ml-auto" v-if="!isLogin">
+        <ul class="navbar-nav" v-if="!isLogin">
           <li class="nav-item">
             <a class="nav-link" href data-toggle="modal" data-target="#login">會員登入</a>
           </li>
@@ -51,17 +81,33 @@
           </li>
         </ul>
         <!-- 會員已登入的狀態下 顯示 歡迎訊息 與 登出, 若為管理員登入 多出後臺管理 -->
-        <ul class="navbar-nav ml-auto" v-if="isLogin">
+        <ul class="navbar-nav" v-if="isLogin">
           <li class="nav-item" :class="{'active': this.$route.path == '/user'}">
-            <router-link class="nav-link" to="/user">{{ name }} 您好</router-link>
+            <router-link
+              class="nav-link"
+              to="/user"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+            >{{ name }} 您好</router-link>
           </li>
           <li class="nav-item" :class="{'active': this.$route.path == '/backEnd'}" v-if="isManager">
-            <router-link class="nav-link" to="/backEnd">
+            <router-link
+              class="nav-link"
+              to="/backEnd"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+            >
               <i class="fa fa-tachometer" aria-hidden="true"></i> 後臺管理
             </router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href @click="logout()">登出</a>
+            <a
+              class="nav-link"
+              href
+              @click="logout()"
+              data-toggle="collapse"
+              data-target=".navbar-collapse.show"
+            >登出</a>
           </li>
         </ul>
       </div>
@@ -129,7 +175,7 @@ export default {
                 duration: 3000
               });
               // 在登入狀態 且為管理員 紀錄登入狀態 與帳號 姓名 信箱 手機
-              _this.isLogin = true; 
+              _this.isLogin = true;
               _this.isManager = true;
               _this.name = result[0].name;
               sessionStorage.setItem("status", "login");
@@ -151,7 +197,7 @@ export default {
               sessionStorage.setItem("nowEmail", result[0].email);
               sessionStorage.setItem("nowPhone", result[0].phone);
               //刷新Detail.vue頁面 
-              if(window.location.hash == "#/order/detail"||window.location.hash == "#/order/Detail")
+              if (window.location.hash == "#/order/detail" || window.location.hash == "#/order/Detail")
                 history.go(0);
             }
           }
@@ -159,9 +205,9 @@ export default {
           sessionStorage.removeItem('logPassword');
         }).catch(function (error) {
           _this.$toasted.error("無法連線，請確認網路連線狀態", {
-              theme: 'bubble',
-              duration: 3000
-            });
+            theme: 'bubble',
+            duration: 3000
+          });
         });
     },
     // 登出功能
@@ -186,7 +232,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+img {
+  height: 56px !important;
+}
 .active {
-  background-color: #aaa !important;
+  border-bottom: 3px solid #becb01;
 }
 </style>

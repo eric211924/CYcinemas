@@ -3,38 +3,18 @@
     <div class="row">
       <div class="col-12 col-md-3 col-lg-2 my-5 py-0">
         <!-- 當前頁面 -->
-        
+
         <!-- 側邊攔 -->
         <div class="list-group shadow">
           <div class="accordion" id="dashboard">
             <!-- 最新消息 -->
-            <a
-              href="#news"
-              class="list-group-item list-group-item-action dropdown-toggle bg-cy-deep text-white"
-              data-toggle="collapse"
-              role="button"
-              aria-expanded="true"
-              aria-controls="news"
+            <router-link
+              to="/backEnd"
+              class="list-group-item list-group-item-action text-white"
+              :class="{'bg-cy': checkRouter('/backEnd'), 'bg-cy-deep': !checkRouter('/backEnd')}"
             >
-              <i class="fa fa-newspaper-o" aria-hidden="true"></i> 最新消息
-            </a>
-            <div
-              class="collapse"
-              :class="{'show': checkRouter('/backEnd')}"
-              id="news"
-              aria-labelledby="news"
-              data-parent="#dashboard"
-            >
-              <ul class="list-group list-group-flush">
-                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd')}">
-                  <router-link
-                    to="/backEnd"
-                    class="py-2"
-                    :class="{'text-white': checkRouter('/backEnd')}"
-                  >所有消息</router-link>
-                </li>
-              </ul>
-            </div>
+              <i class="fa fa-newspaper-o" aria-hidden="true"></i> 所有消息
+            </router-link>
 
             <!-- 電影 -->
             <a
@@ -156,7 +136,8 @@
             <!-- 會員 -->
             <router-link
               to="/backEnd/memberManage"
-              class="list-group-item list-group-item-action bg-cy-deep text-white"
+              class="list-group-item list-group-item-action text-white"
+              :class="{'bg-cy': checkRouter('/backEnd/memberManage'), 'bg-cy-deep': !checkRouter('/backEnd/memberManage')}"
             >
               <i class="fa fa-users" aria-hidden="true"></i> 會員
             </router-link>
@@ -164,7 +145,8 @@
             <!-- 報表 -->
             <router-link
               to="/backEnd/report"
-              class="list-group-item list-group-item-action bg-cy-deep text-white"
+              class="list-group-item list-group-item-action text-white"
+              :class="{'bg-cy': checkRouter('/backEnd/report'), 'bg-cy-deep': !checkRouter('/backEnd/report')}"
             >
               <i class="fa fa-bar-chart" aria-hidden="true"></i> 報表
             </router-link>
