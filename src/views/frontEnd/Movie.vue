@@ -5,13 +5,13 @@
       
       
       
-      
-      <!-- <div class="card mb-3" style="max-width: 540px;">
+      <div  v-for="(page, index) in pages" :key="index">
+      <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <a href="#" data-toggle="modal" data-target="#myModal">
+            <a href="#" data-toggle="modal" data-target="#myModal_page" @click.prevent="getPage(index)">
               <img
-                src="..\..\assets\movie\ADAstra_180x270_Poster_now_3.jpg"
+                :src="page.poster_page"
                 class="card-img"
                 alt="..."
               />
@@ -20,87 +20,53 @@
           
           <div class="col-md-8">
             <div class="card-body">
-              <a href="#" data-toggle="modal" data-target="#myModal">
-                <h5 class="card-title">星際救援</h5>
+              <a href="#" data-toggle="modal" data-target="#myModal_page" @click.prevent="getPage(index)">
+                <h5 class="card-title">{{page.name_page}}</h5>
               </a>
               <p
                 class="card-text"
               >由布萊德彼特飾演一名航太工程師，為了尋找多年前啟程外太空尋找外星智慧生物，失蹤在茫茫宇宙的父親，他不惜跨越宇宙星系間，只為了尋找父親可能 仍生還的下落。</p>
               <p class="card-text">
                 <small class="text-muted">
-                  
-
-                    <div class="btn-group">
-                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      日期
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">當日</a>
-                      <a class="dropdown-item" href="#">週四, 2019/10/10</a>
-                      <a class="dropdown-item" href="#">週五, 2019/10/11</a>
-                      <!-- <div class="dropdown-divider"></div> -->
-                      <!-- <a class="dropdown-item" href="#">週六,2019/10/12</a>
-                      <a class="dropdown-item" href="#">週日,2019/10/13</a>
-                      <a class="dropdown-item" href="#">週一,2019/10/14</a>
-                      <a class="dropdown-item" href="#">週二,2019/11/15</a>
-                      <a class="dropdown-item" href="#">週三,2019/10/16</a>
-                    </div>
-                  </div>
-                  <div>
-                  
-                  
-                  <div class="btn-group">
-                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    場次
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">14:15</a>
-                    <a class="dropdown-item" href="#">18:20</a>
-                    <a class="dropdown-item" href="#">20:30</a> --> 
-                    <!-- <div class="dropdown-divider"></div> -->
-                    <!-- <a class="dropdown-item" href="#">22:40</a>
-                  </div>
-                </div>  
-                <button type="button" class="btn btn-outline-primary">訂票</button>
-                  </div>
+         
                 </small>
               </p>
             </div>
           </div>
         </div>
-      </div> -->
-      
-      
-        <!--Modal-->
-        <!-- <div class="modal fade" id="myModal" role="dialog">
+      </div>
+    </div><!--v-for終點-->
+  </div><!--row-->
+
+    <!--Modal-->
+    <div class="container">
+        <div class="modal fade" id="myModal_page" role="dialog">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">星際救援</h4>
+                <h4 class="modal-title">{{name_page}}</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
-                <iframe display="block"  width="100%" height="315" margin="0 auto" src="https://www.youtube.com/embed/cLJ-VKf7Too" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe display="block"  width="100%" height="315" margin="0 auto" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <img
-                  src="..\..\assets\movie\ADAstra_180x270_Poster_now_3.jpg"
+                  :src= poster_page 
                   class="card-img"
                   alt="..."
                   style="float:left;"
                 />
                 <div class="text">
-                揉合《星際效應》的時空科幻 《絕地救援》太空冒險布萊德彼特備受影壇期待的最新太空鉅製
-                由布萊德彼特飾演一名航太工程師，為了尋找多年前啟程外太空尋找外星智慧生物，失蹤在茫茫宇宙的父親，他不惜跨越宇宙星系間，只為了尋找父親可能 仍生還的下落。
-                這是一部帶著《星際效應》的時空科幻，以及《絕地救援》太空冒險色彩的科幻電影。而近年來擔任電影製片頗有成績的布萊德彼特，將繼《末日之戰》、《自由之心》、《大賣空》等片之後，擔任本片監製！
+                {{info_page}}
                 </div>
                 
                 
                 
-                <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">保護級</button>
-                <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">2小時3分</button>
+                <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">{{rating_page}}</button>
+                <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">{{run_time_page}}</button>
                 
-                <p>主要演員：布萊德彼特,湯米李瓊斯</p>
-                <p>影片類型：科幻</p>
-                <p>上映日期：2019/09/20</p>
+                <p>主要演員：{{actor_page}}</p>
+                <p>影片類型：{{genre_page}}</p>
+                <p>上映日期：{{play_date_page}}</p>
 
                 <p>時間:<ul>
                           <li><button type="button" class="btn btn-outline-info">11:10</button></li>
@@ -114,8 +80,8 @@
               </div>
             </div>
           </div>
-        </div> -->
-  <!-- modal     -->
+        </div> 
+              <!--modal-->   
       
       
       <div class="card mb-3" style="max-width: 540px;">
@@ -353,11 +319,11 @@
 
           <!---------------------------------------------------------->
     
-      <div  v-for="(movie, index) in movies" :key="index">
+      <!-- <div  v-for="(movie, index) in movies" :key="index">
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <a href="#" data-toggle="modal" data-target="#myModal" @click.prevent="getMovie(index)">
+            <a href="#" data-toggle="modal" data-target="#myModal_page" @click.prevent="getMovie(index)">
               <img
                 :src="movie.poster"
                 class="card-img"
@@ -368,7 +334,7 @@
           
           <div class="col-md-8">
             <div class="card-body">
-              <a href="#" data-toggle="modal" data-target="#myModal" @click.prevent="getMovie(index)">
+              <a href="#" data-toggle="modal" data-target="#myModal_page" @click.prevent="getMovie(index)">
                 <h5 class="card-title">{{movie.name}}</h5>
               </a>
               <p
@@ -383,12 +349,12 @@
           </div>
         </div>
       </div>
-    </div><!--v-for終點-->
-  </div><!--row-->
+    </div>v-for終點-->
+  <!--</div>row-->
 
     <!--Modal-->
-    <div class="container">
-        <div class="modal fade" id="myModal" role="dialog">
+    <!--<div class="container">
+        <div class="modal fade" id="myModal_page" role="dialog">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -428,8 +394,8 @@
               </div>
             </div>
           </div>
-        </div>
-              <!-- modal     -->
+        </div> -->
+              <!--modal-->    
 
 
 
@@ -456,13 +422,13 @@
 
 
 
+
+
+
+
+
+
 <script >
-
-
-
-
-
-
 // import MovieCard from '@/components/MovieCard.vue'
 // export default {
 //   components: {
@@ -474,61 +440,109 @@
 //     }
 //   }
 // }
+// export default {
+//   data() {
+//     return {
+//       movies:null,
+//       actor:"",
+//       encoded_id:"",
+//       enname: "",
+//       genre: "",//類型
+//       id: "",
+//       info: "",
+//       name: "",
+//       play_date: "",//上映日期
+//       poster: "",
+//       rating: "",//級別
+//       run_time: "",
+//       show_status:"",
+//       trailer:""//預告片
+//     };
+//   },
+//   mounted() {
+//     const _this = this;
+//     this.axios
+//       .get("https://cy-cinemas.ml/movies/showMovies/comingSoon/1")
+//       .then(response => {
+//         _this.movies = response.data;
+//         console.log(_this.movies);
+//       })
+//       .catch(function (error) {
+//         console.log(error);
+//       });
+//   },
+//   methods: {
+//     getMovie(index) {
+//       this.actor = this.movies[index].actor;
+//       this.encoded_id = this.movies[index].encoded_id;
+//       this.enname = this.movies[index].enname;
+//       this.id = this.movies[index].id;
+//       this.info = this.movies[index].info;
+//       this.name = this.movies[index].name;
+//       this.play_date = this.movies[index].play_date;
+//       this.poster = this.movies[index].poster;
+//       this.rating = this.movies[index].rating;
+//       this.run_time = this.movies[index].run_time;
+//       this.show_status = this.movies[index].show_status;
+//       this.trailer = this.movies[index].trailer;
+//     }
+//   }
+// };
+// </script>
+
+<script >
 export default {
   data() {
     return {
-      movies:null,
-      actor:"",
-      encoded_id:"",
-      enname: "",
-      genre: "",//類型
-      id: "",
-      info: "",
-      name: "",
-      play_date: "",//上映日期
-      poster: "",
-      rating: "",//級別
-      run_time: "",
-      show_status:"",
-      trailer:""//預告片
+      pages:null,
+      actor_page:"",
+      encoded_id_page:"",
+      enname_page: "",
+      genre_page: "",//類型
+      id_page: "",
+      info_page: "",
+      name_page: "",
+      play_date_page: "",//上映日期
+      poster_page: "",
+      rating_page: "",//級別
+      run_time_page: "",
+      show_status_page:"",
+      trailer_page:""//預告片
     };
   },
   mounted() {
     const _this = this;
     this.axios
-      .get("https://cy-cinemas.ml/movies/showMovies/comingSoon/1")
+      .get("https://cy-cinemas.ml/movies/showMovies/released/1")
       .then(response => {
-        _this.movies = response.data;
-        console.log(_this.movies);
+        _this.pages = response.data;
+        console.log(_this.pages);
       })
       .catch(function (error) {
         console.log(error);
       });
   },
   methods: {
-    getMovie(index) {
-      this.actor = this.movies[index].actor;
-      this.encoded_id = this.movies[index].encoded_id;
-      this.enname = this.movies[index].enname;
-      this.id = this.movies[index].id;
-      this.info = this.movies[index].info;
-      this.name = this.movies[index].name;
-      this.play_date = this.movies[index].play_date;
-      this.poster = this.movies[index].poster;
-      this.rating = this.movies[index].rating;
-      this.run_time = this.movies[index].run_time;
+    gePages(index) {
+      this.actor_page = this.movies[index].actor;
+      this.encoded_id_page = this.movies[index].encoded_id;
+      this.enname_page = this.movies[index].enname;
+      this.id_page = this.movies[index].id;
+      this.info_page = this.movies[index].info;
+      this.name_page = this.movies[index].name;
+      this.play_date_page = this.movies[index].play_date;
+      this.poster_page = this.movies[index].poster;
+      this.rating_page = this.movies[index].rating;
+      this.run_time_page = this.movies[index].run_time;
       this.show_status = this.movies[index].show_status;
-      this.trailer = this.movies[index].trailer;
+      this.trailer_page = this.movies[index].trailer;
     }
   }
 };
-
-
-
-
-
-
 </script>
+
+
+
 <style scoped>
 .card-img {
   /* width:auto;
