@@ -13,68 +13,68 @@
         預設幫您排的座位為： 
         <table class="table table-borderless"> 
             <tr> 
-                <td v-for="(obj, index) in list[0]">
-            <span>{{obj.whiteStrF}}</span> {{obj.eng}}<span>{{obj.whiteStrB}}</span>
+                <td v-for="obj in list[0]">
+           {{obj.eng}}
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
                 </td>
             </tr>  
             <tr> 
-                <td v-for="(obj, index) in list[1]">
+                <td v-for="obj in list[1]">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}} 
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
                 </td>
             </tr>  
             <tr> 
-                <td v-for="(obj, index) in list[2]">
+                <td v-for="obj in list[2]">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
                 </td>
             </tr>  
             <tr> 
-                <td v-for="(obj, index) in list[3]">
+                <td v-for="obj in list[3]">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
                 </td>
             </tr>  
             <tr> 
-                <td v-for="(obj, index) in list[4]">
+                <td v-for="obj in list[4]">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
                 </td>
             </tr>  
             <tr> 
-                <td v-for="(obj, index) in list[5]">
+                <td v-for="obj in list[5]">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
                 </td>
             </tr>  
             <tr> 
-                <td v-for="(obj, index) in list[6]">
+                <td v-for="obj in list[6]">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
                 </td>
             </tr>  
             <tr> 
-                <td v-for="(obj, index) in list[7]">
+                <td v-for="obj in list[7]">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
                 </td>
             </tr>  
             <tr> 
-                <td v-for="(obj, index) in list[8]">
+                <td v-for="obj in list[8]">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
                 </td>
             </tr>  
             <tr> 
-                <td v-for="(obj, index) in list[9]">
+                <td v-for="obj in list[9]">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
@@ -189,15 +189,15 @@ export default {
             if(i%34==5 || i%34==6 || i%34==17 || i%34==18 || i%34==29 || i%34==30){
                 // this.list[k][i-1].eng = "" ; 
                 this.list[k][i-1].Num = 0;  
-                this.list[k][i-1].whiteStrF = "[";
-                this.list[k][i-1].whiteStrB = "A[1]";
+                this.list[k][i-1].whiteStrF = "";
+                this.list[k][i-1].whiteStrB = "A09";
             }else{  
                 this.list[k][i-1].eng = str + seatCount; 
                 this.list[k][i-1].Num = (k*28)+seatCount;
                 if(i<12){   
-                    this.list[k][i-1].eng = str   + seatCount; 
-                    this.list[k][i-1].whiteStrF = "["; 
-                    this.list[k][i-1].whiteStrB = "]";
+                    this.list[k][i-1].eng = str +"0"+ seatCount; 
+                    // this.list[k][i-1].whiteStrF = "["; 
+                    // this.list[k][i-1].whiteStrB = "]";
                     // "A1"
                     // "[A1]"
                     // "[A10"
@@ -312,8 +312,8 @@ td img:hover{
   //  border: 1px solid red;
 }
 .seatImg{ 
-  width:25px; 
-  height:25px;  
+  width:30px; 
+  height:30px;  
 }
 // 座位相鄰靠攏
 table{  
