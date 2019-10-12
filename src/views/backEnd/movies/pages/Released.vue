@@ -19,8 +19,8 @@ export default {
   },
   data() {
     return {
-      moviesData: Array,
-      showMoviesData: Array,
+      moviesData: {},
+      showMoviesData: {},
     }
   },
   mounted() {

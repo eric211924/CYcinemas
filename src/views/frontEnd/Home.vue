@@ -41,23 +41,27 @@
     <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
 
     <!-- 阿正 UIkit 滑塊 start -->
-    <div uk-slider="center: true">
-        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
-            <ul class="uk-slider-items uk-child-width-1-4@s uk-grid">
-                <li v-for="(item, index) in releasedMovies" :key="index">
-                  <a href data-toggle="modal" data-target="#movieModal" @click.prevent="setMovieModal(item)">
+    <div uk-slider="center: true; autoplay: true; autoplay-interval: 3000; index: 0">
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+        <ul class="uk-slider-items uk-child-width-1-4@s uk-grid">
+            <li v-for="(item, index) in releasedMovies" :key="index">
+              <a href data-toggle="modal" data-target="#movieModal" @click.prevent="setMovieModal(item)">
+                <div class="row">
+                  <div class="col-12">
                     <div class="card">
-                        <div class="card-img-top">
-                            <img :src="item.poster" class="w-100" alt="">
-                        </div>
+                      <div class="card-img-top">
+                          <img :src="item.poster" class="w-100" alt="">
+                      </div>
                     </div>
-                  </a>
-                </li>
-            </ul>
-            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
-        </div>
-        <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
+                  </div>
+                </div>
+              </a>
+            </li>
+        </ul>
+        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+      </div>
+      <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
     </div>
 
     <!-- Modal Start -->
@@ -81,9 +85,9 @@
               <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">{{ movieData.rating }}</button>
               <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">{{ movieData.run_time }}</button>
               
-              <p>{{ movieData.actor }}</p>
-              <p>{{ movieData.genre }}</p>
-              <p>{{ movieData.play_date }}</p>
+              <p>主演 : {{ movieData.actor }}</p>
+              <p>類型 : {{ movieData.genre }}</p>
+              <p>上映日期 : {{ movieData.play_date }}</p>
 
               <p>時間:
                 <ul>
@@ -388,5 +392,8 @@ li{
   display: block;
   float:left;
   margin:10px;
+}
+.uk-position-center-left {
+  background-color: #888;
 }
 </style>
