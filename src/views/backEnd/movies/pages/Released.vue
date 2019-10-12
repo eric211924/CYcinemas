@@ -32,7 +32,7 @@ export default {
     getMovies() {
       const _this = this;
       this.axios.get(`${this.$api}/movies/showMovies/released/0`).then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         _this.moviesData = response.data;
       });
     },

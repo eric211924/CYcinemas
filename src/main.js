@@ -22,6 +22,10 @@ import 'font-awesome/css/font-awesome.css'
 // chart.js
 import Chart from 'chart.js';
 
+// UIkit
+import UIkit from './uikit'
+Vue.use(UIkit)
+
 Vue.config.productionTip = false;
 
 Vue.prototype.$api = 'https://cy-cinemas.ml'
