@@ -14,7 +14,7 @@
           <img src="../../assets/home_2.jpg" class="d-block w-100" alt="黑魔女2" />
         </div>
         <div class="carousel-item">
-          <img src="../../assets/home_6.jpg" class="d-block w-100" alt="小丑" />
+          <img src="../../assets/home_3.jpg" class="d-block w-100" alt="小丑" />
         </div>
       </div>
       <a
