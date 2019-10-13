@@ -19,19 +19,21 @@ Vue.use(VueAxios, Axios);
 // font-awesome
 import 'font-awesome/css/font-awesome.css'
 
-// UIkit
-import UIkit from 'uikit';
-import Icon from 'uikit/dist/js/uikit-icons';
-UIkit.use(Icon);
-
 // chart.js
 import Chart from 'chart.js';
+
+// UIkit
+import UIkit from 'uikit'
+import Icons from 'uikit/dist/js/uikit-icons'
+import 'uikit/dist/css/uikit.min.css'
+UIkit.use(Icons)
+Vue.prototype.$uikit = UIkit;
 
 Vue.config.productionTip = false;
 
 Vue.prototype.$api = 'https://cy-cinemas.ml'
 
-Vue.prototype.$url = "http://localhost:80/api"
+Vue.prototype.$url = "http://localhost:80/"
 
 new Vue({
   router,

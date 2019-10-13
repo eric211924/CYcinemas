@@ -16,6 +16,11 @@ const router = new Router({
       name: 'home',
       component: Home
     },
+    // {
+    //   path: '/hanlinBar',
+    //   name: 'hanlinBar',
+    //   component: () => import('./views/frontEnd/HanlinBar')
+    // },
     {
       path: '/news',
       name: 'news',
@@ -39,7 +44,7 @@ const router = new Router({
     {
       path: '/order/chooseSeat',
       name: 'chooseSeat',
-      component: () => import('./views/frontEnd/chooseSeat.vue'),
+      component: () => import('./views/frontEnd/ChooseSeat.vue'),
     },
     {
       path: '/order/detail',
@@ -54,7 +59,8 @@ const router = new Router({
     {
       path: '/bonus',
       name: 'bonus',
-      component: () => import('./views/frontEnd/Bonus.vue')
+      // meta: { requiresAuth: true },
+      component: () => import('./views/frontEnd/HanlinBar.vue')
     },
     {
       path: '/user',
@@ -70,13 +76,11 @@ const router = new Router({
         {
           path: 'userWallet',
           name: 'userWallet',
-          meta: { requiresAuth: true },
           component: () => import('./views/frontEnd/UserWallet.vue')
         },
         {
           path: 'userPoint',
           name: 'userPoint',
-          meta: { requiresAuth: true },
           component: () => import('./views/frontEnd/UserPoint.vue')
         }
       ]
@@ -93,27 +97,50 @@ const router = new Router({
           component: () => import('./views/backEnd/NewsManage.vue')
         },
         {
-          path: 'movieManage',
-          name: 'movieManage',
-          meta: { requiresAuth: true },
-          component: () => import('./views/backEnd/MovieManage.vue')
+          path: 'moviesManage',
+          name: 'moviesManage',
+          component: () => import('./views/backEnd/movies/pages/MoviesManage.vue'),
+          children: [
+            {
+              path: '',
+              name: 'all',
+              component: () => import('./views/backEnd/movies/pages/All.vue')
+            },
+            {
+              path: 'released',
+              name: 'released',
+              component: () => import('./views/backEnd/movies/pages/Released.vue')
+            },
+            {
+              path: 'comingSoon',
+              name: 'comingSoon',
+              component: () => import('./views/backEnd/movies/pages/ComingSoon.vue')
+            },
+            {
+              path: 'popular',
+              name: 'popular',
+              component: () => import('./views/backEnd/movies/pages/Popular.vue')
+            }
+          ]
         },
         {
           path: 'mealsManage',
           name: 'mealsManage',
-          meta: { requiresAuth: true },
           component: () => import('./views/backEnd/MealsManage.vue')
+        },
+        {
+          path: 'discountManage',
+          name: 'discountManage',
+          component: () => import('./views/backEnd/DiscountManage.vue')
         },
         {
           path: 'memberManage',
           name: 'memberManage',
-          meta: { requiresAuth: true },
           component: () => import('./views/backEnd/MemberManage.vue')
         },
         {
           path: 'report',
           name: 'report',
-          meta: { requiresAuth: true },
           component: () => import('./views/backEnd/Report.vue')
         }
       ]
@@ -126,6 +153,10 @@ router.beforeEach((to, from, next) => {
     let url = to.path.split('/');
     switch (url[1]) {
       case 'user':
+        if (sessionStorage.getItem('nowAcc')) next();
+        else next(from.path);
+        break;
+      case 'bonus':
         if (sessionStorage.getItem('nowAcc')) next();
         else next(from.path);
         break;

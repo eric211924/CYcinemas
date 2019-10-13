@@ -275,7 +275,6 @@ export default {
       this.movieSession = JSON.parse(sessionStorage.movie);
       this.tickets_index = JSON.parse(this.movieSession.ticketsNum);
       this.meals_index = JSON.parse(this.movieSession.mealsNum);
-
       // console.log(this.tickets_index);
     }
     // if (sessionStorage.ticketsNum)
@@ -286,6 +285,7 @@ export default {
   },
   methods: {
     loadMovies() {
+
       this.axios.get(`${this.$api}/order/getMovies`).then(response => {
         // console.log(response.data);
         this.movies = response.data;
@@ -345,16 +345,20 @@ export default {
       });
     },
     loadScreeningID(){
-      this.axios.get(`${this.$api}/order/getScreeingID/
+      // console.log(this.days[document.getElementById("days").value]["date"]);
+      this.axios.get(`${this.$api}/order/getScreeningID/
       ${this.movies[document.getElementById("movies").value]["encoded_id"]}/
       ${this.times[document.getElementById("times").value]["time"]}/
       ${this.days[document.getElementById("days").value]["date"]}
       `)
       .then(response =>{
-        if(response.data)
-        // sessionStorage.setItem("screeningID",response.data[0].id);
-        this.movieSession["screeningID"]=response.data[0].id;
-        // console.log(response.data);
+        if(response.data){
+          sessionStorage.setItem("screeningID",response.data[0].id);
+          sessionStorage.setItem("courtsID",response.data[0].courts_id);
+        }
+        console.log(response.data);
+      }).catch(error=>{
+        console.log(error);
       });
     },
     minusTickets(index) {
@@ -429,7 +433,7 @@ export default {
       this.movieSession["ticketsNameNum"]=JSON.stringify(ticketsNameNum);
       this.movieSession["mealsNameNum"]=JSON.stringify(mealsNameNum);
       this.movieSession["totalTicketsNum"]=this.ticketsTotal;
-
+      // console.log(this.movieSession);
       sessionStorage.setItem("movie",JSON.stringify(this.movieSession));
       
       this.$router.push("/order/chooseSeat");

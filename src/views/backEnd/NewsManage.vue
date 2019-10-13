@@ -4,21 +4,41 @@
     <button
       class="btn btn-primary mt-4"
       data-toggle="modal"
-      data-target="#NewsForm"
+      data-target="#newsForm"
       @click.prevent="action = '新增'"
     >新增 +</button>
 
     <!-- 最新消息的清單 -->
     <div class="row mt-3">
-      <div class="col-12 col-md-6 col-lg-3 mb-3" v-for="(item, index) in newsData" :key="index">
-        <a href data-toggle="modal" data-target="#showNewsData" @click.prevent="showNews = item">
-          <div class="card">
-            <img :src="item.img_thumbs_url" alt class="card-img-top" />
-            <div class="card-body">
-              <h6 class="card-title overflow-hidden w-100">{{ item.title }}</h6>
-            </div>
+      <div
+        class="col-6 col-md-4 col-lg-3 col-xl-2 mb-3"
+        v-for="(item, index) in newsData"
+        :key="index"
+      >
+        <div class="card img-container">
+          <img :src="item.img_thumbs_url" alt class="card-img-top" />
+          <div class="overlay d-flex flex-column justify-content-center align-items-center">
+            <button
+              class="btn btn-info mb-2"
+              data-toggle="modal"
+              data-target="#showNewsData"
+              @click.prevent="showNews = item"
+            >檢視</button>
+            <button
+              class="btn btn-warning mb-2"
+              data-toggle="modal"
+              data-target="#newsForm"
+              @click.prevent="action = '修改'; getNewsData(item.id)"
+            >修改</button>
+            <button
+              class="btn btn-danger"
+              data-toggle="modal"
+              data-target="#deleteModal"
+              @click.prevent="setId = item.id"
+              data-dismiss="modal"
+            >刪除</button>
           </div>
-        </a>
+        </div>
       </div>
     </div>
 
@@ -31,7 +51,7 @@
       aria-labelledby="showNewsData"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered modal-xl modal-md" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-lg modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="showNewsData">{{ showNews.title }}</h4>
@@ -51,24 +71,6 @@
               </div>
             </div>
           </div>
-          <div class="card-footer">
-            <div class="btn-group my-1 d-flex justify-cotent-center">
-              <button
-                class="btn btn-warning btn-sm"
-                data-toggle="modal"
-                data-target="#NewsForm"
-                data-dismiss="modal"
-                @click.prevent="action = '修改'; getNewsData(showNews.id)"
-              >修改</button>
-              <button
-                class="btn btn-danger btn-sm"
-                data-toggle="modal"
-                data-target="#deleteModal"
-                @click.prevent="setId = showNews.id"
-                data-dismiss="modal"
-              >刪除</button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -77,18 +79,16 @@
     <!-- 消息表單 -->
     <div
       class="modal fade"
-      id="NewsForm"
+      id="newsForm"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="NewsForm"
+      aria-labelledby="newsForm"
       aria-hidden="true"
-      data-backdrop="static"
-      data-keyboard="false"
     >
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">{{ action }}消息</h5>
+            <h5 class="modal-title" id="newsForm">{{ action }}消息</h5>
             <button
               type="button"
               class="close"
@@ -154,6 +154,7 @@
 <script>
 import DeleteModal from "@/components/DeleteModal.vue";
 import Loading from "@/components/Loading.vue";
+import $ from "jquery";
 
 export default {
   components: {
@@ -163,6 +164,7 @@ export default {
   data() {
     return {
       newsData: [], // 所有最新消息的資料,
+      viewNews: {},
       showNews: "",
       setId: Number, // 刪除或是修改消息的 ID
       title: "",
@@ -198,11 +200,11 @@ export default {
         });
       } else {
         this.axios.get(`${_this.$api}/news/${newsId}`).then(response => {
+          // $('#newsForm').modal('show');
           let data = response.data[0];
           _this.title = data.title;
           _this.content = data.content;
-          _this.startTime =
-            data.start_time == "0000-00-00" ? "" : data.start_time;
+          _this.startTime = data.start_time == "0000-00-00" ? "" : data.start_time;
           _this.endTime = data.end_time == "0000-00-00" ? "" : data.end_time;
           _this.fileName = data.img_normal_url.substr(-18, 18);
           _this.setId = data.id;
@@ -212,8 +214,8 @@ export default {
     // 新增News
     addNews() {
       const _this = this;
-      this.file = this.$refs.file.files[0];
       let formData = new FormData();
+      this.file = this.$refs.file.files[0];
       formData.append("title", this.title);
       formData.append("content", this.content);
       formData.append("startTime", this.startTime);
@@ -302,6 +304,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card {
+  box-shadow: 5px 5px 15px #999;
+}
 .card-title {
   height: 30px;
   line-height: 30px;
