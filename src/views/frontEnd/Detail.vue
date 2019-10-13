@@ -298,16 +298,15 @@ export default {
             // var SQL = 'show'  ;
             // var SQL = "desc"  ;
             // var SQL = "select"; 
-            // var ID ="16"; postData.append('ID', ID);
+            // var ID ="2"; postData.append('ID', ID);
             var SQL = "save"  ;  
             postData.append('SQL', SQL);   
             // this.axios.get(`${this.$api}/detail/saveOrder`, postData) 
             this.axios.post(`${this.$api}/detail/saveOrder`, postData) 
             .then(function (response) { 
-                console.log(response); //desc  show tables 
-                // console.log(response.data); //desc  show tables 
-                console.log(response.data["0"]);  //select
-                // console.log(response.data["0"].FieldName);  //select 
+                // console.log(response); //desc  show tables 
+                console.log(response.data); //desc  show tables 
+                // console.log(response.data["0"]);  //select id n 
             }).catch(function (error) { 
                 console.log(error); 
             }); 
