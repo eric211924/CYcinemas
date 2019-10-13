@@ -1,17 +1,16 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <router-link class="navbar-brand" to="/">
-        <img src="../assets/cy-cinemas-ok.png" class="" alt />
-      </router-link>
-
+    <router-link class="navbar-brand text-center d-block w-100" to="/">
+      <img src="../assets/cy-cinemas-ok.png" height="100%" alt />
+    </router-link>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-cy-deep">
       <!-- 窄頁面時 navbar右邊的摺疊按鈕 -->
       <button
         class="navbar-toggler"
         type="button"
         data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
+        data-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
@@ -19,8 +18,8 @@
       </button>
 
       <!-- navbar主要元素 -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+      <div class="collapse navbar-collapse my-container" id="navbarTogglerDemo03">
+        <ul class="navbar-nav ml-2 mr-auto">
           <li class="nav-item" :class="{'active': this.$route.path == '/'}">
             <router-link
               class="nav-link"
@@ -62,7 +61,11 @@
             >訂票</router-link>
           </li>
           <!-- 會員已登入的狀態下 顯示抽獎頁籤 -->
-          <li class="nav-item" :class="{'active': this.$route.path == '/bonus'}" v-if="isLogin">
+          <li
+            class="nav-item mr-auto"
+            :class="{'active': this.$route.path == '/bonus'}"
+            v-if="isLogin"
+          >
             <router-link
               class="nav-link"
               to="/bonus"
@@ -72,16 +75,16 @@
           </li>
         </ul>
         <!-- 會員未登入的狀態下 顯示 會員登入 及 註冊 -->
-        <ul class="navbar-nav" v-if="!isLogin">
+        <div class="navbar-nav" v-if="!isLogin">
           <li class="nav-item">
             <a class="nav-link" href data-toggle="modal" data-target="#login">會員登入</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href data-toggle="modal" data-target="#register">註冊</a>
           </li>
-        </ul>
+        </div>
         <!-- 會員已登入的狀態下 顯示 歡迎訊息 與 登出, 若為管理員登入 多出後臺管理 -->
-        <ul class="navbar-nav" v-if="isLogin">
+        <div class="navbar-nav" v-if="isLogin">
           <li class="nav-item" :class="{'active': this.$route.path == '/user'}">
             <router-link
               class="nav-link"
@@ -90,7 +93,11 @@
               data-target=".navbar-collapse.show"
             >{{ name }} 您好</router-link>
           </li>
-          <li class="nav-item" :class="{'active': this.$route.path == '/backEnd'}" v-if="isManager">
+          <li
+            class="nav-item"
+            :class="{'active': this.$route.path.indexOf('/backEnd') >= 0}"
+            v-if="isManager"
+          >
             <router-link
               class="nav-link"
               to="/backEnd"
@@ -109,7 +116,7 @@
               data-target=".navbar-collapse.show"
             >登出</a>
           </li>
-        </ul>
+        </div>
       </div>
     </nav>
 
@@ -232,10 +239,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-img {
-  height: 56px !important;
-}
 .active {
   border-bottom: 3px solid #becb01;
+}
+
+@media (min-width: 992px) {
+  .my-container {
+    max-width: 1140px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
 </style>

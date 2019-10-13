@@ -23,8 +23,11 @@ import 'font-awesome/css/font-awesome.css'
 import Chart from 'chart.js';
 
 // UIkit
-import UIkit from './uikit'
-Vue.use(UIkit)
+import UIkit from 'uikit'
+import Icons from 'uikit/dist/js/uikit-icons'
+import 'uikit/dist/css/uikit.min.css'
+UIkit.use(Icons)
+Vue.prototype.$uikit = UIkit;
 
 Vue.config.productionTip = false;
 
