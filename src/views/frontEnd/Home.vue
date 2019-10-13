@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="4000">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -72,11 +72,7 @@
           <p class="card-text"></p>
         </div>
         <div class="card-footer">
-          <small class="text-muted">
-            <button type="button" class="btn btn-primary btn-sm" style="float:left;">預告</button>
-            
-            <button type="button" class="btn btn-secondary btn-sm" style="float:right;">場次</button>
-            
+          <small class="text-muted">            
           </small>
         </div>
       </div>

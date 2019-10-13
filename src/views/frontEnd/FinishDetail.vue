@@ -10,7 +10,7 @@
                <table>
                     <tr>
                         <td>&emsp;訂單標號&ensp;:</td>
-                        <td>{{orderNumber}}</td>
+                        <td>{{list.orderNumber}}</td>
                     </tr>
                     <tr>
                         <td>&emsp;名&emsp;&emsp;稱&ensp;:</td>
@@ -59,88 +59,77 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12"> 
-         
- 
-     
-        <button @click="clrSession" class="finishBtn btn btn-outline-success">
-    回到首頁
-
-    </button>
-       
+    <div class="col-md-12">  
+        <router-link @click.native="clrSession" class="finishBtn btn btn-outline-success" to="/">
+            回到首頁
+        </router-link> 
      </div>
   </div>
 </div> 
 </template>
 
-<script>
-import detail from '@/views/frontEnd/Detail.vue'
+<script> 
 export default {
     data(){
         return {
-            list: 0,
-            ticketsNum:0,
-            mealsNum:0,
-            orderNumber:"",
+            list:{
+                movieName: '',
+                theater: '',
+                day: '',
+                time: '', 
+                food:{"0":"","1":"","2":"","3":""},
+                foodNum:{"0":"","1":"","2":"","3":""},
+                ticketName:{"0":"","1":""},
+                ticketNum:{"0":"","1":""},
+                price:{"0":190,"1":150,"2":50,"3":50,"4":40,"5":40},
+                //Price {"0":一般票,"1":愛心票
+                //"2":可樂 大,"3":爆米花 大,"4":可樂 中,"5":爆米花 中}
+                discount: 0.7,
+                total:0,
+                real:0, 
+                seat: '',
+                hall: '',
+                accout: '',
+                memberName:'', 
+                email:' ',
+                phone:' ',
+                buyerBar:false,
+                loginBar:true, 
+                editBar:true,
+                cadrd1:"1231",
+                cadrd2:"1234",
+                cadrd3:"1234",
+                cadrd4:"1234",
+                br:1,
+                orderNumber:""
+            },   
             hideFinishDetail:0
         }
     },
-    mounted() {  
-        this.log();
-        this.getData();
-        this.getOrderNumber(); 
+    mounted() { 
+        if(!(sessionStorage.getItem('FinishPageData'))) 
+            window.location.href="./#/order"; 
+        this.getData(); 
     },
-    methods:{
+    methods:{ 
         clrSession:function(){  
-            sessionStorage.removeItem('FinishPageData'); 
-            sessionStorage.removeItem('ticketsNameNum');
-            sessionStorage.removeItem('ticketsNum');
-            sessionStorage.removeItem('totalTicketsNum');
-            sessionStorage.removeItem('mealsNameNum');
-            sessionStorage.removeItem('mealsNum'); 
-            sessionStorage.removeItem('movie_index');
-            sessionStorage.removeItem('moviesName');
-            sessionStorage.removeItem('day_index');
-            sessionStorage.removeItem('moviesDay');
-            sessionStorage.removeItem('time_index'); 
-            sessionStorage.removeItem('moviesTime'); 
-            window.location.replace('./#');
-            history.go(0); 
+            sessionStorage.removeItem('FinishPageData');  
             this.hideFinishDetail = 1;
-        },
-        log:function(){
-            var FinishPageData = JSON.parse(sessionStorage.getItem('FinishPageData')); 
-        },
+        }, 
         getData:function(){
             var FinishPageData = JSON.parse(sessionStorage.getItem('FinishPageData'));
-            this.list = FinishPageData; 
-        },
-        getOrderNumber:function(){ 
-            if(!(sessionStorage.getItem('ticketsNum') || sessionStorage.getItem('mealsNum'))) 
-                return this.orderNumber = "no session";
-            var d = new Date();
-            var month = d.getMonth()< 9?"0"+String(d.getMonth()+1):String(d.getMonth()+1);
-            var dNum = d.getDate()< 10?"0"+String(d.getDate()):String(d.getDate());
-            var hour = d.getHours()< 10?"0"+String(d.getHours()):String(d.getHours());
-            var minute = d.getMinutes()< 10?"0"+String(d.getMinutes()):String(d.getMinutes());
-
-            this.ticketsNum = JSON.parse(sessionStorage.getItem('ticketsNum'));
-            this.mealsNum = JSON.parse(sessionStorage.getItem('mealsNum'));
-            this.orderNumber =
-                String(this.ticketsNum["0"])+String(this.ticketsNum["1"])+String(this.mealsNum["0"])+
-                String(this.mealsNum["1"])+String(this.mealsNum["2"])+String(this.mealsNum["3"])+
-                String(d.getFullYear()-2000)+ month + dNum + hour + minute; 
-        },
+            this.list = FinishPageData;  
+            console.log(this.list);        } 
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    .container{ 
+    // .container{ 
         // margin:0;
         // width:100;
         // border:2px solid blue;
-    }
+    // }
     .col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,
     .col-md-8{
         // border:2px solid red;

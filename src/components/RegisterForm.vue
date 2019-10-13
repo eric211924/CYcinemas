@@ -22,28 +22,30 @@
           <div class="modal-body" >
             <div class="form-group">
               <label for>姓名 :</label>
-              <input type="text" class="form-control" maxlength="20" v-model="name"/>
-              {{ nameResult }}
+              <input type="text" class="form-control" maxlength="20" v-model="name" :class="isValid[0]"/>
+              <div class="text-center" :class="isValidMsg[0]">{{ nameResult }}</div>
+              <!-- {{ nameResult }} -->
             </div>
             <div class="form-group">
               <label for>帳號 :</label>
-              <input type="text" class="form-control" maxlength="20" v-model="account"/>
-              {{ accResult }}
+              <input type="text" class="form-control" maxlength="20" v-model="account" :class="isValid[1]"/>
+              <div class="text-center" :class="isValidMsg[1]">{{ accResult }}</div>
+              <!-- {{ accResult }} -->
             </div>
             <div class="form-group">
               <label for>密碼 :</label>
-              <input type="text" class="form-control" maxlength="20" v-model="password"/>
-              {{ pwdResult }}
+              <input type="text" class="form-control" maxlength="20" v-model="password" :class="isValid[2]"/>
+              <div class="text-center" :class="isValidMsg[2]">{{ pwdResult }}</div>
             </div>
             <div class="form-group">
               <label for>信箱 :</label>
-              <input type="text" class="form-control" v-model="email"/>
-              {{ emailResult }}
+              <input type="text" class="form-control" v-model="email" :class="isValid[3]"/>
+              <div class="text-center" :class="isValidMsg[3]">{{ emailResult }}</div>
             </div>
             <div class="form-group">
-              <label for>電話 :</label>
-              <input type="text" class="form-control" v-model="phone"/>
-              {{ phoneResult }}
+              <label for>手機號碼 :</label>
+              <input type="text" class="form-control" v-model="phone" :class="isValid[4]"/>
+              <div class="text-center" :class="isValidMsg[4]">{{ phoneResult }}</div>
             </div>
           </div>
           <div class="modal-footer">
@@ -64,7 +66,7 @@
 </template>
 
 <script>
-// 表單送出後無法關閉...
+import $ from 'jquery';
 export default {
   data() {
     return {
@@ -74,7 +76,7 @@ export default {
       email: '',
       phone: '',
       result: "",
-      isDisabled: false,
+      isDisabled: true,
       nameResult: "",
       accResult: "",
       pwdResult: "",
@@ -84,98 +86,131 @@ export default {
       accReady: false,
       pwdReady: false,
       emailReady: false,
-      phoneReady: false 
+      phoneReady: false,
+      isValid: ["", "", "", "", ""],
+      isValidMsg: ["", "", "", "", ""],
     }
   },
   mounted() {
-    this.checkInput();
   },
   // 監看各輸入欄位資料正確性 (是否空值 密碼長度 規則等是否正確)
   watch: {
-    // 姓名: 長度不限 任意中英文組合 (不含特殊符號與數字)
+    // 姓名: 長度不限 (但不含特殊符號 空白 與 數字)
     // ^[\u4e00-\u9fa5a-zA-Z0-9]+$
-    name: function () {
-      var nameTest = /^[\u4e00-\u9fa5a-zA-Z0-9]+$/.test(this.name);
-      if(nameTest == false) {
-        this.nameResult = "姓名需為任意中英文組合 不能有特殊符號 數字 空白";
-        this.nameReady = false;
-        this.checkInput();
-      } else {
-        this.nameResult = "OK";
-        this.nameReady = true;
-        this.checkInput();
-      }
+    name: function (val) {
+      var nameTest = /^[^.,\/#!$%\^&\*;:{}=\-_`~()@<>\s]{1,}/.test(val);
+      // if (val != '') {
+        if(nameTest == false) {
+          this.nameResult = "姓名不能有特殊符號 數字 空白";
+          this.nameReady = false;
+          this.isValid[0] = "is-invalid";
+          this.isValidMsg[0] = "invalid-feedback";
+          this.checkInput();
+        } else {
+          this.nameResult = "OK";
+          this.nameReady = true;
+          this.isValid[0] = "is-valid";
+          this.isValidMsg[0] = "valid-feedback";
+          this.checkInput();
+        }
+      // }
     },
     // 帳號: 至少五碼 且為任意英數字組合 (不含特殊符號) 
     // 並同時比對資料庫是否有相同帳號
-    account: function () {
-      var accTest = /^[A-Za-z0-9]{5,}/gm.test(this.account);
-      if (accTest == true) {
-        // 通過正規表示式 => 檢查帳號是否存在
-        var _this = this;
-        var account = this.account;
-        var num_rows = 0;
-        this.axios.get('https://cy-cinemas.ml/members/' + account)
-          .then(function (response) {
-            num_rows = response.data;
-            if(num_rows > 0) {
-              _this.accResult = "此帳號有人使用 換一個吧";
-              _this.accReady = false;
-              _this.checkInput();
-            } else {
-              _this.accResult = "OK";
-              _this.accReady = true;
-              _this.checkInput();
-            }
-          }).catch(function (error) {
-           _this.accResult = error;
-          });
-      }else {
-        // 未通過正規表示式 => 報錯
-        this.accResult = "帳號必須為任意英數字組合 且大於五碼";
-        this.accReady = false;
-        this.checkInput();
-      }
+    account: function (val) {
+      var accTest = /^[A-Za-z0-9]{5,}/gm.test(val);
+      // if (val != '') {
+        if (accTest == true) {
+          // 通過正規表示式 => 檢查帳號是否存在
+          var _this = this;
+          var account = val;
+          var num_rows = 0;
+          this.axios.get('https://cy-cinemas.ml/members/' + account)
+            .then(function (response) {
+              num_rows = response.data;
+              if(num_rows > 0) {
+                _this.accResult = "此帳號有人使用 換一個吧";
+                _this.accReady = false;
+                _this.isValid[1] = "is-invalid";
+                _this.isValidMsg[1] = "invalid-feedback";
+                _this.checkInput();
+              } else {
+                _this.accResult = "OK";
+                _this.accReady = true;
+                _this.isValid[1] = "is-valid";
+                _this.isValidMsg[1] = "valid-feedback";
+                _this.checkInput();
+              }
+            }).catch(function (error) {
+             _this.accResult = error;
+            });
+        }else {
+          // 未通過正規表示式 => 報錯
+          this.accResult = "帳號必須為任意英數字組合 且大於五碼";
+          this.accReady = false;
+          this.isValid[1] = "is-invalid";
+          this.isValidMsg[1] = "invalid-feedback";
+          this.checkInput();
+        }
+      // }
     },
     // 密碼: 至少五碼 且為任意英數字組合 (不含特殊符號)
-    password: function () {
-      var pwdTest = /^[A-Za-z0-9]{5,}/gm.test(this.password);
-      if (pwdTest == true) {
-        this.pwdResult = "OK";
-        this.pwdReady = true;
-        this.checkInput();
-      } else {
-        this.pwdResult = "密碼必須為任意英數字組合 且大於五碼";
-        this.pwdReady = false;
-        this.checkInput();
-      }
+    password: function (val) {
+      var pwdTest = /^[A-Za-z0-9]{5,}/gm.test(val);
+      // if (val != '') {
+        if (pwdTest == true) {
+          this.pwdResult = "OK";
+          this.pwdReady = true;
+          this.isValid[2] = "is-valid";
+          this.isValidMsg[2] = "valid-feedback";
+          this.checkInput();
+        } else {
+          this.pwdResult = "密碼必須為任意英數字組合 且大於五碼";
+          this.pwdReady = false;
+          this.isValid[2] = "is-invalid";
+          this.isValidMsg[2] = "invalid-feedback";
+          this.checkInput();
+        }
+      // }
     },
     // Email
-    email: function () {
-      var emailTest = /[a-zA-Z0-9]+@[a-zA-Z0-9.]+/.test(this.email);
-      if (emailTest == true) {
-        this.emailResult = "OK";
-        this.emailReady = true;
-        this.checkInput();
-      } else {
-        this.emailResult = "無效的Email";
-        this.emailReady = false;
-        this.checkInput();
-      }
+    email: function (val) {
+      var emailTest = /[a-zA-Z0-9]+@[a-zA-Z0-9.]+/.test(val);
+      // if (val != '') {
+        if (emailTest == true) {
+          this.emailResult = "OK";
+          this.emailReady = true;
+          this.isValid[3] = "is-valid";
+          this.isValidMsg[3] = "valid-feedback";
+          this.checkInput();
+        } else {
+          this.emailResult = "無效的Email";
+          this.emailReady = false;
+          this.isValid[3] = "is-invalid";
+          this.isValidMsg[3] = "invalid-feedback";
+          this.checkInput();
+        }
+      // }
     },
     // phone: 只能輸入手機
-    phone: function () {
-      var phoneTest = /^09\d{2}-?\d{3}-?\d{3}$/.test(this.phone);
-      if (phoneTest == true) {
-        this.phoneResult = "OK";
-        this.phoneReady = true;
-        this.checkInput();
-      } else {
-        this.phoneResult = "電話格式為手機 且不能有特殊符號連接 (例 0912345678)";
-        this.phoneReady = false;
-        this.checkInput();
-      }
-    }
+    phone: function (val) {
+      var phoneTest = /^09\d{2}-?\d{3}-?\d{3}$/.test(val);
+      // if (val != '') {
+        if (phoneTest == true) {
+          this.phoneResult = "OK";
+          this.phoneReady = true;
+          this.isValid[4] = "is-valid";
+          this.isValidMsg[4] = "valid-feedback";
+          this.checkInput();
+        } else {
+          this.phoneResult = "電話格式為手機 且不能有特殊符號連接 (例 0912345678)";
+          this.phoneReady = false;
+          this.isValid[4] = "is-invalid";
+          this.isValidMsg[4] = "invalid-feedback";
+          this.checkInput();
+        }
+      // }
+    },
   },
   methods: {
     checkInput() {
@@ -208,12 +243,31 @@ export default {
               duration: 3000
             });
         });
-      // console.log("before clear");
+
+      console.log("before clear");
       this.name = '';
       this.account = '';
       this.password = '';
       this.email = '';
       this.phone = '';
+
+      this.nameReady = false;
+      this.accReady = false;
+      this.pwdReady = false;
+      this.emailReady = false;
+      this.phoneReady = false;
+
+      this.isValid[0] = "";
+      this.isValid[1] = "";
+      this.isValid[2] = "";
+      this.isValid[3] = "";
+      this.isValid[4] = "";
+
+      this.isValidMsg[0] = "";
+      this.isValidMsg[1] = "";
+      this.isValidMsg[2] = "";
+      this.isValidMsg[3] = "";
+      this.isValidMsg[4] = "";
 
       this.nameResult = "";
       this.accResult = "";
@@ -221,13 +275,8 @@ export default {
       this.emailResult = "";
       this.phoneResult = "";
 
-      this.isDisabled = false;
-      this.nameReady = false;
-      this.accReady = false;
-      this.pwdReady = false;
-      this.emailReady = false;
-      this.phoneReady = false;
-      // console.log("after clear");
+      console.log("after clear");
+      $('#register').modal('hide');
     },
   }
 }
