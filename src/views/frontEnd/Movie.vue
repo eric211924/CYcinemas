@@ -37,9 +37,8 @@
                     <div class="dropdown-menu">
                       <a class="dropdown-item" href="#">當日</a>
                       <a class="dropdown-item" href="#">週四, 2019/10/10</a>
-                      <a class="dropdown-item" href="#">週五, 2019/10/11</a>
-                      <!-- <div class="dropdown-divider"></div> -->
-                      <!-- <a class="dropdown-item" href="#">週六,2019/10/12</a>
+                      <a class="dropdown-item" href="#">週五, 2019/10/11</a
+                      <a class="dropdown-item" href="#">週六,2019/10/12</a>
                       <a class="dropdown-item" href="#">週日,2019/10/13</a>
                       <a class="dropdown-item" href="#">週一,2019/10/14</a>
                       <a class="dropdown-item" href="#">週二,2019/11/15</a>
@@ -396,7 +395,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
-                <iframe display="block"  width="100%" height="315" margin="0 auto" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe display="block"  width="100%" height="315" margin="0 auto" :src="trailer" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <img
                   :src= poster 
                   class="card-img"
