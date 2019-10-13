@@ -19,7 +19,12 @@
               class="btn btn-danger mx-5 mb-2"
               @click.prevent="removeShowMovies(item.id)"
             >移除</button>
-            <button class="btn btn-warning mx-5 mb-2">修改</button>
+            <button
+              class="btn btn-warning mx-5 mb-2"
+              data-toggle="modal"
+              data-target="#movieForm"
+              @click.prevent="movie = item; action = '修改'"
+            >修改</button>
             <button
               class="btn btn-info mx-5 mb-2"
               data-toggle="modal"
@@ -30,17 +35,20 @@
         </div>
       </div>
     </div>
+    <MovieForm :movie-data="movie" :action="action"></MovieForm>
     <ViewMovies :movie-data="movie"></ViewMovies>
   </div>
 </template>
 
 <script>
 import ViewMovies from '@/views/backEnd/movies/components/ViewMovies.vue';
+import MovieForm from '@/views/backEnd/movies/components/MovieForm.vue';
 
 export default {
   props: ['moviesData', 'action'],
   components: {
-    ViewMovies
+    ViewMovies,
+    MovieForm
   },
   data() {
     return {
@@ -53,7 +61,6 @@ export default {
     },
     removeShowMovies(id) {
       this.$emit('remove', id);
-
     }
   },
 }

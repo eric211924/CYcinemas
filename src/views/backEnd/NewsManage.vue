@@ -164,6 +164,7 @@ export default {
   data() {
     return {
       newsData: [], // 所有最新消息的資料,
+      viewNews: {},
       showNews: "",
       setId: Number, // 刪除或是修改消息的 ID
       title: "",

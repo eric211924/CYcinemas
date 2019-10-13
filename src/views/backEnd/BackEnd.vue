@@ -1,16 +1,16 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 col-md-3 col-lg-2 my-5 py-0">
-        <!-- 當前頁面 -->
 
-        <!-- 側邊攔 -->
+      <!-- 側邊攔 -->
+      <div class="col-12 col-md-3 col-lg-2 my-5 py-0">
         <div class="list-group shadow">
           <div class="accordion" id="dashboard">
+            
             <!-- 最新消息 -->
             <router-link
               to="/backEnd"
-              class="list-group-item list-group-item-action text-white"
+              class="list-group-item text-white"
               :class="{'bg-cy': checkRouter('/backEnd'), 'bg-cy-deep': !checkRouter('/backEnd')}"
             >
               <i class="fa fa-newspaper-o" aria-hidden="true"></i> 所有消息
@@ -19,7 +19,7 @@
             <!-- 電影 -->
             <a
               href="#movies"
-              class="list-group-item list-group-item-action dropdown-toggle bg-cy-deep text-white"
+              class="list-group-item dropdown-toggle bg-cy-deep text-white"
               data-toggle="collapse"
               role="button"
               aria-expanded="false"
@@ -72,7 +72,7 @@
             <!-- 餐點 -->
             <a
               href="#meals"
-              class="list-group-item list-group-item-action dropdown-toggle bg-cy-deep text-white"
+              class="list-group-item dropdown-toggle bg-cy-deep text-white"
               data-toggle="collapse"
               role="button"
               aria-expanded="false"
@@ -105,38 +105,18 @@
             </div>
 
             <!-- 折扣 -->
-            <a
-              href="#discount"
-              class="list-group-item list-group-item-action dropdown-toggle bg-cy-deep text-white"
-              data-toggle="collapse"
-              role="button"
-              aria-expanded="false"
-              aria-controls="discount"
+            <router-link
+              to="/backEnd/discountManage"
+              class="list-group-item text-white"
+              :class="{'bg-cy': checkRouter('/backEnd/discountManage'), 'bg-cy-deep': !checkRouter('/backEnd/discountManage')}"
             >
-              <i class="fa fa-percent" aria-hidden="true"></i> &nbsp;折扣
-            </a>
-            <div
-              class="collapse"
-              :class="{'show': checkRouter('/backEnd/discountManage', true)}"
-              id="discount"
-              aria-labelledby="discount"
-              data-parent="#dashboard"
-            >
-              <ul class="list-group list-group-flush">
-                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/discountManage')}">
-                  <router-link
-                    to="/backEnd/discountManage"
-                    class="py-2"
-                    :class="{'text-white': checkRouter('/backEnd/discountManage')}"
-                  >所有折扣</router-link>
-                </li>
-              </ul>
-            </div>
+              <i class="fa fa-percent" aria-hidden="true"></i> &nbsp;所有折扣
+            </router-link>
 
             <!-- 會員 -->
             <router-link
               to="/backEnd/memberManage"
-              class="list-group-item list-group-item-action text-white"
+              class="list-group-item text-white"
               :class="{'bg-cy': checkRouter('/backEnd/memberManage'), 'bg-cy-deep': !checkRouter('/backEnd/memberManage')}"
             >
               <i class="fa fa-users" aria-hidden="true"></i> 會員
@@ -145,7 +125,7 @@
             <!-- 報表 -->
             <router-link
               to="/backEnd/report"
-              class="list-group-item list-group-item-action text-white"
+              class="list-group-item text-white"
               :class="{'bg-cy': checkRouter('/backEnd/report'), 'bg-cy-deep': !checkRouter('/backEnd/report')}"
             >
               <i class="fa fa-bar-chart" aria-hidden="true"></i> 報表
@@ -210,6 +190,7 @@ ul {
     a:hover {
       text-decoration: none;
       color: #eee;
+      background-color: #becb01 !important;
     }
     a:active {
       color: #eee;
@@ -220,19 +201,15 @@ ul {
   }
 }
 
+.list-group-item {
+  text-decoration: none;
+}
+
 .dropdown-toggle::after {
   display: block;
   position: absolute;
   top: 50%;
   right: 20px;
   transform: translateY(-50%);
-}
-
-.bg-cy {
-  background-color: #becb01;
-}
-
-.bg-cy-deep {
-  background-color: #4f5228;
 }
 </style>
