@@ -473,24 +473,67 @@
 //     }
 //   }
 // }
+//<script>
+// export default {
+//   data() {
+//     return {
+//       movies:null,
+//       actor:"",
+//       encoded_id:"",
+//       enname: "",
+//       genre: "",//類型
+//       id: "",
+//       info: "",
+//       name: "",
+//       play_date: "",//上映日期
+//       poster: "",
+//       rating: "",//級別
+//       run_time: "",
+//       show_status:"",
+//       trailer:""//預告片
+//     };
+//   },
+//   mounted() {
+//     const _this = this;
+//     this.axios
+//       .get("https://cy-cinemas.ml/movies/showMovies/comingSoon/1")
+//       .then(response => {
+//         _this.movies = response.data;
+//         console.log(_this.movies);
+//       })
+//       .catch(function (error) {
+//         console.log(error);
+//       });
+//   },
+//   methods: {
+//     getMovie(index) {
+//       this.actor = this.movies[index].actor;
+//       this.encoded_id = this.movies[index].encoded_id;
+//       this.enname = this.movies[index].enname;
+//       this.id = this.movies[index].id;
+//       this.info = this.movies[index].info;
+//       this.name = this.movies[index].name;
+//       this.play_date = this.movies[index].play_date;
+//       this.poster = this.movies[index].poster;
+//       this.rating = this.movies[index].rating;
+//       this.run_time = this.movies[index].run_time;
+//       this.show_status = this.movies[index].show_status;
+//       this.trailer = this.movies[index].trailer;
+//     }
+//   }
+// };
+// </script >
+
 <script >
 export default {
   data() {
     return {
-      movies:null,
-      actor:"",
-      encoded_id:"",
-      enname: "",
-      genre: "",//類型
-      id: "",
-      info: "",
-      name: "",
-      play_date: "",//上映日期
-      poster: "",
-      rating: "",//級別
-      run_time: "",
-      show_status:"",
-      trailer:""//預告片
+        movieData:{
+          name:""
+        },
+        pageData:{
+          name:""
+        }
     };
   },
   mounted() {
@@ -506,25 +549,37 @@ export default {
       });
   },
   methods: {
-    getMovie(index) {
-      this.actor = this.movies[index].actor;
-      this.encoded_id = this.movies[index].encoded_id;
-      this.enname = this.movies[index].enname;
-      this.id = this.movies[index].id;
-      this.info = this.movies[index].info;
-      this.name = this.movies[index].name;
-      this.play_date = this.movies[index].play_date;
-      this.poster = this.movies[index].poster;
-      this.rating = this.movies[index].rating;
-      this.run_time = this.movies[index].run_time;
-      this.show_status = this.movies[index].show_status;
-      this.trailer = this.movies[index].trailer;
-    }
+    getPage(page) {
+      this.pageData.actor = page.actor;
+      this.pageData.encoded_id = page.encoded_id;
+      this.pageData.enname = page.enname;
+      this.pageData.id = page.id;
+      this.pageData.info = page.info;
+      this.pageData.name = page.name;
+      this.pageData.play_date = page.play_date;
+      this.pageData.poster = page.poster;
+      this.pageData.rating = page.rating;
+      this.pageData.run_time = page.run_time;
+      this.pageData.show_status = page.show_status;
+      this.pageData.trailer = page.trailer;
+    },
+    getMovie(movie) {
+      this.movieData.actor = movie.actor;
+      this.movieData.encoded_id = movie.encoded_id;
+      this.movieData.enname = movie.enname;
+      this.movieData.id = movie.id;
+      this.movieData.info = movie.info;
+      this.movieData.name = movie.name;
+      this.movieData.play_date = movie.play_date;
+      this.movieData.poster = movie.poster;
+      this.movieData.rating = movie.rating;
+      this.movieData.run_time = movie.run_time;
+      this.movieData.show_status = movie.show_status;
+      this.movieData.trailer = movie.trailer;
+    } 
   }
-};
+}
 </script >
-
-
 
 
 
