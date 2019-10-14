@@ -8,10 +8,12 @@
     
     <div id="vm">
       <div>
-        您選到的場次為：{{screenId}}&emsp;
+        您選到的場次為：{{movieDay}} {{movieName}} {{movieTime}}&emsp;
         已售出的座位為：<img src="../../assets/sellout.png" alt="">&emsp;
         您可選的座位為： <img src="../../assets/seat.png" alt="">&emsp;
         預設幫您排的座位為： 
+        <div class="forTable">
+
         <table class="table table-borderless">  
             <tr> 
             <!--eslint-disable-next-line-->
@@ -92,6 +94,7 @@
                 </td>
             </tr>  
         </table> 
+        </div>
     
         
       </div>
@@ -99,8 +102,10 @@
       最多選擇: {{this.max}}個
        <br />
        every seat status: {{seatSelected}}  -->
-
-      <router-link @click.native="nextPage"  :to="to" class="btn btn-success btn-block">點我去看訂單詳細</router-link>
+       <div class="row justify-content-center">
+      <router-link class="btn btn-danger btn-lg mr-3" to="/order">上一頁</router-link>
+      <router-link @click.native="nextPage"  :to="to" class="btn btn-success btn-lg ml-5">點我去看訂單詳細</router-link>
+       </div>
     </div>
   </div><!--col-md-12-->
   
@@ -172,6 +177,9 @@ export default {
       onClick:-1, 
       temp:1, 
       screenId:"",
+      movieName:"",
+      movieDay:"",
+      movieTime:"",
       to:"",
       sellOutData:{},
       selectImg:imgSelect ,
@@ -185,7 +193,12 @@ export default {
     this.buildForListData();
     this.getSellOut();
     // this.getCourtsData();
-    this.screenId = sessionStorage.getItem('screeningID'); 
+    // this.screenId = sessionStorage.getItem('screeningID'); 
+    if(sessionStorage.movie){
+      this.movieName = JSON.parse(sessionStorage.movie)['moviesName'];
+      this.movieDay = JSON.parse(sessionStorage.movie)['moviesDay'];
+      this.movieTime = JSON.parse(sessionStorage.movie)['moviesTime'];
+    }
     this.max =
         JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum)[0]+
         JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum)[1]; 
@@ -194,8 +207,8 @@ export default {
     // if(this.initialCheck ==0) {
     //     this.seatSrc = JSON.parse(localStorage.getItem('seatSrc'));
     //     this.sellOutData = JSON.parse(localStorage.getItem('sellOutData'));
-    } 
-  },
+    },
+  
   methods: {  
     getSellOut(){
       this.axios.get(`${this.$api}/detail/getSellOut`).then(response => {  
@@ -350,12 +363,12 @@ td img:hover{
   //  border: 1px solid red;
 }
 .seatImg{ 
-  width:30px; 
-  height:30px;  
+  width:100%; 
+  // height:30px;  
 }
 // 座位相鄰靠攏
 table{  
-  // width:20%;
+  width:1000px;
   // height:20%;
   // border: 1px solid blue;
 }
@@ -363,7 +376,7 @@ table td{
     // width:20%;
     // height:100%;
     //座號字體
-      font-size:12px; 
+      font-size:1vw; 
     span{
         // color:white;
         color:red;
@@ -381,4 +394,8 @@ div {
     text-align: center;
   }
 }  
+.forTable{
+  // width:100%
+  overflow: scroll;
+}
 </style>

@@ -196,7 +196,8 @@
           </div>
         </div>  
         <!-- error modal end-->
-        <div class="btnGroup">  
+        <div class="btnGroup row"> 
+            <router-link class="btn btn-danger mr-3 router-link1" to="/order/chooseSeat">上一頁</router-link>
             <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-outline-primary">
                 <i class="fa fa-check" aria-hidden="true"></i> 
                 確認訂購
@@ -267,18 +268,18 @@ export default {
             this.chkInputWrong[num] = wrong;
          },
         checkInput:function(){  
-            var patt1 = /[\u4e00-\u9fa5a-zA-Z]/.test(this.list.memberName);
+            // var patt1 = /[\u4e00-\u9fa5a-zA-Z]/.test(this.list.memberName);
             var patt1 =1;
                 this.chkIcon('1',0,patt1,!patt1); 
             if(this.list.memberName.trim()=="") 
                 this.chkIcon('1',1,0,0);
-            var patt21 = /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com$/.test(this.list.email);
+            // var patt21 = /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com$/.test(this.list.email);
             var patt21=1;
             var patt22 = /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com\.[a-zA-Z0-9_]+$/.test(this.list.email);
                 this.chkIcon('2',0,patt21+patt22,!(patt21+patt22));
             if(this.list.email.trim()=="")
                 this.chkIcon('2',1,0,0); 
-            var patt3 = /^09\d{8}$/.test(this.list.phone.trim()); 
+            // var patt3 = /^09\d{8}$/.test(this.list.phone.trim()); 
              var patt3 =1;
                 this.chkIcon('3',0,patt3,!patt3);
             if(this.list.phone.trim()=="")
@@ -553,12 +554,12 @@ export default {
         margin:5% 0%;   //上下間隔 
         button{
             margin:0% 1% 0% 0%;  
-            width:49%;
+            width:30%;
             font-size:20px;
         }  
         .router-link1{ 
             margin:0% 0% 0% 1%;  
-            width:49%;
+            width:30%;
             font-size:20px; 
         } 
     }
