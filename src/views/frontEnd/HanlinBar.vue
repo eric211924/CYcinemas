@@ -249,7 +249,7 @@
 </template>
 
 <script>
-import { parse } from "path";
+// import { parse } from "path";
 export default {
   data() {
     return {

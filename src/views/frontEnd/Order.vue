@@ -356,6 +356,8 @@ export default {
           sessionStorage.setItem("screeningID",response.data[0].id);
           sessionStorage.setItem("courtsID",response.data[0].courts_id);
         }
+      this.$router.push("/order/chooseSeat");     //確保先存screeningID才跳轉
+
         console.log(response.data);
       }).catch(error=>{
         console.log(error);
@@ -368,6 +370,7 @@ export default {
     plusTickets(index) {
       if (this.ticketsTotal < 5) this.ticketsNum[index] += 1;
       else this.ticketsNum[index] = this.ticketsNum[index];
+       
     },
     minusMeals(index) {
       if (this.mealsNum[index] > 0) this.mealsNum[index] -= 1;
@@ -378,7 +381,7 @@ export default {
       else this.mealsNum[index] = 10;
     },
 
-    setProp() {
+  setProp() {
       // sessionStorage.setItem(
       //   "movie_index",
       //   document.getElementById("movies").value
@@ -408,7 +411,6 @@ export default {
       // sessionStorage.setItem("moviesTime",e.options[e.selectedIndex].text);
       this.movieSession["moviesTime"]=e.options[e.selectedIndex].text;
 
-      this.loadScreeningID();
       
 
       // sessionStorage.setItem("ticketsNum", JSON.stringify(this.ticketsNum));
@@ -435,8 +437,8 @@ export default {
       this.movieSession["totalTicketsNum"]=this.ticketsTotal;
       // console.log(this.movieSession);
       sessionStorage.setItem("movie",JSON.stringify(this.movieSession));
+     this.loadScreeningID();
       
-      this.$router.push("/order/chooseSeat");
     }
   },
   computed: {
