@@ -326,11 +326,6 @@ export default {
                         _this.password = result[0].password;
                         _this.email = result[0].email;
                         _this.phone = result[0].phone;
-                        console.log(_this.password);
-                        // _this.$toasted.success("會員資料取得成功", {
-                        //     theme: 'bubble',
-                        //     duration: 3000
-                        // });
                     }).catch(function (error) {
                         _this.$toasted.error(error, {
                             theme: 'bubble',
