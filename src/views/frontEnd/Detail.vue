@@ -260,7 +260,7 @@ export default {
             window.location.href="./#/order"; 
         this.checkLoginAndGetData(); 
         this.countMoney();  
-        console.log(this.list)
+        // console.log(this.list)
     },
     methods:{ 
         chkIcon:function(num,empty,right,wrong){
@@ -291,12 +291,12 @@ export default {
         },
         post:function(){ 
             var JSONData = JSON.stringify(this.list);
-            var foodData   = JSON.stringify(this.list.foodData);
-            var ticketData = JSON.stringify(this.list.ticketData); 
+            var foodData   = this.list.foodData;
+            var ticketData = this.list.ticketData; 
             var postData = new FormData(); 
             postData.append('JSONData', JSONData); 
             postData.append('foodData', foodData); 
-            postData.append('ticketData', ticketData); 
+            postData.append('ticketData', ticketData);  
             // var SQL = 'show'  ;
             // var SQL = "desc"  ;
             // var SQL = "select"; 
@@ -344,9 +344,9 @@ export default {
             this.list.phone = sessionStorage.getItem('nowPhone'); 
         },
         checkLoginAndGetData: function(){
-            this.foodData   = JSON.parse(sessionStorage.getItem('movie')).mealsNameNum;
-            this.ticketData = JSON.parse(sessionStorage.getItem('movie')).ticketsNameNum;
-             
+            this.list.foodData   = JSON.parse(sessionStorage.getItem('movie')).mealsNameNum;
+            this.list.ticketData = JSON.parse(sessionStorage.getItem('movie')).ticketsNameNum;
+           
             // var choosedSeat = JSON.parse(sessionStorage.getItem('choosedSeat'));
             var choosedSeat = sessionStorage.getItem('choosedSeat');
             this.list.seat = choosedSeat;
