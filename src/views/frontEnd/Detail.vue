@@ -197,12 +197,12 @@
         </div>  
         <!-- error modal end-->
         <div class="btnGroup row"> 
-            <router-link class="btn btn-danger mr-3 router-link1" to="/order/chooseSeat">上一頁</router-link>
-            <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-outline-primary">
-                <i class="fa fa-check" aria-hidden="true"></i> 
+            <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center" to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
+            <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-primary">
+                <i class="fa fa-check" aria-hidden="true"></i>
                 確認訂購
             </button> 
-            <button @click="cancel" type='submit' name='btn' value='確認送出' class="router-link1 btn btn-outline-danger">
+            <button @click="cancel" type='submit' name='btn' value='確認送出' class="router-link1 btn btn-danger">
                 <i class="fa fa-times" aria-hidden="true"></i> 
                 取消訂購
             </button> 
@@ -260,6 +260,7 @@ export default {
             window.location.href="./#/order"; 
         this.checkLoginAndGetData(); 
         this.countMoney();  
+        console.log(this.list)
     },
     methods:{ 
         chkIcon:function(num,empty,right,wrong){
