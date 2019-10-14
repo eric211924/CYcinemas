@@ -275,7 +275,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" style="font-size:30px;">
       <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered">
           <div class="modal-content">
@@ -283,7 +283,7 @@
               <h4 class="modal-title" style="text-align:left; padding:10px">{{title}}</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body" style="text-align:left; padding:40px">
+            <div class="modal-body" >
               <h6>
                 <i class="fa fa-calendar" aria-hidden="true"></i>
                 開始日期 : {{start_time}}
@@ -299,15 +299,19 @@
               <h6>
                 <i class="fa fa-file-text-o" aria-hidden="true"></i>
                 活動辦法 :
-                <p style="line-height: 30px;">{{content}}</p>
+                <p style="line-height: 20px;">{{content}}</p>
               </h6>
             </div>
+            </div>
           </div>
-        </div>
-      </div>
     </div>
-
-    <!-- </div>
+    </div>
+  
+   </div>
+   </template>
+  
+           
+          <!-- </div>
           <div class="modal-body" style="text-align:left; padding:40px">
             <h6>
               <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -330,8 +334,8 @@
     <!-- <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     </div>-->
-  </div>
-</template>
+  <!-- </div>
+ </template>-->
 
 
 

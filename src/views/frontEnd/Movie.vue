@@ -1,4 +1,5 @@
 <template>
+  
   <div class="container">
     <h1 class="text-center my-5">本周上映</h1>
     <div class="row">
@@ -6,7 +7,7 @@
       
       
       
-      <!-- <div class="card mb-3" style="max-width: 540px;">
+      <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <a href="#" data-toggle="modal" data-target="#myModal">
@@ -25,11 +26,11 @@
               </a>
               <p
                 class="card-text"
-              >由布萊德彼特飾演一名航太工程師，為了尋找多年前啟程外太空尋找外星智慧生物，失蹤在茫茫宇宙的父親，他不惜跨越宇宙星系間，只為了尋找父親可能 仍生還的下落。</p>
+              ></p>
               <p class="card-text">
                 <small class="text-muted">
-                  
-
+                </small>  
+              </p>
                     <div class="btn-group">
                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       日期
@@ -38,8 +39,7 @@
                       <a class="dropdown-item" href="#">當日</a>
                       <a class="dropdown-item" href="#">週四, 2019/10/10</a>
                       <a class="dropdown-item" href="#">週五, 2019/10/11</a>
-                      <!-- <div class="dropdown-divider"></div> -->
-                      <!-- <a class="dropdown-item" href="#">週六,2019/10/12</a>
+                      <a class="dropdown-item" href="#">週六,2019/10/12</a>
                       <a class="dropdown-item" href="#">週日,2019/10/13</a>
                       <a class="dropdown-item" href="#">週一,2019/10/14</a>
                       <a class="dropdown-item" href="#">週二,2019/11/15</a>
@@ -56,23 +56,22 @@
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">14:15</a>
                     <a class="dropdown-item" href="#">18:20</a>
-                    <a class="dropdown-item" href="#">20:30</a> --> 
-                    <!-- <div class="dropdown-divider"></div> -->
-                    <!-- <a class="dropdown-item" href="#">22:40</a>
+                    <a class="dropdown-item" href="#">20:30</a>  
+                    <a class="dropdown-item" href="#">22:40</a>
                   </div>
                 </div>  
                 <button type="button" class="btn btn-outline-primary">訂票</button>
                   </div>
-                </small>
-              </p>
+                
+              
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
       
       
         <!--Modal-->
-        <!-- <div class="modal fade" id="myModal" role="dialog">
+         <!-- <div class="modal fade" id="myModal" role="dialog">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -132,7 +131,7 @@
               <h5 class="card-title">全面攻佔3</h5>
               <p
                 class="card-text"
-              >這次恐怖分子頭號目標，竟是最強特務-麥克班寧！《全面攻佔3：天使救援》故事時間設定在倫敦淪陷的兩年後，當年的副總統-艾倫已經變成美國總統，麥克班寧晉升為特勤局局長。恐怖份子這次盯上麥克，陷害他成為謀殺總統的通緝犯，被全球通緝！</p>
+              ></p>
               <p class="card-text">
                 <small class="text-muted"></small>
               </p>
@@ -153,7 +152,6 @@
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">返校</h5>
-              <p class="card-text">1962年寂寥而肅殺的時代，翠華中學高三生方芮欣，意外與輔導老師張明暉相戀，在問題叢生的家庭及學校中，他成為她唯一的出路。</p>
               <p class="card-text">
                 <small class="text-muted"></small>
               </p>
@@ -176,7 +174,7 @@
               <h5 class="card-title">花椒之味</h5>
               <p
                 class="card-text"
-              >在旅行社工作的夏如樹得知父親突如其來的死訊的同時，發現原來自己在台北、重慶兩地各有一個同父異母的妹妹夏如枝及夏如果。來自三個不同地域、性格迴異的三姐妹，在父親的葬禮上首次碰面，明明陌生却有著血緣的牽絆。</p>
+              ></p>
               <p class="card-text">
                 <small class="text-muted"></small>
               </p>
@@ -199,7 +197,7 @@
               <h5 class="card-title">我家有個開心農場</h5>
               <p
                 class="card-text"
-              >親手打造一座沒有極限的農場！只為了堅持對愛狗的承諾，約翰與茉莉這對瘋狂夫妻索性來去鄉下開農場！本片歷時十年追蹤，跟著這兩位瘋狂的夢想家和他們的愛狗塔德。</p>
+              ></p>
               <p class="card-text">
                 <small class="text-muted"></small>
               </p>
@@ -222,7 +220,7 @@
               <h5 class="card-title">天氣之子</h5>
               <p
                 class="card-text"
-              >高一那年夏天，帆高離開位在離島的家鄉，獨自來到東京，拮据的生活迫使他不得不找份工作，最後來到一間專門出版奇怪超自然刊物的出版社擔任寫手。</p>
+              ></p>
               <p class="card-text">
                 <small class="text-muted"></small>
               </p>
@@ -236,7 +234,7 @@
     <div class="row">
      
 
-      <div class="card mb-3" style="max-width: 540px;">
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -248,18 +246,18 @@
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">安眠醫生</h5>
-              <p
+              <div
                 class="card-text"
-              >史蒂芬金小說改編，經典電影「鬼店」續集！經過這麼多年，丹尼的依舊為童年時期遭遇的可怕事件留下創傷，當他遇到艾柏拉這位勇敢少女時，他平靜的生活完全破碎</p>
+              ></div>
               <p class="card-text">
                 <small class="text-muted"></small>
               </p>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="card mb-3" style="max-width: 540px;">
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -273,16 +271,16 @@
               <h5 class="card-title">冰雪奇緣2</h5>
               <p
                 class="card-text"
-              >《冰雪奇緣2》故事描述艾倫戴爾王國在女王艾莎帶領之下欣欣向榮，之前相敬如”冰”的姊妹也化解了心結，正當一切美好之際，艾莎卻聽到來自遠方的呼喚。</p>
+              ></p>
               <p class="card-text">
                 <small class="text-muted"></small>
               </p>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="card mb-3" style="max-width: 540px;">
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -303,9 +301,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="card mb-3" style="max-width: 540px;">
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -319,16 +317,16 @@
               <h5 class="card-title">布魯克林孤兒</h5>
               <p
                 class="card-text"
-              >在《布魯克林孤兒》中，艾德華諾頓飾演主角：萊諾艾斯洛，一個沒沒無聞又患有妥瑞症的私家偵探，提攜他的恩人與唯一的朋友法蘭克敏納遭人刺殺，憑藉著極有限的線索、超乎常人的執著、毅力，他一步一步地揭開隱藏在陰影下被層層保護的機密，</p>
+              ></p>
               <p class="card-text">
                 <small class="text-muted"></small>
               </p>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="card mb-3" style="max-width: 540px;">
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -342,18 +340,18 @@
               <h5 class="card-title">最後一滴血</h5>
               <p
                 class="card-text"
-              >遠離血腥戰場的英雄藍波，深陷創傷症候群的困擾，獨居在偏僻的農場中，過著人生中最黑暗的時刻。但當藍波得知朋友女兒遭到墨西哥毒販的綁架，他立刻展開調查與救援。 這次他將再次運用精湛的機關與戰鬥技巧，完成最後一次營救任務！</p>
+              ></p>
               <p class="card-text">
                 <small class="text-muted"></small>
               </p>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
           <!---------------------------------------------------------->
     
-      <div  v-for="(movie, index) in movies" :key="index">
+      <div v-for="(movie, index) in movies" :key="index">
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -396,7 +394,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
-                <iframe display="block"  width="100%" height="315" margin="0 auto" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe display="block"  width="100%" height="315" margin="0 auto" :src="trailer" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <img
                   :src= poster 
                   class="card-img"
@@ -429,8 +427,8 @@
             </div>
           </div>
         </div>
-              <!-- modal     -->
-
+      </div>        
+      <!-- modal     -->
 
 
 
@@ -438,7 +436,8 @@
 
      
     
-    </div>
+    
+    
   </div>
 </template>
 
@@ -456,7 +455,7 @@
 
 
 
-<script >
+
 
 
 
@@ -474,23 +473,67 @@
 //     }
 //   }
 // }
+//<script>
+// export default {
+//   data() {
+//     return {
+//       movies:null,
+//       actor:"",
+//       encoded_id:"",
+//       enname: "",
+//       genre: "",//類型
+//       id: "",
+//       info: "",
+//       name: "",
+//       play_date: "",//上映日期
+//       poster: "",
+//       rating: "",//級別
+//       run_time: "",
+//       show_status:"",
+//       trailer:""//預告片
+//     };
+//   },
+//   mounted() {
+//     const _this = this;
+//     this.axios
+//       .get("https://cy-cinemas.ml/movies/showMovies/comingSoon/1")
+//       .then(response => {
+//         _this.movies = response.data;
+//         console.log(_this.movies);
+//       })
+//       .catch(function (error) {
+//         console.log(error);
+//       });
+//   },
+//   methods: {
+//     getMovie(index) {
+//       this.actor = this.movies[index].actor;
+//       this.encoded_id = this.movies[index].encoded_id;
+//       this.enname = this.movies[index].enname;
+//       this.id = this.movies[index].id;
+//       this.info = this.movies[index].info;
+//       this.name = this.movies[index].name;
+//       this.play_date = this.movies[index].play_date;
+//       this.poster = this.movies[index].poster;
+//       this.rating = this.movies[index].rating;
+//       this.run_time = this.movies[index].run_time;
+//       this.show_status = this.movies[index].show_status;
+//       this.trailer = this.movies[index].trailer;
+//     }
+//   }
+// };
+// </script >
+
+<script >
 export default {
   data() {
     return {
-      movies:null,
-      actor:"",
-      encoded_id:"",
-      enname: "",
-      genre: "",//類型
-      id: "",
-      info: "",
-      name: "",
-      play_date: "",//上映日期
-      poster: "",
-      rating: "",//級別
-      run_time: "",
-      show_status:"",
-      trailer:""//預告片
+        movieData:{
+          name:""
+        },
+        pageData:{
+          name:""
+        }
     };
   },
   mounted() {
@@ -506,29 +549,43 @@ export default {
       });
   },
   methods: {
-    getMovie(index) {
-      this.actor = this.movies[index].actor;
-      this.encoded_id = this.movies[index].encoded_id;
-      this.enname = this.movies[index].enname;
-      this.id = this.movies[index].id;
-      this.info = this.movies[index].info;
-      this.name = this.movies[index].name;
-      this.play_date = this.movies[index].play_date;
-      this.poster = this.movies[index].poster;
-      this.rating = this.movies[index].rating;
-      this.run_time = this.movies[index].run_time;
-      this.show_status = this.movies[index].show_status;
-      this.trailer = this.movies[index].trailer;
-    }
+    getPage(page) {
+      this.pageData.actor = page.actor;
+      this.pageData.encoded_id = page.encoded_id;
+      this.pageData.enname = page.enname;
+      this.pageData.id = page.id;
+      this.pageData.info = page.info;
+      this.pageData.name = page.name;
+      this.pageData.play_date = page.play_date;
+      this.pageData.poster = page.poster;
+      this.pageData.rating = page.rating;
+      this.pageData.run_time = page.run_time;
+      this.pageData.show_status = page.show_status;
+      this.pageData.trailer = page.trailer;
+    },
+    getMovie(movie) {
+      this.movieData.actor = movie.actor;
+      this.movieData.encoded_id = movie.encoded_id;
+      this.movieData.enname = movie.enname;
+      this.movieData.id = movie.id;
+      this.movieData.info = movie.info;
+      this.movieData.name = movie.name;
+      this.movieData.play_date = movie.play_date;
+      this.movieData.poster = movie.poster;
+      this.movieData.rating = movie.rating;
+      this.movieData.run_time = movie.run_time;
+      this.movieData.show_status = movie.show_status;
+      this.movieData.trailer = movie.trailer;
+    } 
   }
-};
+}
+</script >
 
 
 
 
 
 
-</script>
 <style scoped>
 .card-img {
   /* width:auto;

@@ -295,21 +295,18 @@ export default {
             postData.append('JSONData', JSONData); 
             postData.append('foodData', foodData); 
             postData.append('ticketData', ticketData); 
-            postData.append('SQL', SQL); 
-            var SQL = 'show'  ;
+            // var SQL = 'show'  ;
             // var SQL = "desc"  ;
             // var SQL = "select"; 
-            // var ID ="16"; postData.append('ID', ID);
-            // var SQL = "save"  ;  
-            // this.axios.post(`${this.$api}/orde/sr`, postData)   
-            // this.axios.post(`${this.$api}/order/saveOrder`, postData)   
-            this.axios.post(`${this.$api}/order/testSaveOrder`, postData)   
-            // this.axios.post('http://localhost/php/testPDO.php', postData) 
+            // var ID ="2"; postData.append('ID', ID);
+            var SQL = "save"  ;  
+            postData.append('SQL', SQL);   
+            // this.axios.get(`${this.$api}/detail/saveOrder`, postData) 
+            this.axios.post(`${this.$api}/detail/saveOrder`, postData) 
             .then(function (response) { 
+                // console.log(response); //desc  show tables 
                 console.log(response.data); //desc  show tables 
-                // console.log(response.data["0"].FieldName);  //select
-                // console.log(response.data["0"].members_account);//
-                // console.log(response.data["0"].meals_num); 
+                // console.log(response.data["0"]);  //select id n 
             }).catch(function (error) { 
                 console.log(error); 
             }); 
@@ -318,7 +315,7 @@ export default {
             this.getOrderNumber();
             sessionStorage.setItem('FinishPageData',JSON.stringify(this.list)) 
             // console.log(JSON.stringify(this.list));
-            // this.post();
+            this.post();
             this.clrSession(); 
             window.location.href="./#/order/FinishDetail";
         },

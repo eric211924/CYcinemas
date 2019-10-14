@@ -247,9 +247,13 @@
           <p class="card-text"></p>
         </div>
         <div class="card-footer">
+<<<<<<< HEAD
+          <small class="text-muted">            
+=======
           <small class="text-muted">
             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal_3">預告</button>
             
+>>>>>>> 3e6477e557f7d1d55ae24dbbf5d168348c6c0341
           </small>
         </div>
       </div>
