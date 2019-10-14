@@ -3,7 +3,7 @@
     <h1 class="text-center my-3">最新消息</h1>
     <div class="container">
       <div class="row">
-        <div class="col-3 px-3 py-2" v-for="(item, index) in infos" :key="index">
+        <div class="col-6 col-md-4 col-md-3 px-3 py-2" v-for="(item, index) in infos" :key="index">
           <a href data-toggle="modal" data-target="#myModal" @click.prevent="getInfo(index)">
             <div class="card text-left">
               <img class="card-img-top" :src="item.img_normal_url" alt />

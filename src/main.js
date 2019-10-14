@@ -20,7 +20,7 @@ Vue.use(VueAxios, Axios);
 import 'font-awesome/css/font-awesome.css'
 
 // chart.js
-import Chart from 'chart.js';
+import Chart from 'chart.js'
 
 // UIkit
 import UIkit from 'uikit'
@@ -29,7 +29,12 @@ import 'uikit/dist/css/uikit.min.css'
 UIkit.use(Icons)
 Vue.prototype.$uikit = UIkit;
 
-Vue.config.productionTip = false;
+// youtube
+import VueYouTubeEmbed from 'vue-youtube-embed'
+Vue.use(VueYouTubeEmbed)
+Vue.use(VueYouTubeEmbed, { global: false })
+
+Vue.config.productionTip = false
 
 Vue.prototype.$api = 'https://cy-cinemas.ml'
 

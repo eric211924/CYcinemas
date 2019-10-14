@@ -29,5 +29,10 @@
 
 <script>
 export default {
+  mounted() {
+    if (!sessionStorage.getItem('nowAcc')) {
+      this.$router.push('/');
+    }
+  }
 }
 </script>

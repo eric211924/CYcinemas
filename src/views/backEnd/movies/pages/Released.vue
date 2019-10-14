@@ -1,12 +1,10 @@
 <template>
   <div>
-    <h4 class="text-center mt-5">要呈現在前台的電影</h4>
-    <hr />
+    <h4 class="uk-heading-line uk-text-center mt-4"><span>要呈現在前台的電影</span></h4>
     <h5 v-if="showMoviesData == ''" class="text-center">目前無資料</h5>
-    <MovieCard :action="'remove'" :movies-data="showMoviesData" @remove="removeShowMovies"></MovieCard>
-    <h4 class="text-center mt-5">所有已上映電影</h4>
-    <hr />
-    <MovieCard :action="'add'" :movies-data="moviesData" @add="addShowMovies"></MovieCard>
+    <MovieCard v-else :action="'remove'" :id="1" :movies-data="showMoviesData" @remove="removeShowMovies"></MovieCard>
+    <h4 class="uk-heading-line uk-text-center"><span>所有已上映電影</span></h4>
+    <MovieCard :action="'add'" :id="0" :movies-data="moviesData" @add="addShowMovies"></MovieCard>
   </div>
 </template>
 
@@ -40,7 +38,7 @@ export default {
     getShowMovies() {
       const _this = this;
       this.axios.get(`${this.$api}/movies/showMovies/released/1`).then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         _this.showMoviesData = response.data;
       });
     },
@@ -69,7 +67,7 @@ export default {
 <style lang="scss" scoped>
 h4 {
   font-weight: 600;
-  opacity: .5;
+  opacity: .7;
 }
 hr {
   margin-top: 0;

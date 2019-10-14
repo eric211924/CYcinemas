@@ -2,12 +2,12 @@
     <div>
         <h1 class="text-center my-5">消費/儲值紀錄</h1>
         <hr>
-        <button type="button" class="btn btn-primary btn-sm">LOG</button>
+        <button type="button" class="btn btn-primary btn-sm" @click="showDetail">LOG</button>
         <hr>
         <!-- 列出所有紀錄 -->
         <div class="accordion">
             <!-- 一筆訂單 -->
-            <div class="card" v-for="(item, key) in list">
+            <div class="card" v-for="(item, key) in list" :key="key">
                 <!-- 訂單標題 -->
                 <div class="card-header">
                     <h2 class="mb-0">
