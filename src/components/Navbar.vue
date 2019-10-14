@@ -3,7 +3,7 @@
     <router-link class="navbar-brand text-center d-block w-100" to="/">
       <img src="../assets/cy-cinemas-ok.png" height="100%" alt />
     </router-link>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-cy-deep">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-cy-deep" uk-sticky>
       <!-- 窄頁面時 navbar右邊的摺疊按鈕 -->
       <button
         class="navbar-toggler"
@@ -91,7 +91,7 @@
               to="/user"
               data-toggle="collapse"
               data-target=".navbar-collapse.show"
-            >{{ name }} 您好</router-link>
+            ><i class="fa fa-user" aria-hidden="true"></i> {{ name }} 您好</router-link>
           </li>
           <li
             class="nav-item"
@@ -233,6 +233,7 @@ export default {
       sessionStorage.removeItem('status');
       this.isLogin = false;
       this.isManager = false;
+      this.$router.push('/');
     }
   }
 }

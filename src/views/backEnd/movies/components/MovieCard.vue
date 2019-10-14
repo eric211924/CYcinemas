@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div
-        class="col-6 col-sm-4 col-lg-3 col-xl-2 my-2"
+        class="col-6 col-sm-4 col-lg-3 col-xl-2 my-2 uk-animation-toggle"
         v-for="(item, index) in moviesData"
         :key="index"
       >
@@ -22,21 +22,21 @@
             <button
               class="btn btn-warning mx-5 mb-2"
               data-toggle="modal"
-              data-target="#movieForm"
-              @click.prevent="movie = item; action = '修改'"
+              :data-target="`#movieForm${id}`"
+              @click.prevent="movie = item; event = '修改'"
             >修改</button>
             <button
               class="btn btn-info mx-5 mb-2"
               data-toggle="modal"
-              data-target="#viewMovies"
+              :data-target="`#viewMovies${id}`"
               @click.prevent="movie = item"
             >檢視</button>
           </div>
         </div>
       </div>
     </div>
-    <MovieForm :movie-data="movie" :action="action"></MovieForm>
-    <ViewMovies :movie-data="movie"></ViewMovies>
+    <MovieForm :movie-datas="movie" :id="id" :event="event"></MovieForm>
+    <ViewMovies :movie="movie" :id="id"></ViewMovies>
   </div>
 </template>
 
@@ -45,14 +45,16 @@ import ViewMovies from '@/views/backEnd/movies/components/ViewMovies.vue';
 import MovieForm from '@/views/backEnd/movies/components/MovieForm.vue';
 
 export default {
-  props: ['moviesData', 'action'],
+  props: ['moviesData', 'action', 'id'],
   components: {
     ViewMovies,
     MovieForm
   },
   data() {
     return {
-      movie: Array
+      movieId: Number,
+      movie: Array,
+      event: ''
     }
   },
   methods: {

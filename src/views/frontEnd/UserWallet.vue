@@ -7,7 +7,7 @@
         <!-- 列出所有紀錄 -->
         <div class="accordion">
             <!-- 一筆訂單 -->
-            <div class="card" v-for="(item, key) in list">
+            <div class="card" v-for="(item, key) in list" :key="key">
                 <!-- 訂單標題 -->
                 <div class="card-header">
                     <h2 class="mb-0">

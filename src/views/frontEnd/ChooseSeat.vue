@@ -15,21 +15,21 @@
         <table class="table table-borderless">  
             <tr> 
             <!--eslint-disable-next-line-->
-                <td v-for="obj in list[0]">
+                <td v-for="(obj, index) in list[0]" :key="index">
            {{obj.eng}}
                     <img @click="onClick=obj.Num;tap();"   :src="seatSrc[obj.Num]" class="seatImg"/>
                 </td>
             </tr>  
             <tr> 
             <!--eslint-disable-next-line-->
-                <td v-for="obj in list[1]">
+                <td v-for="(obj, index) in list[1]" :key="index">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}} 
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
                 </td>
             </tr>  
             <tr> 
             <!--eslint-disable-next-line-->
-                <td v-for="obj in list[2]">
+                <td v-for="(obj, index) in list[2]" :key="index">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
@@ -37,7 +37,7 @@
             </tr>  
             <tr> 
             <!--eslint-disable-next-line-->
-                <td v-for="obj in list[3]">
+                <td v-for="(obj, index) in list[3]" :key="index">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
@@ -45,7 +45,7 @@
             </tr>  
             <tr> 
             <!--eslint-disable-next-line-->
-                <td v-for="obj in list[4]">
+                <td v-for="(obj, index) in list[4]" :key="index">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
@@ -53,7 +53,7 @@
             </tr>  
             <tr> 
             <!--eslint-disable-next-line-->
-                <td v-for="obj in list[5]">
+                <td v-for="(obj, index) in list[5]" :key="index">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
@@ -61,7 +61,7 @@
             </tr>  
             <tr> 
             <!--eslint-disable-next-line-->
-                <td v-for="obj in list[6]">
+                <td v-for="(obj, index) in list[6]" :key="index">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
@@ -69,7 +69,7 @@
             </tr>  
             <tr> 
             <!--eslint-disable-next-line-->
-                <td v-for="obj in list[7]">
+                <td v-for="(obj, index) in list[7]" :key="index">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
@@ -77,7 +77,7 @@
             </tr>  
             <tr> 
             <!--eslint-disable-next-line-->
-                <td v-for="obj in list[8]">
+                <td v-for="(obj, index) in list[8]" :key="index">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
@@ -85,7 +85,7 @@
             </tr>  
             <tr> 
             <!--eslint-disable-next-line-->
-                <td v-for="obj in list[9]">
+                <td v-for="(obj, index) in list[9]" :key="index">
                     <span>{{obj.whiteStr}}</span>{{obj.eng}}
                     
                     <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
