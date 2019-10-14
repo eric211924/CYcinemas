@@ -207,13 +207,8 @@ export default {
     // if(this.initialCheck ==0) {
     //     this.seatSrc = JSON.parse(localStorage.getItem('seatSrc'));
     //     this.sellOutData = JSON.parse(localStorage.getItem('sellOutData'));
-<<<<<<< HEAD
-    },
-  
-=======
     } 
   ,
->>>>>>> 97afd33622786d17733b098dab272b7ee7d921a2
   methods: {  
     getSellOut(){
       this.axios.get(`${this.$api}/detail/getSellOut`).then(response => {  
