@@ -60,7 +60,7 @@ const router = new Router({
       path: '/bonus',
       name: 'bonus',
       // meta: { requiresAuth: true },
-      component: () => import('./views/frontEnd/hanlinBar.vue')
+      component: () => import('./views/frontEnd/HanlinBar.vue')
     },
     {
       path: '/user',
