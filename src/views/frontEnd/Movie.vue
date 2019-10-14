@@ -232,129 +232,10 @@
         <!---------------------------------------------------------------------------------------------------->
     <h1 class="text-center my-5">即將上映</h1>
     <div class="row">
-     
-
-      <!-- <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img
-              src="..\..\assets\movie\DOCTORSLEEP_180x270_Poster_soon_6.jpg"
-              class="card-img"
-              alt="..."
-            />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">安眠醫生</h5>
-              <div
-                class="card-text"
-              ></div>
-              <p class="card-text">
-                <small class="text-muted"></small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img
-              src="..\..\assets\movie\FROZEN2_180x270_Poster_soon_2.jpg"
-              class="card-img"
-              alt="..."
-            />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">冰雪奇緣2</h5>
-              <p
-                class="card-text"
-              ></p>
-              <p class="card-text">
-                <small class="text-muted"></small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img
-              src="..\..\assets\movie\LOVEANDRUN_180x270_Poster_soon_4.jpg"
-              class="card-img"
-              alt="..."
-            />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">只有我能喜歡你</h5>
-              <p
-                class="card-text"
-              >《模犯生》「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神，因此在學校中只要誰敢靠近她，他便會想盡各種辦法搞破壞！</p>
-              <p class="card-text">
-                <small class="text-muted"></small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img
-              src="..\..\assets\movie\MOTHERLESSBROOKLYN_180x270_Poster_soon_5.jpg"
-              class="card-img"
-              alt="..."
-            />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">布魯克林孤兒</h5>
-              <p
-                class="card-text"
-              ></p>
-              <p class="card-text">
-                <small class="text-muted"></small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img
-              src="..\..\assets\movie\RAMBOV_180x270_Poster_soon_3.jpg"
-              class="card-img"
-              alt="..."
-            />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">最後一滴血</h5>
-              <p
-                class="card-text"
-              ></p>
-              <p class="card-text">
-                <small class="text-muted"></small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-          <!---------------------------------------------------------->
-    
-      <div v-for="(movie, index) in movies" :key="index">
+      <div v-for="(movie, index) in comingSoon" :key="index">
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
-          <div class="col-md-4">
+          <div class="col-md-4 col-12">
             <a href="#" data-toggle="modal" data-target="#myModal" @click.prevent="getMovie(index)">
               <img
                 :src="movie.poster"
@@ -364,7 +245,7 @@
             </a>
           </div>
           
-          <div class="col-md-8">
+          <div class="col-md-8 col-12">
             <div class="card-body">
               <a href="#" data-toggle="modal" data-target="#myModal" @click.prevent="getMovie(index)">
                 <h5 class="card-title">{{movie.name}}</h5>
@@ -385,7 +266,7 @@
   </div><!--row-->
 
     <!--Modal-->
-    <div class="container">
+    <!-- <div class="container">
         <div class="modal fade" id="myModal" role="dialog">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -427,104 +308,12 @@
             </div>
           </div>
         </div>
-      </div>        
+      </div>         -->
       <!-- modal     -->
-
-
-
-
-
-     
-    
-    
-    
   </div>
 </template>
 
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import MovieCard from '@/components/MovieCard.vue'
-// export default {
-//   components: {
-//     // MovieCard
-//   },
-//   data() {
-//     return {
-//       imgAr: Array(8)
-//     }
-//   }
-// }
-//<script>
-// export default {
-//   data() {
-//     return {
-//       movies:null,
-//       actor:"",
-//       encoded_id:"",
-//       enname: "",
-//       genre: "",//類型
-//       id: "",
-//       info: "",
-//       name: "",
-//       play_date: "",//上映日期
-//       poster: "",
-//       rating: "",//級別
-//       run_time: "",
-//       show_status:"",
-//       trailer:""//預告片
-//     };
-//   },
-//   mounted() {
-//     const _this = this;
-//     this.axios
-//       .get("https://cy-cinemas.ml/movies/showMovies/comingSoon/1")
-//       .then(response => {
-//         _this.movies = response.data;
-//         console.log(_this.movies);
-//       })
-//       .catch(function (error) {
-//         console.log(error);
-//       });
-//   },
-//   methods: {
-//     getMovie(index) {
-//       this.actor = this.movies[index].actor;
-//       this.encoded_id = this.movies[index].encoded_id;
-//       this.enname = this.movies[index].enname;
-//       this.id = this.movies[index].id;
-//       this.info = this.movies[index].info;
-//       this.name = this.movies[index].name;
-//       this.play_date = this.movies[index].play_date;
-//       this.poster = this.movies[index].poster;
-//       this.rating = this.movies[index].rating;
-//       this.run_time = this.movies[index].run_time;
-//       this.show_status = this.movies[index].show_status;
-//       this.trailer = this.movies[index].trailer;
-//     }
-//   }
-// };
-// </script >
-
-<script >
+<script>
 export default {
   data() {
     return {
@@ -533,58 +322,70 @@ export default {
         },
         pageData:{
           name:""
-        }
+        },
+        released: [],
+        comingSoon: []
     };
   },
   mounted() {
-    const _this = this;
-    this.axios
-      .get("https://cy-cinemas.ml/movies/showMovies/comingSoon/1")
-      .then(response => {
-        _this.movies = response.data;
-        console.log(_this.movies);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    this.getComingSoonMovies();
+    // const _this = this;
+    // this.axios
+    //   .get("https://cy-cinemas.ml/movies/showMovies/comingSoon/1")
+    //   .then(response => {
+    //     _this.movies = response.data;
+    //     console.log(_this.movies);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   },
   methods: {
+    getComingSoonMovies() {
+      const _this = this;
+      this.axios.get(`${this.$api}/movies/showMovies/comingSoon/1`).then((response) => {
+        console.log(response.data);
+        _this.comingSoon = response.data;
+      });
+    },
+    getReleasedMovies() {
+      const _this = this;
+      this.axios.get(`${this.$api}/movies/showMovies/released/1`).then((response) => {
+        console.log(response.data);
+        _this.released = response.data;
+      });
+    },
     getPage(page) {
-      this.pageData.actor = page.actor;
-      this.pageData.encoded_id = page.encoded_id;
-      this.pageData.enname = page.enname;
-      this.pageData.id = page.id;
-      this.pageData.info = page.info;
-      this.pageData.name = page.name;
-      this.pageData.play_date = page.play_date;
-      this.pageData.poster = page.poster;
-      this.pageData.rating = page.rating;
-      this.pageData.run_time = page.run_time;
-      this.pageData.show_status = page.show_status;
-      this.pageData.trailer = page.trailer;
+      // this.pageData.actor = page.actor;
+      // this.pageData.encoded_id = page.encoded_id;
+      // this.pageData.enname = page.enname;
+      // this.pageData.id = page.id;
+      // this.pageData.info = page.info;
+      // this.pageData.name = page.name;
+      // this.pageData.play_date = page.play_date;
+      // this.pageData.poster = page.poster;
+      // this.pageData.rating = page.rating;
+      // this.pageData.run_time = page.run_time;
+      // this.pageData.show_status = page.show_status;
+      // this.pageData.trailer = page.trailer;
     },
     getMovie(movie) {
-      this.movieData.actor = movie.actor;
-      this.movieData.encoded_id = movie.encoded_id;
-      this.movieData.enname = movie.enname;
-      this.movieData.id = movie.id;
-      this.movieData.info = movie.info;
-      this.movieData.name = movie.name;
-      this.movieData.play_date = movie.play_date;
-      this.movieData.poster = movie.poster;
-      this.movieData.rating = movie.rating;
-      this.movieData.run_time = movie.run_time;
-      this.movieData.show_status = movie.show_status;
-      this.movieData.trailer = movie.trailer;
+      // this.movieData.actor = movie.actor;
+      // this.movieData.encoded_id = movie.encoded_id;
+      // this.movieData.enname = movie.enname;
+      // this.movieData.id = movie.id;
+      // this.movieData.info = movie.info;
+      // this.movieData.name = movie.name;
+      // this.movieData.play_date = movie.play_date;
+      // this.movieData.poster = movie.poster;
+      // this.movieData.rating = movie.rating;
+      // this.movieData.run_time = movie.run_time;
+      // this.movieData.show_status = movie.show_status;
+      // this.movieData.trailer = movie.trailer;
     } 
   }
 }
-</script >
-
-
-
-
-
+</script>
 
 <style scoped>
 .card-img {
