@@ -186,34 +186,34 @@ export default {
       selloutImg:imgSellout,
       seatImg:imgSeat ,
       aisleImg:imgAisle ,
-      initialCheck:0
+      initialCheck:0,
+      time1:0
     };
   },
   mounted() { 
     this.buildForListData();
-    this.getSellOut();
-    // this.getCourtsData();
-    // this.screenId = sessionStorage.getItem('screeningID'); 
+    this.getSellOut(); 
     if(sessionStorage.movie){
       this.movieName = JSON.parse(sessionStorage.movie)['moviesName'];
       this.movieDay = JSON.parse(sessionStorage.movie)['moviesDay'];
-      this.movieTime = JSON.parse(sessionStorage.movie)['moviesTime'];
+      this.movieTime = JSON.parse(sessionStorage.movie)['moviesTime']; 
     }
     this.max =
-        JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum)[0]+
-        JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum)[1]; 
-    sessionStorage.setItem('max',this.max); 
-    // console.log(this.initialCheck);
-    // if(this.initialCheck ==0) {
-    //     this.seatSrc = JSON.parse(localStorage.getItem('seatSrc'));
-    //     this.sellOutData = JSON.parse(localStorage.getItem('sellOutData'));
+        JSON.parse(JSON.parse(sessionStorage.movie).ticketsNum)[0]+
+        JSON.parse(JSON.parse(sessionStorage.movie).ticketsNum)[1]; 
+    sessionStorage.setItem('max',this.max);  
     },
   methods: {  
     getSellOut(){
-      this.axios.get(`${this.$api}/detail/getSellOut`).then(response => {  
+      var ID = sessionStorage.screeningID; 
+      // var ID = "2"; 
+      var postData = new FormData(); 
+      postData.append('ID', ID);
+      this.axios.post(`${this.$api}/detail/getSellOut`, postData).then(response => { 
           var seatDataNumArray =[];
           for (let i = 0; i <response.data.length; i++) {
                   var allSeat = response.data[i].seat;  
+                  // console.log(allSeat);
                   var array = allSeat.split(",");  
                   for (let k = 0; k <array.length; k++) {
                       var strEng = array[k].substring(0,1);
@@ -224,6 +224,11 @@ export default {
                       // console.log(seatDataNum); 
                       seatDataNumArray.push(seatDataNum);
               }
+              //設定最後一筆訂單的時間戳記
+              if(i == response.data.length-1)
+                  this.time1 =Number(response.data[i].time1) ; 
+          // console.log(response.data[i].time1);
+          // console.log(typeof(this.time1));
           }
           // console.log(seatDataNumArray); 
           //載入售出位置 
@@ -296,15 +301,70 @@ export default {
           
       // {eng:"A",seatNum:1,Num:1},
 
-    },   
+    },  
+    tapGetSellOut(){
+      
+      var ID = sessionStorage.screeningID;   
+      var postData = new FormData(); 
+      postData.append('ID', ID);
+      postData.append('time1', this.time1);
+      this.axios.post(`${this.$api}/detail/tapGetSellOut`, postData).then(response => { 
+          // console.log(response.data);
+          if(response.data[0].seat){
+
+          var seatDataNumArray =[];
+          for (let i = 0; i <response.data.length; i++) {
+                  var allSeat = response.data[i].seat;  
+                  // console.log(allSeat);
+                  var array = allSeat.split(",");  
+                  for (let k = 0; k <array.length; k++) {
+                      var strEng = array[k].substring(0,1);
+                      var strNum = array[k].substring(1,3);
+                      // console.log(array[k]);   
+                      var asciiNum =strEng.charCodeAt()-65;
+                      var seatDataNum = asciiNum*28+Number(strNum); 
+                      // console.log(seatDataNum); 
+                      seatDataNumArray.push(seatDataNum);
+                  }
+              }
+          // }
+          // // console.log(seatDataNumArray); 
+          // //載入售出位置 
+          // for(let i=1; i <=280; i++){
+          //    this.sellOutData[i] = 0;
+          // }   
+          for(let i=0; i < seatDataNumArray.length; i++){ 
+             this.seatSrc[seatDataNumArray[i]] = this.selloutImg;
+             this.seatSelected[i] ="X";
+          }    
+
+          // //設定所有走道
+          // this.seatSrc[0] = this.aisleImg;  
+          // //設定所有座位圖示
+          // for(let i=1; i <=280; i++){
+          //     if(this.sellOutData[i] == 1){ 
+          //       //座位售出
+          //         this.seatSrc[i] = this.selloutImg;
+          //         this.seatSelected[i] ="X";
+          //     }else{
+          //         //座位可選擇
+          //       this.seatSrc[i] = this.seatImg; 
+          //     }
+          // } 
+          }else{
+            console.log("no sellout")
+          }
+      });  
+    }, 
     tap(){  
-      console.log(this.onClick); 
+      this.tapGetSellOut();
+      // console.log(typeof(Number("1571051990")));  
+      // console.log(Number("1571051990")-Number("1571051990"));  
       if(this.onClick==0)
         return;
        switch (this.seatSrc[this.onClick]) {  
         //點打勾位  
-        case this.selectImg:
-            console.log("點打勾位"); 
+        case this.selectImg: 
             this.to= "";
             this.maxCount--;
             this.seatSelected[this.onClick] = 0;
@@ -312,8 +372,7 @@ export default {
             this.tapChangeSession();
             break; 
         //點空位  
-        case this.seatImg:
-            console.log("點空位"); 
+        case this.seatImg: 
             if(this.maxCount  == this.max)
                 return ;
             if(this.maxCount +1 == this.max)
@@ -324,6 +383,7 @@ export default {
             this.tapChangeSession();
             break;  
         }  
+        
     } ,
     //及時更改session
     tapChangeSession(){ 
@@ -393,8 +453,21 @@ div {
     text-align: center;
   }
 }  
-.forTable{
-  // width:100%
-  overflow: scroll;
+//RWD  寬度769px以上
+@media only screen and (min-width: 769px) {
+    .forTable{ 
+    }
+}
+//RWD  寬度768px~321px
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+    .forTable{ 
+         overflow: scroll;
+    }
+}
+//RWD  寬度320px~0px
+@media only screen and (min-width: 0px) and (max-width: 320px){
+    .forTable{ 
+      overflow: scroll;
+    }
 }
 </style>

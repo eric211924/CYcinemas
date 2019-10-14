@@ -288,7 +288,7 @@ export default {
             if(this.chkInputRight['1'] && this.chkInputRight['2'] && this.chkInputRight['3'])  
                 return this.target = "#confirm"; 
             this.target = "#error";
-        },
+        }, 
         post:function(){ 
             var JSONData = JSON.stringify(this.list);
             var foodData   = this.list.foodData;
