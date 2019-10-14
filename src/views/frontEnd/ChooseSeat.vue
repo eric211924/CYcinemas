@@ -191,11 +191,11 @@ export default {
         JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum)[1]; 
     sessionStorage.setItem('max',this.max); 
     // console.log(this.initialCheck);
-    if(this.initialCheck ==0) {
-        this.seatSrc = JSON.parse(localStorage.getItem('seatSrc'));
-        this.sellOutData = JSON.parse(localStorage.getItem('sellOutData'));
+    // if(this.initialCheck ==0) {
+    //     this.seatSrc = JSON.parse(localStorage.getItem('seatSrc'));
+    //     this.sellOutData = JSON.parse(localStorage.getItem('sellOutData'));
     } 
-  },
+  ,
   methods: {  
     getSellOut(){
       this.axios.get(`${this.$api}/detail/getSellOut`).then(response => {  
