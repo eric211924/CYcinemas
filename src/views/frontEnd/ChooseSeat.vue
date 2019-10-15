@@ -192,7 +192,7 @@ export default {
     };
   },
   mounted() { 
-    this.screeningID = sessionStorage.screeningID; 
+    // this.screeningID = sessionStorage.screeningID; 
     //  var time = new Date();
     //   while(new Date()-time<5000)
     this.buildForListData();
@@ -204,8 +204,8 @@ export default {
       this.movieTime = JSON.parse(sessionStorage.movie)['moviesTime']; 
     }
     this.max =
-        JSON.parse(JSON.parse(sessionStorage.movie).ticketsNum)[0]+
-        JSON.parse(JSON.parse(sessionStorage.movie).ticketsNum)[1]; 
+        JSON.parse(JSON.parse(sessionStorage.movie).totalTicketsNum)
+        // JSON.parse(JSON.parse(sessionStorage.movie).ticketsNum)[1]; 
     sessionStorage.setItem('max',this.max);  
     },
   methods: {  
