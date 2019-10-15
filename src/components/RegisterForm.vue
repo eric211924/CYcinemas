@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
               <label for>密碼 :</label>
-              <input type="text" class="form-control" maxlength="20" v-model="password" :class="isValid[2]"/>
+              <input type="password" class="form-control" maxlength="20" v-model="password" :class="isValid[2]"/>
               <div class="text-center" :class="isValidMsg[2]">{{ pwdResult }}</div>
             </div>
             <div class="form-group">
@@ -49,7 +49,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clearText">取消</button>
             <button
               type="button"
               class="btn btn-primary"
@@ -125,7 +125,7 @@ export default {
           var _this = this;
           var account = val;
           var num_rows = 0;
-          this.axios.get('https://cy-cinemas.ml/members/' + account)
+          this.axios.get(`${this.$api}/members/` + account)
             .then(function (response) {
               num_rows = response.data;
               if(num_rows > 0) {
@@ -213,6 +213,13 @@ export default {
     },
   },
   methods: {
+    clearText() {
+      this.name = '';
+      this.account =  '';
+      this.password = '';
+      this.email = '';
+      this.phone = '';
+    },
     checkInput() {
       if (this.nameReady == false || this.accReady == false || this.pwdReady == false || this.emailReady == false || this.phoneReady == false) {
         this.isDisabled = true;
@@ -228,9 +235,7 @@ export default {
       formData.append('password', this.password);
       formData.append('email', this.email);
       formData.append('phone', this.phone);
-      // https://cy-cinemas.ml/members/members
-      // http://localhost/CYcinemasBackEnd/members/members
-      this.axios.post('https://cy-cinemas.ml/members/members', formData)
+      this.axios.post(`${this.$api}/members/members`, formData)
         .then(function (response) {
           _this.result = response.data;
           _this.$toasted.success(_this.result, {

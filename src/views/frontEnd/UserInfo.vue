@@ -26,7 +26,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        可修改: 姓名/Email/電話
+                        <!-- 可修改: 姓名/Email/電話 -->
                         <form>
                             <div class="form-group">
                                 <label>姓名:</label>
@@ -66,20 +66,20 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        輸入舊密碼/輸入新密碼/確認新密碼
+                        <!-- 輸入舊密碼/輸入新密碼/確認新密碼 -->
                         <form>
                             <div class="form-group">
                                 <label>舊密碼:</label>
-                                <input type="text" class="form-control" maxlength="20" v-model="oldPwd">
+                                <input type="password" class="form-control" maxlength="20" v-model="oldPwd">
                             </div>
                             <div class="form-group">
                                 <label>新密碼:</label>
-                                <input type="text" class="form-control" maxlength="20" v-model="newPwd" :class="pwdIsValid">
+                                <input type="password" class="form-control" maxlength="20" v-model="newPwd" :class="pwdIsValid">
                                 <div class="text-center" :class="pwdIsValidMsg">{{ pwdResult }}</div>
                             </div>
                             <div class="form-group">
                                 <label>確認新密碼:</label>
-                                <input type="text" class="form-control" maxlength="20" v-model="renewPwd" :class="renewPwdIsValid">
+                                <input type="password" class="form-control" maxlength="20" v-model="renewPwd" :class="renewPwdIsValid">
                                 <div class="text-center" :class="renewPwdIsValidMsg">{{ renewPwdResult }}</div>
                             </div>
                         </form>
@@ -253,7 +253,7 @@ export default {
             saveData.append('newName', this.changeName);
             saveData.append('newEmail', this.changeEmail);
             saveData.append('newPhone', this.changePhone);
-            this.axios.post('https://cy-cinemas.ml/members/saveEditData', saveData)
+            this.axios.post(`${this.$api}/members/saveEditData`, saveData)
                 .then(function (response) {
                     var result = response.data;
                     if (result == 'success') {
@@ -261,7 +261,10 @@ export default {
                             theme: 'bubble',
                             duration: 3000
                         });
-                        sessionStorage.setItem("nowName", _this.changeName); // 修改原本在session的name
+                        // 修改原本在session的name email phone
+                        sessionStorage.setItem("nowName", _this.changeName); 
+                        sessionStorage.setItem("nowEmail", _this.changeEmail);
+                        sessionStorage.setItem("nowPhone", _this.changePhone);
                         location.reload(true); // 頁面刷新(為了更新navbar上的名字)
                     } else {
                         _this.$toasted.error("會員資料修改失敗", {
@@ -284,7 +287,7 @@ export default {
             pwdData.append('nowAcc', nowAcc);
             pwdData.append('oldPwd', this.oldPwd);
             pwdData.append('newPwd', this.newPwd);
-            this.axios.post('https://cy-cinemas.ml/members/saveNewPwd', pwdData)
+            this.axios.post(`${this.$api}/members/saveNewPwd`, pwdData)
                 .then(function (response) {
                     var result = response.data;
                     if (result == 'success') {
@@ -317,7 +320,7 @@ export default {
                 var _this = this;
                 var formData = new FormData();
                 formData.append('account', nowAcc);
-                this.axios.post('https://cy-cinemas.ml/members/showUserData', formData)
+                this.axios.post(`${this.$api}/members/showUserData`, formData)
                     .then(function (response) {
                         // 傳目前登入的帳號過去找 找回所有資料 顯示於頁面上
                         var result = response.data;
