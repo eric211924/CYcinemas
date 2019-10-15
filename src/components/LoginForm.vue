@@ -30,7 +30,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clearText()">取消</button>
             <button type="button" class="btn btn-primary" @click="setCookie()">登入</button>
           </div>
         </div>
@@ -49,6 +49,10 @@ export default {
     }
   },
   methods: {
+    clearText() {
+      this.account = '';
+      this.password = '';
+    },
     setCookie() {
       // 取得登入的帳密 做登入比對
       sessionStorage.setItem('logAccount', this.account);
