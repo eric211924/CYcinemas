@@ -40,7 +40,7 @@
         </tr>
       </tbody>
     </table>
-    <DeleteModal @delete="deleteNews" @clear="cleanData"></DeleteModal>
+    <DeleteModal @delete="deleteDiscount" @clear="cleanData"></DeleteModal>
     <!-- 折扣表單 -->
     <div
       class="modal fade"
@@ -82,11 +82,11 @@
               </div>
               <div class="form-group">
                 <label>開始時間 :</label>
-                <input type="date" class="form-control" v-model="startTime" required />
+                <input type="datetime-local" class="form-control" v-model="startTime" required />
               </div>
               <div class="form-group">
                 <label>結束時間 :</label>
-                <input type="date" class="form-control" v-model="endTime" required />
+                <input type="datetime-local" class="form-control" v-model="endTime" required />
               </div>
             </form>
           </div>
@@ -171,11 +171,44 @@ export default {
             _this.discount = data.discount;
             _this.description = data.description;
             _this.startTime =
-              data.start_time == "0000-00-00" ? "" : data.start_time;
-            _this.endTime = data.end_time == "0000-00-00" ? "" : data.end_time;
+              data.start_time == "0000-00-00T00:00:00" ? "" : data.start_time.replace(/[\s]/,'T');
+            _this.endTime = data.end_time == "0000-00-00T00:00:00" ? "" : data.end_time.replace(/[\s]/,'T');
             _this.setId = data.id;
           });
       }
+        console.log("startTime: " + this.startTime);
+
+    },
+    // 更新News
+    updateDiscount() {
+      const _this = this;
+      let formData = new FormData();
+      formData.append("discount", this.discount);
+      formData.append("description", this.description);
+      formData.append("startTime", this.startTime);
+      formData.append("endTime", this.endTime);
+      this.axios
+        .post(`${this.$api}/discount/${this.setId}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(response => {
+          // console.log(response.data);
+          if (response.data.status == 200) {
+            _this.$toasted.success(response.data.msg, {
+              theme: "bubble",
+              duration: 3000
+            });
+            _this.getDiscountsData(); // 更新後刷新畫面
+            _this.cleanData(); // 更新後將表單資料清空
+          } else {
+            _this.$toasted.error(response.data.msg, {
+              theme: "bubble",
+              duration: 3000
+            });
+          }
+        });
     },
     // 新增Discount
     addDiscount() {
