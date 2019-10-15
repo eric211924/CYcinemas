@@ -48,13 +48,13 @@
         <input type="text" class="text-right" disabled v-model="totalPoint" />
       </div>
       <hr />
-      <div class="row mt-5">
+      <div class="row mt-2">
         <div class="col-md-6 col-3 text-center">
           <img src="../../assets/hanlinBar/popcorn.png" alt />
-          <br />
+          <p class="m-1">×2/6</p>
           <input
             type="text"
-            class="text-center mt-3 border border-secondary"
+            class="text-center border border-secondary"
             maxlength="3"
             v-bind:disabled="isStarted"
             v-model="betPopcorn"
@@ -80,10 +80,10 @@
 
         <div class="col-md-6 col-3 text-center">
           <img src="../../assets/hanlinBar/drink.png" alt />
-          <br />
+          <p class="m-1">×3</p>
           <input
             type="text"
-            class="text-center mt-3 border border-secondary"
+            class="text-center border border-secondary"
             maxlength="3"
             v-bind:disabled="isStarted"
             v-model="betDrink"
@@ -108,10 +108,10 @@
         </div>
         <div class="col-md-6 col-3 text-center">
           <img src="../../assets/hanlinBar/mealSet.png" alt />
-          <br />
+          <p class="m-1">×4</p>
           <input
             type="text"
-            class="text-center mt-3 border border-secondary"
+            class="text-center border border-secondary"
             maxlength="3"
             v-bind:disabled="isStarted"
             v-model="betMealSet"
@@ -136,10 +136,10 @@
         </div>
         <div class="col-md-6 col-3 text-center">
           <img src="../../assets/hanlinBar/threeBar.png" alt />
-          <br />
+          <p class="m-1">×5/7/10</p>
           <input
             type="text"
-            class="text-center mt-3 border border-secondary"
+            class="text-center border border-secondary"
             maxlength="3"
             v-bind:disabled="isStarted"
             v-model="betBar"
@@ -509,7 +509,7 @@ export default {
       var totalOdds = 0;
       this.endPrizeArray = [];
       for (let k = 0; k < 7; k++) totalOdds += this.bettingOddsArray[k];
-      console.log("totalOdds: " + totalOdds);
+      // console.log("totalOdds: " + totalOdds);
       console.log("winOdds: " + this.winOdds);
       for (let k = 0; k < 7; k++) {
         this.bettingOddsArray[k] = Math.floor(
@@ -612,5 +612,9 @@ input {
 }
 i {
   cursor: pointer;
+}
+
+p{
+  font-size:1.8vw;
 }
 </style>
