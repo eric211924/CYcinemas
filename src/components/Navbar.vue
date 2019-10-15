@@ -166,7 +166,7 @@ export default {
       loginData.append('password', logPassword);
       // http://localhost/CYcinemasBackEnd/members/login
       // https://cy-cinemas.ml/members/login
-      this.axios.post('https://cy-cinemas.ml/members/login', loginData)
+      this.axios.post(`${this.$api}/members/login`, loginData)
         .then(function (response) {
           var result = response.data; // 有此會員: 回傳姓名 帳號 信箱 電話, 無此會員: 回傳'Failed'
           if (result == 'Failed') {
