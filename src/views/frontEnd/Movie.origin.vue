@@ -452,6 +452,7 @@ export default {
     };
   },
   mounted() {
+<<<<<<< HEAD:src/views/frontEnd/movie.vue
     const _this = this;
     this.axios
       .get("https://cy-cinemas.ml/movies/showMovies/comingSoon/1")
@@ -462,6 +463,9 @@ export default {
       .catch(function (error) {
         console.log(error);
       });
+=======
+    this.getComingSoonMovies();
+>>>>>>> c27e15db1035998775da57c91e66f349a12b53d9:src/views/frontEnd/Movie.origin.vue
   },
   methods: {
     getMovies() {
@@ -490,7 +494,10 @@ export default {
 
   }
 }
+<<<<<<< HEAD:src/views/frontEnd/movie.vue
 
+=======
+>>>>>>> c27e15db1035998775da57c91e66f349a12b53d9:src/views/frontEnd/Movie.origin.vue
 </script>
 // export default {
 //   data() {
@@ -546,6 +553,11 @@ export default {
 //     } 
 //   }
 // }
+
+
+
+
+
 
 
 

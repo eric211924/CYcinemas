@@ -141,7 +141,7 @@ const router = new Router({
         {
           path: 'report',
           name: 'report',
-          component: () => import('./views/backEnd/Report.vue')
+          component: () => import('./views/backEnd/report/pages/Report.vue')
         }
       ]
     }
