@@ -28,7 +28,7 @@
               ></p>
               <p class="card-text">
                   
-              </p>
+                </p>
                     <div class="btn-group">
                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       日期
@@ -42,20 +42,8 @@
                       <a class="dropdown-item" href="#">週一,2019/10/14</a>
                       <a class="dropdown-item" href="#">週二,2019/11/15</a>
                       <a class="dropdown-item" href="#">週三,2019/10/16</a>
-                    </div>
-                  </div>
-                  <div>
-                  
-                  
-                  <div class="btn-group">
-                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    場次
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">14:15</a>
-                    <a class="dropdown-item" href="#">18:20</a>
-                    <a class="dropdown-item" href="#">20:30</a>  
-                    <a class="dropdown-item" href="#">22:40</a>
+              </div>
+            </div>
                   </div>
                 </div>  
                 <button type="button" class="btn btn-outline-primary">訂票</button>
@@ -106,8 +94,6 @@
                         </ul>
                 </p>          
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
