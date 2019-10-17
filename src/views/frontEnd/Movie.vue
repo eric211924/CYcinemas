@@ -16,7 +16,6 @@
                 class="card-img"
                 alt="..."
               />
-            </a>
           </div>
           
           <div class="col-md-8">
