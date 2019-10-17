@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="4000">
+  <div class="">
+    <div id="carouselExampleIndicators" class="carousel slide p-0" data-ride="carousel" data-interval="4000">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>  
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -41,7 +41,7 @@
     <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
 
     <!-- 阿正 UIkit 滑塊 start -->
-    <div uk-slider="center: true; autoplay: true; autoplay-interval: 3000; index: 0">
+    <div uk-slider="center: true; autoplay: true; autoplay-interval: 3000; index: 0" class="container">
       <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
         <ul class="uk-slider-items uk-child-width-1-4@s uk-grid">
             <li v-for="(item, index) in releasedMovies" :key="index">
@@ -244,7 +244,7 @@
         <a href="#" data-toggle="modal" data-target="#myModal_3"><img src="..\..\assets\home_s_3.jpeg" class="card-img-top imgSmall" alt="..." /></a>
         <div class="card-body">
           <h5 class="card-title">小丑</h5>
-          <p class="card-text"></p>
+          <!-- <p class="card-text"></p> -->
         </div>
         <div class="card-footer">
 
@@ -253,10 +253,17 @@
             
           </small> -->
 
+<<<<<<< HEAD
           
             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal_3">預告</button>
             
           
+=======
+          <small class="text-muted">
+            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal_3">預告</button>
+            
+          </small>
+>>>>>>> d6798d043ee4d3c21482a37814eeb903cd1a71b5
 
         </div>
       </div>
@@ -400,7 +407,7 @@ li{
   float:left;
   margin:10px;
 }
-.uk-position-center-left {
-  background-color: #888;
+.uk-position-center-left, .uk-position-center-right {
+  background-color: #becb01;
 }
 </style>

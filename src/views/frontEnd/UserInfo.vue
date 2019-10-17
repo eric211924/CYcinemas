@@ -26,7 +26,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        可修改: 姓名/Email/電話
+                        <!-- 可修改: 姓名/Email/電話 -->
                         <form>
                             <div class="form-group">
                                 <label>姓名:</label>
@@ -56,36 +56,36 @@
         </div>
 
         <!-- 密碼修改視窗 -->
-        <div class="modal fade" id="changePwd">
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="changePwd">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalCenterTitle">修改密碼</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="clearPwd">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        輸入舊密碼/輸入新密碼/確認新密碼
+                        <!-- 輸入舊密碼/輸入新密碼/確認新密碼 -->
                         <form>
                             <div class="form-group">
                                 <label>舊密碼:</label>
-                                <input type="text" class="form-control" maxlength="20" v-model="oldPwd">
+                                <input type="password" class="form-control" maxlength="20" v-model="oldPwd">
                             </div>
                             <div class="form-group">
                                 <label>新密碼:</label>
-                                <input type="text" class="form-control" maxlength="20" v-model="newPwd" :class="pwdIsValid">
+                                <input type="password" class="form-control" maxlength="20" v-model="newPwd" :class="pwdIsValid">
                                 <div class="text-center" :class="pwdIsValidMsg">{{ pwdResult }}</div>
                             </div>
                             <div class="form-group">
                                 <label>確認新密碼:</label>
-                                <input type="text" class="form-control" maxlength="20" v-model="renewPwd" :class="renewPwdIsValid">
+                                <input type="password" class="form-control" maxlength="20" v-model="renewPwd" :class="renewPwdIsValid">
                                 <div class="text-center" :class="renewPwdIsValidMsg">{{ renewPwdResult }}</div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clearPwd">取消</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" v-bind:disabled="pwdCDisabled" @click="saveNewPwd">
                             送出
                         </button>
@@ -141,7 +141,7 @@ export default {
     watch: {
         changeName: function (val) {
             console.log("change name");
-            var nameTest = /^[^.,\/#!$%\^&\*;:{}=\-_`~()@<>\s]{1,}/.test(val);
+            var nameTest = /^[^.,\/#!$%\^&\*;:{}=\-_`~()@<>\s]{1,}$/.test(val);
             if (nameTest) {
                 this.nameResult = "OK";
                 this.nameReady = true;
@@ -191,7 +191,7 @@ export default {
             }
         },
         newPwd: function (val) {
-            var pwdTest = /^[A-Za-z0-9]{5,}/gm.test(val);
+            var pwdTest = /^[A-Za-z0-9]{5,}$/gm.test(val);
             if (pwdTest) {
                 this.pwdResult = "";
                 this.pwdReady = true;
@@ -223,6 +223,11 @@ export default {
         }
     },
     methods: {
+        clearPwd() {
+            this.oldPwd = '';
+            this.newPwd = '';
+            this.renewPwd = '';
+        },
         checkInput() {
             if (this.nameReady == false || this.emailReady == false || this.phoneReady == false) {
                 this.editDisabled = true;
@@ -253,7 +258,7 @@ export default {
             saveData.append('newName', this.changeName);
             saveData.append('newEmail', this.changeEmail);
             saveData.append('newPhone', this.changePhone);
-            this.axios.post('https://cy-cinemas.ml/members/saveEditData', saveData)
+            this.axios.post(`${this.$api}/members/saveEditData`, saveData)
                 .then(function (response) {
                     var result = response.data;
                     if (result == 'success') {
@@ -261,7 +266,10 @@ export default {
                             theme: 'bubble',
                             duration: 3000
                         });
-                        sessionStorage.setItem("nowName", _this.changeName); // 修改原本在session的name
+                        // 修改原本在session的name email phone
+                        sessionStorage.setItem("nowName", _this.changeName); 
+                        sessionStorage.setItem("nowEmail", _this.changeEmail);
+                        sessionStorage.setItem("nowPhone", _this.changePhone);
                         location.reload(true); // 頁面刷新(為了更新navbar上的名字)
                     } else {
                         _this.$toasted.error("會員資料修改失敗", {
@@ -284,7 +292,7 @@ export default {
             pwdData.append('nowAcc', nowAcc);
             pwdData.append('oldPwd', this.oldPwd);
             pwdData.append('newPwd', this.newPwd);
-            this.axios.post('https://cy-cinemas.ml/members/saveNewPwd', pwdData)
+            this.axios.post(`${this.$api}/members/saveNewPwd`, pwdData)
                 .then(function (response) {
                     var result = response.data;
                     if (result == 'success') {
@@ -317,7 +325,7 @@ export default {
                 var _this = this;
                 var formData = new FormData();
                 formData.append('account', nowAcc);
-                this.axios.post('https://cy-cinemas.ml/members/showUserData', formData)
+                this.axios.post(`${this.$api}/members/showUserData`, formData)
                     .then(function (response) {
                         // 傳目前登入的帳號過去找 找回所有資料 顯示於頁面上
                         var result = response.data;

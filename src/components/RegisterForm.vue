@@ -14,7 +14,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalCenterTitle">註冊</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="clearText">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -24,17 +24,15 @@
               <label for>姓名 :</label>
               <input type="text" class="form-control" maxlength="20" v-model="name" :class="isValid[0]"/>
               <div class="text-center" :class="isValidMsg[0]">{{ nameResult }}</div>
-              <!-- {{ nameResult }} -->
             </div>
             <div class="form-group">
               <label for>帳號 :</label>
               <input type="text" class="form-control" maxlength="20" v-model="account" :class="isValid[1]"/>
               <div class="text-center" :class="isValidMsg[1]">{{ accResult }}</div>
-              <!-- {{ accResult }} -->
             </div>
             <div class="form-group">
               <label for>密碼 :</label>
-              <input type="text" class="form-control" maxlength="20" v-model="password" :class="isValid[2]"/>
+              <input type="password" class="form-control" maxlength="20" v-model="password" :class="isValid[2]"/>
               <div class="text-center" :class="isValidMsg[2]">{{ pwdResult }}</div>
             </div>
             <div class="form-group">
@@ -49,7 +47,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clearText">取消</button>
             <button
               type="button"
               class="btn btn-primary"
@@ -98,7 +96,7 @@ export default {
     // 姓名: 長度不限 (但不含特殊符號 空白 與 數字)
     // ^[\u4e00-\u9fa5a-zA-Z0-9]+$
     name: function (val) {
-      var nameTest = /^[^.,\/#!$%\^&\*;:{}=\-_`~()@<>\s]{1,}/.test(val);
+      var nameTest = /^[^.,\/#!$%\^&\*;:{}=\-_`~()@<>\s]{1,}$/.test(val);
       // if (val != '') {
         if(nameTest == false) {
           this.nameResult = "姓名不能有特殊符號 數字 空白";
@@ -118,14 +116,14 @@ export default {
     // 帳號: 至少五碼 且為任意英數字組合 (不含特殊符號) 
     // 並同時比對資料庫是否有相同帳號
     account: function (val) {
-      var accTest = /^[A-Za-z0-9]{5,}/gm.test(val);
+      var accTest = /^[A-Za-z0-9]{5,}$/gm.test(val);
       // if (val != '') {
         if (accTest) {
           // 通過正規表示式 => 檢查帳號是否存在
           var _this = this;
           var account = val;
           var num_rows = 0;
-          this.axios.get('https://cy-cinemas.ml/members/' + account)
+          this.axios.get(`${this.$api}/members/` + account)
             .then(function (response) {
               num_rows = response.data;
               if(num_rows > 0) {
@@ -156,7 +154,7 @@ export default {
     },
     // 密碼: 至少五碼 且為任意英數字組合 (不含特殊符號)
     password: function (val) {
-      var pwdTest = /^[A-Za-z0-9]{5,}/gm.test(val);
+      var pwdTest = /^[A-Za-z0-9]{5,}$/gm.test(val);
       // if (val != '') {
         if (pwdTest) {
           this.pwdResult = "";
@@ -213,6 +211,13 @@ export default {
     },
   },
   methods: {
+    clearText() {
+      this.name = '';
+      this.account =  '';
+      this.password = '';
+      this.email = '';
+      this.phone = '';
+    },
     checkInput() {
       if (this.nameReady == false || this.accReady == false || this.pwdReady == false || this.emailReady == false || this.phoneReady == false) {
         this.isDisabled = true;
@@ -228,9 +233,7 @@ export default {
       formData.append('password', this.password);
       formData.append('email', this.email);
       formData.append('phone', this.phone);
-      // https://cy-cinemas.ml/members/members
-      // http://localhost/CYcinemasBackEnd/members/members
-      this.axios.post('https://cy-cinemas.ml/members/members', formData)
+      this.axios.post(`${this.$api}/members/members`, formData)
         .then(function (response) {
           _this.result = response.data;
           _this.$toasted.success(_this.result, {
@@ -238,7 +241,7 @@ export default {
             duration: 3000
           });
         }).catch(function (error) {
-          _this.$toasted.error("會員註冊失敗，請確認網路連線狀態", {
+          _this.$toasted.error(`會員註冊失敗，請確認網路連線狀態, ${error}`, {
               theme: 'bubble',
               duration: 3000
             });
