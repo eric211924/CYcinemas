@@ -29,6 +29,18 @@
           </div>
         </div>
       </div>​
+    
+
+    
+
+
+
+
+
+
+
+
+
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -141,7 +153,6 @@
     <h1 class="text-center my-5">即將上映</h1>
     <div class="row">
       <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
-
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -230,9 +241,6 @@
           </div>
         </div>
       </div>
-
-
-
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -255,21 +263,6 @@
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
