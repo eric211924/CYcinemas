@@ -253,17 +253,10 @@
             
           </small> -->
 
-<<<<<<< HEAD
-          
-            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal_3">預告</button>
-            
-          
-=======
           <small class="text-muted">
             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal_3">預告</button>
             
           </small>
->>>>>>> d6798d043ee4d3c21482a37814eeb903cd1a71b5
 
         </div>
       </div>
