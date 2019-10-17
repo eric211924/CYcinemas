@@ -1,22 +1,18 @@
 <template>
-  
-  <div class="container">
-    <h1 class="text-center my-5">本周上映</h1>
-    <div class="row">
-      
-      
-      
-      
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <a href="#" data-toggle="modal" data-target="#myModal">
+  <div>
+    <div class="container">
+      <h1 class="text-center my-5">本周上映</h1>
+      <div class="row">
+        
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
               <img
                 src="..\..\assets\movie\ADAstra_180x270_Poster_now_3.jpg"
                 class="card-img"
                 alt="..."
               />
-          </div>
+            </div>
           
           <div class="col-md-8">
             <div class="card-body">
@@ -29,19 +25,6 @@
               <p class="card-text">
                   
                 </p>
-                    <div class="btn-group">
-                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      日期
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">當日</a>
-                      <a class="dropdown-item" href="#">週四, 2019/10/10</a>
-                      <a class="dropdown-item" href="#">週五, 2019/10/11</a>
-                      <a class="dropdown-item" href="#">週六,2019/10/12</a>
-                      <a class="dropdown-item" href="#">週日,2019/10/13</a>
-                      <a class="dropdown-item" href="#">週一,2019/10/14</a>
-                      <a class="dropdown-item" href="#">週二,2019/11/15</a>
-                      <a class="dropdown-item" href="#">週三,2019/10/16</a>
               </div>
             </div>
                   </div>
@@ -105,13 +88,13 @@
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
-              src="..\..\assets\movie\AngelHasFallen_180x270_Poster__now_6.jpg"
-              class="card-img"
-              alt="..."
-            />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
+                src="..\..\assets\movie\FROZEN2_180x270_Poster_soon_2.jpg"
+                class="card-img"
+                alt="..."
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
               <h5 class="card-title">全面攻佔3</h5>
               <p
                 class="card-text"
@@ -211,15 +194,7 @@
             </div>
           </div>
         </div>
-      </div>
-    </div> -->
-        
-
-
-
-
-
-
+      </div> 
 
     <h1 class="text-center my-5">即將上映</h1>
     <div class="row">
@@ -246,7 +221,6 @@
             </div>
           </div>
         </div>
-      </div>  -->
 
       <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
@@ -292,7 +266,6 @@
             </div>
           </div>
         </div>
-      </div> -->
 
       <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
@@ -315,10 +288,6 @@
             </div>
           </div>
         </div>
-      </div> -->
- 
-
-        <!---------------------------------------------------------->
     
       <div class="col-6" v-for="(movie, index) in movies" :key="index">
       <div class="card mb-3" style="max-width: 540px;">
@@ -330,7 +299,6 @@
                 class="card-img"
                 alt="..."
               />
-            </a>
           </div>
           
           <div class="col-md-8">
@@ -406,28 +374,6 @@
     </div>
   </div>
 </template>
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
 export default {
