@@ -60,21 +60,24 @@
             v-model="betPopcorn"
           />
           <div class="row justify-content-center my-2">
-            <i
-              class="fa fa-minus fa-lg"
+            <span class="w-75">
+              <i
+              class="fa fa-minus fa btn btn-secondary pl-1"
               @click="isStarted?betPopcorn=betPopcorn:betPopcorn--"
               aria-hidden="true"
             ></i>
             <i
-              class="fa fa-circle-o fa-lg mx-2"
+              class="fa fa-circle-o fa mx-2 btn btn-secondary pl-1"
               @click="isStarted?betPopcorn=betPopcorn:betPopcorn=0"
               aria-hidden="true"
             ></i>
             <i
-              class="fa fa-plus fa-lg"
+              class="fa fa-plus fa btn btn-secondary pl-1"
               @click="isStarted?betPopcorn=betPopcorn:betPopcorn++"
               aria-hidden="true"
             ></i>
+            </span>
+
           </div>
         </div>
 
@@ -89,21 +92,23 @@
             v-model="betDrink"
           />
           <div class="row justify-content-center my-2">
+            <span class="w-75">
             <i
-              class="fa fa-minus fa-lg"
+              class="fa fa-minus fa btn btn-secondary pl-1"
               @click="isStarted?betDrink=betDrink:betDrink--"
               aria-hidden="true"
             ></i>
             <i
-              class="fa fa-circle-o fa-lg mx-2"
+              class="fa fa-circle-o fa mx-2 btn btn-secondary pl-1"
               @click="isStarted?betDrink=betDrink:betDrink=0"
               aria-hidden="true"
             ></i>
             <i
-              class="fa fa-plus fa-lg"
+              class="fa fa-plus fa btn btn-secondary pl-1"
               @click="isStarted?betDrink=betDrink:betDrink++"
               aria-hidden="true"
             ></i>
+            </span>
           </div>
         </div>
         <div class="col-md-6 col-3 text-center">
@@ -117,21 +122,23 @@
             v-model="betMealSet"
           />
           <div class="row justify-content-center my-2">
+            <span class="w-75">
             <i
-              class="fa fa-minus fa-lg"
+              class="fa fa-minus fa btn btn-secondary pl-1"
               @click="isStarted?betMealSet=betMealSet:betMealSet--"
               aria-hidden="true"
             ></i>
             <i
-              class="fa fa-circle-o fa-lg mx-2"
+              class="fa fa-circle-o fa btn btn-secondary pl-1 mx-2"
               @click="isStarted?betMealSet=betMealSet:betMealSet=0"
               aria-hidden="true"
             ></i>
             <i
-              class="fa fa-plus fa-lg"
+              class="fa fa-plus fa btn btn-secondary pl-1"
               @click="isStarted?betMealSet=betMealSet:betMealSet++"
               aria-hidden="true"
             ></i>
+            </span>
           </div>
         </div>
         <div class="col-md-6 col-3 text-center">
@@ -145,21 +152,23 @@
             v-model="betBar"
           />
           <div class="row justify-content-center my-2">
+            <span class="w-75">
             <i
-              class="fa fa-minus fa-lg"
+              class="fa fa-minus fa btn btn-secondary pl-1"
               @click="isStarted?betBar=betBar:betBar--"
               aria-hidden="true"
             ></i>
             <i
-              class="fa fa-circle-o fa-lg mx-2"
+              class="fa fa-circle-o fa btn btn-secondary pl-1 mx-2"
               @click="isStarted?betBar=betBar:betBar=0"
               aria-hidden="true"
             ></i>
             <i
-              class="fa fa-plus fa-lg"
+              class="fa fa-plus fa btn btn-secondary pl-1"
               @click="isStarted?betBar=betBar:betBar++"
               aria-hidden="true"
             ></i>
+            </span>
           </div>
         </div>
       </div>
@@ -282,7 +291,7 @@ export default {
         if (this.betPopcorn > 100) this.betPopcorn = 100;
         else if (this.betPopcorn < 0) this.betPopcorn = 0;
       } else {
-        this.betPopcorn = 0;
+        this.betPopcorn = this.betPopcorn-1;
       }
     },
     betDrink: function() {
@@ -291,7 +300,7 @@ export default {
         if (this.betDrink > 100) this.betDrink = 100;
         else if (this.betDrink < 0) this.betDrink = 0;
       } else {
-        this.betDrink = 0;
+        this.betDrink = this.betDrink-1;
       }
     },
     betMealSet: function() {
@@ -300,7 +309,7 @@ export default {
         if (this.betMealSet > 100) this.betMealSet = 100;
         else if (this.betMealSet < 0) this.betMealSet = 0;
       } else {
-        this.betMealSet = 0;
+        this.betMealSet = this.betDrink-1;
       }
     },
     betBar: function() {
@@ -309,9 +318,9 @@ export default {
         if (this.betBar > 100) this.betBar = 100;
         else if (this.betBar < 0) this.betBar = 0;
       } else {
-        this.betBar = 0;
+        this.betBar = this.betDrink-1;
       }
-    }
+    },
   },
   computed: {
     totalPoint: function() {
@@ -327,7 +336,12 @@ export default {
   methods: {
     // 點下開始的判斷以及初始化
     rotation() {
-      if (this.gamePoint - this.totalPoint <= 0) {
+      if (this.gamePoint==0) {
+        this.$toasted.error("沒有點數囉", {
+          theme: "bubble",
+          duration: 3000
+        });
+      }else if(this.gamePoint - this.totalPoint <= 0){
         this.$toasted.error("麻煩先下注", {
           theme: "bubble",
           duration: 3000
@@ -346,8 +360,7 @@ export default {
         // console.log("endPrizeLocation: " + (this.endPrize % 16));
         if (document.getElementsByClassName("cellChange")[this.initRotateIndex])
           document
-            .getElementsByClassName("cellChange")
-            [this.initRotateIndex].classList.remove("cellChange");
+            .getElementsByClassName("cellChange")[this.initRotateIndex].classList.remove("cellChange");
         // console.log(document.getElementsByClassName("cellChange")[0])
         //   document.getElementsByClassName("cellChange")[0].classList.remove("cellChange");
 
@@ -365,25 +378,23 @@ export default {
         // console.log(_this.initRotateIndex);
         // console.log(_this.moveTime);
         // console.log("i: "+_this.i);
-        document
-          .getElementById("img" + ((_this.initRotateIndex + _this.i) % 16))
-          .classList.add("cellChange");
-        if (((_this.initRotateIndex + _this.i) % 16) - 1 >= 0)
-          document
-            .getElementById("img" + (((_this.initRotateIndex + _this.i) % 16) - 1))
-            .classList.remove("cellChange");
+        document.getElementById("img" + ((_this.initRotateIndex + _this.i) % 16)).classList.remove("cellBack");
+        document.getElementById("img" + ((_this.initRotateIndex + _this.i) % 16)).classList.add("cellChange");
+        if (((_this.initRotateIndex + _this.i) % 16) - 1 >= 0){
+          document.getElementById("img" + (((_this.initRotateIndex + _this.i) % 16) - 1)).classList.remove("cellChange");
+          document.getElementById("img" + (((_this.initRotateIndex + _this.i) % 16) - 1)).classList.add("cellBack");
+        }
 
-        if ((_this.initRotateIndex + _this.i) % 16 == 15) {
-          setTimeout(function() {
-            document.getElementById("img" + 15).classList.remove("cellChange");
-          }, _this.moveTime);
+        if ((_this.initRotateIndex + _this.i) % 16 == 15 &&(_this.initRotateIndex + _this.i)!=_this.endPrize) {
+          setTimeout(function() {document.getElementById("img" + 15).classList.remove("cellChange")}, _this.moveTime);
+          document.getElementById("img" + 15).classList.add("cellBack");
         }
         _this.i++;
 
         // 設大概要剩幾個的時候做線性減速
         if (_this.initRotateIndex + _this.i >_this.endPrize-_this.lastRandToSlow)
           _this.moveTime = 450-(_this.endPrize -_this.i-_this.initRotateIndex)*300/(_this.lastRandToSlow);
-// console.log("LRS: "+_this.lastRandToSlow);
+    // console.log("LRS: "+_this.lastRandToSlow);
         //結束
         if (_this.initRotateIndex + _this.i > _this.endPrize) {
           _this.gamePoint = _this.totalPoint;
@@ -633,14 +644,21 @@ img {
 .cell {
   width: 15%;
   border: 1px solid black;
-  transition:outline 0.1s;
-  
-  transition-timing-function: ease-out;
+}
+
+.cellBack{
+  outline:0px solid blue;
+  background-color: white;
+  transition:outline 0.2s,background-color 0.15s;
+  transition-timing-function: ease-in;
 }
 
 .cellChange {
   outline: 3px solid blue;
-  background-color: rgba(102, 255, 204, 0.5)
+  background-color: rgba(102, 255, 204, 0.7);
+  transition:outline 0.1s;
+  transition-timing-function: ease-out;
+  
 }
 
 input {
