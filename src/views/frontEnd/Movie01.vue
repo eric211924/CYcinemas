@@ -448,7 +448,7 @@
 export default {
   data() {
     return {
-      releasedMovies:{}
+      releasedMovies:{},
       movieData:{
         name:''
       }
