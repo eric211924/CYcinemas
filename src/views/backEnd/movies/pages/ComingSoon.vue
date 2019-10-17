@@ -10,6 +10,7 @@
 
 <script>
 import MovieCard from '@/views/backEnd/movies/components/MovieCard.vue';
+
 export default {
   components: {
     MovieCard
@@ -63,8 +64,5 @@ export default {
 h4 {
   font-weight: 600;
   opacity: .7;
-}
-hr {
-  margin-top: 0;
 }
 </style>

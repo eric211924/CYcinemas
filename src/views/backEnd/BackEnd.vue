@@ -1,12 +1,10 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-
       <!-- 側邊攔 -->
       <div class="col-12 col-md-3 col-lg-2 my-5 py-0">
         <div class="list-group shadow">
           <div class="accordion" id="dashboard">
-            
             <!-- 最新消息 -->
             <router-link
               to="/backEnd"
@@ -140,6 +138,58 @@
         </button>
       </div>
       <div class="col-12 col-md-9 col-lg-10">
+        <!-- <div class="col-12">
+        <button
+          class="uk-button uk-button-default mt-3"
+          type="button"
+          uk-toggle="target: #offcanvas-nav"
+        ><span uk-icon="menu"></span></button>
+        <div id="offcanvas-nav" uk-offcanvas="overlay: true; mode: push">
+          <div class="uk-offcanvas-bar bg-cy-deep">
+            <ul class="uk-nav-default uk-nav-parent-icon uk-nav-primary" uk-nav>
+              <li class="uk-active">
+                <a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i> 最新消息</a>
+              </li>
+              <li class="uk-parent">
+                <a href="#"><i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp; 電影</a>
+                <ul class="uk-nav-sub">
+                  <li>
+                    <a href="#">所有電影</a>
+                  </li>
+                  <li>
+                    <a href="#">現正上映</a>
+                  </li>
+                  <li>
+                    <a href="#">即將上映</a>
+                  </li>
+                  <li>
+                    <a href="#">強檔電影</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="uk-parent">
+                <a href="#"><i class="fa fa-cutlery" aria-hidden="true"></i>&nbsp; 餐點</a>
+                <ul class="uk-nav-sub">
+                  <li>
+                    <a href="#">所有餐點</a>
+                  </li>
+                  <li>
+                    <a href="#">食物</a>
+                  </li>
+                  <li>
+                    <a href="#">飲料</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-percent" aria-hidden="true"></i>&nbsp; 折扣</a>
+              </li>
+              <li>
+                <a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i> 報表</a>
+              </li>
+            </ul>
+          </div>
+        </div>-->
         <router-view></router-view>
       </div>
     </div>
@@ -198,6 +248,14 @@ ul {
   }
   li:hover {
     background-color: #becb01;
+  }
+}
+
+.uk-nav-sub {
+  li {
+    a {
+      font-size: 1.5em;
+    }
   }
 }
 

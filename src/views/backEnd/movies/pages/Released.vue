@@ -69,7 +69,4 @@ h4 {
   font-weight: 600;
   opacity: .7;
 }
-hr {
-  margin-top: 0;
-}
 </style>

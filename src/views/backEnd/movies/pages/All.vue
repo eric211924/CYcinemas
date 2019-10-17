@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h4 class="uk-heading-line uk-text-center mt-4"><span>所有電影</span></h4>
     <MovieCard :movies-data="moviesData" class="mt-5"></MovieCard>
     <Loading v-if="isLoading"></Loading>
   </div>
@@ -45,4 +46,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h4 {
+  font-weight: 600;
+  opacity: .7;
+}
 </style>
