@@ -1,35 +1,24 @@
 <template>
-<<<<<<< HEAD
+
   <div class="container">
     <h1 class="text-center my-5">本周上映</h1>
     <div class="row">
       <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
-      <div class="card mb-3" style="max-width: 540px;">
+      <div class="card mb-3 col-6" style="max-width: 540px;" v-for="(item, index) in releasedMovies" :key="index">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <a href="#" data-toggle="modal" data-target="#myModal">
-=======
-  <div>
-    <div class="container">
-      <h1 class="text-center my-5">本周上映</h1>
-      <div class="row">
-        
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
->>>>>>> d6798d043ee4d3c21482a37814eeb903cd1a71b5
+            <a href="#" data-toggle="modal" data-target="#myModal"  @click.prevent="setMovieModal(item)">
               <img
-                src="..\..\assets\movie\WEATHERINGWITHYOU_180x270_Poster_now_1.jpg"
+                :src="item.poster"
                 class="card-img"
                 alt="..."
               />
-<<<<<<< HEAD
             </a>
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <a href="#" data-toggle="modal" data-target="#myModal">
-                <h5 class="card-title">星際救援</h5>
+              <a href="#" data-toggle="modal" data-target="#myModal" @click.prevent="setMovieModal(item)">
+                <h5 class="card-title">{{item.name}}</h5>
               </a>
               <p
                 class="card-text"
@@ -40,19 +29,51 @@
             </div>
           </div>
         </div>
-      </div>​
-    
+      </div> ​
+      <!--modal開始-->
+      <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">{{movieData.name}}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <iframe width="100%" height="315" :src="movieData.trailer" style="margin-bottom:20px;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <img
+                  :src="movieData.poster"
+                  class="card-img"
+                  alt="..."
+                  style="float:left;width:180px;height:270px;"
+                />
+                <div class="text">
+                {{movieData.info}}
+                </div>
+                
+                
+                
+                <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">{{movieData.rating}}</button>
+                <button type="button" class="btn btn-outline-success" disabled style="margin:0.5%;">{{movieData.run_time}}</button>
+                
+                <p>主要演員：{{movieData.actor}}</p>
+                <p>影片類型：{{movieData.genre}}</p>
+                <p>上映日期：{{movieData.play_date}}</p>
 
-    
+                <p>時間:
+                          <button type="button" class="btn btn-outline-info" style="margin:0.5%;">11:10</button>
+                          <button type="button" class="btn btn-outline-info" style="margin:0.5%;">15:20</button>
+                          <button type="button" class="btn btn-outline-info" style="margin:0.5%;">21:20</button>
+                        
+                </p>          
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-
-
-
-
-
-
-
-
+      <!--modal結束-->
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -91,98 +112,21 @@
               <p class="card-text">
                 <small class="text-muted">Last updated 3 mins ago</small>
               </p>
-=======
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">天氣之子</h5>
-                <p class="card-text">「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神</p>
-                <p class="card-text">
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img
-                src="..\..\assets\movie\FROZEN2_180x270_Poster_soon_2.jpg"
-                class="card-img"
-                alt="..."
-              />
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">冰雪奇緣2</h5>
-                <p
-                  class="card-text"
-                >「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神，因此在學校中只要誰敢靠近她，他便會想盡各種辦法搞破壞！</p>
-                <p class="card-text"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img
-                src="..\..\assets\movie\FROZEN2_180x270_Poster_soon_2.jpg"
-                class="card-img"
-                alt="..."
-              />
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">冰雪奇緣2</h5>
-                <p
-                  class="card-text"
-                >「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神，因此在學校中只要誰敢靠近她，他便會想盡各種辦法搞破壞！</p>
-                <p class="card-text"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img
-                src="..\..\assets\movie\MOTHERLESSBROOKLYN_180x270_Poster_soon_5.jpg"
-                class="card-img"
-                alt="..."
-              />
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">布魯克林孤兒</h5>
-                <p
-                  class="card-text"
-                >「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神，因此在學校中只要誰敢靠近她，他便會想盡各種辦法搞破壞！</p>
-                <p class="card-text"></p>
-              </div>
->>>>>>> d6798d043ee4d3c21482a37814eeb903cd1a71b5
             </div>
           </div>
         </div>
       </div>
-<<<<<<< HEAD
       <div class="card mb-3" style="max-width: 540px;">
-=======
-      <!-- <div class="card mb-3" style="max-width: 540px;">
->>>>>>> d6798d043ee4d3c21482a37814eeb903cd1a71b5
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
-              src="..\..\assets\movie\LOVEANDRUN_180x270_Poster_soon_4.jpg"
+              src="..\..\assets\movie\Fagara_180x270_Poster_now_4.jpg"
               class="card-img"
               alt="..."
             />
           </div>
           <div class="col-md-8">
             <div class="card-body">
-<<<<<<< HEAD
               <h5 class="card-title">花椒之味</h5>
               <p
                 class="card-text"
@@ -194,16 +138,6 @@
           </div>
         </div>
       </div>
-=======
-              <h5 class="card-title">只有我能喜歡你</h5>
-              <p class="card-text">《模犯生》「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神，因此在學校中只要誰敢靠近她，他便會想盡各種辦法搞破壞！</p>
-              <p class="card-text"></p>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
->>>>>>> d6798d043ee4d3c21482a37814eeb903cd1a71b5
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -218,7 +152,6 @@
               <h5 class="card-title">我家有個開心農場</h5>
               <p
                 class="card-text"
-<<<<<<< HEAD
               >親手打造一座沒有極限的農場！只為了堅持對愛狗的承諾，約翰與茉莉這對瘋狂夫妻索性來去鄉下開農場！本片歷時十年追蹤，跟著這兩位瘋狂的夢想家和他們的愛狗塔德。</p>
               <p class="card-text">
                 <small class="text-muted">Last updated 3 mins ago</small>
@@ -228,72 +161,19 @@
         </div>
       </div>
       <div class="card mb-3" style="max-width: 540px;">
-=======
-              >「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神，因此在學校中只要誰敢靠近她，他便會想盡各種辦法搞破壞！</p>
-              <p class="card-text"></p>
-            </div>
-          </div>
-        </div>
-      </div> 
-      
-      <!-- <div class="card mb-3" style="max-width: 540px;">
->>>>>>> d6798d043ee4d3c21482a37814eeb903cd1a71b5
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
-              src="..\..\assets\movie\MOTHERLESSBROOKLYN_180x270_Poster_soon_5.jpg"
+              src="..\..\assets\movie\WEATHERINGWITHYOU_180x270_Poster_now_1.jpg"
               class="card-img"
               alt="..."
-              style="float:left;width:180px;height:270px;"
             />
-            <div class="text">{{ oneReleased.info }}</div>
-            <iframe
-              width="100%"
-              height="315"
-              :src="oneReleased.trailer"
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-
-            <button
-              type="button"
-              class="btn btn-outline-success"
-              disabled
-              style="margin:0.5%;"
-            >{{ oneReleased.rating }}</button>
-            <button
-              type="button"
-              class="btn btn-outline-success"
-              disabled
-              style="margin:0.5%;"
-            >{{ oneReleased.run_time }}</button>
-
-            <p>主演 : {{ oneReleased.actor }}</p>
-            <p>類型 : {{ oneReleased.genre }}</p>
-            <p>上映日期 : {{ oneReleased.play_date }}</p>
-
-            <span>
-              時間:
-              <ul>
-                <li>
-                  <button type="button" class="btn btn-outline-info">11:10</button>
-                </li>
-                <li>
-                  <button type="button" class="btn btn-outline-info">15:20</button>
-                </li>
-                <li>
-                  <button type="button" class="btn btn-outline-info">21:20</button>
-                </li>
-              </ul>
-            </span>
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">布魯克林孤兒</h5>
+              <h5 class="card-title">天氣之子</h5>
               <p
                 class="card-text"
-<<<<<<< HEAD
               >高一那年夏天，帆高離開位在離島的家鄉，獨自來到東京，拮据的生活迫使他不得不找份工作，最後來到一間專門出版奇怪超自然刊物的出版社擔任寫手。</p>
               <p class="card-text">
                 <small class="text-muted">Last updated 3 mins ago</small>
@@ -305,7 +185,8 @@
     </div>
     <h1 class="text-center my-5">即將上映</h1>
     <div class="row">
-      <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
+      
+
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -434,114 +315,6 @@
               <p class="card-text">
                 <small class="text-muted">Last updated 3 mins ago</small>
               </p>
-=======
-              >「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神，因此在學校中只要誰敢靠近她，他便會想盡各種辦法搞破壞！</p>
-              <p class="card-text"></p>
-            </div>
-          </div>
-        </div>
-      </div>  -->
-
-      <h1 class="text-center my-5">即將上映</h1>
-      <div class="row">
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img
-                src="..\..\assets\movie\FROZEN2_180x270_Poster_soon_2.jpg"
-                class="card-img"
-                alt="..."
-              />
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">冰雪奇緣2</h5>
-                <p
-                  class="card-text"
-                >「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神，因此在學校中只要誰敢靠近她，他便會想盡各種辦法搞破壞！</p>
-                <p class="card-text"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img
-                src="..\..\assets\movie\DOCTORSLEEP_180x270_Poster_soon_6.jpg"
-                class="card-img"
-                alt="..."
-              />
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">安眠醫生</h5>
-                <div class="card-text">「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神，</div>
-                <p class="card-text"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img
-                src="..\..\assets\movie\WEATHERINGWITHYOU_180x270_Poster_now_1.jpg"
-                class="card-img"
-                alt="..."
-              />
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">天氣之子</h5>
-                <p class="card-text">「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神</p>
-                <p class="card-text"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img
-                src="..\..\assets\movie\FROZEN2_180x270_Poster_soon_2.jpg"
-                class="card-img"
-                alt="..."
-              />
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">冰雪奇緣2</h5>
-                <p
-                  class="card-text"
-                >「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神，因此在學校中只要誰敢靠近她，他便會想盡各種辦法搞破壞！</p>
-                <p class="card-text"></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img
-                src="..\..\assets\movie\FROZEN2_180x270_Poster_soon_2.jpg"
-                class="card-img"
-                alt="..."
-              />
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">冰雪奇緣2</h5>
-                <p
-                  class="card-text"
-                >「阿班」查農桑提納同庫甩偶像包袱，變身幼稚中二小屁孩！霸氣十足的阿杜，從小就視小他一歲的漂亮小姑姑小琳為心目中的女神，因此在學校中只要誰敢靠近她，他便會想盡各種辦法搞破壞！</p>
-                <p class="card-text"></p>
-              </div>
->>>>>>> d6798d043ee4d3c21482a37814eeb903cd1a71b5
             </div>
           </div>
         </div>
@@ -550,48 +323,49 @@
   </div>
 </template>
 
-<<<<<<< HEAD
 
       
 
-<script >
+<script>
+
+
 export default {
+    components: {
+  },
   data() {
     return {
       releasedMovies: {},
       movieData: {
-        name: ""
-      }
+        name: ''
+      },
+      item:{},
+      poster:"",
     };
   },
-  mouted() {
+  mounted() {
     this.getMovies();
   },
   methods: {
     getMovies() {
       const _this = this;
-      this.axios
-        .get(`${this.$api}/movies/showMovies/released/1`)
-        .then(response => {
-          console.log(response.data);
-          _this.releasedMovies = response.data;
-        });
+      this.axios.get(`${this.$api}/movies/showMovies/released/1`).then((response) => {
+        console.log(response.data);
+        _this.releasedMovies = response.data;
+      });
     },
     setMovieModal(movie) {
-      this.movieData.actor = movie.actor;
-      this.movieData.encoded_id = movie.encoded_id;
-      this.movieData.enname = movie.enname;
-      this.movieData.id = movie.id;
-      this.movieData.info = movie.info;
-      this.movieData.name = movie.name;
-      this.movieData.play_date = movie.play_date;
       this.movieData.poster = movie.poster;
+      this.movieData.actor = movie.actor;
+      this.movieData.info = movie.info;
+      this.movieData.genre = movie.genre;
+      this.movieData.play_date = movie.play_date;
       this.movieData.rating = movie.rating;
       this.movieData.run_time = movie.run_time;
-      this.movieData.show_status = movie.show_status;
       this.movieData.trailer = movie.trailer;
-    }
-  }
+      this.movieData.name = movie.name;
+    },
+      
+  },
 };
 </script>
 
@@ -604,10 +378,6 @@ export default {
 
 
 
-=======
-<script>
-</script>
->>>>>>> d6798d043ee4d3c21482a37814eeb903cd1a71b5
 
 <style scoped>
 .card-img {
@@ -617,57 +387,10 @@ export default {
   height: 100%;
   margin-right: 10px;
 }
-<<<<<<< HEAD
-=======
-#text {
-  display: block;
-  /* float:right; */
-  height: 280px;
-  width: 525px;
-  line-height: 40px;
-}
-iframe {
-  display: block;
-  margin: 10px auto;
-  margin-bottom: 10px;
-}
->>>>>>> d6798d043ee4d3c21482a37814eeb903cd1a71b5
 .card {
   margin-right: 10px;
   padding: 10px;
   box-shadow: 5px 10px 18px #888888;
   border-radius: 10px;
-}
-<<<<<<< HEAD
-=======
-.btn .btn-outline-success {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-a {
-  text-decoration: none;
-}
-ul {
-  text-decoration: none;
-}
-li {
-  text-decoration: none;
-  list-style: none;
-  float: left;
-  margin: 2%;
-}
-.btn-group {
-  display: block;
-  float: left;
-  margin: 0.5%;
-  /* padding-top:60px; */
-}
-.btn-outline-primary {
-  padding-right: 10px;
-  float: right;
-  margin-top: 60px;
-  margin-right: 5px;
-}
->>>>>>> d6798d043ee4d3c21482a37814eeb903cd1a71b5
+  }
 </style>
