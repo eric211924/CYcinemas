@@ -126,56 +126,14 @@
         </div>
       </div> 
       
-      <!-- <div class="card mb-3" style="max-width: 540px;">
+      <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
               src="..\..\assets\movie\MOTHERLESSBROOKLYN_180x270_Poster_soon_5.jpg"
               class="card-img"
               alt="..."
-              style="float:left;width:180px;height:270px;"
             />
-            <div class="text">{{ oneReleased.info }}</div>
-            <iframe
-              width="100%"
-              height="315"
-              :src="oneReleased.trailer"
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-
-            <button
-              type="button"
-              class="btn btn-outline-success"
-              disabled
-              style="margin:0.5%;"
-            >{{ oneReleased.rating }}</button>
-            <button
-              type="button"
-              class="btn btn-outline-success"
-              disabled
-              style="margin:0.5%;"
-            >{{ oneReleased.run_time }}</button>
-
-            <p>主演 : {{ oneReleased.actor }}</p>
-            <p>類型 : {{ oneReleased.genre }}</p>
-            <p>上映日期 : {{ oneReleased.play_date }}</p>
-
-            <span>
-              時間:
-              <ul>
-                <li>
-                  <button type="button" class="btn btn-outline-info">11:10</button>
-                </li>
-                <li>
-                  <button type="button" class="btn btn-outline-info">15:20</button>
-                </li>
-                <li>
-                  <button type="button" class="btn btn-outline-info">21:20</button>
-                </li>
-              </ul>
-            </span>
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -187,7 +145,7 @@
             </div>
           </div>
         </div>
-      </div>  -->
+      </div> 
 
       <h1 class="text-center my-5">即將上映</h1>
       <div class="row">
@@ -297,7 +255,48 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      
+    };
+  },
+  mounted() {
+    this.getComingSoonMovies();
+  },
+  methods: {
+    getMovies() {
+      const _this = this;
+      this.axios.get(`${this.$api}/movies/showMovies/released/1`).then((response) => {
+        console.log(response.data);
+        _this.releasedMovies = response.data;
+      });  
+    },
+    setMovieModal(movie){
+      this.movieData.actor = movies.actor;
+      this.movieData.encoded_id = movies.encoded_id;
+      this.movieData.enname = movies.enname;
+      this.movieData.id = movies.id;
+      this.movieData.info = movies.info;
+      this.movieData.name = movies.name;
+      this.movieData.play_date = movies.play_date;
+      this.movieData.poster = movies.poster;
+      this.movieData.rating = movies.rating;
+      this.movieData.run_time = movies.run_time;
+      this.movieData.show_status = movies.show_status;
+      this.movieData.trailer = movies.trailer;
+    }
+
+     
+
+  }
+}
 </script>
+
+
+
+
+
 
 <style scoped>
 .card-img {

@@ -8,6 +8,8 @@
       role="dialog"
       aria-labelledby="login"
       aria-hidden="true"
+      data-backdrop="static"
+      data-keyboard="false"
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

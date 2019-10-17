@@ -254,16 +254,21 @@ export default {
   data() {
     return {
       isStarted: false,
-      initRotateIndex: 0,
-      bettingOddsArray: [0.5, 0.3, 0.1, 0.05, 0.03, 0.02, 0.01],
-      winOdds: 0.4,
+      initRotateIndex: 0,   //一開始藍框在哪
+      //各倍率中的機率，應和為1。依序是爆米花、飲料、套餐、5倍BAR、可愛爆米花、7倍BAR和10倍BAR
+      bettingOddsArray: [0.5, 0.3, 0.1, 0.05, 0.03, 0.02, 0.01],    
+      winOdds: 0.4,   //不骰中XX的機率
       endPrizeArray: [],
       endPrizeIndex: 0,
       gamePoint: 100,
       betPopcorn: 0,
       betDrink: 0,
       betMealSet: 0,
-      betBar: 0
+      betBar: 0,
+      endPrize: 0,
+      i:0,
+      moveTime:0,
+      lastRandToSlow:0,
     };
   },
   mounted() {
@@ -320,188 +325,220 @@ export default {
     }
   },
   methods: {
-    // 開轉邏輯
+    // 點下開始的判斷以及初始化
     rotation() {
-
-      if (this.gamePoint - this.totalPoint<= 0) {
+      if (this.gamePoint - this.totalPoint <= 0) {
         this.$toasted.error("麻煩先下注", {
           theme: "bubble",
           duration: 3000
         });
       } else {
-        var i = 0;
-        var moveTime = 150;
-        var endPrize =
+        this.endPrize =
           this.endPrizeArray[
             Math.floor(Math.random() * this.endPrizeArray.length)
           ] +
-          (Math.round(Math.random() * 2) + 1) * 16;
-        console.log(endPrize);
+          (Math.round(Math.random() * 1) + 2) * 16;
+        // console.log(this.endPrize);
         // var endPrize = 8;
         // console.log(this.initRotateIndex);
         this.isStarted = true;
-        var _this = this;
-        console.log("endPrizeLocation: " + (endPrize % 16));
+
+        // console.log("endPrizeLocation: " + (this.endPrize % 16));
         if (document.getElementsByClassName("cellChange")[this.initRotateIndex])
           document
             .getElementsByClassName("cellChange")
             [this.initRotateIndex].classList.remove("cellChange");
         // console.log(document.getElementsByClassName("cellChange")[0])
         //   document.getElementsByClassName("cellChange")[0].classList.remove("cellChange");
-        function running() {
-          setTimeout(function() {
-            // console.log(_this.initRotateIndex);
-            document
-              .getElementById("img" + ((_this.initRotateIndex + i) % 16))
-              .classList.add("cellChange");
-            if (((_this.initRotateIndex + i) % 16) - 1 >= 0)
-              document
-                .getElementById(
-                  "img" + (((_this.initRotateIndex + i) % 16) - 1)
-                )
-                .classList.remove("cellChange");
 
-            if ((_this.initRotateIndex + i) % 16 == 15) {
-              setTimeout(function() {
-                document
-                  .getElementById("img" + 15)
-                  .classList.remove("cellChange");
-              }, moveTime);
-            }
-            i++;
-            if (
-              _this.initRotateIndex + i >
-              endPrize - Math.ceil((endPrize - _this.initRotateIndex) / 3)
-            )
-              moveTime = 450;
-            if (_this.initRotateIndex + i > endPrize) {
-              _this.gamePoint = _this.totalPoint
-              switch (endPrize % 16) {
-                case 5:
-                case 9:
-                case 12:
-                  if (_this.betPopcorn > 0) {
-                    _this.gamePoint += 2*_this.betPopcorn
-                    _this.$toasted.success("命中爆米花啦！恭喜得到2倍點數： "+2*_this.betPopcorn+"點", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }else{
-                    _this.$toasted.info("可惜轉到了爆米花，再試個手氣吧", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }
-                  break;
-                case 0:
-                case 6:
-                case 8:
-                case 10:
-                  if(_this.betDrink>0){
-                     _this.gamePoint += 3*_this.betDrink
-                    _this.$toasted.success("命中可樂啦！恭喜得到3倍點數： "+3*_this.betDrink+"點", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }else{
-                    _this.$toasted.info("可惜轉到了可樂，再試個手氣吧", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }
-                  break;
-                case 7:
-                case 14:
-                  if(_this.betMealSet>0){
-                     _this.gamePoint += 4*_this.betMealSet
-                    _this.$toasted.success("命中套餐啦！恭喜得到3倍點數： "+4*_this.betMealSet+"點", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }else{
-                    _this.$toasted.info("可惜轉到了套餐，再試個手氣吧", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }
-                  break;
-                case 3:
-                  if(_this.betBar>0){
-                     _this.gamePoint += 5*_this.betBar
-                    _this.$toasted.success("命中5倍Bar啦！恭喜得到5倍點數： "+5*_this.betBar+"點", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }else{
-                    _this.$toasted.info("可惜轉到了Bar，再試個手氣吧", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }
-                  break;
-                case 13:
-                  if (_this.betPopcorn > 0) {
-                    _this.gamePoint += 6*_this.betPopcorn
-                    _this.$toasted.success("命中可愛爆米花啦！恭喜得到6倍點數： "+6*_this.betPopcorn+"點", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }else{
-                    _this.$toasted.info("可惜轉到了可愛爆米花，再試個手氣吧", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }
-                  break;
-                case 1:
-                  if(_this.betBar>0){
-                     _this.gamePoint += 7*_this.betBar
-                    _this.$toasted.success("命中7倍Bar啦！恭喜得到7倍點數： "+7*_this.betBar+"點", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }else{
-                    _this.$toasted.info("可惜轉到了Bar，再試個手氣吧", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }
-                  break;
-                case 2:
-                  if(_this.betBar>0){
-                     _this.gamePoint += 10*_this.betBar
-                    _this.$toasted.success("命中10倍Bar啦！恭喜得到10倍點數： "+10*_this.betBar+"點", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }else{
-                    _this.$toasted.info("可惜轉到了Bar，再試個手氣吧", {
-                      theme: "bubble",
-                      duration: 3000
-                    });
-                  }
-                  break;
-                default:
-                  _this.$toasted.info("可惜是XX，再試一次?", {
+        // 初始化一開始被框到的位置跟移動速度
+        this.i=0;
+        this.moveTime = 100;
+        this.lastRandToSlow = Math.ceil(Math.random()*5+3);
+        this.running();
+      }
+    },
+    // 開始動的邏輯
+    running() {
+      var _this = this;
+      setTimeout(function() {
+        // console.log(_this.initRotateIndex);
+        // console.log(_this.moveTime);
+        // console.log("i: "+_this.i);
+        document
+          .getElementById("img" + ((_this.initRotateIndex + _this.i) % 16))
+          .classList.add("cellChange");
+        if (((_this.initRotateIndex + _this.i) % 16) - 1 >= 0)
+          document
+            .getElementById("img" + (((_this.initRotateIndex + _this.i) % 16) - 1))
+            .classList.remove("cellChange");
+
+        if ((_this.initRotateIndex + _this.i) % 16 == 15) {
+          setTimeout(function() {
+            document.getElementById("img" + 15).classList.remove("cellChange");
+          }, _this.moveTime);
+        }
+        _this.i++;
+
+        // 設大概要剩幾個的時候做線性減速
+        if (_this.initRotateIndex + _this.i >_this.endPrize-_this.lastRandToSlow)
+          _this.moveTime = 450-(_this.endPrize -_this.i-_this.initRotateIndex)*300/(_this.lastRandToSlow);
+// console.log("LRS: "+_this.lastRandToSlow);
+        //結束
+        if (_this.initRotateIndex + _this.i > _this.endPrize) {
+          _this.gamePoint = _this.totalPoint;
+          switch (_this.endPrize % 16) {
+            case 5:
+            case 9:
+            case 12:
+              if (_this.betPopcorn > 0) {
+                _this.gamePoint += 2 * _this.betPopcorn;
+                _this.$toasted.success(
+                  "命中爆米花啦！恭喜得到2倍點數： " +
+                    2 * _this.betPopcorn +
+                    "點",
+                  {
                     theme: "bubble",
                     duration: 3000
-                  });
-                  break;
+                  }
+                );
+              } else {
+                _this.$toasted.info("可惜轉到了爆米花，再試個手氣吧", {
+                  theme: "bubble",
+                  duration: 3000
+                });
               }
-              _this.betPopcorn=0;
-              _this.betDrink=0;
-              _this.betMealSet=0;
-              _this.betBar=0;
-              _this.isStarted = false;
-              _this.initRotateIndex = endPrize % 16;
-              return;
-            }
-            running();
-          }, moveTime);
+              break;
+            case 0:
+            case 6:
+            case 8:
+            case 10:
+              if (_this.betDrink > 0) {
+                _this.gamePoint += 3 * _this.betDrink;
+                _this.$toasted.success(
+                  "命中可樂啦！恭喜得到3倍點數： " + 3 * _this.betDrink + "點",
+                  {
+                    theme: "bubble",
+                    duration: 3000
+                  }
+                );
+              } else {
+                _this.$toasted.info("可惜轉到了可樂，再試個手氣吧", {
+                  theme: "bubble",
+                  duration: 3000
+                });
+              }
+              break;
+            case 7:
+            case 14:
+              if (_this.betMealSet > 0) {
+                _this.gamePoint += 4 * _this.betMealSet;
+                _this.$toasted.success(
+                  "命中套餐啦！恭喜得到3倍點數： " +
+                    4 * _this.betMealSet +
+                    "點",
+                  {
+                    theme: "bubble",
+                    duration: 3000
+                  }
+                );
+              } else {
+                _this.$toasted.info("可惜轉到了套餐，再試個手氣吧", {
+                  theme: "bubble",
+                  duration: 3000
+                });
+              }
+              break;
+            case 3:
+              if (_this.betBar > 0) {
+                _this.gamePoint += 5 * _this.betBar;
+                _this.$toasted.success(
+                  "命中5倍Bar啦！恭喜得到5倍點數： " + 5 * _this.betBar + "點",
+                  {
+                    theme: "bubble",
+                    duration: 3000
+                  }
+                );
+              } else {
+                _this.$toasted.info("可惜轉到了Bar，再試個手氣吧", {
+                  theme: "bubble",
+                  duration: 3000
+                });
+              }
+              break;
+            case 13:
+              if (_this.betPopcorn > 0) {
+                _this.gamePoint += 6 * _this.betPopcorn;
+                _this.$toasted.success(
+                  "命中可愛爆米花啦！恭喜得到6倍點數： " +
+                    6 * _this.betPopcorn +
+                    "點",
+                  {
+                    theme: "bubble",
+                    duration: 3000
+                  }
+                );
+              } else {
+                _this.$toasted.info("可惜轉到了可愛爆米花，再試個手氣吧", {
+                  theme: "bubble",
+                  duration: 3000
+                });
+              }
+              break;
+            case 1:
+              if (_this.betBar > 0) {
+                _this.gamePoint += 7 * _this.betBar;
+                _this.$toasted.success(
+                  "命中7倍Bar啦！恭喜得到7倍點數： " + 7 * _this.betBar + "點",
+                  {
+                    theme: "bubble",
+                    duration: 3000
+                  }
+                );
+              } else {
+                _this.$toasted.info("可惜轉到了Bar，再試個手氣吧", {
+                  theme: "bubble",
+                  duration: 3000
+                });
+              }
+              break;
+            case 2:
+              if (_this.betBar > 0) {
+                _this.gamePoint += 10 * _this.betBar;
+                _this.$toasted.success(
+                  "命中10倍Bar啦！恭喜得到10倍點數： " +
+                    10 * _this.betBar +
+                    "點",
+                  {
+                    theme: "bubble",
+                    duration: 3000
+                  }
+                );
+              } else {
+                _this.$toasted.info("可惜轉到了Bar，再試個手氣吧", {
+                  theme: "bubble",
+                  duration: 3000
+                });
+              }
+              break;
+            default:
+              _this.$toasted.info("可惜是XX，再試一次?", {
+                theme: "bubble",
+                duration: 3000
+              });
+              break;
+          }
+          _this.betPopcorn = 0;
+          _this.betDrink = 0;
+          _this.betMealSet = 0;
+          _this.betBar = 0;
+          _this.isStarted = false;
+          _this.initRotateIndex = _this.endPrize % 16;
+          return;
         }
-
-        running();
-      }
+        // console.log("123");
+        _this.running();
+      }, _this.moveTime);
     },
     // 設定機率
     setProbability() {
@@ -596,10 +633,14 @@ img {
 .cell {
   width: 15%;
   border: 1px solid black;
+  transition:outline 0.1s;
+  
+  transition-timing-function: ease-out;
 }
 
 .cellChange {
   outline: 3px solid blue;
+  background-color: rgba(102, 255, 204, 0.5)
 }
 
 input {
@@ -614,7 +655,7 @@ i {
   cursor: pointer;
 }
 
-p{
-  font-size:1.8vw;
+p {
+  font-size: 1.8vw;
 }
 </style>

@@ -247,20 +247,17 @@
           <!-- <p class="card-text"></p> -->
         </div>
         <div class="card-footer">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+
           <!-- <small class="text-muted">
             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal_3">預告</button>
             
           </small> -->
-=======
->>>>>>> 19f556bc0135cbd6fba93e1bf54be7bde1f6cc02
+
           <small class="text-muted">
             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal_3">預告</button>
             
           </small>
->>>>>>> 97afd33622786d17733b098dab272b7ee7d921a2
+
         </div>
       </div>
       <!-- 小丑結束 -->
