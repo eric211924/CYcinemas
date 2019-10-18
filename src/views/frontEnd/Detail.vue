@@ -21,6 +21,10 @@
                     <td>{{list.day}}&ensp;{{list.time}}</td>
                 </tr>
                 <tr>
+                    <td>&emsp;大&emsp;&emsp;廳&ensp;:</td>
+                    <td>第{{list.hall}}廳</td>
+                </tr>
+                <tr>
                     <td>&emsp;座&emsp;&emsp;位&ensp;:</td>
                     <td>{{list.seat}}</td>
                 </tr>
@@ -29,6 +33,8 @@
                     <td>
                         {{list.ticketName["0"] + list.ticketNum["0"]}}
                         {{list.ticketName["1"] + list.ticketNum["1"]}}
+                        {{list.ticketName["2"] + list.ticketNum["2"]}}
+                        {{list.ticketName["3"] + list.ticketNum["3"]}}
                     </td> 
                 </tr>
                 <tr>
@@ -36,9 +42,10 @@
                     <td>
                         {{list.food["0"]+list.foodNum["0"]}}
                         {{list.food["1"]+list.foodNum["1"]}}
-                        <br v-if="list.br">
                         {{list.food["2"]+list.foodNum["2"]}}
+                        <br v-if="list.br">
                         {{list.food["3"]+list.foodNum["3"]}} 
+                        {{list.food["4"]+list.foodNum["4"]}} 
                     </td>
                 </tr>  
                 <tr>
@@ -222,14 +229,17 @@ export default {
                 theater: '',
                 day: '',
                 time: '', 
-                food:{"0":"","1":"","2":"","3":""},
-                foodNum:{"0":"","1":"","2":"","3":""},
-                ticketName:{"0":"","1":""},
-                ticketNum:{"0":"","1":""},
-                price:{"0":190,     "1":150,    "2":50,   "3":50,      "4":40,     "5":40},
-                // Price {"0":一般票,"1":愛心票,"2":可樂 大,"3":爆米花 大,"4":可樂 中,"5":爆米花 中}
-                ticketData:{"一般票":0,"愛心票":0},
-                foodData:{"可樂 大":0,"爆米花 大":0,"可樂 中":0,"爆米花 中":0},
+                food:{"0":"","1":"","2":"","3":"","4":""},
+                foodNum:{"0":"","1":"","2":"","3":"","4":""},
+                ticketName:{"0":"","1":"","2":"","3":""},
+                ticketNum:{"0":"","1":"","2":"","3":""},
+                price:{"0":190,     "1":170,    "2":50,   "3":70,      "4":30,     "5":50,     "6":150,  "7":130,
+                // Price {"0":全票,"1":優待票,"2":可樂 大,"3":爆米花 大,"4":可樂 中,"5":爆米花 中,"6":學生票,"7":敬老票}
+                    //"8":爆米花 小
+                       "8":30
+                },
+                ticketData:{"全票":0,"優待票":0,"學生票":0,"敬老票":0},
+                foodData:{"爆米花 小":0,"爆米花 中":0,"爆米花 大":0,"可樂 中":0,"可樂 大":0},
                 discount: 0.7,
                 total:0,
                 real:0, 
@@ -241,10 +251,10 @@ export default {
                 phone:' ', 
                 loginBar:true, 
                 editBar:true,
-                cadrd1:"1231",
-                cadrd2:"1234",
-                cadrd3:"1234",
-                cadrd4:"1234",
+                cadrd1:" ",
+                cadrd2:" ",
+                cadrd3:" ",
+                cadrd4:" ",
                 br:1,
                 orderNumber:""
             },  
@@ -260,6 +270,7 @@ export default {
             window.location.href="./#/order"; 
         this.checkLoginAndGetData(); 
         this.countMoney();  
+        this.list.hall = sessionStorage.courtsID;
         // console.log(this.list)
     },
     methods:{ 
@@ -317,7 +328,7 @@ export default {
             }).catch(function (error) { 
                 console.log(error); 
             }); 
-        },
+        }, 
         ok:function(){   
             this.getOrderNumber();
             sessionStorage.setItem('FinishPageData',JSON.stringify(this.list)) 
@@ -330,16 +341,19 @@ export default {
             this.clrSession(); 
             window.location.href="./#/order";
         },
-        countMoney:function(){
-            // var ticketNum ={"0":0,"1":1} ; 
+        countMoney:function(){ 
             var ticketNum =JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum); 
             var mealsNum =JSON.parse(JSON.parse(sessionStorage.getItem('movie')).mealsNum);
             this.list.total=this.list.price["0"]*(ticketNum["0"]?ticketNum["0"]:0) +
                             this.list.price["1"]*(ticketNum["1"]?ticketNum["1"]:0) +
-                            this.list.price["2"]*(mealsNum["0"]?mealsNum["0"]:0) +
-                            this.list.price["3"]*(mealsNum["1"]?mealsNum["1"]:0) +
-                            this.list.price["4"]*(mealsNum["2"]?mealsNum["2"]:0) +
-                            this.list.price["5"]*(mealsNum["3"]?mealsNum["3"]:0) ;  
+                            this.list.price["6"]*(ticketNum["2"]?ticketNum["2"]:0) +
+                            this.list.price["7"]*(ticketNum["3"]?ticketNum["3"]:0) +
+
+                            this.list.price["8"]*(mealsNum["0"]?mealsNum["0"]:0) +
+                            this.list.price["5"]*(mealsNum["1"]?mealsNum["1"]:0) +
+                            this.list.price["3"]*(mealsNum["2"]?mealsNum["2"]:0) +
+                            this.list.price["4"]*(mealsNum["3"]?mealsNum["3"]:0) +
+                            this.list.price["2"]*(mealsNum["4"]?mealsNum["4"]:0) ;
             this.list.real =Math.ceil(this.list.total*this.list.discount); 
         },
         memberGetData: function(){ 
@@ -356,32 +370,44 @@ export default {
             var movie = JSON.parse(sessionStorage.getItem('movie')); 
             var ticketNum =JSON.parse(movie.ticketsNum); 
             if(ticketNum["0"]){
-                this.list.ticketName["0"] = "一般票 "; 
+                this.list.ticketName["0"] = "全票 "; 
                 this.list.ticketNum["0"] = "x"+ ticketNum["0"] + "  ";
             }
             if(ticketNum["1"]){
-                this.list.ticketName["1"] = "愛心票 "; 
+                this.list.ticketName["1"] = "優待票 "; 
                 this.list.ticketNum["1"] = "x"+ ticketNum["1"];
+            }   
+            if(ticketNum["2"]){
+                this.list.ticketName["2"] = "學生票 "; 
+                this.list.ticketNum["2"] = "x"+ ticketNum["2"] + "  ";
+            }
+            if(ticketNum["3"]){
+                this.list.ticketName["3"] = "敬老票 "; 
+                this.list.ticketNum["3"] = "x"+ ticketNum["3"];
             }   
             var mealsNum = JSON.parse(JSON.parse(sessionStorage.getItem('movie')).mealsNum);
                
             if(mealsNum["0"]){
-                this.list.food["2"] = "可樂 (大) "; 
-                this.list.foodNum["2"] = "x"+ mealsNum["0"] + "  ";
+                this.list.food["0"] = "爆米花 (小) "; 
+                this.list.foodNum["0"] = "x"+ mealsNum["0"] + "  ";
             }
             if(mealsNum["1"]){
-                this.list.food["0"] = "爆米花 (大) "; 
-                this.list.foodNum["0"] = "x"+ mealsNum["1"] + "  ";
+                this.list.food["1"] = "爆米花 (中) "; 
+                this.list.foodNum["1"] = "x"+ mealsNum["1"] + "  ";
             }
             if(mealsNum["2"]){
-                this.list.food["3"] = "可樂 (中) "; 
-                this.list.foodNum["3"] = "x"+ mealsNum["2"] + "  ";
+                this.list.food["2"] = "爆米花 (大) "; 
+                this.list.foodNum["2"] = "x"+ mealsNum["2"] + "  ";
             }
             if(mealsNum["3"]){
-                this.list.food["1"] = "爆米花 (中) ";
-                this.list.foodNum["1"] = "x"+ mealsNum["3"] + "  ";
+                this.list.food["3"] = "可樂 (中) ";
+                this.list.foodNum["3"] = "x"+ mealsNum["3"] + "  ";
             } 
-            if(!(mealsNum["0"]+mealsNum["1"]+mealsNum["2"]+mealsNum["3"]))
+            if(mealsNum["4"]){
+                this.list.food["4"] = "可樂 (大) "; 
+                this.list.foodNum["4"] = "x"+ mealsNum["4"] + "  ";
+            } 
+            if(!(mealsNum["0"]+mealsNum["1"]+mealsNum["2"]+mealsNum["3"]+mealsNum["4"]))
                 this.list.food["0"] = "無"; 
 
             //若上排無食物
@@ -419,7 +445,9 @@ export default {
             this.ticketsNum = JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum);
             this.mealsNum = JSON.parse(JSON.parse(sessionStorage.getItem('movie')).mealsNum);
             this.list.orderNumber =
-                String(this.ticketsNum["0"])+String(this.ticketsNum["1"])+String(this.mealsNum["0"])+
+                String(this.ticketsNum["0"])+String(this.ticketsNum["1"])+
+                String(this.ticketsNum["2"])+String(this.ticketsNum["3"])+
+                String(this.mealsNum["0"])+
                 String(this.mealsNum["1"])+String(this.mealsNum["2"])+String(this.mealsNum["3"])+
                 String(d.getFullYear()-2000)+ month + dNum + hour + minute; 
         },
@@ -483,6 +511,9 @@ export default {
             } 
         }
     }
+    .tab{
+        // margin:0% 0% 0% 3%;
+    } 
     .empty{
         color:white;
         padding:5px 0 0 5px;

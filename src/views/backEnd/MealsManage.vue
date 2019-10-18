@@ -47,8 +47,17 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label></label>
-              <input type="text" class="form-control">
+              <label>餐點名稱 :</label>
+              <input type="text" class="form-control" v-model="meals.name">
+              <label>尺寸 :</label>
+              <input type="text" class="form-control" v-model="meals.size">
+              <label>分類 :</label>
+              <select class="form-control" v-model="meals.category">
+                <option value="" selected>- 請選擇 -</option>
+                <option value="item" v-for="(item, index) in category" :key="index">{{ item.category }}</option>
+              </select>
+              <label>價格 :</label>
+              <input type="number" class="form-control" v-model="meals.price">
             </div>
           </div>
           <div class="modal-footer">
@@ -76,7 +85,9 @@ export default {
     return {
       mealsData: [],
       action: '',
-      isLoading: true
+      isLoading: true,
+      category: [],
+      meals: {}
     }
   },
   watch: {
@@ -88,6 +99,7 @@ export default {
   },
   mounted() {
     this.getMealsData();
+    this.getCategory();
   },
   methods: {
     getMealsData() {
@@ -101,7 +113,13 @@ export default {
       const _this = this;
       let formData = new FormData();
       this.file = this.$refs.file.files[0];
-
+    },
+    getCategory() {
+      const _this = this;
+      this.axios.get(`${this.$api}/meals/category`).then((response) => {
+        console.log(response.data);
+        _this.category = response.data;
+      });
     }
   }
 }
