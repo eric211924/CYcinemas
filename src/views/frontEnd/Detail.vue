@@ -311,9 +311,9 @@ export default {
             postData.append('courts_id', courts_id);   
             // var SQL = 'show'  ; 
             // var SQL = "desc"  ;
-            var SQL = "select"; 
+            // var SQL = "select"; 
             // var ID ="2"; postData.append('ID', ID);
-            // var SQL = "save"  ;  
+            var SQL = "save"  ;  
             postData.append('SQL', SQL);    
             this.axios.post(`${this.$api}/detail/saveOrder`, postData) 
             .then(function (response) { 
