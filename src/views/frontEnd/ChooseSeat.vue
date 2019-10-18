@@ -11,8 +11,8 @@
         您選到的場次為：{{movieDay}} {{movieName}} {{movieTime}}&emsp;
         已售出的座位為：<img src="../../assets/sellout.png" alt="">&emsp;
         您可選的座位為： <img src="../../assets/seat.png" alt="">&emsp;
-        預設幫您排的座位為： 
-        <div class="forTable]"> 
+        <!-- 預設幫您排的座位為：  --> 
+        <div class="forTable"> 
         <table class="table table-borderless">  
             <tr v-for="(item,index) in list" :key="index">  
                 <td v-for="(obj,index) in item" :key="index">
@@ -341,8 +341,7 @@ export default {
             this.seatSrc[this.onClick] = this.selectImg;
             this.tapChangeSession();
             break;  
-        }  
-        
+        }   
     } ,
     //及時更改session
     tapChangeSession(){ 
@@ -436,7 +435,7 @@ div {
 //RWD  寬度320px~0px
 @media only screen and (min-width: 0px) and (max-width: 320px){
     .forTable{ 
-      overflow: scroll;
+          overflow: scroll;
     }
 }
 </style>
