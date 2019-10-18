@@ -85,7 +85,7 @@
         </div>
         <!-- 會員已登入的狀態下 顯示 歡迎訊息 與 登出, 若為管理員登入 多出後臺管理 -->
         <div class="navbar-nav" v-if="isLogin">
-          <li class="nav-item" :class="{'active': this.$route.path == '/user'}">
+          <li class="nav-item" :class="{'active': this.$route.path.indexOf('/user') >= 0}">
             <router-link
               class="nav-link"
               to="/user"
