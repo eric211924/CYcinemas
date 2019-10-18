@@ -11,9 +11,6 @@
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#meals">飲食選擇</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#others">otherOption</a>
-        </li>
       </ul>
 
       <div class="tab-content py-3">
@@ -88,11 +85,14 @@
               <div class="row">
                 <div class="col-md-3" v-for="(ticket,index) in tickets" :key="index">
                   <div class="card border-secondary my-2">
-                    <div class="card-body text-secondary">
-                      <h5 class="card-title">票種：{{ticket.name}}</h5>
+                    <div class="card-header bg-light text-center text-light"><h4 class="card-title">票種：{{ticket.name}}</h4></div>
+                    <div class="card-body text-secondary ">
+                      <!-- <h5 class="card-title">票種：{{ticket.name}}</h5> -->
                       <h5>單價：{{ticket.price}}</h5>
                       <h5>總計：{{ticket.price *ticketsNum[index]}}</h5>
-                      <div class="d-flex">
+                    </div>
+                      <div class="d-flex card-footer">
+                        <div class="bg-secondary border-danger">
                         <div class="input-group">
                           <div class="input-group-btn">
                             <button class="btn btn-danger btn-number" v-on:click="minusTickets(index)">
@@ -107,7 +107,7 @@
                           <input
                             type="text"
                             pattern="[0-5]"
-                            class="form-control text-center"
+                            class="form-control text-center border-bottom-0"
                             readonly
                             v-model="ticketsNum[index]"
                           />
@@ -118,12 +118,11 @@
                               style="cursor:pointer;"
                               aria-hidden="true"
                             ></i>
-
                             </button>
                           </div>
                         </div>
+                        </div>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -134,11 +133,14 @@
           <div class="row">
             <div class="col-md-3" v-for="(meal,index) in meals" :key="index">
               <div class="card border-secondary my-2">
+                <div class="card-header bg-light text-center text-light"><h4 class="card-title">{{meal.name}}({{meal.size}})</h4></div>
                 <div class="card-body text-secondary">
-                  <h5 class="card-title">餐點名稱(尺寸)：</h5>
-                  <h5>{{meal.name}}({{meal.size}})</h5>
+                  
                   <h5>單價：{{meal.price}}</h5>
                   <h5>總計：{{meal.price *mealsNum[index]}}</h5>
+                </div>
+                <div class="d-flex card-footer">
+                  <div class="bg-secondary border-danger">
                   <div class="input-group">
                     <div class="input-group-btn">
                     <button class="btn btn-danger btn-number" v-on:click="minusMeals(index)">
@@ -153,7 +155,7 @@
                     <input
                       type="text"
                       pattern="[0-5]"
-                      class="form-control text-center"
+                      class="form-control text-center border-bottom-0"
                       readonly
                       v-model="mealsNum[index]"
                     />
@@ -164,25 +166,23 @@
                               style="cursor:pointer;"
                               aria-hidden="true"
                             ></i>
-
                             </button>
                     </div>
+                    </div>
+                    </div>
+
                   </div>
-                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="tab-pane fade" id="others">thinking...
-          <span class="glyphicon glyphicon-minus"></span>
-        </div>
 
         <div>
           <button
             v-on:click="setProp"
             class="btn btn-success btn-lg btn-block"
-            v-bind:class="{'v-hidden':!showNext}"
+            v-bind:disabled="!showNext"
           >去選座位</button>
         </div>
       </div>

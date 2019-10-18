@@ -33,7 +33,7 @@
             <h6>點擊輪盤中的開始按鈕</h6>
             <h5>3. 結果：</h5>
             <h6>若押注的圖案跟轉到的圖案相符即有對應的點數獎勵</h6>
-            <h6>ps. 小賭怡情大賭傷身</h6>
+            <h6>溫馨提醒： 小賭怡情大賭傷身</h6>
           </div>
         </div>
       </div>
@@ -45,20 +45,22 @@
       <hr />
       <div>
         <span>點數：</span>
-        <input type="text" class="text-right" disabled v-model="totalPoint" />
+        <input type="number" class="text-right" disabled v-model="totalPoint" />
       </div>
       <hr />
       <div class="row mt-2">
         <div class="col-md-6 col-3 text-center">
           <img src="../../assets/hanlinBar/popcorn.png" alt />
           <p class="m-1">×2/6</p>
+          <div class="d-flex justify-content-center">
           <input
-            type="text"
-            class="text-center border border-secondary"
-            maxlength="3"
+            type="number"
+            class="text-center form-control h-75 border border-secondary"
+            max="100"
             v-bind:disabled="isStarted"
             v-model="betPopcorn"
           />
+          </div>
           <div class="row justify-content-center my-2">
             <span class="w-75">
               <i
@@ -84,13 +86,15 @@
         <div class="col-md-6 col-3 text-center">
           <img src="../../assets/hanlinBar/drink.png" alt />
           <p class="m-1">×3</p>
+          <div class="d-flex justify-content-center">
           <input
-            type="text"
-            class="text-center border border-secondary"
-            maxlength="3"
+            type="number"
+            class="text-center form-control h-75 border border-secondary"
+            max="100"
             v-bind:disabled="isStarted"
             v-model="betDrink"
           />
+          </div>
           <div class="row justify-content-center my-2">
             <span class="w-75">
             <i
@@ -114,13 +118,16 @@
         <div class="col-md-6 col-3 text-center">
           <img src="../../assets/hanlinBar/mealSet.png" alt />
           <p class="m-1">×4</p>
+          <div class="d-flex justify-content-center">
           <input
-            type="text"
-            class="text-center border border-secondary"
-            maxlength="3"
+            type="number"
+            class="text-center form-control h-75 border border-secondary"
+            max="100"
             v-bind:disabled="isStarted"
             v-model="betMealSet"
           />
+
+          </div>
           <div class="row justify-content-center my-2">
             <span class="w-75">
             <i
@@ -144,13 +151,15 @@
         <div class="col-md-6 col-3 text-center">
           <img src="../../assets/hanlinBar/threeBar.png" alt />
           <p class="m-1">×5/7/10</p>
+          <div class="d-flex justify-content-center">
           <input
             type="text"
-            class="text-center border border-secondary"
+            class="text-center form-control h-75 border border-secondary"
             maxlength="3"
             v-bind:disabled="isStarted"
             v-model="betBar"
           />
+          </div>
           <div class="row justify-content-center my-2">
             <span class="w-75">
             <i
@@ -287,39 +296,24 @@ export default {
   watch: {
     betPopcorn: function() {
       this.betPopcorn = parseInt(this.betPopcorn);
-      if (this.totalPoint >= 0) {
-        if (this.betPopcorn > 100) this.betPopcorn = 100;
+        if (this.totalPoint<0) this.betPopcorn = this.gamePoint-this.betDrink-this.betMealSet-this.betBar;
         else if (this.betPopcorn < 0) this.betPopcorn = 0;
-      } else {
-        this.betPopcorn = this.betPopcorn-1;
-      }
+
     },
     betDrink: function() {
       this.betDrink = parseInt(this.betDrink);
-      if (this.totalPoint >= 0) {
-        if (this.betDrink > 100) this.betDrink = 100;
-        else if (this.betDrink < 0) this.betDrink = 0;
-      } else {
-        this.betDrink = this.betDrink-1;
-      }
+      if (this.totalPoint<0) this.betDrink = this.gamePoint-this.betPopcorn-this.betMealSet-this.betBar;
+      else if (this.betDrink < 0) this.betDrink = 0;
     },
     betMealSet: function() {
       this.betMealSet = parseInt(this.betMealSet);
-      if (this.totalPoint >= 0) {
-        if (this.betMealSet > 100) this.betMealSet = 100;
-        else if (this.betMealSet < 0) this.betMealSet = 0;
-      } else {
-        this.betMealSet = this.betDrink-1;
-      }
+      if (this.totalPoint<0) this.betMealSet = this.gamePoint-this.betPopcorn-this.betDrink-this.betBar;
+      else if (this.betMealSet < 0) this.betMealSet = 0;
     },
     betBar: function() {
       this.betBar = parseInt(this.betBar);
-      if (this.totalPoint >= 0) {
-        if (this.betBar > 100) this.betBar = 100;
-        else if (this.betBar < 0) this.betBar = 0;
-      } else {
-        this.betBar = this.betDrink-1;
-      }
+      if (this.totalPoint<0) this.betBar = this.gamePoint-this.betPopcorn-this.betDrink-this.betMealSet;
+      else if (this.betBar < 0) this.betBar = 0;
     },
   },
   computed: {
@@ -665,6 +659,14 @@ input {
   width: 80%;
   font-size: 2vh;
 }
+
+/*讓number欄位不能滾動 */
+input[type=number]::-webkit-inner-spin-button,  
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 
 .fa {
   width: 18%;
