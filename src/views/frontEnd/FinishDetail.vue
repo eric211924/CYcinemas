@@ -33,6 +33,8 @@
                         <td>
                             {{list.ticketName["0"] + list.ticketNum["0"]}}
                             {{list.ticketName["1"] + list.ticketNum["1"]}}
+                            {{list.ticketName["2"] + list.ticketNum["2"]}}
+                            {{list.ticketName["3"] + list.ticketNum["3"]}}
                         </td> 
                     </tr>
                     <tr>
@@ -79,11 +81,10 @@ export default {
                 time: '', 
                 food:{"0":"","1":"","2":"","3":""},
                 foodNum:{"0":"","1":"","2":"","3":""},
-                ticketName:{"0":"","1":""},
-                ticketNum:{"0":"","1":""},
-                price:{"0":190,"1":150,"2":50,"3":50,"4":40,"5":40},
-                //Price {"0":一般票,"1":愛心票
-                //"2":可樂 大,"3":爆米花 大,"4":可樂 中,"5":爆米花 中}
+                ticketName:{"0":"","1":"","2":"","3":""},
+                ticketNum:{"0":"","1":"","2":"","3":""},
+                price:{"0":190,     "1":170,    "2":50,   "3":50,      "4":40,     "5":40,     "6":130,  "7":150},
+                // Price {"0":全票,"1":優待票,"2":可樂 大,"3":爆米花 大,"4":可樂 中,"5":爆米花 中,"6":敬老票,"7":學生票}
                 discount: 0.7,
                 total:0,
                 real:0, 
@@ -111,14 +112,15 @@ export default {
             window.location.href="./#/order"; 
         this.getData(); 
     },
-    methods:{ 
+    methods:{  
         clrSession:function(){  
             sessionStorage.removeItem('FinishPageData');  
             this.hideFinishDetail = 1;
         }, 
         getData:function(){
             var FinishPageData = JSON.parse(sessionStorage.getItem('FinishPageData'));
-            this.list = FinishPageData;        } 
+            this.list = FinishPageData;        
+        } 
     }
 }
 </script>
