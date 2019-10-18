@@ -29,6 +29,8 @@
                     <td>
                         {{list.ticketName["0"] + list.ticketNum["0"]}}
                         {{list.ticketName["1"] + list.ticketNum["1"]}}
+                        {{list.ticketName["2"] + list.ticketNum["2"]}}
+                        {{list.ticketName["3"] + list.ticketNum["3"]}}
                     </td> 
                 </tr>
                 <tr>
@@ -224,11 +226,11 @@ export default {
                 time: '', 
                 food:{"0":"","1":"","2":"","3":""},
                 foodNum:{"0":"","1":"","2":"","3":""},
-                ticketName:{"0":"","1":""},
-                ticketNum:{"0":"","1":""},
-                price:{"0":190,     "1":150,    "2":50,   "3":50,      "4":40,     "5":40},
-                // Price {"0":一般票,"1":愛心票,"2":可樂 大,"3":爆米花 大,"4":可樂 中,"5":爆米花 中}
-                ticketData:{"一般票":0,"愛心票":0},
+                ticketName:{"0":"","1":"","2":"","3":""},
+                ticketNum:{"0":"","1":"","2":"","3":""},
+                price:{"0":190,     "1":170,    "2":50,   "3":50,      "4":40,     "5":40,     "6":130,  "7":150},
+                // Price {"0":全票,"1":優待票,"2":可樂 大,"3":爆米花 大,"4":可樂 中,"5":爆米花 中,"6":敬老票,"7":學生票}
+                ticketData:{"全票":1,"優待票":0,"敬老票":0,"學生票":0},
                 foodData:{"可樂 大":0,"爆米花 大":0,"可樂 中":0,"爆米花 中":0},
                 discount: 0.7,
                 total:0,
@@ -330,12 +332,13 @@ export default {
             this.clrSession(); 
             window.location.href="./#/order";
         },
-        countMoney:function(){
-            // var ticketNum ={"0":0,"1":1} ; 
+        countMoney:function(){ 
             var ticketNum =JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum); 
             var mealsNum =JSON.parse(JSON.parse(sessionStorage.getItem('movie')).mealsNum);
             this.list.total=this.list.price["0"]*(ticketNum["0"]?ticketNum["0"]:0) +
                             this.list.price["1"]*(ticketNum["1"]?ticketNum["1"]:0) +
+                            this.list.price["6"]*(ticketNum["2"]?ticketNum["2"]:0) +
+                            this.list.price["7"]*(ticketNum["3"]?ticketNum["3"]:0) +
                             this.list.price["2"]*(mealsNum["0"]?mealsNum["0"]:0) +
                             this.list.price["3"]*(mealsNum["1"]?mealsNum["1"]:0) +
                             this.list.price["4"]*(mealsNum["2"]?mealsNum["2"]:0) +
@@ -356,12 +359,20 @@ export default {
             var movie = JSON.parse(sessionStorage.getItem('movie')); 
             var ticketNum =JSON.parse(movie.ticketsNum); 
             if(ticketNum["0"]){
-                this.list.ticketName["0"] = "一般票 "; 
+                this.list.ticketName["0"] = "全票 "; 
                 this.list.ticketNum["0"] = "x"+ ticketNum["0"] + "  ";
             }
             if(ticketNum["1"]){
-                this.list.ticketName["1"] = "愛心票 "; 
+                this.list.ticketName["1"] = "優待票 "; 
                 this.list.ticketNum["1"] = "x"+ ticketNum["1"];
+            }   
+            if(ticketNum["2"]){
+                this.list.ticketName["2"] = "敬老票 "; 
+                this.list.ticketNum["2"] = "x"+ ticketNum["2"] + "  ";
+            }
+            if(ticketNum["3"]){
+                this.list.ticketName["3"] = "學生票 "; 
+                this.list.ticketNum["3"] = "x"+ ticketNum["3"];
             }   
             var mealsNum = JSON.parse(JSON.parse(sessionStorage.getItem('movie')).mealsNum);
                
@@ -419,7 +430,9 @@ export default {
             this.ticketsNum = JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum);
             this.mealsNum = JSON.parse(JSON.parse(sessionStorage.getItem('movie')).mealsNum);
             this.list.orderNumber =
-                String(this.ticketsNum["0"])+String(this.ticketsNum["1"])+String(this.mealsNum["0"])+
+                String(this.ticketsNum["0"])+String(this.ticketsNum["1"])+
+                String(this.ticketsNum["2"])+String(this.ticketsNum["3"])+
+                String(this.mealsNum["0"])+
                 String(this.mealsNum["1"])+String(this.mealsNum["2"])+String(this.mealsNum["3"])+
                 String(d.getFullYear()-2000)+ month + dNum + hour + minute; 
         },
