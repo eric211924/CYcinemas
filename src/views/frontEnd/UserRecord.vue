@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="text-center my-5">消費/儲值紀錄</h1>
+        <h1 class="text-center my-5">消費紀錄</h1>
         <hr>
         <!-- <button type="button" class="btn btn-primary btn-sm">LOG</button>
         <hr> -->
@@ -52,19 +52,6 @@ export default {
     data() {
         return {
             result: [],
-            // datetime: '',
-            // accountName: '',
-            // serialNum: '',
-            // courtsID: '',
-            // seat: '',
-            // totalPrice: '',
-            // discPrice: '',
-            // ticketTotalNum: '',
-            // ticketNum: '',
-            // mealNum: '',
-            // name: '',
-            // phone: '',
-            // email: '',
         }
     },
     mounted() {
@@ -101,11 +88,6 @@ export default {
                         temp2 = temp2.replace(/:/gm, ": ");
                         e.meals_num = temp2;
                     });
-                    
-                    
-                    // {
-                    //     console.log(_this.result.tickets_num);
-                    // }
                 }).catch(function (error) {
                     _this.$toasted.error(error, {
                         theme: 'bubble',

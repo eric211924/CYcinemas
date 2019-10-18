@@ -111,15 +111,6 @@
               <i class="fa fa-percent" aria-hidden="true"></i> &nbsp;所有折扣
             </router-link>
 
-            <!-- 會員 -->
-            <router-link
-              to="/backEnd/memberManage"
-              class="list-group-item text-white"
-              :class="{'bg-cy': checkRouter('/backEnd/memberManage'), 'bg-cy-deep': !checkRouter('/backEnd/memberManage')}"
-            >
-              <i class="fa fa-users" aria-hidden="true"></i> 會員
-            </router-link>
-
             <!-- 報表 -->
             <router-link
               to="/backEnd/report"

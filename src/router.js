@@ -69,9 +69,9 @@ const router = new Router({
           component: () => import('./views/frontEnd/UserInfo.vue')
         },
         {
-          path: 'userWallet',
-          name: 'userWallet',
-          component: () => import('./views/frontEnd/UserWallet.vue')
+          path: 'userRecord',
+          name: 'userRecord',
+          component: () => import('./views/frontEnd/UserRecord.vue')
         },
         {
           path: 'userPoint',
