@@ -225,8 +225,8 @@ export default {
                 theater: '',
                 day: '',
                 time: '', 
-                food:{"0":"","1":"","2":"","3":""},
-                foodNum:{"0":"","1":"","2":"","3":""},
+                food:{"0":"","1":"","2":"","3":"","4":""},
+                foodNum:{"0":"","1":"","2":"","3":"","4":""},
                 ticketName:{"0":"","1":"","2":"","3":""},
                 ticketNum:{"0":"","1":"","2":"","3":""},
                 price:{"0":190,     "1":170,    "2":50,   "3":70,      "4":30,     "5":50,     "6":130,  "7":150,
@@ -402,7 +402,7 @@ export default {
                 this.list.food["4"] = "可樂 (大) "; 
                 this.list.foodNum["4"] = "x"+ mealsNum["4"] + "  ";
             } 
-            if(!(mealsNum["0"]+mealsNum["1"]+mealsNum["2"]+mealsNum["3"]))
+            if(!(mealsNum["0"]+mealsNum["1"]+mealsNum["2"]+mealsNum["3"]+mealsNum["4"]))
                 this.list.food["0"] = "無"; 
 
             //若上排無食物
