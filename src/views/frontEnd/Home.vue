@@ -151,8 +151,12 @@
       </div>
     </div>
     <!-- Modal End -->
-
     <!-- 阿正 UIkit 滑塊 End-->
+    <!-- <img src="..\..\assets\home_pic\cellphone.jpg"/>
+    <img src="..\..\assets\home_pic\cup.png"/>   -->
+    
+    <img src="..\..\assets\home_pic\line.png" id="line" />  
+
   </div>
 </template>
 
@@ -238,5 +242,11 @@ li {
 .uk-position-center-left,
 .uk-position-center-right {
   background-color: #becb01;
+}
+#line{
+  display:block;
+  margin:0 auto;
+  margin-bottom: 50px;
+  margin-top: 50px;
 }
 </style>
