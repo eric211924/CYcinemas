@@ -56,12 +56,12 @@
         </div>
 
         <!-- 密碼修改視窗 -->
-        <div class="modal fade" id="changePwd">
+        <div class="modal fade" data-backdrop="static" data-keyboard="false" id="changePwd">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalCenterTitle">修改密碼</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="clearPwd">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -85,7 +85,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clearPwd">取消</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" v-bind:disabled="pwdCDisabled" @click="saveNewPwd">
                             送出
                         </button>
@@ -141,7 +141,7 @@ export default {
     watch: {
         changeName: function (val) {
             console.log("change name");
-            var nameTest = /^[^.,\/#!$%\^&\*;:{}=\-_`~()@<>\s]{1,}/.test(val);
+            var nameTest = /^[^.,\/#!$%\^&\*;:{}=\-_`~()@<>\s]{1,}$/.test(val);
             if (nameTest) {
                 this.nameResult = "OK";
                 this.nameReady = true;
@@ -191,7 +191,7 @@ export default {
             }
         },
         newPwd: function (val) {
-            var pwdTest = /^[A-Za-z0-9]{5,}/gm.test(val);
+            var pwdTest = /^[A-Za-z0-9]{5,}$/gm.test(val);
             if (pwdTest) {
                 this.pwdResult = "";
                 this.pwdReady = true;
@@ -223,6 +223,11 @@ export default {
         }
     },
     methods: {
+        clearPwd() {
+            this.oldPwd = '';
+            this.newPwd = '';
+            this.renewPwd = '';
+        },
         checkInput() {
             if (this.nameReady == false || this.emailReady == false || this.phoneReady == false) {
                 this.editDisabled = true;

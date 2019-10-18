@@ -275,15 +275,15 @@
       </div>
     </div>
 
-    <div class="container" style="font-size:30px;">
+    <div class="container">
       <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" style="text-align:left; padding:10px">{{title}}</h4>
+              <h4 class="modal-title">{{title}}</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body" >
+            <div class="modal-body">
               <h6>
                 <i class="fa fa-calendar" aria-hidden="true"></i>
                 開始日期 : {{start_time}}
@@ -299,16 +299,15 @@
               <h6>
                 <i class="fa fa-file-text-o" aria-hidden="true"></i>
                 活動辦法 :
-                <p style="line-height: 20px;">{{content}}</p>
+                <p>{{content}}</p>
               </h6>
             </div>
-            </div>
           </div>
+        </div>
+      </div>
     </div>
-    </div>
-  
-   </div>
-   </template>
+  </div>
+</template>
   
            
           <!-- </div>
@@ -362,7 +361,7 @@ export default {
         _this.infos = response.data;
         console.log(_this.infos);
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
   },
@@ -381,59 +380,6 @@ export default {
 };
 </script>
 
-<style scoped>
-.card {
-  box-shadow: 5px 5px 12px #bbb;
-}
-.card:hover {
-  box-shadow: 5px 5px 12px #888;
-}
-* {
-  padding: 0;
-}
-.eventList ul {
-  list-style-type: none;
-  margin: 0 auto;
-  text-decoration: none;
-}
-.eventList li {
-  float: left;
-  display: block;
-  width: 230px;
-  height: 400px;
-  text-align: center;
-  margin: 0 auto;
-  margin: 15px;
-}
-figure {
-  display: block;
-  height: 250px;
-  width: auto;
-  margin: 0 20px;
-  padding-top: 30px;
-}
-figure a {
-  height: 250px;
-}
-figure a img {
-  margin: 0 auto;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-}
-h5 a {
-  height: 250px;
-}
-.eventList li:hover {
-  background-color: #d9d9d9;
-  text-decoration: none;
-}
-.infoArea {
-  margin-top: 30px;
-}
-time {
-  margin-top: 50px;
-}
+<style>
 </style>
 
