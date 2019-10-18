@@ -275,12 +275,12 @@
       </div>
     </div>
 
-    <div class="container" style="font-size:30px;">
+    <div class="container">
       <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" style="text-align:left; padding:10px">{{title}}</h4>
+              <h4 class="modal-title" >{{title}}</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body" >
@@ -299,7 +299,7 @@
               <h6>
                 <i class="fa fa-file-text-o" aria-hidden="true"></i>
                 活動辦法 :
-                <p style="line-height: 20px;">{{content}}</p>
+                <p>{{content}}</p>
               </h6>
             </div>
             </div>

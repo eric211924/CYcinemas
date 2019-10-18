@@ -12,96 +12,17 @@
         已售出的座位為：<img src="../../assets/sellout.png" alt="">&emsp;
         您可選的座位為： <img src="../../assets/seat.png" alt="">&emsp;
         預設幫您排的座位為： 
-        <div class="forTable">
-
+        <div class="forTable]"> 
         <table class="table table-borderless">  
-            <tr> 
-            <!--eslint-disable-next-line-->
-                <td v-for="(obj, index) in list[0]" :key="index">
-           {{obj.eng}}
-                    <img @click="onClick=obj.Num;tap();"   :src="seatSrc[obj.Num]" class="seatImg"/>
+            <tr v-for="(item,index) in list" :key="index">  
+                <td v-for="(obj,index) in item" :key="index">
+                    {{obj.eng}}
+                    <img @click="onClick=obj.Num;tap();"   :src="seatSrc[obj.Num]" v-bind:class="[courtClass1,courtClass2,courtClass3]"/>
                 </td>
-            </tr>  
-            <tr> 
-            <!--eslint-disable-next-line-->
-                <td v-for="(obj, index) in list[1]" :key="index">
-                    <span>{{obj.whiteStr}}</span>{{obj.eng}} 
-                    <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
-                </td>
-            </tr>  
-            <tr> 
-            <!--eslint-disable-next-line-->
-                <td v-for="(obj, index) in list[2]" :key="index">
-                    <span>{{obj.whiteStr}}</span>{{obj.eng}}
-                    
-                    <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
-                </td>
-            </tr>  
-            <tr> 
-            <!--eslint-disable-next-line-->
-                <td v-for="(obj, index) in list[3]" :key="index">
-                    <span>{{obj.whiteStr}}</span>{{obj.eng}}
-                    
-                    <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
-                </td>
-            </tr>  
-            <tr> 
-            <!--eslint-disable-next-line-->
-                <td v-for="(obj, index) in list[4]" :key="index">
-                    <span>{{obj.whiteStr}}</span>{{obj.eng}}
-                    
-                    <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
-                </td>
-            </tr>  
-            <tr> 
-            <!--eslint-disable-next-line-->
-                <td v-for="(obj, index) in list[5]" :key="index">
-                    <span>{{obj.whiteStr}}</span>{{obj.eng}}
-                    
-                    <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
-                </td>
-            </tr>  
-            <tr> 
-            <!--eslint-disable-next-line-->
-                <td v-for="(obj, index) in list[6]" :key="index">
-                    <span>{{obj.whiteStr}}</span>{{obj.eng}}
-                    
-                    <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
-                </td>
-            </tr>  
-            <tr> 
-            <!--eslint-disable-next-line-->
-                <td v-for="(obj, index) in list[7]" :key="index">
-                    <span>{{obj.whiteStr}}</span>{{obj.eng}}
-                    
-                    <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
-                </td>
-            </tr>  
-            <tr> 
-            <!--eslint-disable-next-line-->
-                <td v-for="(obj, index) in list[8]" :key="index">
-                    <span>{{obj.whiteStr}}</span>{{obj.eng}}
-                    
-                    <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
-                </td>
-            </tr>  
-            <tr> 
-            <!--eslint-disable-next-line-->
-                <td v-for="(obj, index) in list[9]" :key="index">
-                    <span>{{obj.whiteStr}}</span>{{obj.eng}}
-                    
-                    <img @click="onClick=obj.Num;tap();"  v-bind:src="seatSrc[obj.Num]" class="seatImg"/>
-                </td>
-            </tr>  
+            </tr>   
         </table> 
-        </div>
-    
-        
-      </div>
-      <!--<input type="text" v-model="max">
-      最多選擇: {{this.max}}個
-       <br />
-       every seat status: {{seatSelected}}  -->
+        </div> 
+      </div> 
        <div class="row justify-content-center">
       <router-link class="btn btn-danger btn-lg mr-3" to="/order">上一頁</router-link>
       <!-- <router-link @click.native="nextPage"  :to="to" class="btn btn-success btn-lg ml-5">點我去看訂單詳細</router-link> -->
@@ -126,55 +47,9 @@ import imgAisle from "../../assets/aisle.png";
 export default { 
   data() {
     return {   
-      list: [ 
-      // 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 
- /*0*/  [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
- /*1*/  [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
- /*2*/  [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
- /*3*/  [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
- /*4*/  [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
- /*5*/  [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
- /*6*/  [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
- /*7*/  [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
- /*8*/  [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
- /*9*/  [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]
-        ],
-    seatSrc:  //用物件才能點選變換圖片
-      {
-  '1':0,  '2':0,  '3':0,  '4':0,  '5':0,  '6':0,  '7':0,  '8':0,  '9':0, '10':0, '11':0, '12':0, '13':0, '14':0, '15':0, '16':0, '17':0, '18':0, '19':0, '20':0,
- '21':0, '22':0, '23':0, '24':0, '25':0, '26':0, '27':0, '28':0, '29':0, '30':0, '31':0, '32':0, '33':0, '34':0, '35':0, '36':0, '37':0, '38':0, '39':0, '40':0,
- '41':0, '42':0, '43':0, '44':0, '45':0, '46':0, '47':0, '48':0, '49':0, '50':0, '51':0, '52':0, '53':0, '54':0, '55':0, '56':0, '57':0, '58':0, '59':0, '60':0,
- '61':0, '62':0, '63':0, '64':0, '65':0, '66':0, '67':0, '68':0, '69':0, '70':0, '71':0, '72':0, '73':0, '74':0, '75':0, '76':0, '77':0, '78':0, '79':0, '80':0,
- '81':0, '82':0, '83':0, '84':0, '85':0, '86':0, '87':0, '88':0, '89':0, '90':0, '91':0, '92':0, '93':0, '94':0, '95':0, '96':0, '97':0, '98':0, '99':0,'100':0, 
-'101':0,'102':0,'103':0,'104':0,'105':0,'106':0,'107':0,'108':0,'109':0,'110':0,'111':0,'112':0,'113':0,'114':0,'115':0,'116':0,'117':0,'118':0,'119':0,'120':0,
-'121':0,'122':0,'123':0,'124':0,'125':0,'126':0,'127':0,'128':0,'129':0,'130':0,'131':0,'132':0,'133':0,'134':0,'135':0,'136':0,'137':0,'138':0,'139':0,'140':0,
-'141':0,'142':0,'143':0,'144':0,'145':0,'146':0,'147':0,'148':0,'149':0,'150':0,'151':0,'152':0,'153':0,'154':0,'155':0,'156':0,'157':0,'158':0,'159':0,'160':0,
-'161':0,'162':0,'163':0,'164':0,'165':0,'166':0,'167':0,'168':0,'169':0,'170':0,'171':0,'172':0,'173':0,'174':0,'175':0,'176':0,'177':0,'178':0,'179':0,'180':0,
-'181':0,'182':0,'183':0,'184':0,'185':0,'186':0,'187':0,'188':0,'189':0,'190':0,'191':0,'192':0,'193':0,'194':0,'195':0,'196':0,'197':0,'198':0,'199':0,'200':0,
-'201':0,'202':0,'203':0,'204':0,'205':0,'206':0,'207':0,'208':0,'209':0,'210':0,'211':0,'212':0,'213':0,'214':0,'215':0,'216':0,'217':0,'218':0,'219':0,'220':0,
-'221':0,'222':0,'223':0,'224':0,'225':0,'226':0,'227':0,'228':0,'229':0,'230':0,'231':0,'232':0,'233':0,'234':0,'235':0,'236':0,'237':0,'238':0,'239':0,'240':0,
-'241':0,'242':0,'243':0,'244':0,'245':0,'246':0,'247':0,'248':0,'249':0,'250':0,'251':0,'252':0,'253':0,'254':0,'255':0,'256':0,'257':0,'258':0,'259':0,'260':0,
-'261':0,'262':0,'263':0,'264':0,'265':0,'266':0,'267':0,'268':0,'269':0,'270':0,'271':0,'272':0,'273':0,'274':0,'275':0,'276':0,'277':0,'278':0,'279':0,'280':0 
-           
-      }, 
-      seatSelected:
-      {
-  '1':0,  '2':0,  '3':0,  '4':0,  '5':0,  '6':0,  '7':0,  '8':0,  '9':0, '10':0, '11':0, '12':0, '13':0, '14':0, '15':0, '16':0, '17':0, '18':0, '19':0, '20':0,
- '21':0, '22':0, '23':0, '24':0, '25':0, '26':0, '27':0, '28':0, '29':0, '30':0, '31':0, '32':0, '33':0, '34':0, '35':0, '36':0, '37':0, '38':0, '39':0, '40':0,
- '41':0, '42':0, '43':0, '44':0, '45':0, '46':0, '47':0, '48':0, '49':0, '50':0, '51':0, '52':0, '53':0, '54':0, '55':0, '56':0, '57':0, '58':0, '59':0, '60':0,
- '61':0, '62':0, '63':0, '64':0, '65':0, '66':0, '67':0, '68':0, '69':0, '70':0, '71':0, '72':0, '73':0, '74':0, '75':0, '76':0, '77':0, '78':0, '79':0, '80':0,
- '81':0, '82':0, '83':0, '84':0, '85':0, '86':0, '87':0, '88':0, '89':0, '90':0, '91':0, '92':0, '93':0, '94':0, '95':0, '96':0, '97':0, '98':0, '99':0,'100':0, 
-'101':0,'102':0,'103':0,'104':0,'105':0,'106':0,'107':0,'108':0,'109':0,'110':0,'111':0,'112':0,'113':0,'114':0,'115':0,'116':0,'117':0,'118':0,'119':0,'120':0,
-'121':0,'122':0,'123':0,'124':0,'125':0,'126':0,'127':0,'128':0,'129':0,'130':0,'131':0,'132':0,'133':0,'134':0,'135':0,'136':0,'137':0,'138':0,'139':0,'140':0,
-'141':0,'142':0,'143':0,'144':0,'145':0,'146':0,'147':0,'148':0,'149':0,'150':0,'151':0,'152':0,'153':0,'154':0,'155':0,'156':0,'157':0,'158':0,'159':0,'160':0,
-'161':0,'162':0,'163':0,'164':0,'165':0,'166':0,'167':0,'168':0,'169':0,'170':0,'171':0,'172':0,'173':0,'174':0,'175':0,'176':0,'177':0,'178':0,'179':0,'180':0,
-'181':0,'182':0,'183':0,'184':0,'185':0,'186':0,'187':0,'188':0,'189':0,'190':0,'191':0,'192':0,'193':0,'194':0,'195':0,'196':0,'197':0,'198':0,'199':0,'200':0,
-'201':0,'202':0,'203':0,'204':0,'205':0,'206':0,'207':0,'208':0,'209':0,'210':0,'211':0,'212':0,'213':0,'214':0,'215':0,'216':0,'217':0,'218':0,'219':0,'220':0,
-'221':0,'222':0,'223':0,'224':0,'225':0,'226':0,'227':0,'228':0,'229':0,'230':0,'231':0,'232':0,'233':0,'234':0,'235':0,'236':0,'237':0,'238':0,'239':0,'240':0,
-'241':0,'242':0,'243':0,'244':0,'245':0,'246':0,'247':0,'248':0,'249':0,'250':0,'251':0,'252':0,'253':0,'254':0,'255':0,'256':0,'257':0,'258':0,'259':0,'260':0,
-'261':0,'262':0,'263':0,'264':0,'265':0,'266':0,'267':0,'268':0,'269':0,'270':0,'271':0,'272':0,'273':0,'274':0,'275':0,'276':0,'277':0,'278':0,'279':0,'280':0 
-           
-      },  
+      list: [], 
+      seatSrc:{}, //用物件才能點選變換圖片
+      seatSelected:{},  
       max:0, 
       maxCount:0, 
       onClick:-1, 
@@ -194,11 +69,39 @@ export default {
       time1:0,
       screeningID:0,
       courtsID:0 ,
-      vueSeatDataStrArray:[]
+      vueSeatDataStrArray:[],
+      courts:[
+          {'seats':0,'rows':0,'tdsPerRow':0},   //court 0
+          {'seats':280,'rows':10,'tdsPerRow':34},   //court 1
+          {'seats':200,'rows':10,'tdsPerRow':20},   //court 2
+          {'seats':153,'rows':9,'tdsPerRow':21}   //court 3 
+      ],
+      cID:'',
+      courtClass1:'',
+      courtClass2:'',
+      courtClass3:''
     };
   },
-  mounted() { 
-    this.courtsID = sessionStorage.courtsID;
+  mounted() {  
+    this.cID = sessionStorage.courtsID;  //courtsID
+    if(this.cID == '1')
+        this.courtClass1 = 'seatImg1';
+    if(this.cID == '2')
+        this.courtClass2 = 'seatImg2';
+    if(this.cID == '3')
+        this.courtClass3 = 'seatImg3';
+    for(let i=0;i<=this.courts[this.cID].rows-1;i++){
+        this.$set(this.list,i,[]);
+        for(let k=0;k<=this.courts[this.cID].tdsPerRow-1;k++){ 
+            this.$set(this.list[i],k,{});
+        }
+    }
+    for(let i=1;i<=this.courts[this.cID].seats;i++){ 
+        this.$set(this.seatSrc,i,0);
+    }
+    for(let i=1;i<=this.courts[this.cID].seats;i++){ 
+        this.$set(this.seatSelected,i,0);
+    } 
     this.screeningID = sessionStorage.screeningID;  
     this.buildForListData();
     this.getSellOut();  
@@ -229,7 +132,9 @@ export default {
                       var strNum = array[k].substring(1,3);
                       // console.log(array[k]);   
                       var asciiNum =strEng.charCodeAt()-65;
-                      var seatDataNum = asciiNum*28+Number(strNum); 
+                      //每排幾個座位
+                      var s = this.courts[this.cID].seats / this.courts[this.cID].rows;
+                      var seatDataNum = asciiNum*s+Number(strNum); 
                       // console.log(seatDataNum); 
                       seatDataNumArray.push(seatDataNum);
                   }
@@ -239,7 +144,7 @@ export default {
           }
           // console.log(seatDataNumArray); 
           //載入售出位置 
-          for(let i=1; i <=280; i++){
+          for(let i=1; i <=this.courts[this.cID].seats; i++){
              this.sellOutData[i] = 0;
           }   
           for(let i=0; i < seatDataNumArray.length; i++){
@@ -248,7 +153,7 @@ export default {
           //設定所有走道
           this.seatSrc[0] = this.aisleImg;  
           //設定所有座位圖示
-          for(let i=1; i <=280; i++){
+          for(let i=1; i <=this.courts[this.cID].seats; i++){
               if(this.sellOutData[i] == 1){ 
                 //座位售出
                   this.seatSrc[i] = this.selloutImg;
@@ -279,21 +184,53 @@ export default {
       //list 把走道也算入陣列中 其他data位置數字只計座位數
       var num = 0;
       //i-1只是調整 真正位置數字要看 i 為多少 
-      for (let k = 0; k <10; k++) {
+      for (let k = 0; k <this.courts[this.cID].rows; k++) {
          var str = "A";
          num =str.charCodeAt() + k;  // 65 + k
          str = String.fromCharCode(num); 
          var seatCount = 1;
-         for (let i = 1; i <= 34; i++) { 
-            if(i%34==5 || i%34==6 || i%34==17 || i%34==18 || i%34==29 || i%34==30){
-                this.list[k][i-1].Num = 0;   
-            }else{  
-                this.list[k][i-1].eng = str + seatCount;
-                this.list[k][i-1].Num = (k*28)+seatCount;
-                if(i<12){   
-                    this.list[k][i-1].eng = str +"0"+ seatCount;
-                }  
-                seatCount++;
+         //每列幾個td
+         var a = this.courts[this.cID].tdsPerRow;
+         //每排幾個座位
+         var b = this.courts[this.cID].seats / this.courts[this.cID].rows;
+         for (let i = 1; i <= a; i++) { 
+            switch (this.cID) {
+              case '1': 
+                        if(i%a==5 || i%a==6 || i%a==17 || i%a==18 || i%a==29 || i%a==30){
+                            this.list[k][i-1].Num = 0;   
+                        }else{  
+                            this.list[k][i-1].eng = str + seatCount;
+                            this.list[k][i-1].Num = (k*b)+seatCount;
+                            if(i<12){   
+                                this.list[k][i-1].eng = str +"0"+ seatCount;
+                            }  
+                            seatCount++;
+                        }
+                break; 
+              case '2':
+                      // if(i%a==11 || i%a==12){
+                      //       this.list[k][i-1].Num = 0;   
+                      //   }else{  
+                            this.list[k][i-1].eng = str + seatCount;
+                            this.list[k][i-1].Num = (k*b)+seatCount;
+                            if(i<10){   
+                                this.list[k][i-1].eng = str +"0"+ seatCount;
+                            }  
+                            seatCount++;
+                        // }
+                break; 
+              case '3':
+                      if(i%a==5 || i%a==6 || i%a==16 || i%a==17){
+                            this.list[k][i-1].Num = 0;   
+                        }else{  
+                            this.list[k][i-1].eng = str + seatCount;
+                            this.list[k][i-1].Num = (k*b)+seatCount;
+                            if(i<12){   
+                                this.list[k][i-1].eng = str +"0"+ seatCount;
+                            }  
+                            seatCount++;
+                        }
+                break; 
             }
             // console.log(i);
          } 
@@ -306,10 +243,9 @@ export default {
       var ID = sessionStorage.screeningID;   
       var postData = new FormData(); 
       postData.append('ID', ID); 
-      this.time1 = 1571110257; 
+      // this.time1 = 1571110257; 
       postData.append('time1', this.time1);
-      //所有賣出座位 英文編號
-      var _this = this;
+      //所有賣出座位 英文編號 
       this.axios.post(`${this.$api}/detail/tapGetSellOut`, postData).then(response => { 
           if(response.data != "[]no data"){ 
               // console.log(response.data);
@@ -399,10 +335,7 @@ export default {
         //點空位  
         case this.seatImg: 
             if(this.maxCount  == this.max)
-                return ;
-            //選完座位產生下一頁連結
-            // if(this.maxCount +1 == this.max)
-            //     this.to= "/order/Detail"; 
+                return ; 
             this.maxCount++;
             this.seatSelected[this.onClick] = 1;
             this.seatSrc[this.onClick] = this.selectImg;
@@ -413,18 +346,19 @@ export default {
     } ,
     //及時更改session
     tapChangeSession(){ 
+      //每排幾個座位
+      var a =this.courts[this.cID].seats / this.courts[this.cID].rows;
       var sessionList=[];
-      //設定物件seatSelected的長度
-      var arr = Object.keys(this.seatSelected);
-      var len = arr.length;//物件長度
+      //設定物件seatSelected的長度 (同seatSrc)
+      var len = this.courts[this.cID].seats;//物件長度
       //i從1開始才會對應正確
       for(let i=1; i <= len; i++){  
           if(this.seatSelected[i] == 1){ 
-              var k = i/28;
+              var k = i/a;
               var str = "A";
               var newAsciiNum = str.charCodeAt() + k;  // 65 + k
               str = String.fromCharCode(newAsciiNum); 
-              var num = i%28;
+              var num = i%a;
               var seatEngNum = str + num ; 
               sessionList.push(seatEngNum); 
           }
@@ -447,9 +381,17 @@ td img:hover{
 .col-md-12,.col-md-10{ 
   //  border: 1px solid red;
 }
-.seatImg{ 
-  width:100%; 
-  // height:30px;  
+.seatImg1{ 
+  width:100%;  
+}
+.seatImg2{ 
+  // width:100%; 
+  width:40px; 
+  height:40px;  
+}
+.seatImg3{  
+  width:40px; 
+  height:40px;  
 }
 // 座位相鄰靠攏
 table{  
@@ -481,8 +423,9 @@ div {
 }  
 //RWD  寬度769px以上
 @media only screen and (min-width: 769px) {
-    .forTable{ 
-    }
+    .forTable{
+
+    } 
 }
 //RWD  寬度768px~321px
 @media only screen and (min-width: 321px) and (max-width: 768px) {
