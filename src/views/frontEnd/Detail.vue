@@ -21,6 +21,10 @@
                     <td>{{list.day}}&ensp;{{list.time}}</td>
                 </tr>
                 <tr>
+                    <td>&emsp;大&emsp;&emsp;廳&ensp;:</td>
+                    <td>第{{list.hall}}廳</td>
+                </tr>
+                <tr>
                     <td>&emsp;座&emsp;&emsp;位&ensp;:</td>
                     <td>{{list.seat}}</td>
                 </tr>
@@ -229,13 +233,13 @@ export default {
                 foodNum:{"0":"","1":"","2":"","3":"","4":""},
                 ticketName:{"0":"","1":"","2":"","3":""},
                 ticketNum:{"0":"","1":"","2":"","3":""},
-                price:{"0":190,     "1":170,    "2":50,   "3":70,      "4":30,     "5":50,     "6":130,  "7":150,
-                // Price {"0":全票,"1":優待票,"2":可樂 大,"3":爆米花 大,"4":可樂 中,"5":爆米花 中,"6":敬老票,"7":學生票}
+                price:{"0":190,     "1":170,    "2":50,   "3":70,      "4":30,     "5":50,     "6":150,  "7":130,
+                // Price {"0":全票,"1":優待票,"2":可樂 大,"3":爆米花 大,"4":可樂 中,"5":爆米花 中,"6":學生票,"7":敬老票}
                     //"8":爆米花 小
                        "8":30
                 },
-                ticketData:{"全票":1,"優待票":0,"敬老票":0,"學生票":0},
-                foodData:{"可樂 大":0,"爆米花 大":0,"可樂 中":0,"爆米花 中":0},
+                ticketData:{"全票":0,"優待票":0,"學生票":0,"敬老票":0},
+                foodData:{"爆米花 小":0,"爆米花 中":0,"爆米花 大":0,"可樂 中":0,"可樂 大":0},
                 discount: 0.7,
                 total:0,
                 real:0, 
@@ -247,10 +251,10 @@ export default {
                 phone:' ', 
                 loginBar:true, 
                 editBar:true,
-                cadrd1:"1231",
-                cadrd2:"1234",
-                cadrd3:"1234",
-                cadrd4:"1234",
+                cadrd1:" ",
+                cadrd2:" ",
+                cadrd3:" ",
+                cadrd4:" ",
                 br:1,
                 orderNumber:""
             },  
@@ -266,6 +270,7 @@ export default {
             window.location.href="./#/order"; 
         this.checkLoginAndGetData(); 
         this.countMoney();  
+        this.list.hall = sessionStorage.courtsID;
         // console.log(this.list)
     },
     methods:{ 
@@ -373,11 +378,11 @@ export default {
                 this.list.ticketNum["1"] = "x"+ ticketNum["1"];
             }   
             if(ticketNum["2"]){
-                this.list.ticketName["2"] = "敬老票 "; 
+                this.list.ticketName["2"] = "學生票 "; 
                 this.list.ticketNum["2"] = "x"+ ticketNum["2"] + "  ";
             }
             if(ticketNum["3"]){
-                this.list.ticketName["3"] = "學生票 "; 
+                this.list.ticketName["3"] = "敬老票 "; 
                 this.list.ticketNum["3"] = "x"+ ticketNum["3"];
             }   
             var mealsNum = JSON.parse(JSON.parse(sessionStorage.getItem('movie')).mealsNum);
@@ -506,6 +511,9 @@ export default {
             } 
         }
     }
+    .tab{
+        // margin:0% 0% 0% 3%;
+    } 
     .empty{
         color:white;
         padding:5px 0 0 5px;
