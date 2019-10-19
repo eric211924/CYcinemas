@@ -284,23 +284,20 @@
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-              <h6>
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-                開始日期 : {{start_time}}
-              </h6>
-              <h6>
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-                截止日期 : {{end_time}}
-              </h6>
-              <h6>
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                活動地點 : 中佑影城
-              </h6>
-              <h6>
-                <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                活動辦法 :
-                <p>{{content}}</p>
-              </h6>
+              
+                <p><i class="fa fa-calendar" aria-hidden="true"></i>
+                開始日期 : {{start_time}}</p>
+             
+                <p><i class="fa fa-calendar" aria-hidden="true"></i>
+                截止日期 : {{end_time}}</p>
+             
+                <p><i class="fa fa-map-marker" aria-hidden="true"></i>
+                活動地點 : 中佑影城</p>
+              
+                <p><i class="fa fa-file-text-o" aria-hidden="true"></i>
+                活動辦法 :</p>
+                {{content}}
+              
             </div>
           </div>
         </div>
@@ -381,5 +378,22 @@ export default {
 </script>
 
 <style>
+*{
+  margin:0;
+  padding:0;
+}
+.modal-title{
+  font-size:20px;
+}
+h5{
+  line-height: 10px;
+}
+
+
+
+
+
+
+
 </style>
 

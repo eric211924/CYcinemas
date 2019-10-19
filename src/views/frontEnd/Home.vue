@@ -1,5 +1,5 @@
 <template>
-  <div class>
+  <div :style="textStyle">
     <div
       id="carouselExampleIndicators"
       class="carousel slide"
@@ -96,14 +96,8 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-            <img
-              :src="movieData.poster"
-              class="card-img"
-              alt="..."
-              style="float:left;width:180px;height:270px;"
-            />
-            <div class="text">{{ movieData.info }}</div>
-            <iframe
+             <iframe
+              style = "margin-bottom:40px"
               width="100%"
               height="315"
               :src="movieData.trailer"
@@ -111,6 +105,21 @@
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
+            <img
+              :src="movieData.poster"
+              class="card-img"
+              alt="..."
+              style="float:left;width:180px;height:270px;"
+            />
+            <div class="text" style="line-height:100px;font-size: 20px; line-height: 24px; letter-spacing: 3px;">{{ movieData.info }}</div>
+            <!-- <iframe
+              width="100%"
+              height="315"
+              :src="movieData.trailer"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe> -->
 
             <button
               type="button"
@@ -176,10 +185,12 @@ export default {
       movieData: {
         name: ''
       },
+      backgroundColor: '#673AB7',
     };
   },
   mounted() {
     this.getMovies();
+    
   },
   methods: {
     getMovies() {
@@ -248,5 +259,8 @@ li {
   margin:0 auto;
   margin-bottom: 50px;
   margin-top: 50px;
+  border-radius: 10px;
+  box-shadow: 5px 10px 18px #888888;
 }
+
 </style>

@@ -31,7 +31,7 @@
                 <h5 class="card-title" style="font-size:30px;">{{item.name}}</h5>
               </a>
               <p
-                class="card-text text-truncate" style="display:block"
+                class="card-text text-truncate" style="display:block;"
               >{{item.info}}</p>
               <p class="card-text">
                 <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
