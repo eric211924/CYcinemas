@@ -1,5 +1,5 @@
 <template>
-  <div :style="textStyle">
+  <div>
     <div
       id="carouselExampleIndicators"
       class="carousel slide"
@@ -97,7 +97,7 @@
           </div>
           <div class="modal-body">
              <iframe
-              style = "margin-bottom:40px"
+              style = "margin-bottom:40px;"
               width="100%"
               height="315"
               :src="movieData.trailer"
@@ -109,9 +109,9 @@
               :src="movieData.poster"
               class="card-img"
               alt="..."
-              style="float:left;width:180px;height:270px;"
+              style="float:left;width:180px;height:270px;display:block;"
             />
-            <div class="text" style="line-height:100px;font-size: 20px; line-height: 24px; letter-spacing: 3px;">{{ movieData.info }}</div>
+            <div class="text" style="text-align:left; clear:both; margin-left:-200px; margin-top:20px;">{{ movieData.info }}</div>
             <!-- <iframe
               width="100%"
               height="315"
@@ -139,7 +139,7 @@
             <p>上映日期 : {{ movieData.play_date }}</p>
 
             <div>
-              時間:
+              <!-- 時間:
               <ul>
                 <li>
                   <button type="button" class="btn btn-outline-info">11:10</button>
@@ -150,7 +150,7 @@
                 <li>
                   <button type="button" class="btn btn-outline-info">21:20</button>
                 </li>
-              </ul>
+              </ul> -->
             </div>
           </div>
           <div class="modal-footer">

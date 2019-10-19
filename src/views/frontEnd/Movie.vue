@@ -4,7 +4,7 @@
     <div class="row">
       <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
       <div
-        class="card mb-3 col-6"
+        class="card mb-3 col-12 col-6"
         style="max-width: 540px;"
         v-for="(item, index) in releasedMovies"
         :key="index"
@@ -64,7 +64,7 @@
                 alt="..."
                 style="float:left;width:180px;height:270px;"
               />
-              <div class="text">{{movieData.info}}</div>
+              <div class="text" style="display:block;">{{movieData.info}}</div>
 
               <button
                 type="button"
@@ -83,12 +83,12 @@
               <p>影片類型：{{movieData.genre}}</p>
               <p>上映日期：{{movieData.play_date}}</p>
 
-              <p>
+              <!-- <p>
                 時間:
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">11:10</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">15:20</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">21:20</button>
-              </p>
+              </p> -->
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -209,7 +209,7 @@
     </div> 
     <h1 class="text-center my-5">即將上映</h1>
     <div class="row">
-      <div class="card mb-3 col-6" style="max-width: 540px;" v-for="(page, index) in comingSoonPages" :key="index">
+      <div class="card mb-3 col-12 col-6" style="max-width: 540px;" v-for="(page, index) in comingSoonPages" :key="index">
         <div class="row no-gutters">
           <div class="col-md-4">
             <a href="#" data-toggle="modal" data-target="#myModal_1"
@@ -259,7 +259,7 @@
                 alt="..."
                 style="float:left;width:180px;height:270px;"
               />
-              <div class="text">{{pageData.info}}</div>
+              <div class="text" style="display:block;">{{pageData.info}}</div>
 
               <button
                 type="button"
@@ -278,12 +278,12 @@
               <p>影片類型：{{pageData.genre}}</p>
               <p>上映日期：{{pageData.play_date}}</p>
 
-              <p>
+              <!-- <p>
                 時間:
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">11:10</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">15:20</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">21:20</button>
-              </p>
+              </p> -->
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -317,7 +317,7 @@
                 alt="..."
                 style="float:left;width:180px;height:270px;"
               />
-              <div class="text">{{movieData.info}}</div>
+              <div class="text" style="display:block;">{{movieData.info}}</div>
 
               <button
                 type="button"
@@ -549,8 +549,8 @@ export default {
 .card-img {
   /* width:auto;
   height: auto; */
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
   margin-right: 10px;
 }
 .card {
