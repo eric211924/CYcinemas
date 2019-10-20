@@ -4,7 +4,7 @@
     <div class="row">
       <!-- <MovieCard :img-ar="imgAr"></MovieCard> -->
       <div
-        class="card mb-3 col-6"
+        class="card mb-3 col-12 col-6"
         style="max-width: 540px;"
         v-for="(item, index) in releasedMovies"
         :key="index"
@@ -28,13 +28,13 @@
                 data-target="#myModal"
                 @click.prevent="setMovieModal(item)"
               >
-                <h5 class="card-title">{{item.name}}</h5>
+                <h5 class="card-title" style="font-size:30px;">{{item.name}}</h5>
               </a>
               <p
-                class="card-text"
-              >由布萊德彼特飾演一名航太工程師，為了尋找多年前啟程外太空尋找外星智慧生物，失蹤在茫茫宇宙的父親，他不惜跨越宇宙星系間，只為了尋找父親可能 仍生還的下落。</p>
+                class="card-text text-truncate" style="display:block;"
+              >{{item.info}}</p>
               <p class="card-text">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
               </p>
             </div>
           </div>
@@ -64,7 +64,7 @@
                 alt="..."
                 style="float:left;width:180px;height:270px;"
               />
-              <div class="text">{{movieData.info}}</div>
+              <div class="text" style="display:block;">{{movieData.info}}</div>
 
               <button
                 type="button"
@@ -83,12 +83,12 @@
               <p>影片類型：{{movieData.genre}}</p>
               <p>上映日期：{{movieData.play_date}}</p>
 
-              <p>
+              <!-- <p>
                 時間:
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">11:10</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">15:20</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">21:20</button>
-              </p>
+              </p> -->
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -98,7 +98,7 @@
       </div>
 
       <!--modal結束-->
-      <div class="card mb-3" style="max-width: 540px;">
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -119,8 +119,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="card mb-3" style="max-width: 540px;">
+      </div> -->
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -139,8 +139,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="card mb-3" style="max-width: 540px;">
+      </div> -->
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -161,8 +161,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="card mb-3" style="max-width: 540px;">
+      </div> -->
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -183,8 +183,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="card mb-3" style="max-width: 540px;">
+      </div> -->
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -205,11 +205,11 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div>-->
+    </div> 
     <h1 class="text-center my-5">即將上映</h1>
     <div class="row">
-      <div class="card mb-3 col-6" style="max-width: 540px;" v-for="(page, index) in comingSoonPages" :key="index">
+      <div class="card mb-3 col-12 col-6" style="max-width: 540px;" v-for="(page, index) in comingSoonPages" :key="index">
         <div class="row no-gutters">
           <div class="col-md-4">
             <a href="#" data-toggle="modal" data-target="#myModal_1"
@@ -224,12 +224,12 @@
           <div class="col-md-8">
             <div class="card-body">
               <a href="#" data-toggle="modal" data-target="#myModal_1" @click.prevent="setPageModal(page)">
-                <h5 class="card-title">{{page.name}}</h5></a>
+                <h5 class="card-title" style="font-size:30px">{{page.name}}</h5></a>
               <p
-                class="card-text"
-              >史蒂芬金小說改編，經典電影「鬼店」續集！經過這麼多年，丹尼的依舊為童年時期遭遇的可怕事件留下創傷，當他遇到艾柏拉這位勇敢少女時，他平靜的生活完全破碎</p>
+                class="card-text text-truncate" style="display:block;"
+              >{{page.info}}</p>
               <p class="card-text">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
               </p>
             </div>
           </div>
@@ -240,50 +240,50 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">{{movieData.name}}</h4>
+              <h4 class="modal-title">{{pageData.name}}</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
               <iframe
                 width="100%"
                 height="315"
-                :src="movieData.trailer"
+                :src="pageData.trailer"
                 style="margin-bottom:20px;"
                 frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
               <img
-                :src="movieData.poster"
+                :src="pageData.poster"
                 class="card-img"
                 alt="..."
                 style="float:left;width:180px;height:270px;"
               />
-              <div class="text">{{movieData.info}}</div>
+              <div class="text" style="display:block;">{{pageData.info}}</div>
 
               <button
                 type="button"
                 class="btn btn-outline-success"
                 disabled
                 style="margin:0.5%;"
-              >{{movieData.rating}}</button>
+              >{{pageData.rating}}</button>
               <button
                 type="button"
                 class="btn btn-outline-success"
                 disabled
                 style="margin:0.5%;"
-              >{{movieData.run_time}}</button>
+              >{{pageData.run_time}}</button>
 
-              <p>主要演員：{{movieData.actor}}</p>
-              <p>影片類型：{{movieData.genre}}</p>
-              <p>上映日期：{{movieData.play_date}}</p>
+              <p>主要演員：{{pageData.actor}}</p>
+              <p>影片類型：{{pageData.genre}}</p>
+              <p>上映日期：{{pageData.play_date}}</p>
 
-              <p>
+              <!-- <p>
                 時間:
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">11:10</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">15:20</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">21:20</button>
-              </p>
+              </p> -->
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -294,7 +294,7 @@
 
       <!--modal結束-->
 
-      <div class="modal fade" id="myModal" role="dialog">
+      <!-- <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
@@ -317,7 +317,7 @@
                 alt="..."
                 style="float:left;width:180px;height:270px;"
               />
-              <div class="text">{{movieData.info}}</div>
+              <div class="text" style="display:block;">{{movieData.info}}</div>
 
               <button
                 type="button"
@@ -348,9 +348,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!--modal結束-->
-      <div class="card mb-3" style="max-width: 540px;">
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -371,8 +371,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="card mb-3" style="max-width: 540px;">
+      </div> -->
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -393,8 +393,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="card mb-3" style="max-width: 540px;">
+      </div> -->
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -415,8 +415,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="card mb-3" style="max-width: 540px;">
+      </div> -->
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -437,8 +437,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="card mb-3" style="max-width: 540px;">
+      </div> -->
+      <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img
@@ -459,7 +459,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -477,7 +477,12 @@ export default {
         name: ""
       },
       item: {},
-      poster: ""
+      poster: "",
+      trailer:"",
+      comingSoonPages:{},
+      pageData:{
+        name:""
+      },
     };
   },
   mounted() {
@@ -544,8 +549,8 @@ export default {
 .card-img {
   /* width:auto;
   height: auto; */
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
   margin-right: 10px;
 }
 .card {

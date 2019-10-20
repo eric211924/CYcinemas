@@ -1,5 +1,5 @@
 <template>
-  <div class>
+  <div>
     <div
       id="carouselExampleIndicators"
       class="carousel slide"
@@ -96,14 +96,8 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-            <img
-              :src="movieData.poster"
-              class="card-img"
-              alt="..."
-              style="float:left;width:180px;height:270px;"
-            />
-            <div class="text">{{ movieData.info }}</div>
-            <iframe
+             <iframe
+              style = "margin-bottom:40px;"
               width="100%"
               height="315"
               :src="movieData.trailer"
@@ -111,6 +105,21 @@
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
+            <img
+              :src="movieData.poster"
+              class="card-img"
+              alt="..."
+              style="float:left;width:180px;height:270px;display:block;"
+            />
+            <div class="text" style="text-align:left; clear:both; margin-left:-200px; margin-top:20px;">{{ movieData.info }}</div>
+            <!-- <iframe
+              width="100%"
+              height="315"
+              :src="movieData.trailer"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe> -->
 
             <button
               type="button"
@@ -130,7 +139,7 @@
             <p>上映日期 : {{ movieData.play_date }}</p>
 
             <div>
-              時間:
+              <!-- 時間:
               <ul>
                 <li>
                   <button type="button" class="btn btn-outline-info">11:10</button>
@@ -141,7 +150,7 @@
                 <li>
                   <button type="button" class="btn btn-outline-info">21:20</button>
                 </li>
-              </ul>
+              </ul> -->
             </div>
           </div>
           <div class="modal-footer">
@@ -151,8 +160,12 @@
       </div>
     </div>
     <!-- Modal End -->
-
     <!-- 阿正 UIkit 滑塊 End-->
+    <!-- <img src="..\..\assets\home_pic\cellphone.jpg"/>
+    <img src="..\..\assets\home_pic\cup.png"/>   -->
+    
+    <img src="..\..\assets\home_pic\line.png" id="line" />  
+
   </div>
 </template>
 
@@ -172,10 +185,12 @@ export default {
       movieData: {
         name: ''
       },
+      backgroundColor: '#673AB7',
     };
   },
   mounted() {
     this.getMovies();
+    
   },
   methods: {
     getMovies() {
@@ -239,4 +254,13 @@ li {
 .uk-position-center-right {
   background-color: #becb01;
 }
+#line{
+  display:block;
+  margin:0 auto;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  border-radius: 10px;
+  box-shadow: 5px 10px 18px #888888;
+}
+
 </style>
