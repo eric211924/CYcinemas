@@ -55,7 +55,7 @@ const router = new Router({
       path: '/bonus',
       name: 'bonus',
       meta: { requiresAuth: true },
-      component: () => import('./views/frontEnd/HanlinBar.vue')
+      component: () => import('./views/frontEnd/Bonus.vue')
     },
     {
       path: '/user',

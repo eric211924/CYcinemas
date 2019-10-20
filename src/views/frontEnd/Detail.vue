@@ -109,7 +109,7 @@
         </div><!--div"tab2"-->
         <button v-if="list.editBar"  type="button" 
             class="cancelHover loginBtn btn btn-outline-info">
-            歡迎光臨 {{list.accout}}</button> 
+            歡迎光臨 {{list.account}}</button> 
         <button v-if="list.loginBar"  href data-toggle="modal" data-target="#login" type="button" 
             class="loginBtn btn btn-outline-secondary">
             會員登入</button>
@@ -245,7 +245,7 @@ export default {
                 real:0, 
                 seat: '',
                 hall: '',
-                accout: '',
+                account: '',
                 memberName:'', 
                 email:' ',
                 phone:' ', 
@@ -328,6 +328,23 @@ export default {
             }).catch(function (error) { 
                 console.log(error); 
             }); 
+
+            if(sessionStorage.status){      //如果是會員要有點數新增
+                this.axios.post(`${this.$api}/detail/updateMemberPoint`, postData) 
+            .then(function (response) { 
+                console.log(response.data);
+            }).catch(function (error) { 
+                console.log(error); 
+            }); 
+            }
+
+            //測試
+            //     this.axios.post(`${this.$api}/detail/getPointRecord`, postData) 
+            // .then(function (response) { 
+            //     console.log(response.data);
+            // }).catch(function (error) { 
+            //     console.log(error); 
+            // }); 
         }, 
         ok:function(){   
             this.getOrderNumber();
@@ -357,7 +374,7 @@ export default {
             this.list.real =Math.ceil(this.list.total*this.list.discount); 
         },
         memberGetData: function(){ 
-            this.list.accout = sessionStorage.getItem('nowAcc'); 
+            this.list.account = sessionStorage.getItem('nowAcc'); 
             this.list.memberName = sessionStorage.getItem('nowName'); 
             this.list.email = sessionStorage.getItem('nowEmail'); 
             this.list.phone = sessionStorage.getItem('nowPhone'); 
