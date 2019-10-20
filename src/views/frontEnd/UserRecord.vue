@@ -71,9 +71,6 @@ export default {
                     //     duration: 3000
                     // });
                     console.log(_this.result);
-                    // console.log(typeof _this.result[0].meals_num);
-                    // console.log(_this.result[0].meals_num);
-                    // console.log(typeof _this.list);
 
                     _this.result.forEach(function (e) {
                         // console.log(e.tickets_num);
