@@ -204,7 +204,7 @@
         </div>  
         <!-- error modal end-->
         <div class="btnGroup row"> 
-            <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center" to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
+            <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center" @click.native="recoverSeats" to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
             <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-primary">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 確認訂購
@@ -256,7 +256,8 @@ export default {
                 cadrd3:" ",
                 cadrd4:" ",
                 br:1,
-                orderNumber:""
+                orderNumber:"",
+                isPost:""
             },  
         target:"",
         chkInputEmpty:{"1":1,"2":1,"3":1,}, 
@@ -265,14 +266,25 @@ export default {
         FinishPageData:"" 
         }
     },
+    created() {
+        console.log("created");
+        sessionStorage.setItem("inDetail",1);
+        window.addEventListener('beforeunload', e => this.beforeunloadFn(e))
+    },
+    destroyed() {
+        if(!this.isPost)    //isPost決定是不是到完成訂單
+        console.log("destroyed");
+    window.removeEventListener('beforeunload', e => this.beforeunloadFn(e))
+    },
     mounted() { 
-        if(!(sessionStorage.getItem('movie')))
+        if(!(sessionStorage.getItem('choosedSeat')))
             window.location.href="./#/order"; 
         this.checkLoginAndGetData(); 
         this.countMoney();  
         this.list.hall = sessionStorage.courtsID;
         // console.log(this.list)
     },
+    
     methods:{ 
         chkIcon:function(num,empty,right,wrong){
             this.chkInputEmpty[num] = empty;
@@ -301,6 +313,7 @@ export default {
             this.target = "#error";
         }, 
         post:function(){  
+            this.isPost = 1;
             var ticketTotalNum = JSON.parse(JSON.parse(sessionStorage.movie).totalTicketsNum);
             var JSONData = JSON.stringify(this.list);
             var foodData   = this.list.foodData;
@@ -327,6 +340,7 @@ export default {
                 // console.log(response.data["0"]);  //select id n 
             }).catch(function (error) { 
                 console.log(error); 
+                alert("訂購失敗，座位已被選走");
             }); 
 
             if(sessionStorage.status){      //如果是會員要有點數新增
@@ -355,8 +369,19 @@ export default {
             window.location.href="./#/order/FinishDetail";
         },
         cancel:function(){ 
+            this.recoverSeats();
             this.clrSession(); 
             window.location.href="./#/order";
+        },
+        recoverSeats(){
+            var postData = new FormData();
+            postData.append('screeningID', sessionStorage.screeningID);
+            postData.append('choosedSeat', sessionStorage.choosedSeat);
+            this.axios.post(`${this.$api}/detail/unlockScreeningSeat`,postData).then(response=>{
+                console.log(response.data);
+            }).catch(error=>{
+                console.log("Recover seats failed.");
+            })
         },
         countMoney:function(){ 
             var ticketNum =JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum); 
@@ -472,7 +497,15 @@ export default {
             sessionStorage.removeItem('movie');  
             sessionStorage.removeItem('movieIndex');  
             sessionStorage.removeItem('choosedSeat');  
-        } 
+        },
+        beforeunloadFn(e) {
+            console.log("beforunload");
+            // localStorage.setItem("beeooi",1);
+            sessionStorage.removeItem("inDetail");
+            localStorage.removeItem("beeooi");
+            
+         }
+        
     }  
 } 
 </script>
@@ -528,9 +561,6 @@ export default {
             } 
         }
     }
-    .tab{
-        // margin:0% 0% 0% 3%;
-    } 
     .empty{
         color:white;
         padding:5px 0 0 5px;

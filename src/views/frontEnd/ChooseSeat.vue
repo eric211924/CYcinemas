@@ -83,6 +83,7 @@ export default {
     };
   },
   mounted() {  
+    if(!(sessionStorage.getItem('movie')))   this.$router.push("/order");     //確保有電影清單才進來
     this.cID = sessionStorage.courtsID;  //courtsID
     if(this.cID == '1')
         this.courtClass1 = 'seatImg1';
@@ -178,7 +179,23 @@ export default {
               }); 
               return this.cnt++;
           } 
-          this.nextPageGetSell();
+
+          var postData = new FormData();
+          postData.append('screeningID', sessionStorage.screeningID);
+          postData.append('choosedSeat', sessionStorage.choosedSeat);
+
+          this.axios.post(`${this.$api}/detail/lockScreeningSeat`,postData).then(response => {   //看位子還有沒有，有的話就鎖住，沒有就跳出訊息
+            console.log(response.data);
+            if(response.data=="there are not enough seats."){
+              alert("位子已經被選走囉!再看看別的吧!");
+
+            }
+            else{
+              this.nextPageGetSell();
+            }
+          }).catch(error=>{
+            alert("位子已經被選走囉!再看看別的吧!");
+          })
     }, 
     buildForListData(){
       //list 把走道也算入陣列中 其他data位置數字只計座位數
