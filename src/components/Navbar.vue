@@ -52,7 +52,7 @@
               data-target=".navbar-collapse.show"
             >電影介紹</router-link>
           </li>
-          <li class="nav-item" :class="{'active': this.$route.path == '/order'}">
+          <li class="nav-item" :class="{'active': this.$route.path.indexOf('/order') >= 0}">
             <router-link
               class="nav-link"
               to="/order"
