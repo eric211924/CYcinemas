@@ -16,11 +16,6 @@ const router = new Router({
       name: 'home',
       component: Home
     },
-    // {
-    //   path: '/hanlinBar',
-    //   name: 'hanlinBar',
-    //   component: () => import('./views/frontEnd/HanlinBar')
-    // },
     {
       path: '/news',
       name: 'news',
@@ -60,7 +55,7 @@ const router = new Router({
       path: '/bonus',
       name: 'bonus',
       meta: { requiresAuth: true },
-      component: () => import('./views/frontEnd/HanlinBar.vue')
+      component: () => import('./views/frontEnd/Bonus.vue')
     },
     {
       path: '/user',
@@ -74,9 +69,9 @@ const router = new Router({
           component: () => import('./views/frontEnd/UserInfo.vue')
         },
         {
-          path: 'userWallet',
-          name: 'userWallet',
-          component: () => import('./views/frontEnd/UserWallet.vue')
+          path: 'userRecord',
+          name: 'userRecord',
+          component: () => import('./views/frontEnd/UserRecord.vue')
         },
         {
           path: 'userPoint',
@@ -144,8 +139,15 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  if (to.path.indexOf('/order') == -1) {
+    sessionStorage.removeItem("movie");
+    sessionStorage.removeItem("movieIndex");
+    sessionStorage.removeItem("courtsID");
+    sessionStorage.removeItem("screeningID");
+  }
   if (to.matched.some(record => record.meta.requiresAuth)) {
     let url = to.path.split('/');
+
     switch (url[1]) {
       case 'user':
         if (sessionStorage.getItem('nowAcc')) next();

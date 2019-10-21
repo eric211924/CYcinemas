@@ -109,7 +109,7 @@
         </div><!--div"tab2"-->
         <button v-if="list.editBar"  type="button" 
             class="cancelHover loginBtn btn btn-outline-info">
-            歡迎光臨 {{list.accout}}</button> 
+            歡迎光臨 {{list.account}}</button> 
         <button v-if="list.loginBar"  href data-toggle="modal" data-target="#login" type="button" 
             class="loginBtn btn btn-outline-secondary">
             會員登入</button>
@@ -204,7 +204,7 @@
         </div>  
         <!-- error modal end-->
         <div class="btnGroup row"> 
-            <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center" to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
+            <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center" @click.native="recoverSeats" to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
             <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-primary">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 確認訂購
@@ -245,7 +245,7 @@ export default {
                 real:0, 
                 seat: '',
                 hall: '',
-                accout: '',
+                account: '',
                 memberName:'', 
                 email:' ',
                 phone:' ', 
@@ -256,7 +256,8 @@ export default {
                 cadrd3:" ",
                 cadrd4:" ",
                 br:1,
-                orderNumber:""
+                orderNumber:"",
+                isPost:""
             },  
         target:"",
         chkInputEmpty:{"1":1,"2":1,"3":1,}, 
@@ -265,14 +266,27 @@ export default {
         FinishPageData:"" 
         }
     },
+    created() {
+        console.log("created");
+        this.lockSeats();
+        window.addEventListener('beforeunload', e => this.beforeunloadFn(e))
+    },
+    destroyed() {
+        if(!this.isPost)  {
+            this.recoverSeats();
+        }  //isPost決定是不是到完成訂單
+        console.log("destroyed");
+    window.removeEventListener('beforeunload', e => this.beforeunloadFn(e))
+    },
     mounted() { 
-        if(!(sessionStorage.getItem('movie')))
+        if(!(sessionStorage.getItem('choosedSeat')))
             window.location.href="./#/order"; 
         this.checkLoginAndGetData(); 
         this.countMoney();  
         this.list.hall = sessionStorage.courtsID;
         // console.log(this.list)
     },
+    
     methods:{ 
         chkIcon:function(num,empty,right,wrong){
             this.chkInputEmpty[num] = empty;
@@ -301,6 +315,7 @@ export default {
             this.target = "#error";
         }, 
         post:function(){  
+            this.isPost = 1;
             var ticketTotalNum = JSON.parse(JSON.parse(sessionStorage.movie).totalTicketsNum);
             var JSONData = JSON.stringify(this.list);
             var foodData   = this.list.foodData;
@@ -327,7 +342,25 @@ export default {
                 // console.log(response.data["0"]);  //select id n 
             }).catch(function (error) { 
                 console.log(error); 
+                alert("訂購失敗，座位已被選走");
             }); 
+
+            if(sessionStorage.status){      //如果是會員要有點數新增
+                this.axios.post(`${this.$api}/detail/updateMemberPoint`, postData) 
+            .then(function (response) { 
+                console.log(response.data);
+            }).catch(function (error) { 
+                console.log(error); 
+            }); 
+            }
+
+            //測試
+            //     this.axios.post(`${this.$api}/detail/getPointRecord`, postData) 
+            // .then(function (response) { 
+            //     console.log(response.data);
+            // }).catch(function (error) { 
+            //     console.log(error); 
+            // }); 
         }, 
         ok:function(){   
             this.getOrderNumber();
@@ -340,6 +373,32 @@ export default {
         cancel:function(){ 
             this.clrSession(); 
             window.location.href="./#/order";
+        },
+        lockSeats(){
+          var postData = new FormData();
+          postData.append('screeningID', sessionStorage.screeningID);
+          postData.append('choosedSeat', sessionStorage.choosedSeat);
+
+          this.axios.post(`${this.$api}/detail/lockScreeningSeat`,postData).then(response => {   //看位子還有沒有，有的話就鎖住，沒有就跳出訊息
+            console.log(response.data);
+            if(response.data=="there are not enough seats."){
+              alert("位子已經被選走囉!再看看別的吧!");
+              this.$router.push("/order/chooseSeat");     //沒位子了也跳回選位子
+            }
+            }).catch(error=>{
+                console.log("lockSeatsError: "+error);
+                this.$router.push("/order/chooseSeat");     //沒鎖成功跳回選位子
+            })
+        },
+        recoverSeats(){
+            var postData = new FormData();
+            postData.append('screeningID', sessionStorage.screeningID);
+            postData.append('choosedSeat', sessionStorage.choosedSeat);
+            this.axios.post(`${this.$api}/detail/unlockScreeningSeat`,postData).then(response=>{
+                console.log(response.data);
+            }).catch(error=>{
+                console.log("Recover seats failed.");
+            })
         },
         countMoney:function(){ 
             var ticketNum =JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum); 
@@ -357,7 +416,7 @@ export default {
             this.list.real =Math.ceil(this.list.total*this.list.discount); 
         },
         memberGetData: function(){ 
-            this.list.accout = sessionStorage.getItem('nowAcc'); 
+            this.list.account = sessionStorage.getItem('nowAcc'); 
             this.list.memberName = sessionStorage.getItem('nowName'); 
             this.list.email = sessionStorage.getItem('nowEmail'); 
             this.list.phone = sessionStorage.getItem('nowPhone'); 
@@ -455,7 +514,14 @@ export default {
             sessionStorage.removeItem('movie');  
             sessionStorage.removeItem('movieIndex');  
             sessionStorage.removeItem('choosedSeat');  
-        } 
+        },
+        beforeunloadFn(e) {
+            console.log("beforunload");
+            // localStorage.setItem("beeooi",1);
+            this.recoverSeats();
+            
+         }
+        
     }  
 } 
 </script>
@@ -511,9 +577,6 @@ export default {
             } 
         }
     }
-    .tab{
-        // margin:0% 0% 0% 3%;
-    } 
     .empty{
         color:white;
         padding:5px 0 0 5px;

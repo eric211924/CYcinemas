@@ -9,10 +9,10 @@
             :class="{'active': this.$route.path == '/user'}"
           ><i class="fa fa-address-card-o" aria-hidden="true"></i> 會員資料</router-link>
           <router-link
-            to="/user/userWallet"
+            to="/user/userRecord"
             class="list-group-item list-group-item-action"
-            :class="{'active': this.$route.path == '/user/userWallet'}"
-          ><i class="fa fa-usd" aria-hidden="true"></i> 消費/儲值紀錄</router-link>
+            :class="{'active': this.$route.path == '/user/userRecord'}"
+          ><i class="fa fa-usd" aria-hidden="true"></i> 消費紀錄</router-link>
           <router-link
             to="/user/userPoint"
             class="list-group-item list-group-item-action"

@@ -36,6 +36,11 @@
               <div class="text-center" :class="isValidMsg[2]">{{ pwdResult }}</div>
             </div>
             <div class="form-group">
+              <label for>確認密碼 :</label>
+              <input type="password" class="form-control" maxlength="20" v-model="repassword" :class="isValid[5]"/>
+              <div class="text-center" :class="isValidMsg[5]">{{ repwdResult }}</div>
+            </div>
+            <div class="form-group">
               <label for>信箱 :</label>
               <input type="text" class="form-control" v-model="email" :class="isValid[3]"/>
               <div class="text-center" :class="isValidMsg[3]">{{ emailResult }}</div>
@@ -71,6 +76,7 @@ export default {
       name: '',
       account: '',
       password: '',
+      repassword: '',
       email: '',
       phone: '',
       result: "",
@@ -78,15 +84,17 @@ export default {
       nameResult: "",
       accResult: "",
       pwdResult: "",
+      repwdResult: "",
       emailResult: "",
       phoneResult: "",
       nameReady: false,
       accReady: false,
       pwdReady: false,
+      repwdReady: false,
       emailReady: false,
       phoneReady: false,
-      isValid: ["", "", "", "", ""],
-      isValidMsg: ["", "", "", "", ""],
+      isValid: ["", "", "", "", "", ""],
+      isValidMsg: ["", "", "", "", "", ""],
     }
   },
   mounted() {
@@ -154,7 +162,7 @@ export default {
     },
     // 密碼: 至少五碼 且為任意英數字組合 (不含特殊符號)
     password: function (val) {
-      var pwdTest = /^[A-Za-z0-9]{5,}$/gm.test(val);
+      var pwdTest = /^[A-Za-z0-9]{5,}$/.test(val);
       // if (val != '') {
         if (pwdTest) {
           this.pwdResult = "";
@@ -170,6 +178,22 @@ export default {
           this.checkInput();
         }
       // }
+    },
+    // 確認密碼: 需與密碼欄位輸入相同
+    repassword: function (val) {
+      if (val == this.password) {
+        this.repwdResult = "";
+        this.repwdReady = true;
+        this.isValid[5] = "is-valid";
+        this.isValidMsg[5] = "valid-feedback";
+        this.checkInput();
+      } else {
+        this.repwdResult = "與密碼不符";
+        this.repwdReady = false;
+        this.isValid[5] = "is-invalid";
+        this.isValidMsg[5] = "invalid-feedback";
+        this.checkInput();
+      }
     },
     // Email
     email: function (val) {
@@ -215,11 +239,12 @@ export default {
       this.name = '';
       this.account =  '';
       this.password = '';
+      this.repassword = '';
       this.email = '';
       this.phone = '';
     },
     checkInput() {
-      if (this.nameReady == false || this.accReady == false || this.pwdReady == false || this.emailReady == false || this.phoneReady == false) {
+      if (this.nameReady == false || this.accReady == false || this.pwdReady == false || this.repwdReady == false || this.emailReady == false || this.phoneReady == false) {
         this.isDisabled = true;
       } else {
         this.isDisabled = false;
@@ -251,12 +276,14 @@ export default {
       this.name = '';
       this.account = '';
       this.password = '';
+      this.repassword = '';
       this.email = '';
       this.phone = '';
 
       this.nameReady = false;
       this.accReady = false;
       this.pwdReady = false;
+      this.repwdReady = false;
       this.emailReady = false;
       this.phoneReady = false;
 
@@ -265,16 +292,19 @@ export default {
       this.isValid[2] = "";
       this.isValid[3] = "";
       this.isValid[4] = "";
+      this.isValid[5] = "";
 
       this.isValidMsg[0] = "";
       this.isValidMsg[1] = "";
       this.isValidMsg[2] = "";
       this.isValidMsg[3] = "";
       this.isValidMsg[4] = "";
+      this.isValidMsg[5] = "";
 
       this.nameResult = "";
       this.accResult = "";
       this.pwdResult = "";
+      this.repwdResult = "";
       this.emailResult = "";
       this.phoneResult = "";
 

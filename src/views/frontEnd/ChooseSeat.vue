@@ -83,6 +83,7 @@ export default {
     };
   },
   mounted() {  
+    if(!(sessionStorage.getItem('movie')))   this.$router.push("/order");     //確保有電影清單才進來
     this.cID = sessionStorage.courtsID;  //courtsID
     if(this.cID == '1')
         this.courtClass1 = 'seatImg1';
@@ -178,7 +179,9 @@ export default {
               }); 
               return this.cnt++;
           } 
-          this.nextPageGetSell();
+              //不在這判斷是否SEATS歸零，改去detail.vue
+              this.nextPageGetSell();
+           
     }, 
     buildForListData(){
       //list 把走道也算入陣列中 其他data位置數字只計座位數

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="text-center my-5">消費/儲值紀錄</h1>
+        <h1 class="text-center my-5">消費紀錄</h1>
         <hr>
         <!-- <button type="button" class="btn btn-primary btn-sm">LOG</button>
         <hr> -->
@@ -19,23 +19,44 @@
                 <!-- 訂單詳細 -->
                 <div v-bind:id="`hd-${item.id}`" class="collapse"  data-parent="#head">
                     <div class="card-body">
-                        姓名 :  {{ item.name }}
-                        <br>
-                        電話 :  {{ item.phone }}
-                        <br>
-                        Email :  {{ item.email }}
-                        <br>
-                        訂單金額 :  {{ item.total_price }}
-                        <br>
-                        折扣後金額(實際金額) :  {{ item.discounted_price }}
-                        <br>
-                        廳 :  第 {{ item.courts_id }} 廳
-                        <br>
-                        票種 :  {{ item.tickets_num }} 
-                        <br>
-                        餐飲 :  {{ item.meals_num }}
-                        <br>
-                        座位號碼 :  {{ item.seat }}
+                        <table class="table table-bordered">
+                            <tr>
+                                <th scope="row">姓名</th>
+                                <td>{{ item.name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">電話</th>
+                                <td>{{ item.phone }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email</th>
+                                <td>{{ item.email }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">訂單金額</th>
+                                <td>{{ item.total_price }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">折扣後金額(實際金額)</th>
+                                <td>{{ item.discounted_price }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">廳</th>
+                                <td>第 {{ item.courts_id }} 廳</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">票種</th>
+                                <td>{{ item.tickets_num }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">餐飲</th>
+                                <td>{{ item.meals_num }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">座位號碼</th>
+                                <td>{{ item.seat }}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -52,19 +73,6 @@ export default {
     data() {
         return {
             result: [],
-            // datetime: '',
-            // accountName: '',
-            // serialNum: '',
-            // courtsID: '',
-            // seat: '',
-            // totalPrice: '',
-            // discPrice: '',
-            // ticketTotalNum: '',
-            // ticketNum: '',
-            // mealNum: '',
-            // name: '',
-            // phone: '',
-            // email: '',
         }
     },
     mounted() {
@@ -84,9 +92,6 @@ export default {
                     //     duration: 3000
                     // });
                     console.log(_this.result);
-                    // console.log(typeof _this.result[0].meals_num);
-                    // console.log(_this.result[0].meals_num);
-                    // console.log(typeof _this.list);
 
                     _this.result.forEach(function (e) {
                         // console.log(e.tickets_num);
@@ -101,11 +106,6 @@ export default {
                         temp2 = temp2.replace(/:/gm, ": ");
                         e.meals_num = temp2;
                     });
-                    
-                    
-                    // {
-                    //     console.log(_this.result.tickets_num);
-                    // }
                 }).catch(function (error) {
                     _this.$toasted.error(error, {
                         theme: 'bubble',
@@ -116,3 +116,9 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+    th {
+        background-color: khaki;
+    }
+</style>
