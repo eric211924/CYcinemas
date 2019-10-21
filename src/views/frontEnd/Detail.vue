@@ -268,11 +268,13 @@ export default {
     },
     created() {
         console.log("created");
-        sessionStorage.setItem("inDetail",1);
+        this.lockSeats();
         window.addEventListener('beforeunload', e => this.beforeunloadFn(e))
     },
     destroyed() {
-        if(!this.isPost)    //isPost決定是不是到完成訂單
+        if(!this.isPost)  {
+            this.recoverSeats();
+        }  //isPost決定是不是到完成訂單
         console.log("destroyed");
     window.removeEventListener('beforeunload', e => this.beforeunloadFn(e))
     },
@@ -369,9 +371,24 @@ export default {
             window.location.href="./#/order/FinishDetail";
         },
         cancel:function(){ 
-            this.recoverSeats();
             this.clrSession(); 
             window.location.href="./#/order";
+        },
+        lockSeats(){
+          var postData = new FormData();
+          postData.append('screeningID', sessionStorage.screeningID);
+          postData.append('choosedSeat', sessionStorage.choosedSeat);
+
+          this.axios.post(`${this.$api}/detail/lockScreeningSeat`,postData).then(response => {   //看位子還有沒有，有的話就鎖住，沒有就跳出訊息
+            console.log(response.data);
+            if(response.data=="there are not enough seats."){
+              alert("位子已經被選走囉!再看看別的吧!");
+              this.$router.push("/order/chooseSeat");     //沒位子了也跳回選位子
+            }
+            }).catch(error=>{
+                console.log("lockSeatsError: "+error);
+                this.$router.push("/order/chooseSeat");     //沒鎖成功跳回選位子
+            })
         },
         recoverSeats(){
             var postData = new FormData();
@@ -501,8 +518,7 @@ export default {
         beforeunloadFn(e) {
             console.log("beforunload");
             // localStorage.setItem("beeooi",1);
-            sessionStorage.removeItem("inDetail");
-            localStorage.removeItem("beeooi");
+            this.recoverSeats();
             
          }
         

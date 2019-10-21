@@ -179,23 +179,9 @@ export default {
               }); 
               return this.cnt++;
           } 
-
-          var postData = new FormData();
-          postData.append('screeningID', sessionStorage.screeningID);
-          postData.append('choosedSeat', sessionStorage.choosedSeat);
-
-          this.axios.post(`${this.$api}/detail/lockScreeningSeat`,postData).then(response => {   //看位子還有沒有，有的話就鎖住，沒有就跳出訊息
-            console.log(response.data);
-            if(response.data=="there are not enough seats."){
-              alert("位子已經被選走囉!再看看別的吧!");
-
-            }
-            else{
+              //不在這判斷是否SEATS歸零，改去detail.vue
               this.nextPageGetSell();
-            }
-          }).catch(error=>{
-            alert("位子已經被選走囉!再看看別的吧!");
-          })
+           
     }, 
     buildForListData(){
       //list 把走道也算入陣列中 其他data位置數字只計座位數
