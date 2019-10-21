@@ -11,23 +11,15 @@ export default {
   data() {
     return {
       data: {
-        labels: ['一般票', '愛心票', '學生票'],
-        datasets: [{
-          label: '票種',
-          data: [12, 8, 10],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-        }]
+        labels: ['票種'],
+        datasets: []
       },
       options: {
+        title: {
+          display: true,
+          text: '票種',
+          fontSize: 20,
+        },
         scales: {
           yAxes: [{
             ticks: {
@@ -35,13 +27,14 @@ export default {
             }
           }]
         }
-      }
+      },
     }
   },
   mounted() {
-    this.createChart();
+    this.getTicketType();
   },
   methods: {
+    // 渲染 chart.js 圖表
     createChart() {
       const _this = this;
       const ctx = document.getElementById('ticketType');
@@ -51,10 +44,62 @@ export default {
         options: _this.options
       });
     },
+    // 取的票種
     getTicketType() {
       const _this = this;
       this.axios.get(`${this.$api}/report/ticketType`).then((response) => {
-        console.log(response.data);
+        let ticketType = [];
+        response.data.forEach((res) => {
+          ticketType.push(res['name']);
+          // _this.data.labels.push(res['name']);
+        });
+        _this.getTicketData(ticketType);
+      });
+    },
+    getTicketData(ticketType) {
+      const _this = this;
+      this.axios.get(`${this.$api}/report/ticketType/ticketData`).then((response) => {
+        let general = 0; // 全票
+        let offer = 0; // 優待票
+        let student = 0; // 學生票
+        let old = 0; // 敬老票
+
+        // 統計各票種數量
+        response.data.forEach(item => {
+          let num = JSON.parse(item.tickets_num);
+          general += num.全票;
+          offer += num.優待票;
+          student += num.學生票;
+          old += num.敬老票;
+        });
+        let ticketData = [general, offer, student, old];
+
+        // 個票種背景顏色
+        let backgroundColor = [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+        ];
+
+        // 各票種邊框顏色
+        let borderColor = [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(75, 192, 192, 1)',
+        ];
+
+        // 將各票種資料放進 chart.js 對應資料欄位
+        for (let i = 0; i < 4; i++) {
+          _this.data.datasets.push({
+            label: ticketType[i],
+            data: [ticketData[i]],
+            backgroundColor: [backgroundColor[i]],
+            borderColor: [borderColor[i]]
+          });
+        }
+        _this.createChart();
       });
     }
   },

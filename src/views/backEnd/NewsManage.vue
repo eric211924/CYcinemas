@@ -35,7 +35,6 @@
               data-toggle="modal"
               data-target="#deleteModal"
               @click.prevent="setId = item.id"
-              data-dismiss="modal"
             >刪除</button>
           </div>
         </div>

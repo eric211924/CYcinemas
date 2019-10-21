@@ -115,12 +115,7 @@ const router = new Router({
               path: 'comingSoon',
               name: 'comingSoon',
               component: () => import('./views/backEnd/movies/pages/ComingSoon.vue')
-            },
-            {
-              path: 'popular',
-              name: 'popular',
-              component: () => import('./views/backEnd/movies/pages/Popular.vue')
-            }
+            } 
           ]
         },
         {

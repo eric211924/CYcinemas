@@ -57,50 +57,17 @@
                     :class="{'text-white': checkRouter('/backEnd/moviesManage/comingSoon')}"
                   >即將上映</router-link>
                 </li>
-                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/moviesManage/popular')}">
-                  <router-link
-                    to="/backEnd/moviesManage/popular"
-                    class="py-2"
-                    :class="{'text-white': checkRouter('/backEnd/moviesManage/popular')}"
-                  >強檔電影</router-link>
-                </li>
               </ul>
             </div>
 
             <!-- 餐點 -->
-            <a
-              href="#meals"
-              class="list-group-item dropdown-toggle bg-cy-deep text-white"
-              data-toggle="collapse"
-              role="button"
-              aria-expanded="false"
-              aria-controls="meals"
+            <router-link
+              to="/backEnd/mealsManage"
+              class="list-group-item text-white"
+              :class="{'bg-cy': checkRouter('/backEnd/mealsManage'), 'bg-cy-deep': !checkRouter('/backEnd/mealsManage')}"
             >
               <i class="fa fa-cutlery" aria-hidden="true"></i>&nbsp; 餐點
-            </a>
-            <div
-              class="collapse"
-              :class="{'show': checkRouter('/backEnd/mealsManage', true)}"
-              id="meals"
-              aria-labelledby="meals"
-              data-parent="#dashboard"
-            >
-              <ul class="list-group list-group-flush">
-                <li class="pl-5" :class="{'bg-cy': checkRouter('/backEnd/mealsManage')}">
-                  <router-link
-                    to="/backEnd/mealsManage"
-                    class="py-2"
-                    :class="{'text-white': checkRouter('/backEnd/mealsManage')}"
-                  >所有餐點</router-link>
-                </li>
-                <li class="pl-5">
-                  <a href class="py-2">食物</a>
-                </li>
-                <li class="pl-5">
-                  <a href class="py-2">飲料</a>
-                </li>
-              </ul>
-            </div>
+            </router-link>
 
             <!-- 折扣 -->
             <router-link
@@ -129,58 +96,6 @@
         </button>
       </div>
       <div class="col-12 col-md-9 col-lg-10">
-        <!-- <div class="col-12">
-        <button
-          class="uk-button uk-button-default mt-3"
-          type="button"
-          uk-toggle="target: #offcanvas-nav"
-        ><span uk-icon="menu"></span></button>
-        <div id="offcanvas-nav" uk-offcanvas="overlay: true; mode: push">
-          <div class="uk-offcanvas-bar bg-cy-deep">
-            <ul class="uk-nav-default uk-nav-parent-icon uk-nav-primary" uk-nav>
-              <li class="uk-active">
-                <a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i> 最新消息</a>
-              </li>
-              <li class="uk-parent">
-                <a href="#"><i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp; 電影</a>
-                <ul class="uk-nav-sub">
-                  <li>
-                    <a href="#">所有電影</a>
-                  </li>
-                  <li>
-                    <a href="#">現正上映</a>
-                  </li>
-                  <li>
-                    <a href="#">即將上映</a>
-                  </li>
-                  <li>
-                    <a href="#">強檔電影</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="uk-parent">
-                <a href="#"><i class="fa fa-cutlery" aria-hidden="true"></i>&nbsp; 餐點</a>
-                <ul class="uk-nav-sub">
-                  <li>
-                    <a href="#">所有餐點</a>
-                  </li>
-                  <li>
-                    <a href="#">食物</a>
-                  </li>
-                  <li>
-                    <a href="#">飲料</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-percent" aria-hidden="true"></i>&nbsp; 折扣</a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i> 報表</a>
-              </li>
-            </ul>
-          </div>
-        </div>-->
         <router-view></router-view>
       </div>
     </div>
