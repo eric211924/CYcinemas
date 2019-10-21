@@ -3,13 +3,26 @@
         <h1 class="text-center my-5">點數紀錄</h1>
         <hr>
         <!-- th: 日期 | 交易描述 | 此次交易點數 | 交易後點數 -->
-        <table>
-            <tr>
-                <th>日期</th>
-                <th>交易描述</th>
-                <th>此次交易點數</th>
-                <th>交易後點數</th>
-            </tr>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr class="title">
+                    <th scope="col">編號</th>
+                    <th scope="col">日期</th>
+                    <th scope="col">交易描述</th>
+                    <th scope="col">此次交易點數</th>
+                    <th scope="col">交易後點數</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in result" :key="index">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ item.update_time }}</td>
+                    <td>{{ item.desc }}</td>
+                    <td>{{ item.update_point }}</td>
+                    <td>{{ item.current_point }}</td>
+                </tr>
+            </tbody>
+            
         </table>
     </div>
 </template>
@@ -44,3 +57,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    th {
+        background-color: khaki;
+    }
+</style>

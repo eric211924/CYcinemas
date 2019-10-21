@@ -2,18 +2,35 @@
     <div>
         <h1 class="text-center my-5">會員資料</h1>
         <hr>
-        姓名: {{ name }}
-        <br><br>
-        帳號: {{ account }}
-        <br><br>
-        密碼: ••••••••••
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#changePwd">修改密碼</button>
-        <br><br>
-        Email: {{ email }}
-        <br><br>
-        電話: {{ phone }}
-        <br><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" @click="editData">修改會員資料</button>
+        <br><br>
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <th scope="row">姓名</th>
+                    <td>{{ name }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">帳號</th>
+                    <td>{{ account }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">密碼</th>
+                    <td>••••••••••</td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td>{{ email }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">電話</th>
+                    <td>{{ phone }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
 
         <!-- 會員資料修改視窗 -->
         <div class="modal fade" data-backdrop="static" data-keyboard="false" id="edit">
