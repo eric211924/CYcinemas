@@ -55,7 +55,7 @@
                 <tr>
                     <td>&emsp;折&emsp;&emsp;扣&ensp;:</td>
                     <td>{{list.discount}}</td>
-                </tr> 
+                </tr>  
                 <tr>
                     <td>&emsp;使用點數&ensp;:</td>
                     <td>{{list.pointValue}}</td>
@@ -117,7 +117,7 @@
         </div><!--div"tab2"-->
         <button v-if="list.editBar"  type="button" 
             class="cancelHover loginBtn btn btn-outline-info">
-            歡迎光臨 {{list.accout}}</button> 
+            歡迎光臨 {{list.account}}</button> 
         <button v-if="list.loginBar"  href data-toggle="modal" data-target="#login" type="button" 
             class="loginBtn btn btn-outline-secondary">
             會員登入</button>
@@ -137,7 +137,7 @@
                 </span>
                 </div>
   <div class="col-5">
-    <input @change="checkPoint" v-model="selectPoint" :max="maxPoint" :min="minPoint" type="number"  class="form-control" id="example-number-input">
+    <input  v-model="selectPoint" :max="maxPoint" :min="minPoint" type="number"  class="form-control" id="example-number-input">
     </div>
      <div class="col-3">
  <button @click="usePoint" type="button" class="btn btn-outline-success"
@@ -262,8 +262,8 @@
         </div>  
         <!-- point modal end-->
         <div class="btnGroup row"> 
-            <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center" to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
-            <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-primary">
+            <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center" @click.native="recoverSeats" to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
+  <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-primary">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 確認訂購
             </button> 
@@ -303,7 +303,7 @@ export default {
                 real:0, 
                 seat: '',
                 hall: '',
-                accout: '',
+                account: '',
                 memberName:'', 
                 email:' ',
                 phone:' ', 
@@ -315,7 +315,8 @@ export default {
                 cadrd4:" ",
                 br:1,
                 orderNumber:"",
-                pointValue:0
+                pointValue:0,
+                isPost:""
             },   
         target:"",
         chkInputEmpty:{"1":1,"2":1,"3":1,}, 
@@ -328,12 +329,12 @@ export default {
         showPoint:0, 
         selectPoint:0,
         chkPoint:"",
-        flag:0
+        real2:0
         }
     }, 
     created() {
         console.log("created");
-        this.lockSeats();
+        // this.lockSeats();
         window.addEventListener('beforeunload', e => this.beforeunloadFn(e))
     },
     destroyed() {
@@ -344,7 +345,7 @@ export default {
     window.removeEventListener('beforeunload', e => this.beforeunloadFn(e))
     },
     mounted() {  
-        if(!(sessionStorage.getItem('movie')))
+        if(!(sessionStorage.getItem('choosedSeat')))
             window.location.href="./#/order"; 
         this.countMoney();  
         this.checkLoginAndGetData();   
@@ -365,12 +366,7 @@ export default {
                 this.countMoney();
                 this.chkPoint = "#point";
             }  
-        },
-        checkPoint:function(){
-            // var patt = /[-]/.test(this.selectPoint);
-            // if(!patt)
-                 
-        },
+        }, 
         chkIcon:function(num,empty,right,wrong){
             this.chkInputEmpty[num] = empty;
             this.chkInputRight[num] = right;
@@ -398,6 +394,7 @@ export default {
             this.target = "#error";
         }, 
         post:function(){  
+            this.isPost = 1;
             var ticketTotalNum = JSON.parse(JSON.parse(sessionStorage.movie).totalTicketsNum);
             var JSONData = JSON.stringify(this.list);
             var foodData   = this.list.foodData;
@@ -405,12 +402,16 @@ export default {
             var postData = new FormData(); 
             var screeningID = sessionStorage.getItem('screeningID');
             var courts_id = sessionStorage.courtsID;
+            var real = this.real2;
+            var usePoint = this.list.pointValue;
             postData.append('JSONData', JSONData); 
             postData.append('foodData', foodData); 
             postData.append('ticketData', ticketData);  
             postData.append('screeningID', screeningID);  
             postData.append('ticketTotalNum', ticketTotalNum);  
             postData.append('courts_id', courts_id);   
+            postData.append('real', real);   
+            postData.append('usePoint', usePoint);   
             // var SQL = 'show'  ; 
             // var SQL = "desc"  ;
             // var SQL = "select"; 
@@ -423,8 +424,8 @@ export default {
             }).catch(function (error) { 
                 console.log(error); 
                 alert("訂購失敗，座位已被選走");
-            }); 
-
+            });  
+            
             if(sessionStorage.status){      //如果是會員要有點數新增
                 this.axios.post(`${this.$api}/detail/updateMemberPoint`, postData) 
             .then(function (response) { 
@@ -444,7 +445,8 @@ export default {
         }, 
         ok:function(){   
             this.getOrderNumber();
-            sessionStorage.setItem('FinishPageData',JSON.stringify(this.list)) 
+            sessionStorage.setItem('FinishPageData',JSON.stringify(this.list));
+            console.log("real2: "+this.real2);
             // console.log(JSON.stringify(this.list));
             this.post();
             this.clrSession(); 
@@ -493,10 +495,11 @@ export default {
                             this.list.price["3"]*(mealsNum["2"]?mealsNum["2"]:0) +
                             this.list.price["4"]*(mealsNum["3"]?mealsNum["3"]:0) +
                             this.list.price["2"]*(mealsNum["4"]?mealsNum["4"]:0) ;
+            this.real2 =Math.ceil(this.list.total*this.list.discount); 
             this.list.real =Math.ceil(this.list.total*this.list.discount) - this.list.pointValue; 
         },
         memberGetData: function(){ 
-            this.list.accout = sessionStorage.getItem('nowAcc'); 
+            this.list.account = sessionStorage.getItem('nowAcc'); 
             this.list.memberName = sessionStorage.getItem('nowName'); 
             this.list.email = sessionStorage.getItem('nowEmail'); 
             this.list.phone = sessionStorage.getItem('nowPhone'); 
