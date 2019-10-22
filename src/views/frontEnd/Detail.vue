@@ -416,8 +416,7 @@ export default {
             // var SQL = "select"; 
             // var ID ="2"; postData.append('ID', ID);
             var SQL = "save"  ;  
-            postData.append('SQL', SQL);    
-            this.axios.post(`${this.$api}/detail/saveOrder`, postData) 
+            postData.append('SQL', SQL);     
             this.axios.post(`${this.$api}/detail/saveOrder`, postData) 
             .then(function (response) {  
                 console.log(response.data);  
