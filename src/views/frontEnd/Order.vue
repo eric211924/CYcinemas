@@ -424,7 +424,7 @@ export default {
 
       var mealsNameNum = {};
       for(var i = 0;i<Object.keys(this.meals).length;i++){
-        this.$set(mealsNameNum, `${this.meals[i]['name']} ` + `${this.meals[i]['size']}`, this.mealsNum[i]);
+        this.$set(mealsNameNum, `${this.meals[i]['name']}_` + `${this.meals[i]['size']}`, this.mealsNum[i]);
       }
       // sessionStorage.setItem("mealsNameNum",JSON.stringify(mealsNameNum));
       // sessionStorage.setItem("totalTicketsNum",this.ticketsTotal);
