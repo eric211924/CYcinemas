@@ -28,12 +28,35 @@
                 data-target="#myModal"
                 @click.prevent="setMovieModal(item)"
               >
-                <h5 class="card-title" style="font-size:30px;">{{item.name}}</h5>
+                <h5 class="card-title" style="font-size:25px;">{{item.name}}</h5>
               </a>
-              <p
-                class="card-text text-truncate" style="display:block;"
-              >{{item.info}}</p>
+              <p class="card-text text-truncate" style="display:block;">{{item.info}}</p>
               <p class="card-text">
+                <select
+                  class="custom-select custom-select-lg mb-3"
+                  @click.prevent="getMovieDay(item.encoded_id)"
+                >
+                  <option selected>時間</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                  <option value="3">Three</option>
+                  <option value="3">Three</option>
+                </select>
+                <select
+                  class="custom-select custom-select-lg mb-3"
+                  @click.prevent="getMovieTime(item.encoded_id)"
+                >
+                  <option selected>場次</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                  <option value="3">Three</option>
+                  <option value="3">Three</option>
+                  <option value="3">Three</option>
+                  <option value="3">Three</option>
+                </select>
+                <button type="button" class="btn btn-primary" style="margin-left:220px;">訂票</button>
                 <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
               </p>
             </div>
@@ -88,7 +111,7 @@
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">11:10</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">15:20</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">21:20</button>
-              </p> -->
+              </p>-->
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -119,7 +142,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>-->
       <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -139,7 +162,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>-->
       <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -161,7 +184,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>-->
       <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -183,7 +206,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>-->
       <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -206,28 +229,37 @@
           </div>
         </div>
       </div>-->
-    </div> 
+    </div>
     <h1 class="text-center my-5">即將上映</h1>
     <div class="row">
-      <div class="card mb-3 col-12 col-6" style="max-width: 540px;" v-for="(page, index) in comingSoonPages" :key="index">
+      <div
+        class="card mb-3 col-12 col-6"
+        style="max-width: 540px;"
+        v-for="(page, index) in comingSoonPages"
+        :key="index"
+      >
         <div class="row no-gutters">
           <div class="col-md-4">
-            <a href="#" data-toggle="modal" data-target="#myModal_1"
-                @click.prevent="setPageModal(page)"
-              >
-            <img
-              :src="page.poster"
-              class="card-img"
-              alt="..."
-            /></a>
+            <a
+              href="#"
+              data-toggle="modal"
+              data-target="#myModal_1"
+              @click.prevent="setPageModal(page)"
+            >
+              <img :src="page.poster" class="card-img" alt="..." />
+            </a>
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <a href="#" data-toggle="modal" data-target="#myModal_1" @click.prevent="setPageModal(page)">
-                <h5 class="card-title" style="font-size:30px">{{page.name}}</h5></a>
-              <p
-                class="card-text text-truncate" style="display:block;"
-              >{{page.info}}</p>
+              <a
+                href="#"
+                data-toggle="modal"
+                data-target="#myModal_1"
+                @click.prevent="setPageModal(page)"
+              >
+                <h5 class="card-title" style="font-size:30px">{{page.name}}</h5>
+              </a>
+              <p class="card-text text-truncate" style="display:block;">{{page.info}}</p>
               <p class="card-text">
                 <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
               </p>
@@ -283,7 +315,7 @@
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">11:10</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">15:20</button>
                 <button type="button" class="btn btn-outline-info" style="margin:0.5%;">21:20</button>
-              </p> -->
+              </p>-->
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -348,7 +380,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>-->
       <!--modal結束-->
       <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
@@ -371,7 +403,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>-->
       <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -393,7 +425,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>-->
       <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -415,7 +447,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>-->
       <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -437,7 +469,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>-->
       <!-- <div class="card mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -459,7 +491,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>-->
     </div>
   </div>
 </template>
@@ -478,11 +510,11 @@ export default {
       },
       item: {},
       poster: "",
-      trailer:"",
-      comingSoonPages:{},
-      pageData:{
-        name:""
-      },
+      trailer: "",
+      comingSoonPages: {},
+      pageData: {
+        name: ""
+      }
     };
   },
   mounted() {
@@ -495,7 +527,13 @@ export default {
       this.axios
         .get(`${this.$api}/movies/showMovies/released/1`)
         .then(response => {
-          console.log(response.data);
+          response.data[0].abc = "123";
+          for (let i = 0; i <= data.length; i++) {
+            response.data[i].abc = 123;
+            console.log(response.data[i]);
+          }
+
+          console.log(response.data[0]);
           _this.releasedMovies = response.data;
         });
     },
@@ -515,7 +553,7 @@ export default {
       this.axios
         .get(`${this.$api}/movies/showMovies/comingSoon/1`)
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
           _this.comingSoonPages = response.data;
         });
     },
@@ -529,10 +567,25 @@ export default {
       this.pageData.run_time = page.run_time;
       this.pageData.trailer = page.trailer;
       this.pageData.name = page.name;
+    },
+    getMovieDay(id) {
+      const _this = this;
+      this.axios.get(`${this.$api}/order/getMovieDay/${id}`).then(response => {
+        console.log("getMovieDay");
+        console.log(response.data);
+        _this.movieDays = response.data;
+      });
+    },
+    getMovieTime(id) {
+      const _this = this;
+      this.axios.get(`${this.$api}/order/getMovieTime/${id}`).then(response => {
+        console.log("getMovieTime");
+        console.log(response.data);
+        _this.movieTimes = response.data;
+      });
     }
   }
-}
-
+};
 </script>
 
 
