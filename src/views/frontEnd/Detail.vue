@@ -12,9 +12,9 @@
                     <td>&emsp;名&emsp;&emsp;稱&ensp;:</td>
                     <td>{{list.movieName}}</td>
                 </tr>
-                <tr>
+                <tr> 
                     <td>&emsp;上映地點&ensp;:</td>
-                    <td>中佑戲院{{list.theater}}影城</td>
+                    <td>中佑戲院台中影城</td>
                 </tr>
                 <tr>
                     <td>&emsp;放映場次&ensp;:</td>
@@ -49,12 +49,20 @@
                     </td>
                 </tr>  
                 <tr>
+                    <td>&emsp;總&emsp;&emsp;價&ensp;:</td>
+                    <td>{{list.total}}</td>
+                </tr> 
+                <tr>
                     <td>&emsp;折&emsp;&emsp;扣&ensp;:</td>
                     <td>{{list.discount}}</td>
                 </tr> 
                 <tr>
-                    <td>&emsp;總金額&emsp;&ensp;:</td>
-                    <td>{{list.total}} x {{list.discount}} = {{list.real}}</td>
+                    <td>&emsp;使用點數&ensp;:</td>
+                    <td>{{list.pointValue}}</td>
+                </tr> 
+                <tr>
+                    <td>&emsp;合&emsp;&emsp;計&ensp;:</td>
+                    <td>{{list.real}}</td>
                 </tr> 
             </table>
          </div>
@@ -109,24 +117,40 @@
         </div><!--div"tab2"-->
         <button v-if="list.editBar"  type="button" 
             class="cancelHover loginBtn btn btn-outline-info">
-            歡迎光臨 {{list.account}}</button> 
+            歡迎光臨 {{list.accout}}</button> 
         <button v-if="list.loginBar"  href data-toggle="modal" data-target="#login" type="button" 
             class="loginBtn btn btn-outline-secondary">
             會員登入</button>
         <div class="tab3">
-            <h6>信用卡資料</h6> 
+            <h6>會員點數</h6> 
             <!--input-->
             <div class="editInputGrounp input-group input-group-sm mb-1"> 
+            <div class="col-12">
+            <span>擁有點數:&ensp;{{showPoint}}</span>
+            </div> 
+            <div class="col-12">
+            &emsp;
+            </div>
+            <div class="col-4">
                 <span>
-                    信用卡卡號 &emsp;
+                    輸入使用點數 
                 </span>
-                <input v-model="list.cadrd1" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                </div>
+  <div class="col-5">
+    <input @change="checkPoint" v-model="selectPoint" :max="maxPoint" :min="minPoint" type="number"  class="form-control" id="example-number-input">
+    </div>
+     <div class="col-3">
+ <button @click="usePoint" type="button" class="btn btn-outline-success"
+  href data-toggle="modal" :data-target="chkPoint" >確定</button>
+  </div>
+<!--<input v-model="list.cadrd1" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                     <span>-</span>
                 <input v-model="list.cadrd2" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                     <span>-</span>
                 <input v-model="list.cadrd3" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                     <span>-</span>
                 <input v-model="list.cadrd4" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            -->
             </div> 
         </div><!--div"tab3"-->
  
@@ -203,8 +227,42 @@
           </div>
         </div>  
         <!-- error modal end-->
+        <!-- point modal-->
+        <div
+          class="modal fade"
+          id="point"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="login"
+          aria-hidden="true"
+        > 
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">提醒</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body"> 
+                最多可使用點數: {{maxPoint}}點
+              </div> 
+              <div class="modal-body">
+              <div class="container"> 
+                     <div class="row">
+                         <div class="col-md-12">  
+                         <button type="button" class="btn btn-primary" data-dismiss="modal">
+                             確定</button> 
+                         </div> 
+                     </div>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <!-- point modal end-->
         <div class="btnGroup row"> 
-            <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center" @click.native="recoverSeats" to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
+            <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center" to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
             <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-primary">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 確認訂購
@@ -245,27 +303,34 @@ export default {
                 real:0, 
                 seat: '',
                 hall: '',
-                account: '',
+                accout: '',
                 memberName:'', 
                 email:' ',
                 phone:' ', 
-                loginBar:true, 
-                editBar:true,
+                loginBar:1, 
+                editBar:0,
                 cadrd1:" ",
                 cadrd2:" ",
                 cadrd3:" ",
                 cadrd4:" ",
                 br:1,
                 orderNumber:"",
-                isPost:""
-            },  
+                pointValue:0
+            },   
         target:"",
         chkInputEmpty:{"1":1,"2":1,"3":1,}, 
         chkInputRight:{"1":0,"2":0,"3":0,},  
         chkInputWrong:{"1":0,"2":0,"3":0,},  
-        FinishPageData:"" 
+        FinishPageData:"" ,
+        maxPoint:0,
+        minPoint:0,
+        havePoint:0,
+        showPoint:0, 
+        selectPoint:0,
+        chkPoint:"",
+        flag:0
         }
-    },
+    }, 
     created() {
         console.log("created");
         this.lockSeats();
@@ -278,16 +343,34 @@ export default {
         console.log("destroyed");
     window.removeEventListener('beforeunload', e => this.beforeunloadFn(e))
     },
-    mounted() { 
-        if(!(sessionStorage.getItem('choosedSeat')))
+    mounted() {  
+        if(!(sessionStorage.getItem('movie')))
             window.location.href="./#/order"; 
-        this.checkLoginAndGetData(); 
         this.countMoney();  
-        this.list.hall = sessionStorage.courtsID;
-        // console.log(this.list)
+        this.checkLoginAndGetData();   
+        this.list.hall = sessionStorage.courtsID;  
     },
-    
-    methods:{ 
+    methods:{   
+        usePoint:function(){   
+            this.selectPoint = Number(this.selectPoint); 
+            if(this.selectPoint>=0 && this.selectPoint<=this.maxPoint){  
+                this.showPoint = this.havePoint; 
+                this.showPoint -= this.selectPoint;
+                this.list.pointValue = this.selectPoint;
+                this.countMoney();
+                this.chkPoint = "";
+            }else{ 
+                this.showPoint = this.havePoint;
+                this.list.pointValue = 0;
+                this.countMoney();
+                this.chkPoint = "#point";
+            }  
+        },
+        checkPoint:function(){
+            // var patt = /[-]/.test(this.selectPoint);
+            // if(!patt)
+                 
+        },
         chkIcon:function(num,empty,right,wrong){
             this.chkInputEmpty[num] = empty;
             this.chkInputRight[num] = right;
@@ -315,7 +398,6 @@ export default {
             this.target = "#error";
         }, 
         post:function(){  
-            this.isPost = 1;
             var ticketTotalNum = JSON.parse(JSON.parse(sessionStorage.movie).totalTicketsNum);
             var JSONData = JSON.stringify(this.list);
             var foodData   = this.list.foodData;
@@ -336,10 +418,9 @@ export default {
             var SQL = "save"  ;  
             postData.append('SQL', SQL);    
             this.axios.post(`${this.$api}/detail/saveOrder`, postData) 
-            .then(function (response) { 
-                // console.log(response); //desc  show tables 
-                console.log(response.data); //desc  show tables 
-                // console.log(response.data["0"]);  //select id n 
+            this.axios.post(`${this.$api}/detail/saveOrder`, postData) 
+            .then(function (response) {  
+                console.log(response.data);  
             }).catch(function (error) { 
                 console.log(error); 
                 alert("訂購失敗，座位已被選走");
@@ -413,10 +494,10 @@ export default {
                             this.list.price["3"]*(mealsNum["2"]?mealsNum["2"]:0) +
                             this.list.price["4"]*(mealsNum["3"]?mealsNum["3"]:0) +
                             this.list.price["2"]*(mealsNum["4"]?mealsNum["4"]:0) ;
-            this.list.real =Math.ceil(this.list.total*this.list.discount); 
+            this.list.real =Math.ceil(this.list.total*this.list.discount) - this.list.pointValue; 
         },
         memberGetData: function(){ 
-            this.list.account = sessionStorage.getItem('nowAcc'); 
+            this.list.accout = sessionStorage.getItem('nowAcc'); 
             this.list.memberName = sessionStorage.getItem('nowName'); 
             this.list.email = sessionStorage.getItem('nowEmail'); 
             this.list.phone = sessionStorage.getItem('nowPhone'); 
@@ -480,17 +561,33 @@ export default {
             this.list.time = JSON.parse(sessionStorage.getItem('movie')).moviesTime;
             this.list.ticket = JSON.parse(sessionStorage.getItem('movie')).totalTicketsNum;
             // 登入狀態 
-            if (sessionStorage.getItem('status')) { 
+            if (sessionStorage.getItem('status')=="login") { 
                 this.memberGetData();    //自動代入會員資料
                 this.checkInput(); 
                 this.list.loginBar = 0; //hide登入鈕
                 this.list.editBar = 1;  //show歡迎光臨  
-                this.target = "#confirm";
+                this.target = "#confirm"; 
+                // var acc = 'abc123';  
+                var acc = sessionStorage.nowAcc;  
+                let _this = this;
+                this.axios.get(`${this.$api}/bonus/getMemberPoint/${acc}`) 
+                .then(function (response) { 
+                    console.log(response.data[0].point); 
+                    _this.havePoint = Number(response.data[0].point);
+                    console.log(_this.havePoint); 
+                    _this.showPoint = _this.havePoint; 
+                    console.log(_this.showPoint);
+                    _this.maxPoint = _this.havePoint<= _this.list.real? _this.havePoint:_this.list.real;
+                }).catch(function (error) { 
+                    console.log(error);  
+                }); 
+                
             // 非登入狀態 
             }else{ 
                 this.list.loginBar = 1; //show登入鈕
                 this.list.editBar = 0;  //hide歡迎光臨
                 this.target = "#error";
+                // alert("no login");
             } 
         },
         getOrderNumber:function(){ 
@@ -520,14 +617,15 @@ export default {
             // localStorage.setItem("beeooi",1);
             this.recoverSeats();
             
-         }
-        
+        } 
     }  
 } 
 </script>
 
-<style lang="scss" scoped> 
-    .modal-body{  
+<style lang="scss" scoped>  
+//RWD  寬度769px以上
+@media only screen and (min-width: 769px) {
+     .modal-body{  
         text-align:center;
         font-size:20px; 
         border-bottom:1px solid rgb(222,226,230); 
@@ -536,16 +634,16 @@ export default {
         padding:0;  
     }
     .padding1{
-        padding:0% 1% 0% 0%; 
+        padding:0% 1% 0% 1%; 
     }
     .padding2{ 
-        padding:0% 0% 0% 1%;
-    }
+        padding:0% 1% 0% 1%;
+    } 
     .tab{
         width:95%;
         height:90%;
     } 
-    .tab,.tab2,.tab3{ 
+    .tab,.tab2,.tab3{  
         border-radius:5px; 
         border: 1px solid gray; 
         h6{ 
@@ -576,7 +674,7 @@ export default {
                 }
             } 
         }
-    }
+    }  
     .empty{
         color:white;
         padding:5px 0 0 5px;
@@ -658,5 +756,266 @@ export default {
         background-color: white;
         color:rgb(23,162,184);
     }
-     
+}//RWD  寬度769px以上
+//RWD  寬度768px~321px
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+     .modal-body{  
+        text-align:center;
+        font-size:20px; 
+        border-bottom:1px solid rgb(222,226,230); 
+    } 
+    .col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-12{ 
+        padding:0;  
+    }
+    .padding1{
+        padding:0% 1% 0% 1%; 
+    }
+    .padding2{ 
+        padding:0% 1% 0% 1%;
+    }  
+    .tab,.tab2,.tab3{  
+        margin:2% 0;
+        border-radius:5px; 
+        border: 1px solid gray; 
+        h6{ 
+            text-align:left;
+            padding:10px 0px 10px 20px;
+            background-color:gray;
+            color:white;
+        }
+        div{  
+            margin:20px 20px 15% 20px; 
+            font-size:16px; 
+            table{   
+                text-align:left;
+                width:100%; 
+                tr{ 
+                    border-bottom: 2px solid gray;
+                    td:first-child{
+                        // width:25%;
+                        padding:5px 0px ; 
+                    }
+                    td:last-child{
+                        // width:75%;
+                        padding:5px 0px ; 
+                    }
+                }
+                tr:last-child{ 
+                    border-bottom: 0;
+                }
+            } 
+        }
+    }  
+    .empty{
+        color:white;
+        padding:5px 0 0 5px;
+    }
+    .tick{ 
+        color:rgb(30,225,90);
+        padding:5px 0 0 5px;
+    }
+    .cross{ 
+        color:red;
+        padding:5px 0 0 5px;
+    }
+    .tab2,.tab3{   
+        button:last-child{ 
+            width:100%; 
+        }
+        .input-group{
+        margin-right:70px 40px; 
+        }
+        .editInputGrounp1{  
+            padding:10px 20px 0px 20px ;
+            span{
+                font-size:20px;
+            } 
+        }
+        .editInputGrounp{   
+            padding:0 20px 0px 20px ; 
+            span{
+                font-size:20px;
+            } 
+        }   
+        .redColor{  
+            color:red; 
+        }
+        .greenColor{
+            color:rgb(30,225,90);
+        }
+        .InfoGrounp{ 
+            padding:10px 10px 10px 10px ; 
+            span{
+                font-size:20px;
+            } 
+        }
+        div{
+            border: 0;
+            margin:0px;  
+            .fa{//icon寬度
+                width:18px;
+            }
+        }
+    }
+    .tab3{ 
+        .editInputGrounp{  
+            padding:20px 20px 20px 20px ;
+            span:not(:first-child){
+                font-size:25px;
+                width:10px; 
+            }
+        } 
+    } 
+    .btnGroup{  
+        margin:5% 0%;   //上下間隔 
+        button{
+            margin:0% 1% 0% 0%;  
+            width:30%;
+            font-size:20px;
+        }  
+        .router-link1{ 
+            margin:0% 0% 0% 1%;  
+            width:30%;
+            font-size:20px; 
+        } 
+    }
+    .loginBtn{ 
+         margin:2% 0% 2% 0%;   //上下間隔 
+         width:100%; 
+    }
+    .cancelHover:hover{ 
+        background-color: white;
+        color:rgb(23,162,184);
+    }
+}//RWD  寬度768px~321px
+//RWD  寬度320px~0px
+@media only screen and (min-width: 0px) and (max-width: 320px){
+      .modal-body{  
+        text-align:center;
+        font-size:20px; 
+        border-bottom:1px solid rgb(222,226,230); 
+    } 
+    .col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-12{ 
+        padding:0;  
+    }
+    .padding1{
+        padding:0% 1% 0% 1%; 
+    }
+    .padding2{ 
+        padding:0% 1% 0% 1%;
+    } 
+    .tab,.tab2,.tab3{  
+        border-radius:5px; 
+        border: 1px solid gray; 
+        h6{ 
+            text-align:left;
+            padding:10px 0px 10px 20px;
+            background-color:gray;
+            color:white;
+        }
+        div{  
+            margin:20px 20px 15% 20px; 
+            font-size:16px; 
+            table{   
+                text-align:left;
+                width:100%; 
+                tr{ 
+                    border-bottom: 2px solid gray;
+                    td:first-child{
+                        width:25%;
+                        padding:5px 0px ; 
+                    }
+                    td:last-child{
+                        width:75%;
+                        padding:5px 0px ; 
+                    }
+                }
+                tr:last-child{ 
+                    border-bottom: 0;
+                }
+            } 
+        }
+    }  
+    .empty{
+        color:white;
+        padding:5px 0 0 5px;
+    }
+    .tick{ 
+        color:rgb(30,225,90);
+        padding:5px 0 0 5px;
+    }
+    .cross{ 
+        color:red;
+        padding:5px 0 0 5px;
+    }
+    .tab2,.tab3{   
+        button:last-child{ 
+            width:100%; 
+        }
+        .input-group{
+        margin-right:70px 40px; 
+        }
+        .editInputGrounp1{  
+            padding:10px 20px 0px 20px ;
+            span{
+                font-size:20px;
+            } 
+        }
+        .editInputGrounp{   
+            padding:0 20px 0px 20px ; 
+            span{
+                font-size:20px;
+            } 
+        }   
+        .redColor{  
+            color:red; 
+        }
+        .greenColor{
+            color:rgb(30,225,90);
+        }
+        .InfoGrounp{ 
+            padding:10px 10px 10px 10px ; 
+            span{
+                font-size:20px;
+            } 
+        }
+        div{
+            border: 0;
+            margin:0px;  
+            .fa{//icon寬度
+                width:18px;
+            }
+        }
+    }
+    .tab3{ 
+        .editInputGrounp{  
+            padding:20px 20px 20px 20px ;
+            span:not(:first-child){
+                font-size:25px;
+                width:10px; 
+            }
+        } 
+    } 
+    .btnGroup{  
+        margin:5% 0%;   //上下間隔 
+        button{
+            margin:0% 1% 0% 0%;  
+            width:30%;
+            font-size:20px;
+        }  
+        .router-link1{ 
+            margin:0% 0% 0% 1%;  
+            width:30%;
+            font-size:20px; 
+        } 
+    }
+    .loginBtn{ 
+         margin:2% 0% 2% 0%;   //上下間隔 
+         width:100%; 
+    }
+    .cancelHover:hover{ 
+        background-color: white;
+        color:rgb(23,162,184);
+    }
+}//RWD  寬度320px~0px  
 </style>
