@@ -2,8 +2,6 @@
     <div>
         <h1 class="text-center my-5">消費紀錄</h1>
         <hr>
-        <!-- <button type="button" class="btn btn-primary btn-sm">LOG</button>
-        <hr> -->
         <!-- 列出所有紀錄 -->
         <div class="accordion" id="head">
             <!-- 一筆訂單 -->
@@ -12,7 +10,7 @@
                 <div class="card-header">
                     <h2 class="mb-0">
                         <button class="btn btn-link" type="button" data-toggle="collapse" :data-target="`#hd-${item.id}`">
-                            消費時間: {{ item.datetime }} , 訂單編號: {{ item.serial_number }}
+                            {{ arrLength - key }} - 消費時間: {{ item.datetime }} , 訂單編號: {{ item.serial_number }}
                         </button>
                     </h2>
                 </div>
@@ -66,13 +64,10 @@
 
 <script>
 export default {
-    // 抓取消費紀錄並顯示
-    // "SELECT * FROM `orser_details` WHERE `member_account` = :account"
-    // 每筆紀錄顯示順序
-    // serial_number -- datetime
     data() {
         return {
             result: [],
+            arrLength: '',
         }
     },
     mounted() {
@@ -92,7 +87,7 @@ export default {
                     //     duration: 3000
                     // });
                     console.log(_this.result);
-
+                    _this.arrLength = _this.result.length;
                     _this.result.forEach(function (e) {
                         // console.log(e.tickets_num);
                         var temp = e.tickets_num;
@@ -104,6 +99,7 @@ export default {
                         temp2 = temp2.replace(/[{}"]/gm, "");
                         temp2 = temp2.replace(/,/gm, ", ");
                         temp2 = temp2.replace(/:/gm, ": ");
+                        temp2 = temp2.replace(/_/gm, " ");
                         e.meals_num = temp2;
                     });
                 }).catch(function (error) {
