@@ -203,11 +203,12 @@ export default {
               sessionStorage.setItem("nowName", result[0].name);
               sessionStorage.setItem("nowEmail", result[0].email);
               sessionStorage.setItem("nowPhone", result[0].phone);
-              //刷新Detail.vue頁面 
-              var array = window.location.href.split("/"); 
-              if (array[array.length-1] =="detail"||array[array.length-1] =="Detail")
-                history.go(0);
             }
+            //刷新Detail.vue頁面 
+            var array = window.location.href.split("/"); 
+            if (array[array.length-1] =="detail"||array[array.length-1] =="Detail")
+              history.go(0);
+            
           }
           sessionStorage.removeItem('logAccount');
           sessionStorage.removeItem('logPassword');
