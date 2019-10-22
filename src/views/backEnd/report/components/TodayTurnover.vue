@@ -67,15 +67,15 @@ export default {
     getTotalPrice() {
       const _this = this;
       this.axios.get(`${this.$api}/report/turnover`).then((response) => {
-        // console.log(response.data);
         let today = new Date();
         let yesterday = today.getDate() - 1;
         yesterday = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate() - 1}`; // 昨天的日期
         today = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`; // 今天的日期
-        // console.log(today);
-        // console.log(yesterday);
-        let todayList = [];
-        let yesterdayList = [];
+
+        let todayList = []; // 今天的訂單資料
+        let yesterdayList = []; // 昨天的訂單資料
+
+        // 透過 forEach 將今天吉昨天的資料取出來
         response.data.forEach((item, index) => {
           if (item.datetime.indexOf(today) >= 0) {
             todayList.push(item);
@@ -83,19 +83,21 @@ export default {
             yesterdayList.push(item);
           }
         });
-        // console.log(todayList, yesterdayList);
-        let todayTurnover = 0;
-        let yesterdayTurnover = 0;
+
+        let todayTurnover = 0; // 今天總營業額
+        let yesterdayTurnover = 0; // 昨天總營業額
+
+        // 透過 forEach 將各營業額做加總
         todayList.forEach((item) => {
             todayTurnover += parseInt(item.total_price);
         });
         yesterdayList.forEach((item) => {
             yesterdayTurnover += parseInt(item.total_price);
         });
-        // console.log(todayTurnover, yesterdayTurnover);
+
+        // 將數據放到畫面呈現上
         _this.data.datasets[0].data = [todayTurnover];
         _this.data.datasets[1].data = [yesterdayTurnover];
-        
         
         this.createChart();
       });
