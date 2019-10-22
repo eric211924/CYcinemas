@@ -321,7 +321,7 @@ export default {
     betBar: function() {
       this.betBar = parseInt(this.betBar);
       if (this.totalPoint<0) this.betBar = this.gamePoint-this.betPopcorn-this.betDrink-this.betMealSet;
-      else if (this.betBar < 0 ||isNaN(this.batBar)) this.betBar = 0;
+      else if (this.betBar < 0 ||isNaN(this.betBar)) this.betBar = 0;
     },
   },
   computed: {

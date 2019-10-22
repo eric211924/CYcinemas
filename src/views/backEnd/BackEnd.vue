@@ -90,7 +90,7 @@
         </div>
 
         <!-- 一鍵爬蟲 -->
-        <button class="btn btn-secondary mt-3" v-bind:disabled="!isDisabled" @click="crawl">
+        <button class="btn btn-secondary mt-3" v-bind:disabled="isDisabled" @click="crawl">
           借鑑電影資料
           <i class="fa fa-hand-rock-o" aria-hidden="true"></i>
         </button>
@@ -109,17 +109,17 @@ export default {
     return {
       text: String,
       pageName: String,
-      isDisabled: 0
+      isDisabled: false
     }
   },
   methods: {
     crawl() {
-      this.isDisabled = 1,
+      this.isDisabled = true,
       this.$toasted.info("借鑑電影資料中", {
         theme: "bubble"
       });
       this.axios.get(`${this.$api}/crawl.php`).then((response) => {
-        this.isDisabled = 0;
+        this.isDisabled = false;
         this.$toasted.clear();
         this.$toasted.success("借鑑完畢", {
           theme: "bubble",
