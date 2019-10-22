@@ -356,11 +356,15 @@ export default {
       //i從1開始才會對應正確
       for(let i=1; i <= len; i++){  
           if(this.seatSelected[i] == 1){ 
-              var k = i/a;
+              var k = i/a;    
+              if(i%a==0)
+                  k--;
               var str = "A";
               var newAsciiNum = str.charCodeAt() + k;  // 65 + k
               str = String.fromCharCode(newAsciiNum); 
               var num = i%a;
+              if(i%a==0)
+                  num=a;
               var seatEngNum = str + num ; 
               sessionList.push(seatEngNum); 
           }
