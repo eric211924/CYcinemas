@@ -75,7 +75,7 @@
               class="list-group-item text-white"
               :class="{'bg-cy': checkRouter('/backEnd/discountManage'), 'bg-cy-deep': !checkRouter('/backEnd/discountManage')}"
             >
-              <i class="fa fa-percent" aria-hidden="true"></i> &nbsp;所有折扣
+              <i class="fa fa-percent" aria-hidden="true"></i> &nbsp;折扣
             </router-link>
 
             <!-- 報表 -->
