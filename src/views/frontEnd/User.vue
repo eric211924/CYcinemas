@@ -17,7 +17,7 @@
             to="/user/userPoint"
             class="list-group-item list-group-item-action"
             :class="{'active': this.$route.path == '/user/userPoint'}"
-          ><i class="fa fa-contao" aria-hidden="true"></i> 點數紀錄</router-link>
+          ><i class="fa fa-diamond" aria-hidden="true"></i> 點數紀錄</router-link>
         </div>
       </div>
       <div class="col-md-9 col-12">

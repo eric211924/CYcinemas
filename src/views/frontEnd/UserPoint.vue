@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 <tr v-for="(item, index) in result" :key="index">
-                    <td>{{ index + 1 }}</td>
+                    <td>{{ arrLength - index }}</td>
                     <td>{{ item.update_time }}</td>
                     <td>{{ item.desc }}</td>
                     <td>{{ item.update_point }}</td>
@@ -32,6 +32,7 @@ export default {
     data() {
         return {
             result: [],
+            arrLength: '',
         }
     },
     mounted() {
@@ -47,6 +48,8 @@ export default {
                 .then(function (response) {
                     _this.result = response.data;
                     console.log(_this.result);
+                    _this.arrLength = _this.result.length;
+                    // Math.max(...arr)
                 }).catch(function (error) {
                     _this.$toasted.error(error, {
                         theme: 'bubble',
