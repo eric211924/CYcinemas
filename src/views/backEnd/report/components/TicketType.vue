@@ -51,7 +51,6 @@ export default {
         let ticketType = [];
         response.data.forEach((res) => {
           ticketType.push(res['name']);
-          // _this.data.labels.push(res['name']);
         });
         _this.getTicketData(ticketType);
       });

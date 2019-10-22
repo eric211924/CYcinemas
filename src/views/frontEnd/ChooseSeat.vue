@@ -405,7 +405,66 @@ table{
   // height:20%;
   // border: 1px solid blue;
 }
-table td{ 
+
+//RWD  寬度769px以上
+@media only screen and (min-width: 769px) {
+    table td{ 
+    // width:20%;
+    // height:100%;
+    //座號字體
+      font-size:14px; 
+    span{
+        // color:white;
+        color:red;
+    }
+    // border: 1px solid black; 
+    padding:0;
+    img{
+      margin:0;
+    }
+    
+}  
+div {
+  text-align: center;
+  div{
+    text-align: center;
+  }
+}  
+    .forTable{
+
+    } 
+}
+//RWD  寬度768px~321px
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+    table td{ 
+    // width:20%;
+    // height:100%;
+    //座號字體
+      font-size:4vw; 
+    span{
+        // color:white;
+        color:red;
+    }
+    // border: 1px solid black; 
+    padding:0;
+    img{
+      margin:0;
+    }
+    
+}  
+div {
+  text-align: center;
+  div{
+    text-align: center;
+  }
+}  
+    .forTable{ 
+         overflow: scroll;
+    }
+}
+//RWD  寬度320px~0px
+@media only screen and (min-width: 0px) and (max-width: 320px){
+    table td{ 
     // width:20%;
     // height:100%;
     //座號字體
@@ -427,20 +486,6 @@ div {
     text-align: center;
   }
 }  
-//RWD  寬度769px以上
-@media only screen and (min-width: 769px) {
-    .forTable{
-
-    } 
-}
-//RWD  寬度768px~321px
-@media only screen and (min-width: 321px) and (max-width: 768px) {
-    .forTable{ 
-         overflow: scroll;
-    }
-}
-//RWD  寬度320px~0px
-@media only screen and (min-width: 0px) and (max-width: 320px){
     .forTable{ 
           overflow: scroll;
     }
