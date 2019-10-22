@@ -305,23 +305,23 @@ export default {
     betPopcorn: function() {
       this.betPopcorn = parseInt(this.betPopcorn);
         if (this.totalPoint<0) this.betPopcorn = this.gamePoint-this.betDrink-this.betMealSet-this.betBar;
-        else if (this.betPopcorn < 0) this.betPopcorn = 0;
+        else if (this.betPopcorn < 0||isNaN(this.betPopcorn)) this.betPopcorn = 0;
 
     },
     betDrink: function() {
       this.betDrink = parseInt(this.betDrink);
       if (this.totalPoint<0) this.betDrink = this.gamePoint-this.betPopcorn-this.betMealSet-this.betBar;
-      else if (this.betDrink < 0) this.betDrink = 0;
+      else if (this.betDrink < 0 ||isNaN(this.betDrink)) this.betDrink = 0;
     },
     betMealSet: function() {
       this.betMealSet = parseInt(this.betMealSet);
       if (this.totalPoint<0) this.betMealSet = this.gamePoint-this.betPopcorn-this.betDrink-this.betBar;
-      else if (this.betMealSet < 0) this.betMealSet = 0;
+      else if (this.betMealSet < 0 ||isNaN(this.betMealSet)) this.betMealSet = 0;
     },
     betBar: function() {
       this.betBar = parseInt(this.betBar);
       if (this.totalPoint<0) this.betBar = this.gamePoint-this.betPopcorn-this.betDrink-this.betMealSet;
-      else if (this.betBar < 0) this.betBar = 0;
+      else if (this.betBar < 0 ||isNaN(this.batBar)) this.betBar = 0;
     },
   },
   computed: {
