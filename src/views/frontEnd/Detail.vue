@@ -262,7 +262,7 @@
         </div>  
         <!-- point modal end-->
         <div class="btnGroup row"> 
-            <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center" @click.native="recoverSeats" to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
+            <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center"  to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
   <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-primary">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 確認訂購
@@ -334,15 +334,14 @@ export default {
     }, 
     created() {
         console.log("created");
-        // this.lockSeats();
-        window.addEventListener('beforeunload', e => this.beforeunloadFn(e))
+
     },
     destroyed() {
         if(!this.isPost)  {
             this.recoverSeats();
         }  //isPost決定是不是到完成訂單
         console.log("destroyed");
-    window.removeEventListener('beforeunload', e => this.beforeunloadFn(e))
+
     },
     mounted() {  
         if(!(sessionStorage.getItem('choosedSeat')))
@@ -456,29 +455,29 @@ export default {
             this.clrSession(); 
             window.location.href="./#/order";
         },
-        lockSeats(){
-          var postData = new FormData();
-          postData.append('screeningID', sessionStorage.screeningID);
-          postData.append('choosedSeat', sessionStorage.choosedSeat);
+        // lockSeats(){
+        //   var postData = new FormData();
+        //   postData.append('screeningID', sessionStorage.screeningID);
+        //   postData.append('choosedSeat', sessionStorage.choosedSeat);
 
-          this.axios.post(`${this.$api}/detail/lockScreeningSeat`,postData).then(response => {   //看位子還有沒有，有的話就鎖住，沒有就跳出訊息
-            console.log(response.data);
-            if(response.data=="there are not enough seats."){
-              alert("位子已經被選走囉!再看看別的吧!");
-              this.$router.push("/order/chooseSeat");     //沒位子了也跳回選位子
-            }
-            }).catch(error=>{
-                console.log("lockSeatsError: "+error);
-                this.$router.push("/order/chooseSeat");     //沒鎖成功跳回選位子
-            })
-        },
+        //   this.axios.post(`${this.$api}/detail/lockScreeningSeat`,postData).then(response => {   //看位子還有沒有，有的話就鎖住，沒有就跳出訊息
+        //     console.log(response.data);
+        //     if(response.data=="there are not enough seats."){
+        //       alert("位子已經被選走囉!再看看別的吧!");
+        //       this.$router.push("/order/chooseSeat");     //沒位子了也跳回選位子
+        //     }
+        //     }).catch(error=>{
+        //         console.log("lockSeatsError: "+error);
+        //         this.$router.push("/order/chooseSeat");     //沒鎖成功跳回選位子
+        //     })
+        // },
         recoverSeats(){
             var postData = new FormData();
             postData.append('screeningID', sessionStorage.screeningID);
             postData.append('choosedSeat', sessionStorage.choosedSeat);
             this.axios.post(`${this.$api}/detail/unlockScreeningSeat`,postData).then(response=>{
                 console.log(response.data);
-            }).catch(error=>{
+            }).catch(()=>{
                 console.log("Recover seats failed.");
             })
         },
@@ -614,12 +613,6 @@ export default {
             sessionStorage.removeItem('movieIndex');  
             sessionStorage.removeItem('choosedSeat');  
         },
-        beforeunloadFn(e) {
-            console.log("beforunload");
-            // localStorage.setItem("beeooi",1);
-            this.recoverSeats();
-            
-        } 
     }  
 } 
 </script>

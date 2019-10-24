@@ -45,6 +45,7 @@ import imgSellout from "../../assets/sellout.png";
 import imgSeat from "../../assets/seat.png";
 import imgAisle from "../../assets/aisle.png"; 
 export default { 
+  inject: ['reload'],
   data() {
     return {   
       list: [], 
@@ -179,9 +180,8 @@ export default {
               }); 
               return this.cnt++;
           } 
-              //不在這判斷是否SEATS歸零，改去detail.vue
-              this.nextPageGetSell();
-           
+              this.lockSeats();   //我把this.nextPageGetSell()放進這個函式裡了，判斷有過才繼續
+          //  this.nextPageGetSell();
     }, 
     buildForListData(){
       //list 把走道也算入陣列中 其他data位置數字只計座位數
@@ -370,7 +370,26 @@ export default {
           }
       }
         sessionStorage.setItem('choosedSeat',sessionList) 
-    } 
+    },
+    lockSeats(){
+          var postData = new FormData();
+          postData.append('screeningID', sessionStorage.screeningID);
+          postData.append('choosedSeat', sessionStorage.choosedSeat);
+          this.axios.post(`${this.$api}/detail/lockScreeningSeat`,postData).then(response => {   //看位子還有沒有，有的話就鎖住，沒有就跳出訊息
+            console.log(response.data);
+            if(response.data=="there are not enough seats."){
+              
+              alert("位子被人選了喔!看看別的吧");
+              this.reload();
+            }else{
+              this.nextPageGetSell();
+            }
+            }).catch(error=>{
+                console.log("lockSeatsError: "+error);
+                this.$router.push("/order/chooseSeat");     //沒鎖成功跳回選位子
+            })
+
+        }
   }
 };
 </script> 

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
-    <router-view />
+    <router-view v-if="isRouterAlive" />
     <GoTop></GoTop>
   </div>
 </template>
@@ -17,6 +17,24 @@ export default {
   },
   mounted() {
     // localStorage.setItem('logAccount', 'admin')
+  },
+  provide(){
+    return{
+      reload:this.reload
+    }
+  },
+  data(){
+    return{
+      isRouterAlive:true
+    }
+  },
+  methods: {
+    reload(){
+      this.isRouterAlive=false;
+      this.$nextTick(function(){
+        this.isRouterAlive = true;
+      })
+    }
   }
 }
 </script>
