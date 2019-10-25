@@ -628,6 +628,9 @@ export default {
 <style lang="scss" scoped>  
 //RWD  寬度769px以上
 @media only screen and (min-width: 769px) {
+     h1{
+        padding-left:17%;
+     }
      .modal-body{  
         text-align:center;
         font-size:20px; 
