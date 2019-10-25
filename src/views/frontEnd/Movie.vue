@@ -31,7 +31,8 @@
                 <h5 class="card-title" style="font-size:25px;">{{item.name}}</h5>
               </a>
               <p class="card-text text-truncate" style="display:block;">{{item.info}}</p>
-              <p class="card-text">
+              <p class="card-text"></p>
+              <form>
                 <select
                   class="custom-select custom-select-lg mb-3"
                   @click.prevent="getMovieDay(item.encoded_id)"
@@ -56,14 +57,14 @@
                   <option value="3">Three</option>
                   <option value="3">Three</option>
                 </select>
-                <button type="button" class="btn btn-primary" style="margin-left:220px;">訂票</button>
+                <button type="submit" class="btn btn-primary" style="margin-left:70%;">訂票</button>
                 <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-              </p>
+              </form>
             </div>
           </div>
         </div>
       </div>​
-      <!--modal開始-->
+    <!--modal開始-->
       <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -520,6 +521,8 @@ export default {
   mounted() {
     this.getMovies();
     this.getPages();
+    this.getMovieDay("752516ec-7577-4238-b5b5-0fd682890932");
+    this.getMovieTime("752516ec-7577-4238-b5b5-0fd682890932");
   },
   methods: {
     getMovies() {
@@ -527,11 +530,11 @@ export default {
       this.axios
         .get(`${this.$api}/movies/showMovies/released/1`)
         .then(response => {
-          response.data[0].abc = "123";
-          for (let i = 0; i <= data.length; i++) {
-            response.data[i].abc = 123;
-            console.log(response.data[i]);
-          }
+          // response.data[0].abc = "123";
+          // for (let i = 0; i <= response.data.length; i++) {
+          //   response.data[i].abc = 123;
+          //   console.log("for迴圈:"+response.data[i].abc);
+          // }
 
           console.log(response.data[0]);
           _this.releasedMovies = response.data;
