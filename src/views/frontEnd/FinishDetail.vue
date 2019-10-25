@@ -128,10 +128,6 @@ export default {
                 phone:' ', 
                 loginBar:1, 
                 editBar:0,
-                cadrd1:" ",
-                cadrd2:" ",
-                cadrd3:" ",
-                cadrd4:" ",
                 br:1,
                 orderNumber:"",
                 pointValue:0
