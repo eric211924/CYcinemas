@@ -1,7 +1,15 @@
 <template>
 
 <div class="container">
-<h1 class="text-center my-5">訂票</h1>
+<div class="row">
+    <div class="col-md-10"> 
+        <h1 class="text-center my-5"> 
+    訂票  </h1>
+        </div>
+    <div class="col-md-2"> 
+       <h3 class="text-center my-5"> 剩餘時間:5:00</h3>
+        </div>
+        </div> 
   <div class="row">
     <div class="col-md-6 padding1"> 
     <div class="tab">
@@ -60,9 +68,17 @@
                     <td>&emsp;使用點數&ensp;:</td>
                     <td>{{list.pointValue}}</td>
                 </tr> 
-                <tr>
+                <tr style="border:0;">
                     <td>&emsp;合&emsp;&emsp;計&ensp;:</td>
                     <td>{{list.real}}</td>
+                </tr> 
+                <tr style="border:0;">
+                    <td>&emsp; </td> 
+                    <td>&emsp; </td> 
+                </tr> 
+                <tr style="border:0;">
+                    <td>&emsp; </td>
+                    <td>本次消費可獲得點數:&ensp;{{list.getPoint}}點</td>
                 </tr> 
             </table>
          </div>
@@ -316,6 +332,7 @@ export default {
                 br:1,
                 orderNumber:"",
                 pointValue:0,
+                getPoint:0,
                 isPost:""
             },   
         target:"",
@@ -495,6 +512,7 @@ export default {
                             this.list.price["4"]*(mealsNum["3"]?mealsNum["3"]:0) +
                             this.list.price["2"]*(mealsNum["4"]?mealsNum["4"]:0) ;
             this.real2 =Math.ceil(this.list.total*this.list.discount); 
+            this.list.getPoint = Math.floor(this.real2/100); 
             this.list.real =Math.ceil(this.list.total*this.list.discount) - this.list.pointValue; 
         },
         memberGetData: function(){ 
@@ -620,6 +638,9 @@ export default {
 <style lang="scss" scoped>  
 //RWD  寬度769px以上
 @media only screen and (min-width: 769px) {
+     h1{
+        padding-left:17%;
+     }
      .modal-body{  
         text-align:center;
         font-size:20px; 
