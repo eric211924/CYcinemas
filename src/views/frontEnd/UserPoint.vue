@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1 class="text-center my-5">點數紀錄</h1>
+    <div class="allEl">
+        <h1 class="text-center my-5" style="font-family: Microsoft JhengHei;">點數紀錄</h1>
         <hr>
         <!-- th: 日期 | 交易描述 | 此次交易點數 | 交易後點數 -->
         <table class="table table-bordered table-hover">
@@ -62,6 +62,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .allEl {
+        font-family: Microsoft JhengHei;
+    }
     th {
         background-color: khaki;
     }

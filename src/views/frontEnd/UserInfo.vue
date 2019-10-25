@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1 class="text-center my-5">會員資料</h1>
+    <div class="allEl">
+        <h1 class="text-center my-5" style="font-family: Microsoft JhengHei;">會員資料</h1>
         <hr>
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#changePwd">修改密碼</button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -37,7 +37,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">修改會員資料</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle" style="font-family: Microsoft JhengHei;">修改會員資料</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -77,7 +77,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">修改密碼</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle" style="font-family: Microsoft JhengHei;">修改密碼</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="clearPwd">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -362,3 +362,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    .allEl {
+        font-family: Microsoft JhengHei;
+    }
+</style>
