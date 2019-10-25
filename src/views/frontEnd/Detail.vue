@@ -2,12 +2,32 @@
 
 <div class="container">
 <div class="row">
-    <div class="col-md-10"> 
-        <h1 class="text-center my-5"> 
+    <div class="col-md-6"> 
+        <h1 class="text-center my-4 pl-0"> 
     訂票  </h1>
         </div>
-    <div class="col-md-2"> 
-       <h3 class="text-center my-5"> 剩餘時間:5:00</h3>
+    <div class="col-md-6"> 
+       <div class="uk-grid-small uk-child-width-auto d-flex justify-content-center mt-3" uk-grid v-bind:uk-countdown="countDown">
+    <!-- <div>
+        <div class="uk-countdown-number uk-countdown-days"></div>
+        <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Days</div>
+    </div>
+    <div class="uk-countdown-separator">:</div>
+    <div>
+        <div class="uk-countdown-number uk-countdown-hours"></div>
+        <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Hours</div>
+    </div>
+    <div class="uk-countdown-separator">:</div> -->
+    <div>
+        <div class="uk-countdown-number uk-countdown-minutes" id="min"></div>
+        <div class="uk-countdown-label uk-margin-small uk-text-center">Minutes</div>
+    </div>
+    <div class="uk-countdown-separator">:</div>
+    <div>
+        <div class="uk-countdown-number uk-countdown-seconds"  id="sec"></div>
+        <div class="uk-countdown-label uk-margin-small uk-text-center ">Seconds</div>
+    </div>
+</div>
         </div>
         </div> 
   <div class="row">
@@ -269,6 +289,7 @@
           </div>
         </div>  
         <!-- point modal end-->
+          <button @click="checkCountDown">看COUNTDOWN</button>
         <div class="btnGroup row"> 
             <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center"  to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
   <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-primary">
@@ -282,6 +303,7 @@
         </div>  
     </div> <!-- col-md-6  padding2 -->
   </div>  <!-- row -->
+
 </div> <!-- container -->
 </template>
 
@@ -337,28 +359,52 @@ export default {
         showPoint:0, 
         selectPoint:0,
         chkPoint:"",
-        real2:0
+        real2:0,
+        countDown:0,
+        countInterval:null,
         }
     }, 
     created() {
         console.log("created");
 
+        this.getCountDownTime();
+
+    },
+    mounted() {  
+        if(!(sessionStorage.getItem('choosedSeat')))
+            window.location.href="./#/order"; 
+        this.checkCountDown();
+        this.countMoney();  
+        this.checkLoginAndGetData();   
+        this.list.hall = sessionStorage.courtsID;  
     },
     destroyed() {
         if(!this.isPost)  {
             this.recoverSeats();
         }  //isPost決定是不是到完成訂單
         console.log("destroyed");
+        if(this.countInterval){
+            clearInterval(this.countInterval);
 
+        }
     },
-    mounted() {  
-        if(!(sessionStorage.getItem('choosedSeat')))
-            window.location.href="./#/order"; 
-        this.countMoney();  
-        this.checkLoginAndGetData();   
-        this.list.hall = sessionStorage.courtsID;  
-    },
+
     methods:{   
+        checkCountDown:function(){
+            var minute = document.getElementById("min").innerText;
+            var second = document.getElementById("sec").innerText;
+            var _this = this;
+            this.countInterval = setInterval(function(){
+                minute = document.getElementById("min").innerText;
+                second = document.getElementById("sec").innerText;
+                console.log(minute);
+                console.log(second);
+                if(minute =="03"&&second=="00"){
+                    clearInterval(_this.countInterval);
+                    _this.$router.push("/order/chooseSeat");
+                }
+            },1000)
+        },
         usePoint:function(){   
             this.selectPoint = Number(this.selectPoint); 
             if(this.selectPoint>=0 && this.selectPoint<=this.maxPoint){  
@@ -488,6 +534,21 @@ export default {
             }).catch(()=>{
                 console.log("Recover seats failed.");
             })
+        },
+        getCountDownTime(){
+            var postData = new FormData();
+            postData.append('screeningID', sessionStorage.screeningID);
+            postData.append('choosedSeat', sessionStorage.choosedSeat);
+            this.axios.post(`${this.$api}/detail/getCountDownTime`,postData).then(response=>{
+                var nowTime = new Date(response.data);
+                nowTime.setMinutes(nowTime.getMinutes()+3);
+                nowTime = nowTime.toLocaleString('zh-tw',{hour12:false}).replace(/\//g,"-");
+                this.countDown = "date: " + nowTime + "+08:00";
+                console.log(nowTime);
+            }).catch(()=>{
+                console.log("getCountDownTime failed.");
+            })
+            
         },
         countMoney:function(){ 
             var ticketNum =JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum); 
@@ -629,7 +690,7 @@ export default {
 //RWD  寬度769px以上
 @media only screen and (min-width: 769px) {
      h1{
-        padding-left:17%;
+        font-size: 4vw;
      }
      .modal-body{  
         text-align:center;
