@@ -518,24 +518,34 @@ export default {
     };
   },
   mounted() {
-    this.getMovies();
+    this.setMovies();
     this.getPages();
   },
   methods: {
+    async setMovies() {
+      let movies = await this.getMovies();
+      this.releasedMovies = movies.data;
+      for (let i = 0; i <= this.releasedMovies.length; i++) {
+        try {
+          let day = await this.getMovieDay(this.releasedMovies[i].encoded_id);
+          this.releasedMovies[i].day = day;
+          let time = await this.getMovieTime(this.releasedMovies[i].encoded_id);
+          this.releasedMovies[i].time = time;
+        } catch (err) {
+          // console.log(err);
+        }
+      }
+    },
     getMovies() {
       const _this = this;
-      this.axios
-        .get(`${this.$api}/movies/showMovies/released/1`)
-        .then(response => {
-          response.data[0].abc = "123";
-          for (let i = 0; i <= data.length; i++) {
-            response.data[i].abc = 123;
-            console.log(response.data[i]);
-          }
-
-          console.log(response.data[0]);
-          _this.releasedMovies = response.data;
+      return new Promise((resolve, reject) => {
+        this.axios.get(`${this.$api}/movies/showMovies/released/1`).then(response => {
+          console.log(response.data);
+          resolve(response);
+        }).catch(error => {
+          reject(error);
         });
+      });
     },
     setMovieModal(movie) {
       this.movieData.poster = movie.poster;
@@ -570,18 +580,26 @@ export default {
     },
     getMovieDay(id) {
       const _this = this;
-      this.axios.get(`${this.$api}/order/getMovieDay/${id}`).then(response => {
-        console.log("getMovieDay");
-        console.log(response.data);
-        _this.movieDays = response.data;
+      return new Promise((resolve, reject) => {
+        this.axios.get(`${this.$api}/order/getMovieDay/${id}`).then(response => {
+          // console.log("getMovieDay");
+          console.log(response.data);
+          resolve(response.data)
+        });
+      }).catch(error => {
+        reject(error);
       });
     },
     getMovieTime(id) {
       const _this = this;
-      this.axios.get(`${this.$api}/order/getMovieTime/${id}`).then(response => {
-        console.log("getMovieTime");
-        console.log(response.data);
-        _this.movieTimes = response.data;
+      return new Promise((resolve, reject) => {
+        this.axios.get(`${this.$api}/order/getMovieTime/${id}`).then(response => {
+          // console.log("getMovieTime");
+          // console.log(response.data);
+          resolve(response.data);
+        }).catch(error => {
+          reject(error);
+        });
       });
     }
   }
