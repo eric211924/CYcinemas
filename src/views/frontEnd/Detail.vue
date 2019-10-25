@@ -19,12 +19,12 @@
     </div>
     <div class="uk-countdown-separator">:</div> -->
     <div>
-        <div class="uk-countdown-number uk-countdown-minutes" id="min"></div>
+        <div class="uk-countdown-number uk-countdown-minutes" v-bind:class="{redFont:isRed}"  id="min"></div>
         <div class="uk-countdown-label uk-margin-small uk-text-center">Minutes</div>
     </div>
     <div class="uk-countdown-separator">:</div>
     <div>
-        <div class="uk-countdown-number uk-countdown-seconds"  id="sec"></div>
+        <div class="uk-countdown-number uk-countdown-seconds" v-bind:class="{redFont:isRed}"  id="sec"></div>
         <div class="uk-countdown-label uk-margin-small uk-text-center ">Seconds</div>
     </div>
 </div>
@@ -297,7 +297,6 @@
           </div>
         </div>  
         <!-- point modal end-->
-          <button @click="checkCountDown">看COUNTDOWN</button>
         <div class="btnGroup row"> 
             <router-link  class="btn btn-outline-danger mr-3 router-link1 align-self-center"  to="/order/chooseSeat"><i class="fa fa-undo" aria-hidden="true"></i>上一頁</router-link>
   <button  href data-toggle="modal" :data-target="target" type='submit' name='btn' value='確認送出' class="btn btn-primary">
@@ -355,7 +354,7 @@ export default {
                 orderNumber:"",
                 pointValue:0,
                 getPoint:0,
-                isPost:""
+                isPost:"",
             },   
         target:"",
         chkInputEmpty:{"1":1,"2":1,"3":1,}, 
@@ -371,6 +370,7 @@ export default {
         real2:0,
         countDown:0,
         countInterval:null,
+        isRed:0
         }
     }, 
     created() {
@@ -406,8 +406,12 @@ export default {
             this.countInterval = setInterval(function(){
                 minute = document.getElementById("min").innerText;
                 second = document.getElementById("sec").innerText;
-                console.log(minute);
-                console.log(second);
+                console.log(parseInt(minute));
+                console.log(parseInt(second));
+                if(parseInt(minute) < 1 && parseInt(second)<=60){
+                    _this.isRed = 1;
+                }
+
                 if(minute =="00"&&second=="00"){
                     clearInterval(_this.countInterval);
                     _this.$router.push("/order/chooseSeat");
@@ -697,6 +701,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>  
+.redFont{
+    color: red;
+}
 //RWD  寬度769px以上
 @media only screen and (min-width: 769px) {
      h1{
