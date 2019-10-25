@@ -5,17 +5,17 @@
         <div class="list-group">
           <router-link
             to="/user"
-            class="list-group-item list-group-item-action"
+            class="list-group-item list-group-item-action" style="font-family: Microsoft JhengHei;"
             :class="{'active': this.$route.path == '/user'}"
           ><i class="fa fa-address-card-o" aria-hidden="true"></i> 會員資料</router-link>
           <router-link
             to="/user/userRecord"
-            class="list-group-item list-group-item-action"
+            class="list-group-item list-group-item-action" style="font-family: Microsoft JhengHei;"
             :class="{'active': this.$route.path == '/user/userRecord'}"
-          ><i class="fa fa-usd" aria-hidden="true"></i> 消費紀錄</router-link>
+          ><i class="fa fa-usd" aria-hidden="true"></i>&nbsp;&nbsp;消費紀錄</router-link>
           <router-link
             to="/user/userPoint"
-            class="list-group-item list-group-item-action"
+            class="list-group-item list-group-item-action" style="font-family: Microsoft JhengHei;"
             :class="{'active': this.$route.path == '/user/userPoint'}"
           ><i class="fa fa-diamond" aria-hidden="true"></i> 點數紀錄</router-link>
         </div>
