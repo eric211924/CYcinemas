@@ -261,7 +261,7 @@ export default {
         })
         .then(response => {
           // console.log(response.data);
-          if (response.data.status == 200) {
+          if (response.data.status == 201) {
             _this.$toasted.success(response.data.msg, {
               theme: "bubble",
               duration: 3000
