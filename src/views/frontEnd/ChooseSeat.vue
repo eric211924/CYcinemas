@@ -1,5 +1,3 @@
-
-
 <template> 
   <div class="container">
     <h1 class="text-center my-5">訂票-選位</h1>
@@ -289,6 +287,7 @@ export default {
       });   
     }, 
     tapGetSellOut(){  
+      var seatPerRow = this.courts[this.cID].seats/this.courts[this.cID].rows;
       var ID = sessionStorage.screeningID;   
       var postData = new FormData(); 
       postData.append('ID', ID); 
@@ -307,7 +306,7 @@ export default {
                           var strNum = array[k].substring(1,3);
                           // console.log(array[k]);   
                           var asciiNum =strEng.charCodeAt()-65;
-                          var seatDataNum = asciiNum*28+Number(strNum); 
+                          var seatDataNum = asciiNum*seatPerRow+Number(strNum); 
                           // console.log(seatDataNum); 
                           seatDataNumArray.push(seatDataNum);
                       }
@@ -320,8 +319,42 @@ export default {
           }
       });  
     }, 
+    tapGetSellOut2(){   
+      var screenID = sessionStorage.screeningID;
+      // console.log(screenID);
+      var seatPerRow = this.courts[this.cID].seats/this.courts[this.cID].rows;
+      this.axios.get(`${this.$api}/test/tapGetSellOut2/${screenID}`)
+      .then(response =>{
+        var seatStrArray = []; 
+        for(let i=0; i<response.data.length ;i++){ 
+          seatStrArray.push(response.data[i].seat_name);
+        }  
+        var seatDataNumArray = []; 
+        // console.log("seatPerRow: "+seatPerRow); 
+        // var newSellOut =['A1','A2','B3','B5','D15',
+        // 'I9','I10','I11','I12'];
+        var newSellOut = seatStrArray;
+        for (let k = 0; k <newSellOut.length; k++) {
+                          var strEng = newSellOut[k].substring(0,1);
+                          var strNum = newSellOut[k].substring(1,3);
+                          // console.log(array[k]);   
+                          var asciiNum =strEng.charCodeAt()-65;
+                          var seatDataNum = asciiNum*seatPerRow+Number(strNum); 
+                          // console.log(seatDataNum); 
+                          seatDataNumArray.push(seatDataNum);
+                      }
+        //seatSrc[傳回新賣出座位]換成賣出圖示
+        // console.log(seatDataNumArray);
+        for(let i=0; i < seatDataNumArray.length; i++){ 
+           this.seatSrc[seatDataNumArray[i]] = this.selloutImg;
+           this.seatSelected[i] ="X";
+        }   
+
+      });  
+    },
     tap(){  
-      this.tapGetSellOut();
+      this.tapGetSellOut(); 
+      this.tapGetSellOut2();
       // console.log(typeof(Number("1571051990")));  
       // console.log(Number("1571051990")-Number("1571051990"));  
       if(this.onClick==0)
