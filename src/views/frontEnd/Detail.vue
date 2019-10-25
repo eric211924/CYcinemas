@@ -68,9 +68,17 @@
                     <td>&emsp;使用點數&ensp;:</td>
                     <td>{{list.pointValue}}</td>
                 </tr> 
-                <tr>
+                <tr style="border:0;">
                     <td>&emsp;合&emsp;&emsp;計&ensp;:</td>
                     <td>{{list.real}}</td>
+                </tr> 
+                <tr style="border:0;">
+                    <td>&emsp; </td> 
+                    <td>&emsp; </td> 
+                </tr> 
+                <tr style="border:0;">
+                    <td>&emsp; </td>
+                    <td>本次消費可獲得點數:&ensp;{{list.getPoint}}點</td>
                 </tr> 
             </table>
          </div>
@@ -324,6 +332,7 @@ export default {
                 br:1,
                 orderNumber:"",
                 pointValue:0,
+                getPoint:0,
                 isPost:""
             },   
         target:"",
@@ -503,6 +512,7 @@ export default {
                             this.list.price["4"]*(mealsNum["3"]?mealsNum["3"]:0) +
                             this.list.price["2"]*(mealsNum["4"]?mealsNum["4"]:0) ;
             this.real2 =Math.ceil(this.list.total*this.list.discount); 
+            this.list.getPoint = Math.floor(this.real2/100); 
             this.list.real =Math.ceil(this.list.total*this.list.discount) - this.list.pointValue; 
         },
         memberGetData: function(){ 
