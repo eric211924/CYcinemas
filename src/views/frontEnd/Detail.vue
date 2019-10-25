@@ -1,5 +1,4 @@
-<template>
-
+<template> 
 <div class="container">
 <div class="row">
     <div class="col-md-6"> 
@@ -161,35 +160,27 @@
             <h6>會員點數</h6> 
             <!--input-->
             <div class="editInputGrounp input-group input-group-sm mb-1"> 
-            <div class="col-12">
-            <span>擁有點數:&ensp;{{showPoint}}</span>
-            </div> 
-            <div class="col-12">
-            &emsp;
-            </div>
-            <div class="col-4">
-                <span>
-                    輸入使用點數 
-                </span>
+                <div class="col-12">
+                    <span>擁有點數:&ensp;{{showPoint}}</span>
+                </div> 
+                <div class="col-12">
+                    &emsp;
                 </div>
-  <div class="col-5">
-    <input  v-model="selectPoint" :max="maxPoint" :min="minPoint" type="number"  class="form-control" id="example-number-input">
-    </div>
-     <div class="col-3">
- <button @click="usePoint" type="button" class="btn btn-outline-success"
-  href data-toggle="modal" :data-target="chkPoint" >確定</button>
-  </div>
-<!--<input v-model="list.cadrd1" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    <span>-</span>
-                <input v-model="list.cadrd2" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    <span>-</span>
-                <input v-model="list.cadrd3" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    <span>-</span>
-                <input v-model="list.cadrd4" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            -->
+                <div class="col-4">
+                    <span>
+                        輸入使用點數 
+                    </span>
+                </div>
+                <div class="col-5">
+                    <input  v-model="selectPoint" :max="maxPoint" :min="minPoint" type="number" class="form-control" id="example-number-input">
+                </div>
+                <div class="col-3">
+                    <button @click="usePoint" type="button" class="btn btn-outline-success"
+                        href data-toggle="modal" :data-target="chkPoint" >確定
+                    </button>
+                </div> 
             </div> 
-        </div><!--div"tab3"-->
- 
+        </div><!--div"tab3"--> 
         <!-- confirm modal-->
         <div
           class="modal fade"
@@ -345,11 +336,7 @@ export default {
                 email:' ',
                 phone:' ', 
                 loginBar:1, 
-                editBar:0,
-                cadrd1:" ",
-                cadrd2:" ",
-                cadrd3:" ",
-                cadrd4:" ",
+                editBar:0, 
                 br:1,
                 orderNumber:"",
                 pointValue:0,
@@ -374,14 +361,12 @@ export default {
         }
     }, 
     created() {
-        console.log("created");
-
-        this.getCountDownTime();
-
+        console.log("created"); 
+        this.getCountDownTime(); 
     },
     mounted() {  
         if(!(sessionStorage.getItem('choosedSeat')))
-            window.location.href="./#/order"; 
+            return window.location.href="./#/order"; 
         this.checkCountDown();
         this.countMoney();  
         this.checkLoginAndGetData();   
@@ -396,8 +381,7 @@ export default {
             clearInterval(this.countInterval);
 
         }
-    },
-
+    }, 
     methods:{   
         checkCountDown:function(){
             var minute = document.getElementById("min").innerText;
@@ -439,19 +423,16 @@ export default {
             this.chkInputWrong[num] = wrong;
          },
         checkInput:function(){  
-            // var patt1 = /[\u4e00-\u9fa5a-zA-Z]/.test(this.list.memberName);
-            var patt1 =1;
+            var patt1 = /[\u4e00-\u9fa5a-zA-Z]/.test(this.list.memberName); 
                 this.chkIcon('1',0,patt1,!patt1); 
             if(this.list.memberName.trim()=="") 
                 this.chkIcon('1',1,0,0);
-            // var patt21 = /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com$/.test(this.list.email);
-            var patt21=1;
+            var patt21 = /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com$/.test(this.list.email); 
             var patt22 = /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com\.[a-zA-Z0-9_]+$/.test(this.list.email);
                 this.chkIcon('2',0,patt21+patt22,!(patt21+patt22));
             if(this.list.email.trim()=="")
                 this.chkIcon('2',1,0,0); 
-            // var patt3 = /^09\d{8}$/.test(this.list.phone.trim()); 
-             var patt3 =1;
+            var patt3 = /^09\d{8}$/.test(this.list.phone.trim());  
                 this.chkIcon('3',0,patt3,!patt3);
             if(this.list.phone.trim()=="")
                 this.chkIcon('3',1,0,0); 
@@ -511,9 +492,7 @@ export default {
         }, 
         ok:function(){   
             this.getOrderNumber();
-            sessionStorage.setItem('FinishPageData',JSON.stringify(this.list));
-            console.log("real2: "+this.real2);
-            // console.log(JSON.stringify(this.list));
+            sessionStorage.setItem('FinishPageData',JSON.stringify(this.list)); 
             this.post();
             this.clrSession(); 
             window.location.href="./#/order/FinishDetail";
@@ -704,7 +683,8 @@ export default {
 .redFont{
     color: red;
 }
-//RWD  寬度769px以上
+//-----------------------------------RWD  寬度769px以上-------------------------------------
+
 @media only screen and (min-width: 769px) {
      h1{
         font-size: 4vw;
@@ -840,8 +820,9 @@ export default {
         background-color: white;
         color:rgb(23,162,184);
     }
-}//RWD  寬度769px以上
-//RWD  寬度768px~321px
+}//-----------------------------RWD  寬度769px以上-----------------------------
+
+//------------------------------RWD  寬度768px~321px---------------------------
 @media only screen and (min-width: 321px) and (max-width: 768px) {
      .modal-body{  
         text-align:center;
@@ -971,8 +952,9 @@ export default {
         background-color: white;
         color:rgb(23,162,184);
     }
-}//RWD  寬度768px~321px
-//RWD  寬度320px~0px
+}//---------------------------RWD  寬度768px~321px---------------------------
+
+//----------------------------RWD  寬度320px~0px-----------------------------
 @media only screen and (min-width: 0px) and (max-width: 320px){
       .modal-body{  
         text-align:center;
