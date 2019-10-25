@@ -1,7 +1,15 @@
 <template>
 
 <div class="container">
-<h1 class="text-center my-5">訂票</h1>
+<div class="row">
+    <div class="col-md-10"> 
+        <h1 class="text-center my-5"> 
+    訂票  </h1>
+        </div>
+    <div class="col-md-2"> 
+       <h3 class="text-center my-5"> 剩餘時間:5:00</h3>
+        </div>
+        </div> 
   <div class="row">
     <div class="col-md-6 padding1"> 
     <div class="tab">
