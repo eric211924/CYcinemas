@@ -408,7 +408,7 @@ export default {
                 second = document.getElementById("sec").innerText;
                 console.log(minute);
                 console.log(second);
-                if(minute =="03"&&second=="00"){
+                if(minute =="00"&&second=="00"){
                     clearInterval(_this.countInterval);
                     _this.$router.push("/order/chooseSeat");
                 }
