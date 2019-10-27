@@ -32,15 +32,23 @@
               </a>
               <p class="card-text text-truncate" style="display:block;">{{item.info}}</p>
               <p class="card-text">
-                <select class="custom-select custom-select-lg mb-3" v-model="dayOp">
-                  <option value>時間</option>
+                <select
+                  id="day"
+                  class="custom-select custom-select-lg mb-3"
+                  v-model="item.day[dayIndex]"
+                >
+                  <option value>日期</option>
                   <option
                     :value="dayIndex"
                     v-for="(dayItem, dayIndex) in item.day"
                     :key="dayIndex"
                   >{{ dayItem.weekday }}, {{ dayItem.date }}</option>
                 </select>
-                <select class="custom-select custom-select-lg mb-3" v-model="timeOp">
+                <select
+                  id="time"
+                  class="custom-select custom-select-lg mb-3"
+                  v-model="item.time[timeIndex]"
+                >
                   <option value>場次</option>
                   <option
                     :value="timeIndex"
@@ -48,7 +56,13 @@
                     :key="timeIndex"
                   >{{timeItem.time}}</option>
                 </select>
-                <button type="submit" class="btn btn-primary" style="margin-left:70%;">訂票</button>
+
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="margin-left:70%;"
+                  v-on:Click="createItem()"
+                >訂票</button>
                 <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
               </p>
             </div>
@@ -93,9 +107,12 @@
                 style="margin:0.5%;"
               >{{movieData.run_time}}</button>
 
-              <p>主要演員：{{movieData.actor}}</p>
-              <p>影片類型：{{movieData.genre}}</p>
-              <p>上映日期：{{movieData.play_date}}</p>
+              <p>{{movieData.actor}}</p>
+              <!--主要演員： -->
+              <p>{{movieData.genre}}</p>
+              <!--影片類型：-->
+              <p>{{movieData.play_date}}</p>
+              <!--上映日期：-->
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -180,9 +197,12 @@
                 style="margin:0.5%;"
               >{{pageData.run_time}}</button>
 
-              <p>主要演員：{{pageData.actor}}</p>
-              <p>影片類型：{{pageData.genre}}</p>
-              <p>上映日期：{{pageData.play_date}}</p>
+              <p>{{pageData.actor}}</p>
+              <!--主要演員：-->
+              <p>{{pageData.genre}}</p>
+              <!--影片類型：-->
+              <p>{{pageData.play_date}}</p>
+              <!--上映日期：-->
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -211,12 +231,16 @@ export default {
         name: ""
       },
       dayOp: "",
-      timeOp: ""
+      timeOp: "",
+      dayIndex: "",
+      timeIndex: "",
+      setItem: {}
     };
   },
   mounted() {
     this.setMovies();
     this.getPages();
+    // this.createItem();
     // this.getMovieDay("752516ec-7577-4238-b5b5-0fd682890932");
     // this.getMovieTime("752516ec-7577-4238-b5b5-0fd682890932");
   },
@@ -241,7 +265,7 @@ export default {
         this.axios
           .get(`${this.$api}/movies/showMovies/released/1`)
           .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             resolve(response);
           })
           .catch(error => {
@@ -287,7 +311,7 @@ export default {
           .get(`${this.$api}/order/getMovieDay/${id}`)
           .then(response => {
             // console.log("getMovieDay");
-            console.log(response.data);
+            // console.log(response.data);
             resolve(response.data);
           });
       }).catch(error => {
@@ -301,23 +325,31 @@ export default {
           .get(`${this.$api}/order/getMovieTime/${id}`)
           .then(response => {
             // console.log("getMovieTime");
-            console.log(response.data);
+            // console.log(response.data);
             resolve(response.data);
           })
           .catch(error => {
             reject(error);
           });
       });
+    },
+    createItem() {
+      //sessionStorage
+      //缺少判斷式.....
+      this.sessionStorage.setItem("index", item.id);
+      this.sessionStorage.setItem("day", item.day[dayIndex]);
+      this.sessionStorage.setItem("time", item.time[timeIndex]);
+
+      this.releasedMovies;
+      alert(sessionStorage.getItem("time"));
+      console.log(sessionStorage.getItem("time"));
+      this.$router.push("/order");
     }
   }
 };
 </script>
 <style scoped>
 .card-img {
-  /* width:auto;
-  height: auto; */
-  /* width: 100%;
-  height: 100%; */
   margin-right: 10px;
 }
 .card {

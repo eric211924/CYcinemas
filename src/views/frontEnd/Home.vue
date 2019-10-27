@@ -4,7 +4,7 @@
       id="carouselExampleIndicators"
       class="carousel slide"
       data-ride="carousel"
-      data-interval="4000"
+      data-interval="3500"
     >
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -96,8 +96,8 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-             <iframe
-              style = "margin-bottom:40px;"
+            <iframe
+              style="margin-bottom:40px;"
               width="100%"
               height="315"
               :src="movieData.trailer"
@@ -111,7 +111,10 @@
               alt="..."
               style="float:left;width:180px;height:270px;display:block;"
             />
-            <div class="text" style="text-align:left; clear:both; margin-left:-200px; margin-top:20px;">{{ movieData.info }}</div>
+            <div
+              class="text"
+              style="text-align:left; clear:both; margin-left:-200px; margin-top:20px;"
+            >{{ movieData.info }}</div>
             <!-- <iframe
               width="100%"
               height="315"
@@ -119,7 +122,7 @@
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
-            ></iframe> -->
+            ></iframe>-->
 
             <button
               type="button"
@@ -134,9 +137,12 @@
               style="margin:0.5%;"
             >{{ movieData.run_time }}</button>
 
-            <p>主演 : {{ movieData.actor }}</p>
-            <p>類型 : {{ movieData.genre }}</p>
-            <p>上映日期 : {{ movieData.play_date }}</p>
+            <p>{{ movieData.actor }}</p>
+            <!--主演 :-->
+            <p>{{ movieData.genre }}</p>
+            <!--類型 :-->
+            <p>{{ movieData.play_date }}</p>
+            <!--上映日期 :-->
 
             <div>
               <!-- 時間:
@@ -150,7 +156,7 @@
                 <li>
                   <button type="button" class="btn btn-outline-info">21:20</button>
                 </li>
-              </ul> -->
+              </ul>-->
             </div>
           </div>
           <div class="modal-footer">
@@ -162,10 +168,9 @@
     <!-- Modal End -->
     <!-- 阿正 UIkit 滑塊 End-->
     <!-- <img src="..\..\assets\home_pic\cellphone.jpg"/>
-    <img src="..\..\assets\home_pic\cup.png"/>   -->
-    
-    <img src="..\..\assets\home_pic\line.png" id="line" />  
+    <img src="..\..\assets\home_pic\cup.png"/>-->
 
+    <img src="..\..\assets\home_pic\line.png" id="line" />
   </div>
 </template>
 
@@ -183,22 +188,23 @@ export default {
       //  imgAr: Array(4),
       releasedMovies: {},
       movieData: {
-        name: ''
+        name: ""
       },
-      backgroundColor: '#673AB7',
+      backgroundColor: "#673AB7"
     };
   },
   mounted() {
     this.getMovies();
-    
   },
   methods: {
     getMovies() {
       const _this = this;
-      this.axios.get(`${this.$api}/movies/showMovies/released/1`).then((response) => {
-        console.log(response.data);
-        _this.releasedMovies = response.data;
-      });
+      this.axios
+        .get(`${this.$api}/movies/showMovies/released/1`)
+        .then(response => {
+          console.log(response.data);
+          _this.releasedMovies = response.data;
+        });
     },
     setMovieModal(movie) {
       this.movieData.poster = movie.poster;
@@ -211,7 +217,7 @@ export default {
       this.movieData.trailer = movie.trailer;
       this.movieData.name = movie.name;
     }
-  },
+  }
 };
 </script>
 
@@ -254,13 +260,12 @@ li {
 .uk-position-center-right {
   background-color: #becb01;
 }
-#line{
-  display:block;
-  margin:0 auto;
+#line {
+  display: block;
+  margin: 0 auto;
   margin-bottom: 50px;
   margin-top: 50px;
   border-radius: 10px;
   box-shadow: 5px 10px 18px #888888;
 }
-
 </style>
