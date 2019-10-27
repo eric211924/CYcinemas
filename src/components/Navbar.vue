@@ -198,7 +198,7 @@ export default {
         parseInt(_this.$refs.hour.innerText) + 
         parseInt(_this.$refs.minute.innerText) + 
         parseInt(_this.$refs.second.innerText); 
-        console.log(_this.discountLastTime);
+
         if(_this.discountLastTime<=1){    //所有數字合起來為0就代表沒折扣了，再去抓一次資料庫
           clearInterval(_this.discountInterval);
           _this.getNowDiscountData();

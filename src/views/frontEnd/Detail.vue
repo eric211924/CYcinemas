@@ -328,7 +328,7 @@ export default {
                 },
                 ticketData:{"全票":0,"優待票":0,"學生票":0,"敬老票":0},
                 foodData:{"爆米花 小":0,"爆米花 中":0,"爆米花 大":0,"可樂 中":0,"可樂 大":0},
-                discount: 0.7,
+                discount: 1,
                 total:0,
                 real:0, 
                 seat: '',
@@ -370,7 +370,8 @@ export default {
         if(!(sessionStorage.getItem('choosedSeat')))
             return window.location.href="./#/order"; 
         this.checkCountDown();
-        this.countMoney();  
+        this.getNowDiscountData();
+        // this.countMoney();  //先取得折扣再算錢，所以放進getNowDiscountData的函式裡了
         this.checkLoginAndGetData();   
         this.list.hall = sessionStorage.courtsID;  
     },
@@ -384,16 +385,24 @@ export default {
 
         }
     }, 
-    methods:{   
-        checkCountDown:function(){
+    methods:{
+            getNowDiscountData(){
+        this.axios.get(`${this.$api}/discount/getNowDiscountData`).then(response=>{
+            if(response.data.length){
+            this.list.discount = parseInt(response.data[0].discount)/100;    //抓第一筆折扣
+            }else{
+            this.list.discount = 1;
+            }
+            this.countMoney();
+        })
+        },   
+        checkCountDown:function(){      
             var minute = document.getElementById("min").innerText;
             var second = document.getElementById("sec").innerText;
             var _this = this;
             this.countInterval = setInterval(function(){
                 minute = document.getElementById("min").innerText;
                 second = document.getElementById("sec").innerText;
-                console.log(parseInt(minute));
-                console.log(parseInt(second));
                 if(parseInt(minute) < 1 && parseInt(second)<=60){
                     _this.isRed = 1;
                 }
