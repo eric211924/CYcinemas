@@ -118,6 +118,34 @@
           </li>
         </div>
       </div>
+      <div class="d-flex">
+        <div class="alert alert-warning text-center align-self-center mb-0" v-show="isDiscount" role="alert">
+          <div class="uk-grid-small uk-child-width-auto align-self-center" uk-grid v-bind:uk-countdown="discountTime">
+              <div class="align-self-center row">
+                <span class="countDownTitle"><i class="fa fa-bolt" aria-hidden="true"></i>{{discountDesc}}{{discount}}折倒數：</span>
+                  <div class="align-self-center">
+                      <div class="uk-countdown-number uk-countdown-days" ref="day"></div>
+                      <!-- <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Days</div> -->
+                  </div>
+                  <div class="uk-countdown-separator align-self-center">:</div>
+                  <div class="align-self-center">
+                      <div class="uk-countdown-number uk-countdown-hours" ref="hour"></div>
+                      <!-- <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Hours</div> -->
+                  </div>
+                  <div class="uk-countdown-separator align-self-center">:</div>
+                  <div class="align-self-center">
+                      <div class="uk-countdown-number uk-countdown-minutes" ref="minute"></div>
+                      <!-- <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Minutes</div> -->
+                  </div>
+                  <div class="uk-countdown-separator align-self-center">:</div>
+                  <div class="align-self-center">
+                      <div class="uk-countdown-number uk-countdown-seconds" ref="second"></div>
+                      <!-- <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Seconds</div> -->
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
     </nav>
 
     <!-- login -->
@@ -141,12 +169,48 @@ export default {
       isLogin: false,
       name: '',
       isManager: false,
+      isDiscount:0,
+      discountTime:'',
+      discountLastTime:1,
+      discountInterval:'',
+      discountDesc:'',
+      discount:''
     }
   },
   mounted() { // 頁面載入後所做動作 -> 檢查是否在登入狀態
     this.checkLogin();
+    this.getNowDiscountData();
   },
   methods: {
+    discountCountDown(){
+      var _this = this;
+      this.discountInterval = setInterval(function(){
+        _this.discountLastTime = 
+        parseInt(_this.$refs.day.innerText) + 
+        parseInt(_this.$refs.hour.innerText) + 
+        parseInt(_this.$refs.minute.innerText) + 
+        parseInt(_this.$refs.second.innerText); 
+        console.log(_this.discountLastTime);
+        if(_this.discountLastTime<=1){
+          clearInterval(_this.discountInterval);
+          _this.getNowDiscountData();
+        }
+      },1000);      
+    },
+    getNowDiscountData(){
+      this.axios.get(`${this.$api}/discount/getNowDiscountData`).then(response=>{
+        if(response.data.length){
+          this.discount = response.data[0].discount;
+          this.discountDesc = response.data[0].description;
+          console.log(response.data);
+          this.discountTime ="date: " + response.data[0].end_time +"+08:00";
+          this.discountCountDown();       //重新倒數計時
+          this.isDiscount = 1;    //有折扣才顯示
+        }else{
+          this.isDiscount = 0;
+        }
+      })
+    },
     checkLogin() {
       if (sessionStorage.getItem('status')) { // 檢查是否在登入狀態
         this.isLogin = true;
@@ -212,7 +276,7 @@ export default {
           }
           sessionStorage.removeItem('logAccount');
           sessionStorage.removeItem('logPassword');
-        }).catch(function (error) {
+        }).catch(function () {
           _this.$toasted.error("無法連線，請確認網路連線狀態", {
             theme: 'bubble',
             duration: 3000
@@ -244,6 +308,18 @@ export default {
 <style lang="scss" scoped>
 .active {
   border-bottom: 3px solid #becb01;
+}
+.countDownTitle{
+  font-size:2.3vh;
+  color:crimson;
+}
+.uk-countdown-number{
+  font-size:4vh;
+  color:red;
+}
+.uk-countdown-separator{
+  font-size:4vh;
+  color:red;
 }
 
 @media (min-width: 992px) {

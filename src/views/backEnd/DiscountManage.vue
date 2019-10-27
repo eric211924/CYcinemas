@@ -176,7 +176,6 @@ export default {
             _this.setId = data.id;
           });
       }
-        console.log("startTime: " + this.startTime);
 
     },
     // 更新News
@@ -194,14 +193,14 @@ export default {
           }
         })
         .then(response => {
-          // console.log(response.data);
-          if (response.data.status == 200) {
+          console.log(response.data.status);
+          if (response.data.status == 201) {
             _this.$toasted.success(response.data.msg, {
               theme: "bubble",
               duration: 3000
             });
-            _this.getDiscountsData(); // 更新後刷新畫面
             _this.cleanData(); // 更新後將表單資料清空
+            _this.getDiscountsData(); // 更新後刷新畫面
           } else {
             _this.$toasted.error(response.data.msg, {
               theme: "bubble",
