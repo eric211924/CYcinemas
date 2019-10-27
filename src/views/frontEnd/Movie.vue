@@ -61,7 +61,7 @@
                   type="submit"
                   class="btn btn-primary"
                   style="margin-left:70%;"
-                  v-on:Click="createItem()"
+                  @Click.prevent="createItem()"
                 >訂票</button>
                 <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
               </p>
@@ -234,7 +234,9 @@ export default {
       timeOp: "",
       dayIndex: "",
       timeIndex: "",
-      setItem: {}
+      setItem: {},
+      
+
     };
   },
   mounted() {
@@ -340,9 +342,9 @@ export default {
       this.sessionStorage.setItem("day", item.day[dayIndex]);
       this.sessionStorage.setItem("time", item.time[timeIndex]);
 
-      this.releasedMovies;
-      alert(sessionStorage.getItem("time"));
-      console.log(sessionStorage.getItem("time"));
+      // this.releasedMovies;
+      // alert(sessionStorage.getItem("time"));
+      // console.log(sessionStorage.getItem("time"));
       this.$router.push("/order");
     }
   }
