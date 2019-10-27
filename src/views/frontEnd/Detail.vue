@@ -371,7 +371,7 @@ export default {
             return window.location.href="./#/order"; 
         this.checkCountDown();
         this.getNowDiscountData();
-        this.countMoney();  //先取得折扣再算錢，所以放進getNowDiscountData的函式裡了
+        this.countMoney();  
         this.checkLoginAndGetData();   
         this.list.hall = sessionStorage.courtsID;  
     },
