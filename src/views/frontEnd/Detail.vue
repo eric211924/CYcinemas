@@ -4,31 +4,33 @@
 <div class="row">
     <div class="col-md-6"> 
         <h1 class="text-center my-4 pl-0"> 
-    訂票  </h1>
+    訂單詳細  </h1>
+    </div>
+    <div class="col-md-6 d-flex">
+        <div class="col-md-6"> 
+            <h1 class="text-center my-4 pl-0"> 
+        剩餘時間：  </h1>
         </div>
-    <div class="col-md-6"> 
-       <div class="uk-grid-small uk-child-width-auto d-flex justify-content-center mt-3" uk-grid v-bind:uk-countdown="countDown">
-    <!-- <div>
-        <div class="uk-countdown-number uk-countdown-days"></div>
-        <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Days</div>
-    </div>
-    <div class="uk-countdown-separator">:</div>
-    <div>
-        <div class="uk-countdown-number uk-countdown-hours"></div>
-        <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Hours</div>
-    </div>
-    <div class="uk-countdown-separator">:</div> -->
-    <div>
-        <div class="uk-countdown-number uk-countdown-minutes" v-bind:class="{redFont:isRed}"  id="min"></div>
-        <div class="uk-countdown-label uk-margin-small uk-text-center">Minutes</div>
-    </div>
-    <div class="uk-countdown-separator">:</div>
-    <div>
-        <div class="uk-countdown-number uk-countdown-seconds" v-bind:class="{redFont:isRed}"  id="sec"></div>
-        <div class="uk-countdown-label uk-margin-small uk-text-center ">Seconds</div>
-    </div>
-</div>
+        <div class="col-md-6 d-flex  justify-content-center"> 
+            <div class="uk-grid-small uk-child-width-auto align-self-center" uk-grid v-bind:uk-countdown="countDown">
+                <!-- <div>
+                    <div class="uk-countdown-number uk-countdown-days"></div>
+                    <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Days</div>
+                </div>
+                <div class="uk-countdown-separator">:</div>
+                <div>
+                    <div class="uk-countdown-number uk-countdown-hours"></div>
+                    <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Hours</div>
+                </div>
+                <div class="uk-countdown-separator">:</div> -->
+                <div class="align-self-center row">
+                    <div class="uk-countdown-number uk-countdown-minutes text-center" v-bind:class="{redFont:isRed}"  id="min"></div>
+                    <div class="uk-countdown-separator pt-2">:</div>
+                    <div class="uk-countdown-number uk-countdown-seconds text-center" v-bind:class="{redFont:isRed}"  id="sec"></div>
+                </div>
+            </div>
         </div>
+    </div>
         </div> 
   <div class="row">
     <div class="col-md-6 padding1"> 
@@ -706,9 +708,9 @@ export default {
 }
 //RWD  寬度769px以上
 @media only screen and (min-width: 769px) {
-     h1{
-        font-size: 4vw;
-     }
+    //  h1{
+    //     font-size: 4vw;
+    //  }
      .modal-body{  
         text-align:center;
         font-size:20px; 
@@ -843,6 +845,9 @@ export default {
 }//RWD  寬度769px以上
 //RWD  寬度768px~321px
 @media only screen and (min-width: 321px) and (max-width: 768px) {
+    h1{
+        font-size:20px;
+    }
      .modal-body{  
         text-align:center;
         font-size:20px; 
