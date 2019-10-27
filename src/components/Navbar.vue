@@ -179,11 +179,19 @@ export default {
   },
   mounted() { // 頁面載入後所做動作 -> 檢查是否在登入狀態
     this.checkLogin();
-    this.getNowDiscountData();
+    this.getNowDiscountData();  //剛載入頁面抓一次discount
+  },
+  updated(){
+      this.$nextTick(() => {
+            this.getNowDiscountData();  //由於導覽列常駐，跳轉頁面時呼叫此函數
+        });
   },
   methods: {
     discountCountDown(){
       var _this = this;
+      if(this.discountInterval){    //如果有interval先清掉重跑
+        clearInterval(this.discountInterval)
+      }
       this.discountInterval = setInterval(function(){
         _this.discountLastTime = 
         parseInt(_this.$refs.day.innerText) + 
@@ -191,7 +199,7 @@ export default {
         parseInt(_this.$refs.minute.innerText) + 
         parseInt(_this.$refs.second.innerText); 
         console.log(_this.discountLastTime);
-        if(_this.discountLastTime<=1){
+        if(_this.discountLastTime<=1){    //所有數字合起來為0就代表沒折扣了，再去抓一次資料庫
           clearInterval(_this.discountInterval);
           _this.getNowDiscountData();
         }
@@ -200,13 +208,14 @@ export default {
     getNowDiscountData(){
       this.axios.get(`${this.$api}/discount/getNowDiscountData`).then(response=>{
         if(response.data.length){
-          this.discount = response.data[0].discount;
+          this.discount = response.data[0].discount;    //抓第一筆折扣
           this.discountDesc = response.data[0].description;
           console.log(response.data);
           this.discountTime ="date: " + response.data[0].end_time +"+08:00";
           this.discountCountDown();       //重新倒數計時
           this.isDiscount = 1;    //有折扣才顯示
         }else{
+          this.discountTime = '';
           this.isDiscount = 0;
         }
       })
