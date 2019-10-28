@@ -293,7 +293,12 @@ export default {
       isLoading:true,
       updatePoint:0,
       winPoint:0,
-      toastMessage:""
+      toastMessage:"",
+      musicPlayed:[0,0],
+      runMusic: new Audio(require("../../assets/hanlinBar/pt2-run.mp3")),  //跑的音樂
+      slowMusic: new Audio(require("../../assets/hanlinBar/pt3-slow.mp3")),  //慢下來的音樂
+      loseMusic: new Audio(require("../../assets/hanlinBar/lose.mp3")),  //沒中的音樂
+      smallWinMusic: new Audio(require("../../assets/hanlinBar/smallWin.mp3")),  //得小獎的音樂
     };
   },
   components:{Loading},
@@ -355,7 +360,7 @@ export default {
           this.endPrizeArray[
             Math.floor(Math.random() * this.endPrizeArray.length)
           ] +
-          (Math.round(Math.random() * 1) + 2) * 16;
+          (Math.round(Math.random() * 1) + 5) * 16;
         this.isStarted = true;
 
         if (document.getElementsByClassName("cellChange")[this.initRotateIndex])
@@ -424,16 +429,25 @@ export default {
 
         // 初始化一開始被框到的位置跟移動速度
         this.i=0;
-        this.moveTime = 100;
-        this.lastRandToSlow = Math.ceil(Math.random()*5+3);
+        this.moveTime = 50;
+        // this.lastRandToSlow = Math.ceil(Math.random()*5+3);
+        this.lastRandToSlow = 5;
         this.running();
       }
     },
     // 開始動的邏輯
     running() {
       var _this = this;
-      
+
       setTimeout(function() {
+
+      _this.slowMusic.loop=true;
+      if(!_this.musicPlayed[0]){
+        _this.runMusic.play();
+        _this.musicPlayed[0] = 1;
+      }
+
+
         // console.log(_this.initRotateIndex);
         // console.log(_this.moveTime);
         // console.log("i: "+_this.i);
@@ -449,27 +463,42 @@ export default {
           document.getElementById("img" + 15).classList.add("cellBack");
         }
         _this.i++;
+        
+
 
         // 設大概要剩幾個的時候做線性減速
-        if (_this.initRotateIndex + _this.i >_this.endPrize-_this.lastRandToSlow)
+        if (_this.initRotateIndex + _this.i >_this.endPrize-_this.lastRandToSlow){
           _this.moveTime = 450-(_this.endPrize -_this.i-_this.initRotateIndex)*300/(_this.lastRandToSlow);
+
+          _this.runMusic.pause();
+          _this.runMusic.currentTime = 0;
+          if(!_this.musicPlayed[1]){
+            _this.slowMusic.play();
+            _this.musicPlayed[1] = 1;
+          }
+        }
   
         //結束
         if (_this.initRotateIndex + _this.i > _this.endPrize) {
-          
 
+          _this.slowMusic.pause();
+          _this.slowMusic.currentTime = 0;
           if(_this.winPoint>0){
+            _this.smallWinMusic.play();
             _this.$toasted.success(_this.toastMessage,{
                       theme: "bubble",
                       duration: 3000
                     });
           }else{
+            _this.loseMusic.play();
             _this.$toasted.info("差了一點點，再試一次吧!", {
                   theme: "bubble",
                   duration: 3000
                });
           }
 
+          _this.musicPlayed[0]=0;
+          _this.musicPlayed[1]=0;
           _this.setMemberPoint();
 
           _this.betPopcorn = 0;
