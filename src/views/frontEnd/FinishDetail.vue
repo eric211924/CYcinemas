@@ -128,10 +128,6 @@ export default {
                 phone:' ', 
                 loginBar:1, 
                 editBar:0,
-                cadrd1:" ",
-                cadrd2:" ",
-                cadrd3:" ",
-                cadrd4:" ",
                 br:1,
                 orderNumber:"",
                 pointValue:0
@@ -169,9 +165,12 @@ export default {
         padding:0;  
     }
     .finishBtn{
-            margin:2% 0 0 0;
-            height:50px; 
-            width:100%;
+        position:relative;
+        font-size:20px;
+            margin:2% 0 2% 0;
+            height:45px; 
+            width:97%;
+            left:2%;
         }
     .tab{
         

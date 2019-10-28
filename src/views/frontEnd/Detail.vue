@@ -1,14 +1,35 @@
-<template>
-
+<template> 
 <div class="container">
 <div class="row">
-    <div class="col-md-10"> 
-        <h1 class="text-center my-5"> 
-    訂票  </h1>
+    <div class="col-md-6"> 
+        <h1 class="text-center my-4 pl-0"> 
+    訂單詳細  </h1>
+    </div>
+    <div class="col-md-6 d-flex">
+        <div class="col-md-6"> 
+            <h1 class="text-center my-4 pl-0"> 
+        剩餘時間：  </h1>
         </div>
-    <div class="col-md-2"> 
-       <h3 class="text-center my-5"> 剩餘時間:5:00</h3>
+        <div class="col-md-6 d-flex  justify-content-center"> 
+            <div class="uk-grid-small uk-child-width-auto align-self-center" uk-grid v-bind:uk-countdown="countDown">
+                <!-- <div>
+                    <div class="uk-countdown-number uk-countdown-days"></div>
+                    <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Days</div>
+                </div>
+                <div class="uk-countdown-separator">:</div>
+                <div>
+                    <div class="uk-countdown-number uk-countdown-hours"></div>
+                    <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Hours</div>
+                </div>
+                <div class="uk-countdown-separator">:</div> -->
+                <div class="align-self-center row">
+                    <div class="uk-countdown-number uk-countdown-minutes text-center" v-bind:class="{redFont:isRed}"  id="min"></div>
+                    <div class="uk-countdown-separator pt-2">:</div>
+                    <div class="uk-countdown-number uk-countdown-seconds text-center" v-bind:class="{redFont:isRed}"  id="sec"></div>
+                </div>
+            </div>
         </div>
+    </div>
         </div> 
   <div class="row">
     <div class="col-md-6 padding1"> 
@@ -141,35 +162,27 @@
             <h6>會員點數</h6> 
             <!--input-->
             <div class="editInputGrounp input-group input-group-sm mb-1"> 
-            <div class="col-12">
-            <span>擁有點數:&ensp;{{showPoint}}</span>
-            </div> 
-            <div class="col-12">
-            &emsp;
-            </div>
-            <div class="col-4">
-                <span>
-                    輸入使用點數 
-                </span>
+                <div class="col-12">
+                    <span>擁有點數:&ensp;{{showPoint}}</span>
+                </div> 
+                <div class="col-12">
+                    &emsp;
                 </div>
-  <div class="col-5">
-    <input  v-model="selectPoint" :max="maxPoint" :min="minPoint" type="number"  class="form-control" id="example-number-input">
-    </div>
-     <div class="col-3">
- <button @click="usePoint" type="button" class="btn btn-outline-success"
-  href data-toggle="modal" :data-target="chkPoint" >確定</button>
-  </div>
-<!--<input v-model="list.cadrd1" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    <span>-</span>
-                <input v-model="list.cadrd2" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    <span>-</span>
-                <input v-model="list.cadrd3" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    <span>-</span>
-                <input v-model="list.cadrd4" maxlength="4" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            -->
+                <div class="col-4">
+                    <span>
+                        輸入使用點數 
+                    </span>
+                </div>
+                <div class="col-5">
+                    <input  v-model="selectPoint" :max="maxPoint" :min="minPoint" type="number" class="form-control" id="example-number-input">
+                </div>
+                <div class="col-3">
+                    <button @click="usePoint" type="button" class="btn btn-outline-success"
+                        href data-toggle="modal" :data-target="chkPoint" >確定
+                    </button>
+                </div> 
             </div> 
-        </div><!--div"tab3"-->
- 
+        </div><!--div"tab3"--> 
         <!-- confirm modal-->
         <div
           class="modal fade"
@@ -290,6 +303,7 @@
         </div>  
     </div> <!-- col-md-6  padding2 -->
   </div>  <!-- row -->
+
 </div> <!-- container -->
 </template>
 
@@ -314,7 +328,7 @@ export default {
                 },
                 ticketData:{"全票":0,"優待票":0,"學生票":0,"敬老票":0},
                 foodData:{"爆米花 小":0,"爆米花 中":0,"爆米花 大":0,"可樂 中":0,"可樂 大":0},
-                discount: 0.7,
+                discount: 1,
                 total:0,
                 real:0, 
                 seat: '',
@@ -324,16 +338,12 @@ export default {
                 email:' ',
                 phone:' ', 
                 loginBar:1, 
-                editBar:0,
-                cadrd1:" ",
-                cadrd2:" ",
-                cadrd3:" ",
-                cadrd4:" ",
+                editBar:0, 
                 br:1,
                 orderNumber:"",
                 pointValue:0,
                 getPoint:0,
-                isPost:""
+                isPost:"",
             },   
         target:"",
         chkInputEmpty:{"1":1,"2":1,"3":1,}, 
@@ -346,28 +356,63 @@ export default {
         showPoint:0, 
         selectPoint:0,
         chkPoint:"",
-        real2:0
+        real2:0,
+        countDown:0,
+        countInterval:null,
+        isRed:0
         }
     }, 
     created() {
-        console.log("created");
-
+        console.log("created"); 
+        this.getCountDownTime(); 
+    },
+    mounted() {  
+        if(!(sessionStorage.getItem('choosedSeat')))
+            return window.location.href="./#/order"; 
+        this.checkCountDown();
+        this.getNowDiscountData();
+        this.countMoney();  
+        this.checkLoginAndGetData();   
+        this.list.hall = sessionStorage.courtsID;  
     },
     destroyed() {
         if(!this.isPost)  {
             this.recoverSeats();
         }  //isPost決定是不是到完成訂單
         console.log("destroyed");
+        if(this.countInterval){
+            clearInterval(this.countInterval);
 
-    },
-    mounted() {  
-        if(!(sessionStorage.getItem('choosedSeat')))
-            window.location.href="./#/order"; 
-        this.countMoney();  
-        this.checkLoginAndGetData();   
-        this.list.hall = sessionStorage.courtsID;  
-    },
-    methods:{   
+        }
+    }, 
+    methods:{
+            getNowDiscountData(){
+        this.axios.get(`${this.$api}/discount/getNowDiscountData`).then(response=>{
+            if(response.data.length){
+            this.list.discount = parseInt(response.data[0].discount)/100;    //抓第一筆折扣
+            }else{
+            this.list.discount = 1;
+            }
+            this.countMoney();
+        })
+        },   
+        checkCountDown:function(){      
+            var minute = document.getElementById("min").innerText;
+            var second = document.getElementById("sec").innerText;
+            var _this = this;
+            this.countInterval = setInterval(function(){
+                minute = document.getElementById("min").innerText;
+                second = document.getElementById("sec").innerText;
+                if(parseInt(minute) < 1 && parseInt(second)<=60){
+                    _this.isRed = 1;
+                }
+
+                if(minute =="00"&&second=="00"){
+                    clearInterval(_this.countInterval);
+                    _this.$router.push("/order/chooseSeat");
+                }
+            },1000)
+        },
         usePoint:function(){   
             this.selectPoint = Number(this.selectPoint); 
             if(this.selectPoint>=0 && this.selectPoint<=this.maxPoint){  
@@ -389,19 +434,16 @@ export default {
             this.chkInputWrong[num] = wrong;
          },
         checkInput:function(){  
-            // var patt1 = /[\u4e00-\u9fa5a-zA-Z]/.test(this.list.memberName);
-            var patt1 =1;
+            var patt1 = /[\u4e00-\u9fa5a-zA-Z]/.test(this.list.memberName); 
                 this.chkIcon('1',0,patt1,!patt1); 
             if(this.list.memberName.trim()=="") 
                 this.chkIcon('1',1,0,0);
-            // var patt21 = /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com$/.test(this.list.email);
-            var patt21=1;
+            var patt21 = /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com$/.test(this.list.email); 
             var patt22 = /[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.com\.[a-zA-Z0-9_]+$/.test(this.list.email);
                 this.chkIcon('2',0,patt21+patt22,!(patt21+patt22));
             if(this.list.email.trim()=="")
                 this.chkIcon('2',1,0,0); 
-            // var patt3 = /^09\d{8}$/.test(this.list.phone.trim()); 
-             var patt3 =1;
+            var patt3 = /^09\d{8}$/.test(this.list.phone.trim());  
                 this.chkIcon('3',0,patt3,!patt3);
             if(this.list.phone.trim()=="")
                 this.chkIcon('3',1,0,0); 
@@ -461,9 +503,7 @@ export default {
         }, 
         ok:function(){   
             this.getOrderNumber();
-            sessionStorage.setItem('FinishPageData',JSON.stringify(this.list));
-            console.log("real2: "+this.real2);
-            // console.log(JSON.stringify(this.list));
+            sessionStorage.setItem('FinishPageData',JSON.stringify(this.list)); 
             this.post();
             this.clrSession(); 
             window.location.href="./#/order/FinishDetail";
@@ -497,6 +537,21 @@ export default {
             }).catch(()=>{
                 console.log("Recover seats failed.");
             })
+        },
+        getCountDownTime(){
+            var postData = new FormData();
+            postData.append('screeningID', sessionStorage.screeningID);
+            postData.append('choosedSeat', sessionStorage.choosedSeat);
+            this.axios.post(`${this.$api}/detail/getCountDownTime`,postData).then(response=>{
+                var nowTime = new Date(response.data);
+                nowTime.setMinutes(nowTime.getMinutes()+3);
+                nowTime = nowTime.toLocaleString('zh-tw',{hour12:false}).replace(/\//g,"-");
+                this.countDown = "date: " + nowTime + "+08:00";
+                console.log(nowTime);
+            }).catch(()=>{
+                console.log("getCountDownTime failed.");
+            })
+            
         },
         countMoney:function(){ 
             var ticketNum =JSON.parse(JSON.parse(sessionStorage.getItem('movie')).ticketsNum); 
@@ -636,11 +691,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>  
-//RWD  寬度769px以上
+.redFont{
+    color: red;
+}
+//-----------------------------------RWD  寬度769px以上-------------------------------------
+
 @media only screen and (min-width: 769px) {
-     h1{
-        padding-left:17%;
-     }
+    //  h1{
+    //     font-size: 4vw;
+    //  }
      .modal-body{  
         text-align:center;
         font-size:20px; 
@@ -772,9 +831,13 @@ export default {
         background-color: white;
         color:rgb(23,162,184);
     }
-}//RWD  寬度769px以上
-//RWD  寬度768px~321px
+}//-----------------------------RWD  寬度769px以上-----------------------------
+
+//------------------------------RWD  寬度768px~321px---------------------------
 @media only screen and (min-width: 321px) and (max-width: 768px) {
+    h1{
+        font-size:20px;
+    }
      .modal-body{  
         text-align:center;
         font-size:20px; 
@@ -903,8 +966,9 @@ export default {
         background-color: white;
         color:rgb(23,162,184);
     }
-}//RWD  寬度768px~321px
-//RWD  寬度320px~0px
+}//---------------------------RWD  寬度768px~321px---------------------------
+
+//----------------------------RWD  寬度320px~0px-----------------------------
 @media only screen and (min-width: 0px) and (max-width: 320px){
       .modal-body{  
         text-align:center;

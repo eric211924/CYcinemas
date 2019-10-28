@@ -40,7 +40,10 @@
                     :key="dayIndex"
                   >{{ dayItem.weekday }}, {{ dayItem.date }}</option>
                 </select>
-                <select class="custom-select custom-select-lg mb-3" v-model="timeOp[`time${index}`]">
+                <select
+                  class="custom-select custom-select-lg mb-3"
+                  v-model="timeOp[`time${index}`]"
+                >
                   <option value>場次</option>
                   <option
                     :value="timeIndex"
@@ -48,7 +51,13 @@
                     :key="timeIndex"
                   >{{ timeItem.time }}</option>
                 </select>
-                <button type="button" class="btn btn-primary" style="margin-left:220px;">訂票</button>
+
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="margin-left:70%;"
+                  @click.prevent="createItem(index)"
+                >訂票</button>
                 <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
               </p>
             </div>
@@ -80,7 +89,6 @@
                 style="float:left;width:180px;height:270px;"
               />
               <div class="text" style="display:block;">{{movieData.info}}</div>
-
               <button
                 type="button"
                 class="btn btn-outline-success"
@@ -94,16 +102,12 @@
                 style="margin:0.5%;"
               >{{movieData.run_time}}</button>
 
-              <p>主要演員：{{movieData.actor}}</p>
-              <p>影片類型：{{movieData.genre}}</p>
-              <p>上映日期：{{movieData.play_date}}</p>
-
-              <!-- <p>
-                時間:
-                <button type="button" class="btn btn-outline-info" style="margin:0.5%;">11:10</button>
-                <button type="button" class="btn btn-outline-info" style="margin:0.5%;">15:20</button>
-                <button type="button" class="btn btn-outline-info" style="margin:0.5%;">21:20</button>
-              </p>-->
+              <p>{{movieData.actor}}</p>
+              <!--主要演員： -->
+              <p>{{movieData.genre}}</p>
+              <!--影片類型：-->
+              <p>{{movieData.play_date}}</p>
+              <!--上映日期：-->
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -111,7 +115,6 @@
           </div>
         </div>
       </div>
-
       <!--modal結束-->
     </div>
     <h1 class="text-center my-5">即將上映</h1>
@@ -176,7 +179,6 @@
                 style="float:left;width:180px;height:270px;"
               />
               <div class="text" style="display:block;">{{pageData.info}}</div>
-
               <button
                 type="button"
                 class="btn btn-outline-success"
@@ -190,16 +192,12 @@
                 style="margin:0.5%;"
               >{{pageData.run_time}}</button>
 
-              <p>主要演員：{{pageData.actor}}</p>
-              <p>影片類型：{{pageData.genre}}</p>
-              <p>上映日期：{{pageData.play_date}}</p>
-
-              <!-- <p>
-                時間:
-                <button type="button" class="btn btn-outline-info" style="margin:0.5%;">11:10</button>
-                <button type="button" class="btn btn-outline-info" style="margin:0.5%;">15:20</button>
-                <button type="button" class="btn btn-outline-info" style="margin:0.5%;">21:20</button>
-              </p>-->
+              <p>{{pageData.actor}}</p>
+              <!--主要演員：-->
+              <p>{{pageData.genre}}</p>
+              <!--影片類型：-->
+              <p>{{pageData.play_date}}</p>
+              <!--上映日期：-->
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -207,15 +205,10 @@
           </div>
         </div>
       </div>
-
       <!--modal結束-->
     </div>
   </div>
 </template>
-
-
-      
-
 <script>
 export default {
   components: {},
@@ -233,12 +226,18 @@ export default {
         name: ""
       },
       dayOp: {},
-      timeOp: {}
+      timeOp: {},
+      dayIndex: "",
+      timeIndex: "",
+      setItem: {},
     };
   },
   mounted() {
     this.setMovies();
     this.getPages();
+    // this.createItem();
+    // this.getMovieDay("752516ec-7577-4238-b5b5-0fd682890932");
+    // this.getMovieTime("752516ec-7577-4238-b5b5-0fd682890932");
   },
   methods: {
     async setMovies() {
@@ -258,20 +257,21 @@ export default {
       for (let i = 0; i < movies.data.length; i++) {
         this.dayOp[`day${i}`] = '';
       }
-      console.log(1111);
-      console.log(movies.data);
       this.releasedMovies = movies.data;
 
     },
     getMovies() {
-      const _this = this;
+      // const _this = this;
       return new Promise((resolve, reject) => {
-        this.axios.get(`${this.$api}/movies/showMovies/released/1`).then(response => {
-          console.log(response.data);
-          resolve(response);
-        }).catch(error => {
-          reject(error);
-        });
+        this.axios
+          .get(`${this.$api}/movies/showMovies/released/1`)
+          .then(response => {
+            // console.log(response.data);
+            resolve(response);
+          })
+          .catch(error => {
+            reject(error);
+          });
       });
     },
     setMovieModal(movie) {
@@ -306,7 +306,7 @@ export default {
       this.pageData.name = page.name;
     },
     getMovieDay(id) {
-      const _this = this;
+      // const _this = this;
       return new Promise((resolve, reject) => {
         this.axios.get(`${this.$api}/order/getMovieDay/${id}`).then(response => {
           console.log("getMovieDay");
@@ -318,7 +318,7 @@ export default {
       });
     },
     getMovieTime(id) {
-      const _this = this;
+      // const _this = this;
       return new Promise((resolve, reject) => {
         this.axios.get(`${this.$api}/order/getMovieTime/${id}`).then(response => {
           console.log("getMovieTime");
@@ -328,27 +328,22 @@ export default {
           reject(error);
         });
       });
+    },
+    // 將時間和場次存入 sessionStorage
+    createItem(index) {
+      let movieIndex = {
+        movie_index: index,
+        day_index: this.dayOp[`day${index}`],
+        time_index: this.timeOp[`time${index}`]
+      };
+      sessionStorage.setItem('movieIndex', JSON.stringify(movieIndex));
+      this.$router.push("/order");
     }
   }
 };
 </script>
-
-
-
-
-
-
-
-
-
-
-
 <style scoped>
 .card-img {
-  /* width:auto;
-  height: auto; */
-  /* width: 100%;
-  height: 100%; */
   margin-right: 10px;
 }
 .card {

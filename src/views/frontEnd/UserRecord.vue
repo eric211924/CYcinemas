@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h1 class="text-center my-5">消費紀錄</h1>
+    <div class="allEl">
+        <h1 class="text-center my-5" style="font-family: Microsoft JhengHei;">消費紀錄</h1>
         <hr>
         <!-- 列出所有紀錄 -->
         <div class="accordion" id="head">
@@ -9,7 +9,7 @@
                 <!-- 訂單標題 -->
                 <div class="card-header">
                     <h2 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" :data-target="`#hd-${item.id}`">
+                        <button class="btn btn-link" style="font-family: Microsoft JhengHei;" type="button" data-toggle="collapse" :data-target="`#hd-${item.id}`">
                             {{ arrLength - key }} - 消費時間: {{ item.datetime }} , 訂單編號: {{ item.serial_number }}
                         </button>
                     </h2>
@@ -114,6 +114,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .allEl {
+        font-family: Microsoft JhengHei;
+    }
     th {
         background-color: khaki;
     }
