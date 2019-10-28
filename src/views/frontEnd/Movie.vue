@@ -32,23 +32,21 @@
               </a>
               <p class="card-text text-truncate" style="display:block;">{{item.info}}</p>
               <p class="card-text">
-                <select class="custom-select custom-select-lg mb-3" v-model="dayOp">
-                  <option value="">時間</option>
+                <select class="custom-select custom-select-lg mb-3" v-model="dayOp[`day${index}`]">
+                  <option value>時間</option>
                   <option
                     :value="dayIndex"
                     v-for="(dayItem, dayIndex) in item.day"
                     :key="dayIndex"
                   >{{ dayItem.weekday }}, {{ dayItem.date }}</option>
                 </select>
-                <select class="custom-select custom-select-lg mb-3">
-                  <option selected>場次</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                  <option value="3">Three</option>
-                  <option value="3">Three</option>
-                  <option value="3">Three</option>
-                  <option value="3">Three</option>
+                <select class="custom-select custom-select-lg mb-3" v-model="timeOp[`time${index}`]">
+                  <option value>場次</option>
+                  <option
+                    :value="timeIndex"
+                    v-for="(timeItem, timeIndex) in item.time"
+                    :key="timeIndex"
+                  >{{ timeItem.time }}</option>
                 </select>
                 <button type="button" class="btn btn-primary" style="margin-left:220px;">訂票</button>
                 <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
@@ -234,8 +232,8 @@ export default {
       pageData: {
         name: ""
       },
-      dayOp: '',
-      timeOp: ''
+      dayOp: {},
+      timeOp: {}
     };
   },
   mounted() {
@@ -247,15 +245,23 @@ export default {
       let movies = await this.getMovies();
       for (let i = 0; i <= movies.data.length; i++) {
         try {
+          this.dayOp[`day${i}`] = '';
           let day = await this.getMovieDay(movies.data[i].encoded_id);
           movies.data[i].day = day;
+          this.timeOp[`time${i}`] = '';
           let time = await this.getMovieTime(movies.data[i].encoded_id);
           movies.data[i].time = time;
         } catch (err) {
           // console.log(err);
         }
       }
+      for (let i = 0; i < movies.data.length; i++) {
+        this.dayOp[`day${i}`] = '';
+      }
+      console.log(1111);
+      console.log(movies.data);
       this.releasedMovies = movies.data;
+
     },
     getMovies() {
       const _this = this;
@@ -303,7 +309,7 @@ export default {
       const _this = this;
       return new Promise((resolve, reject) => {
         this.axios.get(`${this.$api}/order/getMovieDay/${id}`).then(response => {
-          // console.log("getMovieDay");
+          console.log("getMovieDay");
           console.log(response.data);
           resolve(response.data)
         });
@@ -315,7 +321,7 @@ export default {
       const _this = this;
       return new Promise((resolve, reject) => {
         this.axios.get(`${this.$api}/order/getMovieTime/${id}`).then(response => {
-          // console.log("getMovieTime");
+          console.log("getMovieTime");
           console.log(response.data);
           resolve(response.data);
         }).catch(error => {
