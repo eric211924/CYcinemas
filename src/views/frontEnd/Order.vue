@@ -135,9 +135,9 @@
               <div class="card border-secondary my-2">
                 <div class="card-header bg-light text-center text-light"><h4 class="card-title">{{meal.name}}({{meal.size}})</h4></div>
                 <div class="card-body text-secondary">
-                  
-                  <h5>單價：{{meal.price}}</h5>
-                  <h5>總計：{{meal.price *mealsNum[index]}}</h5>
+                  <img :src="meal.img_url" class="card-img-top" alt />
+                  <h5 class="mb-0">單價：{{meal.price}}</h5>
+                  <h5 class="my-2">總計：{{meal.price *mealsNum[index]}}</h5>
                 </div>
                 <div class="d-flex card-footer">
                   <div class="bg-secondary border-danger">
