@@ -207,11 +207,16 @@
       </div>
       <!--modal結束-->
     </div>
+    <Loading v-if="isLoading"></Loading>
   </div>
 </template>
+
 <script>
+import Loading from '@/components/Loading.vue';
 export default {
-  components: {},
+  components: {
+    Loading
+  },
   data() {
     return {
       releasedMovies: {},
@@ -230,14 +235,19 @@ export default {
       dayIndex: "",
       timeIndex: "",
       setItem: {},
+      isLoading: true
     };
+  },
+  watch: {
+    releasedMovies(val) {
+      if (val != '') {
+        this.isLoading = false;
+      }
+    }
   },
   mounted() {
     this.setMovies();
     this.getPages();
-    // this.createItem();
-    // this.getMovieDay("752516ec-7577-4238-b5b5-0fd682890932");
-    // this.getMovieTime("752516ec-7577-4238-b5b5-0fd682890932");
   },
   methods: {
     async setMovies() {
@@ -261,12 +271,10 @@ export default {
 
     },
     getMovies() {
-      // const _this = this;
       return new Promise((resolve, reject) => {
         this.axios
           .get(`${this.$api}/movies/showMovies/released/1`)
           .then(response => {
-            // console.log(response.data);
             resolve(response);
           })
           .catch(error => {
@@ -290,7 +298,6 @@ export default {
       this.axios
         .get(`${this.$api}/movies/showMovies/comingSoon/1`)
         .then(response => {
-          // console.log(response.data);
           _this.comingSoonPages = response.data;
         });
     },
@@ -306,7 +313,6 @@ export default {
       this.pageData.name = page.name;
     },
     getMovieDay(id) {
-      // const _this = this;
       return new Promise((resolve, reject) => {
         this.axios.get(`${this.$api}/order/getMovieDay/${id}`).then(response => {
           console.log("getMovieDay");
@@ -318,7 +324,6 @@ export default {
       });
     },
     getMovieTime(id) {
-      // const _this = this;
       return new Promise((resolve, reject) => {
         this.axios.get(`${this.$api}/order/getMovieTime/${id}`).then(response => {
           console.log("getMovieTime");

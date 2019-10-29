@@ -183,7 +183,7 @@ export default {
     getMealsData() {
       const _this = this;
       this.axios.get(`${this.$api}/meals/`).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         _this.mealsData = response.data;
         _this.foods = this.mealsData.filter((res) => {
           return res.category == '食物';
@@ -205,7 +205,7 @@ export default {
       this.axios.post(`${this.$api}/meals/`, formData, {
         headers: { "Content-Type": 'multipart/form-data' }
       }).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data.status == 201) {
           _this.$toasted.success(response.data.msg, {
             theme: 'bubble',
@@ -234,7 +234,7 @@ export default {
       this.axios.post(`${this.$api}/meals/${mealsId}`, formData, {
         headers: { "Content-Type": 'multipart/form-data' }
       }).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data.status == 201) {
           _this.$toasted.success(response.data.msg, {
             theme: 'bubble',
@@ -260,7 +260,7 @@ export default {
     deleteMeals() {
       const _this = this;
       this.axios.delete(`${this.$api}/meals/${this.setId}`).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data.status == 200) {
           _this.$toasted.success(response.data.msg, {
             theme: 'bubble',

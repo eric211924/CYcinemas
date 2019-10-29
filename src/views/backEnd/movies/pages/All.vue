@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      moviesData: Array,
+      moviesData: {},
       isLoading: true
     };
   },
