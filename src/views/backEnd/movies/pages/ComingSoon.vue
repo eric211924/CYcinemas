@@ -31,7 +31,7 @@ export default {
     }
   },
   watch: {
-    moviesData(val) {
+    showMoviesData(val) {
       if (val != '') {
         this.isLoading = false;
       }

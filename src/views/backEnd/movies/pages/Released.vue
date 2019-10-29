@@ -27,7 +27,7 @@ export default {
     }
   },
   watch: {
-    moviesData(val) {
+    showMoviesData(val) {
       if (val != '') {
         this.isLoading = false;
       }
@@ -42,7 +42,7 @@ export default {
     getMovies() {
       const _this = this;
       this.axios.get(`${this.$api}/movies/showMovies/released/0`).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         _this.moviesData = response.data;
       });
     },
@@ -50,7 +50,7 @@ export default {
     getShowMovies() {
       const _this = this;
       this.axios.get(`${this.$api}/movies/showMovies/released/1`).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         _this.showMoviesData = response.data;
       });
     },
