@@ -1,5 +1,3 @@
-
-
 <template> 
   <div class="container">
     <h1 class="text-center my-5">訂票-選位</h1>
@@ -108,7 +106,7 @@ export default {
     this.screeningID = sessionStorage.screeningID;  
     this.buildForListData();
     this.getSellOut();  
-    // this.getSellOut2();   
+    this.getSellOut2();   
     if(sessionStorage.movie){
       this.movieName = JSON.parse(sessionStorage.movie)['moviesName'];
       this.movieDay = JSON.parse(sessionStorage.movie)['moviesDay'];
@@ -400,6 +398,11 @@ export default {
                           // console.log(seatDataNum); 
                           seatDataNumArray.push(seatDataNum);
                       }
+         for(let i=1;i<=this.courts[this.cID].seats;i++){
+           if(i!=this.onClick && this.seatSelected[i]!=1)
+            this.seatSrc[i] = this.seatImg;
+            console.log(i);
+         }
         //seatSrc[傳回新賣出座位]換成賣出圖示 
         for(let i=0; i < seatDataNumArray.length; i++){ 
            this.seatSrc[seatDataNumArray[i]] = this.selloutImg; 
@@ -410,11 +413,12 @@ export default {
            }
            this.seatSelected[seatDataNumArray[i]] ="X";
         }    
+        
       });   
     },
     tap(){   
       this.tapGetSellOut(); 
-      // this.tapGetSellOut2(); 
+      this.tapGetSellOut2(); 
       // console.log(typeof(Number("1571051990")));  
       // console.log(Number("1571051990")-Number("1571051990"));  
       if(this.onClick==0)
